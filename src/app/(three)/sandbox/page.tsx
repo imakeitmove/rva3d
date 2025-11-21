@@ -1,13 +1,15 @@
-import { Overlay } from "@/components/ui/Overlay";
-import { CanvasShell } from "@/components/three/CanvasShell";
-import { IntroScene } from "@/components/three/IntroScene";
+"use client";
 
-export default function HomePage() {
+import { CanvasShell } from "@/components/three/CanvasShell";
+import { SandboxScene } from "@/components/three/SandboxScene";
+import { Overlay } from "@/components/ui/Overlay";
+
+export default function SandboxPage() {
   return (
     <main style={{ height: "100vh", width: "100vw" }}>
       <Overlay />
       <CanvasShell>
-        <IntroScene />
+        <SandboxScene />
       </CanvasShell>
     </main>
   );
