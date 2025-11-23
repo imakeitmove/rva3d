@@ -8,7 +8,7 @@ export const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
-const PORTAL_DB_ID = process.env.NOTION_PORTAL_DB_ID;
+const PORTAL_DB_ID = process.env.NOTION_PORTAL_DB_ID as string;
 
 if (!PORTAL_DB_ID) {
   throw new Error("NOTION_PORTAL_DB_ID is not set in environment");
