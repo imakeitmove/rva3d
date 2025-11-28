@@ -66,3 +66,42 @@ export async function getPortalPageByClientId(
     content,
   };
 }
+
+// Pseudocode shapes, you'll plug in actual Notion queries
+
+export async function getProjectsForPortal(clientId: string) {
+  // 1. Find the portal page by Client ID
+  // 2. Read its `Work Projects` relation
+  // 3. For each related project, pull:
+  //    - Name
+  //    - Project ID
+  //    - Status
+  //    - Summary
+}
+
+export async function getLatestVisiblePostForPortal(clientId: string) {
+  // 1. Get projects for portal
+  // 2. Query Posts DB for posts whose Project is in that set
+  // 3. Filter `Client Visible = true`
+  // 4. Sort by Created desc & take first
+}
+
+export async function getRecentVisiblePostsForPortal(clientId: string, limit = 5) {
+  // Same as above, but take top N
+}
+
+export async function getProjectBySlug(clientId: string, projectId: string) {
+  // 1. Find project with `Project ID = projectId`
+  // 2. Confirm it's linked to this client's Portal Page (security)
+  // 3. Return its metadata
+}
+
+export async function getPostsForProject(clientId: string, projectId: string) {
+  // Posts where Project = that project & Client Visible = true
+}
+
+export async function getPostBySlug(clientId: string, postId: string) {
+  // 1. Find post with `Post ID = postId`
+  // 2. Walk back to Project → Portal Page to confirm the clientId matches
+  // 3. Return details: title, summary, Link, Feedback Form URL, etc.
+}
