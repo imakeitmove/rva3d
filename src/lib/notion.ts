@@ -246,7 +246,7 @@ export async function getPortalPageByClientId(
   const response = await notion.databases.query({
     database_id: PORTAL_DB_ID,
     filter: {
-      property: "Client ID",
+      property: "User ID",
       rich_text: {
         equals: clientId,
       },
@@ -259,7 +259,7 @@ export async function getPortalPageByClientId(
   const page = response.results[0] as any;
 
   const titleProp = page.properties["Name"];
-  const clientIdProp = page.properties["Client ID"];
+  const clientIdProp = page.properties["User ID"];
   const contentProp = page.properties["Content"];
 
   const title = titleProp?.title ? richTextToPlainText(titleProp.title) : "";
