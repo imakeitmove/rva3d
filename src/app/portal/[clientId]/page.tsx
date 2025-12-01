@@ -1,4 +1,8 @@
-import { getProjectsForPortal, getLatestVisiblePostForPortal, getRecentVisiblePostsForPortal } from "@/lib/notion";
+import {
+  getProjectsForPortal,
+  getLatestVisiblePostForPortal,
+  getRecentVisiblePostsForPortal,
+} from "@/lib/notion";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
@@ -15,11 +19,15 @@ export default async function PortalHome({ params }: Props) {
     return redirect("/login");
   }
 
-  const [projects, latestPost, recentPosts] = await Promise.all([
+  const [projectsRaw, latestPost, recentPostsRaw] = await Promise.all([
     getProjectsForPortal(clientId),
     getLatestVisiblePostForPortal(clientId),
     getRecentVisiblePostsForPortal(clientId, 5),
   ]);
+
+  // ✅ Safe defaults so we never call .active or .length on undefined
+  const projects = projectsRaw ?? { active: [], archived: [] };
+  const recentPosts = recentPostsRaw ?? [];
 
   return (
     <main style={{ padding: 40, fontFamily: "system-ui" }}>
@@ -32,14 +40,17 @@ export default async function PortalHome({ params }: Props) {
           <div style={{ border: "1px solid #333", padding: 16, borderRadius: 8 }}>
             <div style={{ fontSize: 12, opacity: 0.7 }}>{latestPost.projectName}</div>
             <div style={{ fontSize: 18, fontWeight: 600 }}>{latestPost.title}</div>
-            <button
-              style={{ marginTop: 12, padding: "6px 12px", cursor: "pointer" }}
-              onClick={() => {
-                window.location.href = `/portal/${clientId}/posts/${latestPost.postId}`;
+            <a
+              style={{
+                display: "inline-block",
+                marginTop: 12,
+                padding: "6px 12px",
+                cursor: "pointer",
               }}
+              href={`/portal/${clientId}/projects/${latestPost.projectId}/posts/${latestPost.postId}`}
             >
               View post
-            </button>
+            </a>
           </div>
         </section>
       )}
@@ -68,21 +79,28 @@ export default async function PortalHome({ params }: Props) {
               )}
             </a>
           ))}
+          {projects.active.length === 0 && (
+            <p style={{ fontSize: 14, opacity: 0.7 }}>No active projects yet.</p>
+          )}
         </div>
       </section>
 
       {/* Recent posts */}
       <section style={{ marginTop: 32 }}>
         <h2>Recent posts</h2>
-        <ul>
-          {recentPosts.map((post) => (
-            <li key={post.postId}>
-              <a href={`/portal/${clientId}/posts/${post.postId}`}>
-                [{post.projectName}] {post.title}
-              </a>
-            </li>
-          ))}
-        </ul>
+        {recentPosts.length === 0 ? (
+          <p style={{ fontSize: 14, opacity: 0.7 }}>No posts yet.</p>
+        ) : (
+          <ul>
+            {recentPosts.map((post) => (
+              <li key={post.postId}>
+                <a href={`/portal/${clientId}/projects/${post.projectId}/posts/${post.postId}`}>
+                  [{post.projectName}] {post.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
     </main>
   );

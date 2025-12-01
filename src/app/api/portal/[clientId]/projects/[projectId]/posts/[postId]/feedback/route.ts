@@ -1,7 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-import { createFeedbackForPost, getPortalPageByClientId, getPostBySlugForProject } from "@/lib/notion";
+import { FeedbackStatus } from "@/lib/notion";
+
+const ALLOWED_STATUSES: FeedbackStatus[] = ["Comment", "Needs changes", "Approved"];
 
 export async function POST(
   req: NextRequest,
@@ -32,13 +31,21 @@ export async function POST(
     return NextResponse.json({ error: "Message is required" }, { status: 400 });
   }
 
-  // Resolve client portal page
+  let normalizedStatus: FeedbackStatus | undefined = undefined;
+  if (typeof status === "string") {
+    if (ALLOWED_STATUSES.includes(status as FeedbackStatus)) {
+      normalizedStatus = status as FeedbackStatus;
+    } else {
+      // You can either reject, or silently ignore; I’ll reject so you find UI mismatches quickly
+      return NextResponse.json({ error: "Invalid status value" }, { status: 400 });
+    }
+  }
+
   const portalPage = await getPortalPageByClientId(clientId);
   if (!portalPage) {
     return NextResponse.json({ error: "Portal not found" }, { status: 404 });
   }
 
-  // Resolve post Notion page id based on project + post slug
   const postPage = await getPostBySlugForProject({
     clientId,
     projectId,
@@ -57,7 +64,7 @@ export async function POST(
     role: "Client",
     message,
     timecodeSec: typeof timecode === "number" ? timecode : undefined,
-    status,
+    status: normalizedStatus,
   });
 
   return NextResponse.json({ ok: true });
