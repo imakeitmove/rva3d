@@ -42,7 +42,7 @@ export const authOptions: NextAuthOptions = {
     async session({ session, user }) {
       if (session.user) {
         (session.user as any).id = user.id;
-        (session.user as any).clientId = user.clientId;
+        (session.user as any).portalUserId = user.portalUserId;
       }
       return session;
     },

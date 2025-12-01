@@ -1,28 +1,40 @@
-// src/app/api/portal/[clientId]/projects/[projectId]/posts/[postId]/feedback/route.ts
+// src/app/api/portal/[portalUserId]/projects/[projectId]/posts/[postId]/feedback/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import {
-  getPortalPageByClientId,
+  getPortalPageByportalUserId, // assuming you renamed this in lib/notion
   getPostBySlugForProject,
   createFeedbackForPost,
   FeedbackStatus,
 } from "@/lib/notion";
 
-const ALLOWED_STATUSES: FeedbackStatus[] = ["Comment", "Needs Changes", "Approved"];
+const ALLOWED_STATUSES: FeedbackStatus[] = [
+  "Comment",
+  "Needs Changes",
+  "Approved",
+];
+
+type RouteParams = {
+  portalUserId: string;
+  projectId: string;
+  postId: string;
+};
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: Promise<{ clientId: string; projectId: string; postId: string }> }
+  { params }: { params: RouteParams }
 ) {
-  const { clientId, projectId, postId } = await params;
+  const { portalUserId, projectId, postId } = params;
 
   const session = await getServerSession(authOptions);
   if (!session || !session.user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const userClientId = (session.user as any).clientId;
+  // Make sure your NextAuth callbacks are adding this to the session
+  const sessionPortalUserId = (session.user as any)
+    .portalUserId as string | undefined;
   const email = (session.user as any).email as string | undefined;
   const name = (session.user as any).name as string | undefined;
 
@@ -30,7 +42,8 @@ export async function POST(
     return NextResponse.json({ error: "No email in session" }, { status: 400 });
   }
 
-  if (userClientId !== clientId) {
+  // The logged-in user can only post feedback for *their* portalUserId
+  if (!sessionPortalUserId || sessionPortalUserId !== portalUserId) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
@@ -38,25 +51,33 @@ export async function POST(
   const { message, status, timecode } = body;
 
   if (!message || typeof message !== "string") {
-    return NextResponse.json({ error: "Message is required" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Message is required" },
+      { status: 400 }
+    );
   }
 
-  let normalizedStatus: FeedbackStatus | undefined = undefined;
+  let normalizedStatus: FeedbackStatus | undefined;
   if (typeof status === "string") {
     if (ALLOWED_STATUSES.includes(status as FeedbackStatus)) {
       normalizedStatus = status as FeedbackStatus;
     } else {
-      return NextResponse.json({ error: "Invalid status value" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid status value" },
+        { status: 400 }
+      );
     }
   }
 
-  const portalPage = await getPortalPageByClientId(clientId);
+  // 🔹 Use portalUserId here instead of clientId
+  const portalPage = await getPortalPageByportalUserId(portalUserId);
   if (!portalPage) {
     return NextResponse.json({ error: "Portal not found" }, { status: 404 });
   }
 
+  // 🔹 And here as well – update your helper signature accordingly
   const postPage = await getPostBySlugForProject({
-    clientId,
+    portalUserId,
     projectId,
     postSlug: postId,
   });
@@ -70,7 +91,7 @@ export async function POST(
     portalPageId: portalPage.id,
     authorEmail: email,
     authorName: name,
-    role: "Client",
+    role: "Client", // or "Portal User" if you want to update terminology later
     message,
     timecodeSec: typeof timecode === "number" ? timecode : undefined,
     status: normalizedStatus,
