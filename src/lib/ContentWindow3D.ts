@@ -2,7 +2,7 @@
 import * as THREE from 'three';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
-import type { RigidBody, World } from '@dimforge/rapier3d-compat';
+import type { World } from '@dimforge/rapier3d-compat';
 import type { NotionPortfolioItem } from '@/types/portfolio';
 
 export type ContentWindowState = 'idle' | 'transitioning' | 'active';
@@ -17,14 +17,14 @@ export class ContentWindow3D {
   
   // Hierarchy structure
   targetObject: THREE.Object3D;  // Invisible - animated by GSAP
-  group: THREE.Group;             // Root visible container
-  cubeGroup: THREE.Group;         // The cube itself
-  contentGroup: THREE.Group;      // Title, excerpt, images (children of cube)
+  group: THREE.Group;            // Root visible container
+  cubeGroup: THREE.Group;        // The cube itself
+  contentGroup: THREE.Group;     // Title, excerpt, images (children of cube)
   
   // Geometry
-  cubeMesh: THREE.Mesh | null = null;
+  cubeMesh!: THREE.Mesh;         // Definite assignment in createCube()
   currentShape: GeometryShape = 'cube';
-  baseSize: number = 2; // Base dimension for the cube
+  baseSize: number = 2;          // Base dimension for the cube
   
   // Content elements
   thumbnailPlane?: THREE.Mesh;
@@ -67,7 +67,7 @@ export class ContentWindow3D {
   constructor(
     notionData: NotionPortfolioItem,
     position: THREE.Vector3 = new THREE.Vector3(),
-    world?: World
+    _world?: World // kept for future use; prefixed to avoid "unused" errors
   ) {
     this.id = notionData.id;
     this.notionData = notionData;
@@ -86,40 +86,45 @@ export class ContentWindow3D {
     this.contentGroup = new THREE.Group();
     this.cubeGroup.add(this.contentGroup);
 
-    // Create the cube
+    // Create the cube (assigns this.cubeMesh)
     this.createCube();
 
     // Start loading thumbnail
     this.loadThumbnail();
   }
 
-  
-private createCube() {
-  const geometry = new THREE.BoxGeometry(
-    this.baseSize,
-    this.baseSize,
-    this.baseSize
-  );
-  const material = new THREE.MeshStandardMaterial({
-    color: 0x1a1a1a,
-    metalness: 0.4,
-    roughness: 0.6,
-  });
+  private createCube() {
+    const geometry = new THREE.BoxGeometry(
+      this.baseSize,
+      this.baseSize,
+      this.baseSize
+    );
+    const material = new THREE.MeshStandardMaterial({
+      color: 0x1a1a1a,
+      metalness: 0.4,
+      roughness: 0.6,
+    });
 
-  // If a cube already exists, remove it before creating a new one
-  if (this.cubeMesh) {
-    this.cubeGroup.remove(this.cubeMesh);
+    // If a cube already exists, remove it before creating a new one
+    if (this.cubeMesh) {
+      this.cubeGroup.remove(this.cubeMesh);
+      this.cubeMesh.geometry.dispose();
+      if (Array.isArray(this.cubeMesh.material)) {
+        this.cubeMesh.material.forEach((m) => m.dispose());
+      } else {
+        this.cubeMesh.material.dispose();
+      }
+    }
+
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    mesh.userData = { contentWindow: this };
+    mesh.position.x = 1;
+
+    this.cubeMesh = mesh;
+    this.cubeGroup.add(mesh);
   }
-
-  const mesh = new THREE.Mesh(geometry, material);
-  mesh.castShadow = true;
-  mesh.receiveShadow = true;
-  mesh.userData = { contentWindow: this };
-  mesh.position.x = 1;
-
-  this.cubeMesh = mesh;
-  this.cubeGroup.add(mesh);
-}
   
   private async loadThumbnail() {
     const thumbnailUrl = this.notionData.thumbnail || this.notionData.coverImage;
@@ -148,7 +153,7 @@ private createCube() {
     
     // Image width is 94% of cube width (3% border on each side)
     const imageWidth = this.baseSize * 0.94;
-    const imageHeight = imageWidth * (9/16); // Assuming 16:9 aspect
+    const imageHeight = imageWidth * (9 / 16); // Assuming 16:9 aspect
     
     const geometry = new THREE.PlaneGeometry(imageWidth, imageHeight);
     const material = new THREE.MeshStandardMaterial({
@@ -197,7 +202,7 @@ private createCube() {
     if (!this.fullResTexture) return;
     
     const imageWidth = this.baseSize * 0.94;
-    const imageHeight = imageWidth * (9/16);
+    const imageHeight = imageWidth * (9 / 16);
     
     const geometry = new THREE.PlaneGeometry(imageWidth, imageHeight);
     const material = new THREE.MeshStandardMaterial({
@@ -291,7 +296,9 @@ private createCube() {
     
     // Create canvas for text rendering
     this.excerptCanvas = document.createElement('canvas');
-    const ctx = this.excerptCanvas.getContext('2d')!;
+    const ctx = this.excerptCanvas.getContext('2d');
+    if (!ctx) return;
+
     this.excerptCanvas.width = 512;
     this.excerptCanvas.height = 384;
     
@@ -354,7 +361,7 @@ private createCube() {
       
       // Load full content if not loaded
       if (!this.fullContentLoaded) {
-        this.loadFullContent();
+        void this.loadFullContent();
       }
     } else {
       // Thumbnail mode - only show thumbnail
@@ -431,17 +438,19 @@ private createCube() {
     
     this.cubeGroup.scale.setScalar(this.hoverScale);
     
-    // Update cube material glow
-    const cubeMaterial = this.cubeMesh.material as THREE.MeshStandardMaterial;
-    if (this.isHovered || this.isSelected) {
-      cubeMaterial.emissive.setHex(0x4488ff);
-      cubeMaterial.emissiveIntensity = this.glowIntensity * 0.3;
-    } else {
-      cubeMaterial.emissiveIntensity = 0;
+    // Update cube material glow (guard material type)
+    if (this.cubeMesh.material instanceof THREE.MeshStandardMaterial) {
+      const cubeMaterial = this.cubeMesh.material;
+      if (this.isHovered || this.isSelected) {
+        cubeMaterial.emissive.setHex(0x4488ff);
+        cubeMaterial.emissiveIntensity = this.glowIntensity * 0.3;
+      } else {
+        cubeMaterial.emissiveIntensity = 0;
+      }
     }
   }
   
-  async morphToShape(shape: GeometryShape, duration: number = 1.0) {
+  async morphToShape(shape: GeometryShape, _duration: number = 1.0) {
     if (this.currentShape === shape) return;
     
     console.log(`🔄 Morphing ${this.notionData.title} to ${shape}`);
@@ -467,7 +476,16 @@ private createCube() {
   }
   
   private createPieSliceGeometry(): THREE.BufferGeometry {
-    const geometry = new THREE.CylinderGeometry(0.1, this.baseSize, this.baseSize * 2, 8, 1, false, 0, Math.PI / 6);
+    const geometry = new THREE.CylinderGeometry(
+      0.1,
+      this.baseSize,
+      this.baseSize * 2,
+      8,
+      1,
+      false,
+      0,
+      Math.PI / 6
+    );
     geometry.rotateZ(Math.PI / 2);
     return geometry;
   }
@@ -476,7 +494,7 @@ private createCube() {
     this.state = state;
     
     if (state === 'active' && !this.fullContentLoaded) {
-      this.loadFullContent();
+      void this.loadFullContent();
     }
   }
   
@@ -507,9 +525,11 @@ private createCube() {
   onClick() {
     this.isSelected = !this.isSelected;
     
-    window.dispatchEvent(new CustomEvent('contentWindowClick', {
-      detail: { window: this, notionData: this.notionData }
-    }));
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('contentWindowClick', {
+        detail: { window: this, notionData: this.notionData }
+      }));
+    }
   }
   
   addToScene(scene: THREE.Scene) {
@@ -521,8 +541,14 @@ private createCube() {
   }
   
   dispose() {
-    this.cubeMesh.geometry.dispose();
-    (this.cubeMesh.material as THREE.Material).dispose();
+    if (this.cubeMesh) {
+      this.cubeMesh.geometry.dispose();
+      if (Array.isArray(this.cubeMesh.material)) {
+        this.cubeMesh.material.forEach((m) => m.dispose());
+      } else {
+        this.cubeMesh.material.dispose();
+      }
+    }
     
     if (this.thumbnailTexture) this.thumbnailTexture.dispose();
     if (this.fullResTexture) this.fullResTexture.dispose();
