@@ -1,17 +1,27 @@
-import { FeedbackStatus } from "@/lib/notion";
+// src/app/api/portal/[clientId]/projects/[projectId]/posts/[postId]/feedback/route.ts
+import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import {
+  getPortalPageByClientId,
+  getPostBySlugForProject,
+  createFeedbackForPost,
+  FeedbackStatus,
+} from "@/lib/notion";
 
 const ALLOWED_STATUSES: FeedbackStatus[] = ["Comment", "Needs changes", "Approved"];
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { clientId: string; projectId: string; postId: string } }
+  { params }: { params: Promise<{ clientId: string; projectId: string; postId: string }> }
 ) {
+  const { clientId, projectId, postId } = await params;
+
   const session = await getServerSession(authOptions);
   if (!session || !session.user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { clientId, projectId, postId } = params;
   const userClientId = (session.user as any).clientId;
   const email = (session.user as any).email as string | undefined;
   const name = (session.user as any).name as string | undefined;
@@ -36,7 +46,6 @@ export async function POST(
     if (ALLOWED_STATUSES.includes(status as FeedbackStatus)) {
       normalizedStatus = status as FeedbackStatus;
     } else {
-      // You can either reject, or silently ignore; I’ll reject so you find UI mismatches quickly
       return NextResponse.json({ error: "Invalid status value" }, { status: 400 });
     }
   }

@@ -1,0 +1,216 @@
+/* src/app/portal/[clientId]/portal.css */
+
+.portal-main {
+  padding: 40px;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.portal-section {
+  margin-top: 32px;
+}
+
+/* Review section - sticky at top */
+.review-section {
+  background: linear-gradient(135deg, rgba(0, 112, 243, 0.1) 0%, rgba(0, 112, 243, 0.05) 100%);
+  border: 1px solid rgba(0, 112, 243, 0.3);
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 24px;
+}
+
+.review-section h2 {
+  margin-top: 0;
+  color: #0070f3;
+}
+
+.review-count {
+  font-weight: normal;
+  opacity: 0.7;
+  font-size: 0.9em;
+}
+
+.review-description {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.review-posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.review-post-card {
+  background: white;
+  border: 2px solid #0070f3;
+  border-radius: 8px;
+  padding: 16px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.review-post-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 112, 243, 0.2);
+  border-color: #0051cc;
+}
+
+.review-badge {
+  display: inline-block;
+  background: #0070f3;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.review-post-project {
+  font-size: 12px;
+  opacity: 0.6;
+  margin-bottom: 4px;
+}
+
+.review-post-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.review-post-cta {
+  font-size: 14px;
+  color: #0070f3;
+  font-weight: 500;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .review-section {
+    background: linear-gradient(135deg, rgba(0, 112, 243, 0.15) 0%, rgba(0, 112, 243, 0.08) 100%);
+    border-color: rgba(0, 112, 243, 0.4);
+  }
+  
+  .review-post-card {
+    background: #1a1a1a;
+    border-color: #0070f3;
+  }
+  
+  .review-post-card:hover {
+    background: #222;
+  }
+}
+
+/* Project grid */
+.project-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.project-card {
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 16px;
+  width: 260px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s;
+}
+
+.project-card:hover {
+  border-color: #0070f3;
+}
+
+.project-card-error {
+  border-color: #ff3333;
+  opacity: 0.5;
+}
+
+.project-card-archived {
+  opacity: 0.6;
+}
+
+.project-card-title {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.project-status {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.project-summary {
+  margin-top: 8px;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.project-id {
+  font-size: 10px;
+  opacity: 0.4;
+  margin-top: 8px;
+  font-family: monospace;
+}
+
+.project-error-message {
+  font-size: 12px;
+  margin-top: 8px;
+  color: #ff3333;
+}
+
+/* Post list */
+.post-list {
+  margin-top: 16px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.post-list li {
+  margin-bottom: 12px;
+}
+
+.post-link {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px solid #333;
+  border-radius: 4px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s;
+}
+
+.post-link:hover {
+  background: #111;
+}
+
+.post-project-name {
+  font-size: 12px;
+  opacity: 0.6;
+  margin-right: 8px;
+}
+
+/* Archive section */
+.archive-summary {
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Empty states */
+.empty-message {
+  font-size: 14px;
+  opacity: 0.7;
+  margin-top: 16px;
+}

@@ -86,6 +86,155 @@ export type PostPage = {
 };
 
 // --- Portal page helpers ---
+// Add this function to src/lib/notion.ts
+
+// Add this function to src/lib/notion.ts
+
+/**
+ * Get all posts awaiting client review for a given client
+ * These are posts with Status = "Client Review"
+ */
+export async function getPostsAwaitingReview(
+  clientId: string
+): Promise<PortalRecentPost[]> {
+  // 1. Resolve the Portal Page for this client
+  const portalPage = await getPortalPageByClientId(clientId);
+  if (!portalPage) {
+    return [];
+  }
+
+  // 2. Find all visible Work Projects linked to this Portal Page
+  const projectsRes = await notion.databases.query({
+    database_id: PROJECTS_DB_ID,
+    filter: {
+      and: [
+        {
+          property: "Portal Page",
+          relation: { contains: portalPage.id },
+        },
+        {
+          // Client Visible (formula outputs true/false)
+          property: "Client Visible",
+          formula: {
+            checkbox: {
+              equals: true,
+            },
+          },
+        },
+        {
+          // Hide Project must be unchecked (false)
+          property: "Hide Project",
+          checkbox: {
+            equals: false,
+          },
+        },
+        {
+          property: "Category",
+          select: { equals: "Work Project" },
+        },
+      ],
+    },
+    page_size: 100,
+  });
+
+  if (!projectsRes.results.length) {
+    return [];
+  }
+
+  const projectIds: string[] = [];
+  const projectMap = new Map<string, { name: string; projectId: string }>();
+
+  for (const result of projectsRes.results) {
+    const page = result as any;
+    const nameProp = page.properties["Name"];
+    const projectIdProp = page.properties["Project ID"];
+
+    const name = nameProp?.title
+      ? richTextToPlainText(nameProp.title)
+      : "Untitled project";
+    const projectIdSlug = projectIdProp?.rich_text
+      ? richTextToPlainText(projectIdProp.rich_text)
+      : page.id;
+
+    projectIds.push(page.id);
+    projectMap.set(page.id, {
+      name,
+      projectId: projectIdSlug,
+    });
+  }
+
+  if (projectIds.length === 0) {
+    return [];
+  }
+
+  // 3. Query Posts DB for posts in "Client Review" status
+  // Note: Using "status" type instead of "select" - Notion has a dedicated Status property type
+  const postsRes = await notion.databases.query({
+    database_id: POSTS_DB_ID,
+    filter: {
+      and: [
+        {
+          // Project relation is any of this client's visible projects
+          or: projectIds.map((id) => ({
+            property: "Project",
+            relation: { contains: id },
+          })),
+        },
+        {
+          // Status must be "Client Review" - using status property type
+          property: "Status",
+          status: { equals: "Client Review" },
+        },
+        {
+          // Exclude purely internal posts
+          property: "Category",
+          select: { does_not_equal: "Internal Post" },
+        },
+      ],
+    },
+    sorts: [
+      {
+        property: "Created",
+        direction: "descending",
+      },
+    ],
+    page_size: 50, // Get up to 50 posts needing review
+  });
+
+  if (!postsRes.results.length) {
+    return [];
+  }
+
+  const reviewPosts: PortalRecentPost[] = [];
+
+  for (const result of postsRes.results) {
+    const page = result as any;
+    const titleProp = page.properties["Name"];
+    const postIdProp = page.properties["Post ID"];
+    const projectRelProp = page.properties["Project"];
+
+    const title = titleProp?.title
+      ? richTextToPlainText(titleProp.title)
+      : "Untitled post";
+    const postIdSlug = postIdProp?.rich_text
+      ? richTextToPlainText(postIdProp.rich_text)
+      : page.id;
+
+    const projectRelId: string | undefined = projectRelProp?.relation?.[0]?.id;
+
+    const projectMeta = projectRelId ? projectMap.get(projectRelId) : undefined;
+
+    reviewPosts.push({
+      id: page.id,
+      postId: postIdSlug,
+      title,
+      projectName: projectMeta?.name ?? "Unknown project",
+      projectId: projectMeta?.projectId ?? "",
+    });
+  }
+
+  return reviewPosts;
+}
 
 export async function getPortalPageByClientId(
   clientId: string
