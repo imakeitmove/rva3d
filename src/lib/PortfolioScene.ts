@@ -4,14 +4,27 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import gsap from 'gsap';
 import { ContentWindow3D } from './ContentWindow3D';
 import { LayoutFactory } from './layouts/calculators';
-import type { 
-  NotionPortfolioItem, 
-  ViewMode, 
+import type {
+  NotionPortfolioItem,
+  ViewMode,
   LayoutConfig,
-  InteractionState 
 } from '@/types/portfolio';
 
 export type SceneState = 'idle' | 'transitioning' | 'active';
+
+type MouseState = {
+  position: THREE.Vector2;
+  worldPosition: THREE.Vector3;
+  velocity: THREE.Vector2;
+  isDown: boolean;
+};
+
+type SceneInteractionState = {
+  mouse: MouseState;
+  raycaster: THREE.Raycaster;
+  hoveredWindow?: ContentWindow3D;
+  draggedWindow?: ContentWindow3D;
+};
 
 export class PortfolioScene {
   // Three.js core
@@ -35,7 +48,7 @@ export class PortfolioScene {
   // Interaction
   raycaster: THREE.Raycaster;
   mouse: THREE.Vector2;
-  interactionState: InteractionState;
+  interactionState: SceneInteractionState;
   
   // Animation
   clock: THREE.Clock;
