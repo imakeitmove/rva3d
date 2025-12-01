@@ -9,7 +9,7 @@ import {
   FeedbackStatus,
 } from "@/lib/notion";
 
-const ALLOWED_STATUSES: FeedbackStatus[] = ["Comment", "Needs changes", "Approved"];
+const ALLOWED_STATUSES: FeedbackStatus[] = ["Comment", "Needs Changes", "Approved"];
 
 export async function POST(
   req: NextRequest,
