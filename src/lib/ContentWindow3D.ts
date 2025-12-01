@@ -105,11 +105,6 @@ private createCube() {
     roughness: 0.6,
   });
 
-  // If a cube already exists, remove it before creating a new one
-  if (this.cubeMesh) {
-    this.cubeGroup.remove(this.cubeMesh);
-  }
-
   const mesh = new THREE.Mesh(geometry, material);
   mesh.castShadow = true;
   mesh.receiveShadow = true;
@@ -119,6 +114,7 @@ private createCube() {
   this.cubeMesh = mesh;
   this.cubeGroup.add(mesh);
 }
+
 
   
   private async loadThumbnail() {
