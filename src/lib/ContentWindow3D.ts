@@ -71,27 +71,28 @@ export class ContentWindow3D {
   ) {
     this.id = notionData.id;
     this.notionData = notionData;
-    
+
     // Create invisible target
     this.targetObject = new THREE.Object3D();
     this.targetObject.position.copy(position);
-    
+
     // Create visible hierarchy
     this.group = new THREE.Group();
     this.group.position.copy(position);
-    
+
     this.cubeGroup = new THREE.Group();
     this.group.add(this.cubeGroup);
-    
+
     this.contentGroup = new THREE.Group();
     this.cubeGroup.add(this.contentGroup);
-    
+
     // Create the cube
     this.createCube();
-    
+
     // Start loading thumbnail
     this.loadThumbnail();
   }
+
   
 private createCube() {
   const geometry = new THREE.BoxGeometry(
@@ -105,6 +106,11 @@ private createCube() {
     roughness: 0.6,
   });
 
+  // If a cube already exists, remove it before creating a new one
+  if (this.cubeMesh) {
+    this.cubeGroup.remove(this.cubeMesh);
+  }
+
   const mesh = new THREE.Mesh(geometry, material);
   mesh.castShadow = true;
   mesh.receiveShadow = true;
@@ -114,8 +120,6 @@ private createCube() {
   this.cubeMesh = mesh;
   this.cubeGroup.add(mesh);
 }
-
-
   
   private async loadThumbnail() {
     const thumbnailUrl = this.notionData.thumbnail || this.notionData.coverImage;
