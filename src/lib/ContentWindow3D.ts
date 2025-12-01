@@ -22,7 +22,7 @@ export class ContentWindow3D {
   contentGroup: THREE.Group;      // Title, excerpt, images (children of cube)
   
   // Geometry
-  cubeMesh: THREE.Mesh;
+  cubeMesh: THREE.Mesh | null = null;
   currentShape: GeometryShape = 'cube';
   baseSize: number = 2; // Base dimension for the cube
   
@@ -93,20 +93,33 @@ export class ContentWindow3D {
     this.loadThumbnail();
   }
   
-  private createCube() {
-    const geometry = new THREE.BoxGeometry(this.baseSize, this.baseSize, this.baseSize);
-    const material = new THREE.MeshStandardMaterial({
-      color: 0x1a1a1a,
-      metalness: 0.4,
-      roughness: 0.6,
-    });
-    
-    this.cubeMesh = new THREE.Mesh(geometry, material);
-    this.cubeMesh.castShadow = true;
-    this.cubeMesh.receiveShadow = true;
-    this.cubeMesh.userData = { contentWindow: this };
-    this.cubeGroup.add(this.cubeMesh);
+private createCube() {
+  const geometry = new THREE.BoxGeometry(
+    this.baseSize,
+    this.baseSize,
+    this.baseSize
+  );
+  const material = new THREE.MeshStandardMaterial({
+    color: 0x1a1a1a,
+    metalness: 0.4,
+    roughness: 0.6,
+  });
+
+  // If a cube already exists, remove it before creating a new one
+  if (this.cubeMesh) {
+    this.cubeGroup.remove(this.cubeMesh);
   }
+
+  const mesh = new THREE.Mesh(geometry, material);
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+  mesh.userData = { contentWindow: this };
+  mesh.position.x = 1;
+
+  this.cubeMesh = mesh;
+  this.cubeGroup.add(mesh);
+}
+
   
   private async loadThumbnail() {
     const thumbnailUrl = this.notionData.thumbnail || this.notionData.coverImage;
