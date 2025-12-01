@@ -22,7 +22,8 @@ export class ContentWindow3D {
   contentGroup: THREE.Group;     // Title, excerpt, images (children of cube)
   
   // Geometry
-  cubeMesh!: THREE.Mesh;         // Definite assignment in createCube()
+  cubeMesh!: THREE.Mesh;         // internal reference
+  mesh!: THREE.Mesh;             // public alias used by PortfolioScene
   currentShape: GeometryShape = 'cube';
   baseSize: number = 2;          // Base dimension for the cube
   
@@ -67,7 +68,7 @@ export class ContentWindow3D {
   constructor(
     notionData: NotionPortfolioItem,
     position: THREE.Vector3 = new THREE.Vector3(),
-    _world?: World // kept for future use; prefixed to avoid "unused" errors
+    _world?: World // kept for future physics use
   ) {
     this.id = notionData.id;
     this.notionData = notionData;
@@ -86,7 +87,7 @@ export class ContentWindow3D {
     this.contentGroup = new THREE.Group();
     this.cubeGroup.add(this.contentGroup);
 
-    // Create the cube (assigns this.cubeMesh)
+    // Create the cube (assigns this.cubeMesh and this.mesh)
     this.createCube();
 
     // Start loading thumbnail
@@ -123,6 +124,7 @@ export class ContentWindow3D {
     mesh.position.x = 1;
 
     this.cubeMesh = mesh;
+    this.mesh = mesh; // <-- alias so w.mesh works
     this.cubeGroup.add(mesh);
   }
   
@@ -151,7 +153,6 @@ export class ContentWindow3D {
   private createThumbnailPlane() {
     if (!this.thumbnailTexture) return;
     
-    // Image width is 94% of cube width (3% border on each side)
     const imageWidth = this.baseSize * 0.94;
     const imageHeight = imageWidth * (9 / 16); // Assuming 16:9 aspect
     
@@ -191,9 +192,6 @@ export class ContentWindow3D {
     // Create excerpt panel
     this.createExcerptPanel();
     
-    // TODO: Load video if present
-    // this.loadVideo();
-    
     this.fullContentLoaded = true;
     console.log(`✅ Full content loaded for: ${this.notionData.title}`);
   }
@@ -217,7 +215,6 @@ export class ContentWindow3D {
   }
   
   private async createTitleText() {
-    // Load font if not cached
     if (!fontCache) {
       const loader = new FontLoader();
       try {
@@ -228,7 +225,6 @@ export class ContentWindow3D {
       }
     }
     
-    // Create extruded 3D text
     const textGeometry = new TextGeometry(this.notionData.title, {
       font: fontCache,
       size: 0.15,
@@ -240,11 +236,9 @@ export class ContentWindow3D {
       bevelSegments: 3
     });
     
-    // Center the text
     textGeometry.computeBoundingBox();
     const textWidth = textGeometry.boundingBox!.max.x - textGeometry.boundingBox!.min.x;
     
-    // Scale to fit window width
     const targetWidth = this.baseSize;
     const scale = Math.min(1, targetWidth / textWidth);
     
@@ -259,25 +253,21 @@ export class ContentWindow3D {
     this.titleMesh = new THREE.Mesh(textGeometry, material);
     this.titleMesh.scale.setScalar(scale);
     
-    // Center horizontally
     textGeometry.computeBoundingBox();
     const centeredX = -(textGeometry.boundingBox!.max.x - textGeometry.boundingBox!.min.x) * scale / 2;
     
-    // Position above the cube
     this.titleMesh.position.set(centeredX, this.baseSize / 2 + 0.4, 0);
-    this.titleMesh.visible = false; // Only show in fullscreen
+    this.titleMesh.visible = false;
     this.contentGroup.add(this.titleMesh);
   }
   
   private createExcerptPanel() {
     if (!this.notionData.excerpt) return;
     
-    // Create rounded rectangle background (90% of window width)
     const panelWidth = this.baseSize * 0.9;
     const panelHeight = this.baseSize * 0.6;
     const borderRadius = 0.1;
     
-    // Create rounded rectangle shape
     const shape = new THREE.Shape();
     const panelX = -panelWidth / 2;
     const panelY = -panelHeight / 2;
@@ -294,7 +284,6 @@ export class ContentWindow3D {
     
     const geometry = new THREE.ShapeGeometry(shape);
     
-    // Create canvas for text rendering
     this.excerptCanvas = document.createElement('canvas');
     const ctx = this.excerptCanvas.getContext('2d');
     if (!ctx) return;
@@ -302,19 +291,16 @@ export class ContentWindow3D {
     this.excerptCanvas.width = 512;
     this.excerptCanvas.height = 384;
     
-    // Draw background
     ctx.fillStyle = 'rgba(20, 20, 20, 0.9)';
     ctx.fillRect(0, 0, this.excerptCanvas.width, this.excerptCanvas.height);
     
-    // Draw text with padding
     ctx.fillStyle = '#ffffff';
     ctx.font = '24px Arial, sans-serif';
     
-    const padding = 40; // Good inner padding
+    const padding = 40;
     const maxWidth = this.excerptCanvas.width - padding * 2;
     const lineHeight = 32;
     
-    // Word wrap
     const words = this.notionData.excerpt.split(' ');
     let line = '';
     let y = padding + lineHeight;
@@ -333,7 +319,6 @@ export class ContentWindow3D {
     });
     ctx.fillText(line, padding, y);
     
-    // Create texture from canvas
     const texture = new THREE.CanvasTexture(this.excerptCanvas);
     texture.needsUpdate = true;
     
@@ -345,7 +330,7 @@ export class ContentWindow3D {
     
     this.excerptPlane = new THREE.Mesh(geometry, material);
     this.excerptPlane.position.set(0, -this.baseSize / 2 - panelHeight / 2 - 0.2, 0);
-    this.excerptPlane.visible = false; // Only show in fullscreen
+    this.excerptPlane.visible = false;
     this.contentGroup.add(this.excerptPlane);
   }
   
@@ -353,18 +338,15 @@ export class ContentWindow3D {
     this.displayMode = mode;
     
     if (mode === 'fullscreen') {
-      // Show all content elements
       if (this.coverPlane) this.coverPlane.visible = true;
-      if (this.thumbnailPlane) this.thumbnailPlane.visible = false; // Hide thumbnail, show cover
+      if (this.thumbnailPlane) this.thumbnailPlane.visible = false;
       if (this.titleMesh) this.titleMesh.visible = true;
       if (this.excerptPlane) this.excerptPlane.visible = true;
       
-      // Load full content if not loaded
       if (!this.fullContentLoaded) {
         void this.loadFullContent();
       }
     } else {
-      // Thumbnail mode - only show thumbnail
       if (this.thumbnailPlane) this.thumbnailPlane.visible = true;
       if (this.coverPlane) this.coverPlane.visible = false;
       if (this.titleMesh) this.titleMesh.visible = false;
@@ -383,9 +365,7 @@ export class ContentWindow3D {
   }
   
   update(deltaTime: number) {
-    // Spring physics: visible group follows invisible target
     if (!this.isDragged) {
-      // Position spring
       const positionDelta = new THREE.Vector3()
         .subVectors(this.targetObject.position, this.group.position)
         .multiplyScalar(this.springStrength);
@@ -394,7 +374,6 @@ export class ContentWindow3D {
       this.velocity.multiplyScalar(this.dampingFactor);
       this.group.position.add(this.velocity);
       
-      // Rotation spring
       const rotationDelta = new THREE.Euler(
         (this.targetObject.rotation.x - this.group.rotation.x) * this.rotationSpringStrength,
         (this.targetObject.rotation.y - this.group.rotation.y) * this.rotationSpringStrength,
@@ -413,7 +392,6 @@ export class ContentWindow3D {
       this.group.rotation.y += this.angularVelocity.y;
       this.group.rotation.z += this.angularVelocity.z;
       
-      // Scale spring
       const scaleDelta = new THREE.Vector3()
         .subVectors(this.targetObject.scale, this.group.scale)
         .multiplyScalar(this.springStrength * 2);
@@ -421,13 +399,11 @@ export class ContentWindow3D {
       this.group.scale.add(scaleDelta);
     }
     
-    // Idle rotation
     if (this.state === 'idle') {
       this.cubeGroup.rotation.x += 0.002;
       this.cubeGroup.rotation.y += 0.003;
     }
     
-    // Hover effects
     if (this.isHovered) {
       this.glowIntensity = Math.min(this.glowIntensity + deltaTime * 3, 1);
       this.hoverScale = Math.min(this.hoverScale + deltaTime * 2, 1.05);
@@ -438,7 +414,6 @@ export class ContentWindow3D {
     
     this.cubeGroup.scale.setScalar(this.hoverScale);
     
-    // Update cube material glow (guard material type)
     if (this.cubeMesh.material instanceof THREE.MeshStandardMaterial) {
       const cubeMaterial = this.cubeMesh.material;
       if (this.isHovered || this.isSelected) {
