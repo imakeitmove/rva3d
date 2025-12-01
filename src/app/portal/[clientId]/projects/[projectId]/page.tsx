@@ -1,4 +1,4 @@
-// src/app/portal/[clientId]/projects/[projectId]/page.tsx
+// src/app/portal/[userId]/projects/[projectId]/page.tsx
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect, notFound } from "next/navigation";
@@ -9,7 +9,7 @@ import {
 
 type Props = {
   params: Promise<{
-    clientId: string;
+    userId: string;
     projectId: string;
   }>;
   searchParams: Promise<{
@@ -18,18 +18,18 @@ type Props = {
 };
 
 export default async function PortalProjectPage({ params, searchParams }: Props) {
-  const { clientId, projectId } = await params;
+  const { userId, projectId } = await params;
   const { post: postSlug } = await searchParams;
 
   // Auth check
   const session = await getServerSession(authOptions);
-  if (!session || (session.user as any).clientId !== clientId) {
+  if (!session || (session.user as any).userId !== userId) {
     return redirect("/login");
   }
 
   // Get the project
   const project = await getProjectPageForClientProject({
-    clientId,
+    userId,
     projectId,
   });
 
@@ -43,7 +43,7 @@ export default async function PortalProjectPage({ params, searchParams }: Props)
 
   return (
     <main style={{ padding: 40, fontFamily: "system-ui" }}>
-      <a href={`/portal/${clientId}`} style={{ fontSize: 14 }}>
+      <a href={`/portal/${userId}`} style={{ fontSize: 14 }}>
         ← Back to portal
       </a>
 
@@ -60,7 +60,7 @@ export default async function PortalProjectPage({ params, searchParams }: Props)
         </p>
         <p style={{ opacity: 0.7, marginTop: 16 }}>
           Example link to a post:{" "}
-          <a href={`/portal/${clientId}/projects/${projectId}/posts/some-post-slug`}>
+          <a href={`/portal/${userId}/projects/${projectId}/posts/some-post-slug`}>
             View a post
           </a>
         </p>

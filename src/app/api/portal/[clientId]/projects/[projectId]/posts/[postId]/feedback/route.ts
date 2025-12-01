@@ -1,4 +1,4 @@
-// src/app/api/portal/[clientId]/projects/[projectId]/posts/[postId]/feedback/route.ts
+// src/app/api/portal/[userId]/projects/[projectId]/posts/[postId]/feedback/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
@@ -13,16 +13,16 @@ const ALLOWED_STATUSES: FeedbackStatus[] = ["Comment", "Needs Changes", "Approve
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: Promise<{ clientId: string; projectId: string; postId: string }> }
+  { params }: { params: Promise<{ userId: string; projectId: string; postId: string }> }
 ) {
-  const { clientId, projectId, postId } = await params;
+  const { userId, projectId, postId } = await params;
 
   const session = await getServerSession(authOptions);
   if (!session || !session.user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const userClientId = (session.user as any).clientId;
+  const userClientId = (session.user as any).userId;
   const email = (session.user as any).email as string | undefined;
   const name = (session.user as any).name as string | undefined;
 
@@ -30,7 +30,7 @@ export async function POST(
     return NextResponse.json({ error: "No email in session" }, { status: 400 });
   }
 
-  if (userClientId !== clientId) {
+  if (userClientId !== userId) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
@@ -50,13 +50,13 @@ export async function POST(
     }
   }
 
-  const portalPage = await getPortalPageByClientId(clientId);
+  const portalPage = await getPortalPageByClientId(userId);
   if (!portalPage) {
     return NextResponse.json({ error: "Portal not found" }, { status: 404 });
   }
 
   const postPage = await getPostBySlugForProject({
-    clientId,
+    userId,
     projectId,
     postSlug: postId,
   });

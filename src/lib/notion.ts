@@ -62,7 +62,7 @@ export type PortalProjectsForClient = {
 
 export type PortalPage = {
   id: string;
-  clientId: string;
+  userId: string;
   title: string;
   content: string;
 };
@@ -95,10 +95,10 @@ export type PostPage = {
  * These are posts with Status = "Client Review"
  */
 export async function getPostsAwaitingReview(
-  clientId: string
+  userId: string
 ): Promise<PortalRecentPost[]> {
   // 1. Resolve the Portal Page for this client
-  const portalPage = await getPortalPageByClientId(clientId);
+  const portalPage = await getPortalPageByClientId(userId);
   if (!portalPage) {
     return [];
   }
@@ -237,10 +237,10 @@ export async function getPostsAwaitingReview(
 }
 
 export async function getPortalPageByClientId(
-  clientId: string
+  userId: string
 ): Promise<PortalPage | null> {
-  if (!clientId) {
-    throw new Error("clientId is required");
+  if (!userId) {
+    throw new Error("userId is required");
   }
 
   const response = await notion.databases.query({
@@ -248,7 +248,7 @@ export async function getPortalPageByClientId(
     filter: {
       property: "User ID",
       rich_text: {
-        equals: clientId,
+        equals: userId,
       },
     },
     page_size: 1,
@@ -272,7 +272,7 @@ export async function getPortalPageByClientId(
 
   return {
     id: page.id,
-    clientId: clientIdValue,
+    userId: clientIdValue,
     title,
     content,
   };
@@ -285,13 +285,13 @@ export async function getPortalPageByClientId(
  * and ensure it’s linked to that client’s Portal Page.
  */
 export async function getProjectPageForClientProject(options: {
-  clientId: string;
+  userId: string;
   projectId: string; // slug used in URL
 }): Promise<ProjectPage | null> {
-  const { clientId, projectId } = options;
+  const { userId, projectId } = options;
 
   // First resolve the portal page for security
-  const portalPage = await getPortalPageByClientId(clientId);
+  const portalPage = await getPortalPageByClientId(userId);
   if (!portalPage) return null;
 
   // Find the project with Project ID = projectId
@@ -339,14 +339,14 @@ export async function getProjectPageForClientProject(options: {
  * This is what your feedback route is using.
  */
 export async function getPostBySlugForProject(options: {
-  clientId: string;
+  userId: string;
   projectId: string;
   postSlug: string;
 }): Promise<PostPage | null> {
-  const { clientId, projectId, postSlug } = options;
+  const { userId, projectId, postSlug } = options;
 
   // 1. Resolve the project page for this client + project
-  const projectPage = await getProjectPageForClientProject({ clientId, projectId });
+  const projectPage = await getProjectPageForClientProject({ userId, projectId });
   if (!projectPage) return null;
 
   // 2. Query Posts DB where:
@@ -388,10 +388,10 @@ export async function getPostBySlugForProject(options: {
 // --- Projects list for portal home ---
 
 export async function getProjectsForPortal(
-  clientId: string
+  userId: string
 ): Promise<PortalProjectsForClient> {
   // 1. Find this client's Portal Page
-  const portalPage = await getPortalPageByClientId(clientId);
+  const portalPage = await getPortalPageByClientId(userId);
   if (!portalPage) {
     return { active: [], archived: [] };
   }
@@ -443,11 +443,11 @@ export async function getProjectsForPortal(
 // --- Recent / latest visible posts for portal home ---
 
 export async function getRecentVisiblePostsForPortal(
-  clientId: string,
+  userId: string,
   limit = 5
 ): Promise<PortalRecentPost[]> {
   // 1. Resolve the Portal Page for this client
-  const portalPage = await getPortalPageByClientId(clientId);
+  const portalPage = await getPortalPageByClientId(userId);
   if (!portalPage) {
     return [];
   }
@@ -581,22 +581,22 @@ const projectsRes = await notion.databases.query({
 }
 
 export async function getLatestVisiblePostForPortal(
-  clientId: string
+  userId: string
 ): Promise<PortalRecentPost | null> {
-  const posts = await getRecentVisiblePostsForPortal(clientId, 1);
+  const posts = await getRecentVisiblePostsForPortal(userId, 1);
   return posts.length > 0 ? posts[0] : null;
 }
 
 // Stubs you can flesh out later
-export async function getProjectBySlug(clientId: string, projectId: string) {
+export async function getProjectBySlug(userId: string, projectId: string) {
   // You can just call getProjectPageForClientProject here and map the fields if needed
 }
 
-export async function getPostsForProject(clientId: string, projectId: string) {
+export async function getPostsForProject(userId: string, projectId: string) {
   // Posts where Project = that project & Client Visible = true
 }
 
-export async function getPostBySlug(clientId: string, postId: string) {
+export async function getPostBySlug(userId: string, postId: string) {
   // Alternate version if you want a URL like /posts/[postId] without project in the path
 }
 

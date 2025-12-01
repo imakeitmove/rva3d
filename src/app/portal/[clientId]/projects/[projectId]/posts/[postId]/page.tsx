@@ -1,4 +1,4 @@
-// src/app/portal/[clientId]/projects/[projectId]/posts/[postId]/page.tsx
+// src/app/portal/[userId]/projects/[projectId]/posts/[postId]/page.tsx
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect, notFound } from "next/navigation";
@@ -6,22 +6,22 @@ import { getPostBySlugForProject } from "@/lib/notion";
 
 type Props = {
   params: Promise<{
-    clientId: string;
+    userId: string;
     projectId: string;
     postId: string;
   }>;
 };
 
 export default async function PortalPostPage({ params }: Props) {
-  const { clientId, projectId, postId } = await params;
+  const { userId, projectId, postId } = await params;
 
   const session = await getServerSession(authOptions);
-  if (!session || (session.user as any).clientId !== clientId) {
+  if (!session || (session.user as any).userId !== userId) {
     return redirect("/login");
   }
 
   const post = await getPostBySlugForProject({
-    clientId,
+    userId,
     projectId,
     postSlug: postId,
   });
@@ -32,7 +32,7 @@ export default async function PortalPostPage({ params }: Props) {
 
   return (
     <main style={{ padding: 40, fontFamily: "system-ui" }}>
-      <a href={`/portal/${clientId}/projects/${projectId}`} style={{ fontSize: 14 }}>
+      <a href={`/portal/${userId}/projects/${projectId}`} style={{ fontSize: 14 }}>
         ← Back to project
       </a>
 
@@ -54,7 +54,7 @@ export default async function PortalPostPage({ params }: Props) {
         <p style={{ opacity: 0.7 }}>
           (Here we&apos;ll add the comments UI that talks to{" "}
           <code>
-            /api/portal/{clientId}/projects/{projectId}/posts/{postId}/feedback
+            /api/portal/{userId}/projects/{projectId}/posts/{postId}/feedback
           </code>
           .)
         </p>

@@ -3,17 +3,17 @@ import { getPortalPageByClientId } from "@/lib/notion";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const clientId = searchParams.get("clientId");
+  const userId = searchParams.get("userId");
 
-  if (!clientId) {
+  if (!userId) {
     return NextResponse.json(
-      { error: "Missing clientId" },
+      { error: "Missing userId" },
       { status: 400 }
     );
   }
 
   try {
-    const page = await getPortalPageByClientId(clientId);
+    const page = await getPortalPageByClientId(userId);
 
     if (!page) {
       return NextResponse.json(
