@@ -21,11 +21,12 @@ type RouteParams = {
   postId: string;
 };
 
+// Note: Next’s RouteHandler types in your setup expect `params` to be a Promise
 export async function POST(
   req: NextRequest,
-  { params }: { params: RouteParams }
+  context: { params: Promise<RouteParams> }
 ) {
-  const { portalUserId, projectId, postId } = params;
+  const { portalUserId, projectId, postId } = await context.params;
 
   const session = await getServerSession(authOptions);
   if (!session || !session.user) {
@@ -88,7 +89,7 @@ export async function POST(
     portalPageId: portalPage.id,
     authorEmail: email,
     authorName: name,
-    role: "Client", // rename later if you change roles in Notion
+    role: "Client", // matches your Notion "Role" select for now
     message,
     timecodeSec: typeof timecode === "number" ? timecode : undefined,
     status: normalizedStatus,
