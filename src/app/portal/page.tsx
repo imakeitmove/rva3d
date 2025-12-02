@@ -1,4 +1,3 @@
-// src/app/portal/page.tsx
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
@@ -10,9 +9,9 @@ export default async function PortalIndex() {
     return redirect("/login");
   }
 
-  const clientId = (session.user as any).clientId;
+  const portalUserId = (session.user as any).portalUserId;
 
-  if (!clientId) {
+  if (!portalUserId) {
     return (
       <main style={{ padding: 40, fontFamily: "system-ui" }}>
         <h1>No client linked to your account</h1>
@@ -21,5 +20,5 @@ export default async function PortalIndex() {
     );
   }
 
-  return redirect(`/portal/${clientId}`);
+  return redirect(`/portal/${portalUserId}`);
 }

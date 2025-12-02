@@ -1,19 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getPortalPageByClientId } from "@/lib/notion";
+import { getPortalPageByPortalUserId } from "@/lib/notion";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const clientId = searchParams.get("clientId");
+  const portalUserId = searchParams.get("portalUserId");
 
-  if (!clientId) {
+  if (!portalUserId) {
     return NextResponse.json(
-      { error: "Missing clientId" },
+      { error: "Missing portalUserId" },
       { status: 400 }
     );
   }
 
   try {
-    const page = await getPortalPageByClientId(clientId);
+    const page = await getPortalPageByPortalUserId(portalUserId);
 
     if (!page) {
       return NextResponse.json(

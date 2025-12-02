@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import {
-  getPortalPageByportalUserId, // assuming you renamed this in lib/notion
+  getPortalPageByPortalUserId,
   getPostBySlugForProject,
   createFeedbackForPost,
   FeedbackStatus,
@@ -32,7 +32,6 @@ export async function POST(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  // Make sure your NextAuth callbacks are adding this to the session
   const sessionPortalUserId = (session.user as any)
     .portalUserId as string | undefined;
   const email = (session.user as any).email as string | undefined;
@@ -69,13 +68,11 @@ export async function POST(
     }
   }
 
-  // 🔹 Use portalUserId here instead of clientId
-  const portalPage = await getPortalPageByportalUserId(portalUserId);
+  const portalPage = await getPortalPageByPortalUserId(portalUserId);
   if (!portalPage) {
     return NextResponse.json({ error: "Portal not found" }, { status: 404 });
   }
 
-  // 🔹 And here as well – update your helper signature accordingly
   const postPage = await getPostBySlugForProject({
     portalUserId,
     projectId,
@@ -91,7 +88,7 @@ export async function POST(
     portalPageId: portalPage.id,
     authorEmail: email,
     authorName: name,
-    role: "Client", // or "Portal User" if you want to update terminology later
+    role: "Client", // rename later if you change roles in Notion
     message,
     timecodeSec: typeof timecode === "number" ? timecode : undefined,
     status: normalizedStatus,

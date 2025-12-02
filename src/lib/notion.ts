@@ -40,11 +40,11 @@ function richTextToPlainText(richText: any[] | undefined): string {
 // --- Types ---
 
 export type PortalRecentPost = {
-  id: string; // Notion page id of the Post
-  postId: string; // slug-like Post ID (falls back to Notion id)
+  id: string;      // Notion page id of the Post
+  postId: string;  // slug-like Post ID (falls back to Notion id)
   title: string;
   projectName: string; // from Projects.Name
-  projectId: string; // from Projects.Project ID (slug)
+  projectId: string;   // from Projects.Project ID (slug)
 };
 
 export type PortalProject = {
@@ -62,7 +62,7 @@ export type PortalProjectsForClient = {
 
 export type PortalPage = {
   id: string;
-  portalUserId: string;
+  portalUserId: string; // matches Notion "User ID" property
   title: string;
   content: string;
 };
@@ -71,7 +71,6 @@ export type FeedbackRole = "Client" | "Studio";
 
 // Make sure these match the Select options in your Notion Feedback DB
 export type FeedbackStatus = "Comment" | "Needs Changes" | "Approved";
-// ^ note: "Needs Changes" capitalisation should match your Notion select exactly
 
 export type ProjectPage = {
   id: string;
@@ -86,18 +85,15 @@ export type PostPage = {
 };
 
 // --- Portal page helpers ---
-// Add this function to src/lib/notion.ts
-
-// Add this function to src/lib/notion.ts
 
 /**
- * Get all posts awaiting client review for a given client
- * These are posts with Status = "Client Review"
+ * Get all posts awaiting client review for a given portal user.
+ * These are posts with Status = "Client Review".
  */
 export async function getPostsAwaitingReview(
   portalUserId: string
 ): Promise<PortalRecentPost[]> {
-  // 1. Resolve the Portal Page for this client
+  // 1. Resolve the Portal Page for this portal user
   const portalPage = await getPortalPageByPortalUserId(portalUserId);
   if (!portalPage) {
     return [];
@@ -168,20 +164,19 @@ export async function getPostsAwaitingReview(
   }
 
   // 3. Query Posts DB for posts in "Client Review" status
-  // Note: Using "status" type instead of "select" - Notion has a dedicated Status property type
   const postsRes = await notion.databases.query({
     database_id: POSTS_DB_ID,
     filter: {
       and: [
         {
-          // Project relation is any of this client's visible projects
+          // Project relation is any of this portal user's visible projects
           or: projectIds.map((id) => ({
             property: "Project",
             relation: { contains: id },
           })),
         },
         {
-          // Status must be "Client Review" - using status property type
+          // Status must be "Client Review" (status property type)
           property: "Status",
           status: { equals: "Client Review" },
         },
@@ -198,7 +193,7 @@ export async function getPostsAwaitingReview(
         direction: "descending",
       },
     ],
-    page_size: 50, // Get up to 50 posts needing review
+    page_size: 50,
   });
 
   if (!postsRes.results.length) {
@@ -221,7 +216,6 @@ export async function getPostsAwaitingReview(
       : page.id;
 
     const projectRelId: string | undefined = projectRelProp?.relation?.[0]?.id;
-
     const projectMeta = projectRelId ? projectMap.get(projectRelId) : undefined;
 
     reviewPosts.push({
@@ -236,7 +230,10 @@ export async function getPostsAwaitingReview(
   return reviewPosts;
 }
 
-export async function getPortalPageByportalUserId(
+/**
+ * Look up a Portal Page in the Portal Users DB by its "User ID" property.
+ */
+export async function getPortalPageByPortalUserId(
   portalUserId: string
 ): Promise<PortalPage | null> {
   if (!portalUserId) {
@@ -246,7 +243,7 @@ export async function getPortalPageByportalUserId(
   const response = await notion.databases.query({
     database_id: PORTAL_DB_ID,
     filter: {
-      property: "User ID",
+      property: "User ID", // Notion property name
       rich_text: {
         equals: portalUserId,
       },
@@ -281,8 +278,8 @@ export async function getPortalPageByportalUserId(
 // --- Project helpers ---
 
 /**
- * Find the Project page for a given client + project slug,
- * and ensure it’s linked to that client’s Portal Page.
+ * Find the Project page for a given portalUserId + project slug,
+ * and ensure it’s linked to that portal user's Portal Page.
  */
 export async function getProjectPageForClientProject(options: {
   portalUserId: string;
@@ -291,7 +288,7 @@ export async function getProjectPageForClientProject(options: {
   const { portalUserId, projectId } = options;
 
   // First resolve the portal page for security
-  const portalPage = await getPortalPageByportalUserId(portalUserId);
+  const portalPage = await getPortalPageByPortalUserId(portalUserId);
   if (!portalPage) return null;
 
   // Find the project with Project ID = projectId
@@ -315,7 +312,7 @@ export async function getProjectPageForClientProject(options: {
   if (portalRelation && Array.isArray(portalRelation.relation)) {
     const linkedPortalIds = portalRelation.relation.map((r: any) => r.id);
     if (!linkedPortalIds.includes(portalPage.id)) {
-      // Project exists but is not linked to this client's portal → treat as not found
+      // Project exists but is not linked to this portal user → treat as not found
       return null;
     }
   }
@@ -335,7 +332,7 @@ export async function getProjectPageForClientProject(options: {
 // --- Post helpers ---
 
 /**
- * Lookup a Post by its slug within a given Project + Client.
+ * Lookup a Post by its slug within a given Project + portal user.
  * This is what your feedback route is using.
  */
 export async function getPostBySlugForProject(options: {
@@ -345,8 +342,11 @@ export async function getPostBySlugForProject(options: {
 }): Promise<PostPage | null> {
   const { portalUserId, projectId, postSlug } = options;
 
-  // 1. Resolve the project page for this client + project
-  const projectPage = await getProjectPageForClientProject({ portalUserId, projectId });
+  // 1. Resolve the project page for this portal user + project
+  const projectPage = await getProjectPageForClientProject({
+    portalUserId,
+    projectId,
+  });
   if (!projectPage) return null;
 
   // 2. Query Posts DB where:
@@ -390,8 +390,8 @@ export async function getPostBySlugForProject(options: {
 export async function getProjectsForPortal(
   portalUserId: string
 ): Promise<PortalProjectsForClient> {
-  // 1. Find this client's Portal Page
-  const portalPage = await getPortalPageByportalUserId(portalUserId);
+  // 1. Find this portal user's Portal Page
+  const portalPage = await getPortalPageByPortalUserId(portalUserId);
   if (!portalPage) {
     return { active: [], archived: [] };
   }
@@ -419,7 +419,9 @@ export async function getProjectsForPortal(
 
     const project: PortalProject = {
       id: page.id,
-      name: nameProp?.title ? richTextToPlainText(nameProp.title) : "Untitled",
+      name: nameProp?.title
+        ? richTextToPlainText(nameProp.title)
+        : "Untitled",
       projectId: projectIdProp?.rich_text
         ? richTextToPlainText(projectIdProp.rich_text)
         : page.id,
@@ -446,46 +448,45 @@ export async function getRecentVisiblePostsForPortal(
   portalUserId: string,
   limit = 5
 ): Promise<PortalRecentPost[]> {
-  // 1. Resolve the Portal Page for this client
+  // 1. Resolve the Portal Page for this portal user
   const portalPage = await getPortalPageByPortalUserId(portalUserId);
   if (!portalPage) {
     return [];
   }
 
   // 2. Find all visible Work Projects linked to this Portal Page
-const projectsRes = await notion.databases.query({
-  database_id: PROJECTS_DB_ID,
-  filter: {
-    and: [
-      {
-        property: "Portal Page",
-        relation: { contains: portalPage.id },
-      },
-      {
-        // Client Visible (formula outputs true/false)
-        property: "Client Visible",
-        formula: {
-          checkbox: {
-            equals: true,
+  const projectsRes = await notion.databases.query({
+    database_id: PROJECTS_DB_ID,
+    filter: {
+      and: [
+        {
+          property: "Portal Page",
+          relation: { contains: portalPage.id },
+        },
+        {
+          // Client Visible (formula outputs true/false)
+          property: "Client Visible",
+          formula: {
+            checkbox: {
+              equals: true,
+            },
           },
         },
-      },
-            {
-        // Hide Project must be unchecked (false)
-        property: "Hide Project",
-        checkbox: {
-          equals: false,
+        {
+          // Hide Project must be unchecked (false)
+          property: "Hide Project",
+          checkbox: {
+            equals: false,
+          },
         },
-      },
-      {
-        property: "Category",
-        select: { equals: "Work Project" },
-      },
-    ],
-  },
-  page_size: 100,
-});
-
+        {
+          property: "Category",
+          select: { equals: "Work Project" },
+        },
+      ],
+    },
+    page_size: 100,
+  });
 
   if (!projectsRes.results.length) {
     return [];
@@ -523,7 +524,7 @@ const projectsRes = await notion.databases.query({
     filter: {
       and: [
         {
-          // Project relation is any of this client's visible projects
+          // Project relation is any of this portal user's visible projects
           or: projectIds.map((id) => ({
             property: "Project",
             relation: { contains: id },
@@ -565,7 +566,6 @@ const projectsRes = await notion.databases.query({
       : page.id;
 
     const projectRelId: string | undefined = projectRelProp?.relation?.[0]?.id;
-
     const projectMeta = projectRelId ? projectMap.get(projectRelId) : undefined;
 
     recent.push({
@@ -592,7 +592,10 @@ export async function getProjectBySlug(portalUserId: string, projectId: string) 
   // You can just call getProjectPageForClientProject here and map the fields if needed
 }
 
-export async function getPostsForProject(portalUserId: string, projectId: string) {
+export async function getPostsForProject(
+  portalUserId: string,
+  projectId: string
+) {
   // Posts where Project = that project & Client Visible = true
 }
 
@@ -603,7 +606,7 @@ export async function getPostBySlug(portalUserId: string, postId: string) {
 // --- Feedback helpers ---
 
 export async function createFeedbackForPost(options: {
-  postPageId: string; // Notion page id of the Post (not slug)
+  postPageId: string;   // Notion page id of the Post (not slug)
   portalPageId: string; // Notion page id of the Portal Page
   authorEmail: string;
   authorName?: string | null;
@@ -659,14 +662,13 @@ export async function createFeedbackForPost(options: {
       Message: {
         rich_text: [{ text: { content: message } }],
       },
-      // Your schema: "Timecode" (Number)
       ...(timecodeSec !== undefined
         ? {
             Timecode: { number: timecodeSec },
           }
         : {}),
       Source: {
-        select: { name: "Portal" }, // optional, if you want to mark where it came from
+        select: { name: "Portal" },
       },
     },
   });

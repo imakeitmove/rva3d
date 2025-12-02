@@ -1,15 +1,11 @@
-// src/app/portal/[clientId]/projects/[projectId]/page.tsx
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect, notFound } from "next/navigation";
-import {
-  getProjectPageForClientProject,
-  getPostBySlugForProject,
-} from "@/lib/notion";
+import { getProjectPageForClientProject } from "@/lib/notion";
 
 type Props = {
   params: Promise<{
-    clientId: string;
+    portalUserId: string;
     projectId: string;
   }>;
   searchParams: Promise<{
@@ -18,18 +14,16 @@ type Props = {
 };
 
 export default async function PortalProjectPage({ params, searchParams }: Props) {
-  const { clientId, projectId } = await params;
+  const { portalUserId, projectId } = await params;
   const { post: postSlug } = await searchParams;
 
-  // Auth check
   const session = await getServerSession(authOptions);
-  if (!session || (session.user as any).clientId !== clientId) {
+  if (!session || (session.user as any).portalUserId !== portalUserId) {
     return redirect("/login");
   }
 
-  // Get the project
   const project = await getProjectPageForClientProject({
-    clientId,
+    portalUserId,
     projectId,
   });
 
@@ -37,13 +31,10 @@ export default async function PortalProjectPage({ params, searchParams }: Props)
     return notFound();
   }
 
-  // Determine current post: from query param or latest
-  // For now, let's just show the project info
-  // You'll add post logic + viewer component later
-
+  // postSlug is there for future viewer logic
   return (
     <main style={{ padding: 40, fontFamily: "system-ui" }}>
-      <a href={`/portal/${clientId}`} style={{ fontSize: 14 }}>
+      <a href={`/portal/${portalUserId}`} style={{ fontSize: 14 }}>
         ← Back to portal
       </a>
 
@@ -60,7 +51,9 @@ export default async function PortalProjectPage({ params, searchParams }: Props)
         </p>
         <p style={{ opacity: 0.7, marginTop: 16 }}>
           Example link to a post:{" "}
-          <a href={`/portal/${clientId}/projects/${projectId}/posts/some-post-slug`}>
+          <a
+            href={`/portal/${portalUserId}/projects/${projectId}/posts/some-post-slug`}
+          >
             View a post
           </a>
         </p>
