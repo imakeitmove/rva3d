@@ -3,9 +3,15 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import type { NextAuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import { Resend } from "resend";
+import type { AdapterUser } from "next-auth/adapters";
 
 const prisma = new PrismaClient();
 const resend = new Resend(process.env.RESEND_API_KEY!);
+
+type PortalAdapterUser = AdapterUser & {
+  portalUserId?: string | null;
+  clientId?: string | null; // optional if you still have this in DB
+};
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as any,
@@ -35,16 +41,19 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login",
   },
   callbacks: {
-    async redirect({ url, baseUrl }) {
-      // After login, always send user to /portal
-      return baseUrl + "/portal";
-    },
     async session({ session, user }) {
+      const u = user as PortalAdapterUser;
+
       if (session.user) {
-        (session.user as any).id = user.id;
-        (session.user as any).portalUserId = user.portalUserId;
+        (session.user as any).id = u.id;
+        // pull from portalUserId (or clientId fallback if that still exists in your DB)
+        (session.user as any).portalUserId =
+          u.portalUserId ?? u.clientId ?? null;
       }
+
       return session;
     },
-  },
+
+    // (leave your other callbacks as they were)
+  }
 };
