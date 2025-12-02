@@ -165,7 +165,8 @@ function transformNotionPageToPortfolioItem(page: any): NotionPortfolioItem {
   
   // Extract title - try common property names
   let title = 'Untitled';
-  const titleProperty = properties.Name || properties.name;
+  const titleProperty = 
+    (properties as any)["Name"] ?? (properties as any)["name"];
   
   if (titleProperty) {
     console.log('   Title property type:', titleProperty.type);
