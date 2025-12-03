@@ -25,6 +25,7 @@ type RawNotionPage = {
   id: string;
   properties: Record<string, any>;
   cover?: any;
+  created_time?: string;
 };
 
 function extractPlainTextFromTitle(prop: any | undefined): string {
@@ -144,7 +145,13 @@ function mapPageToPortfolioItem(page: RawNotionPage): NotionPortfolioItem {
     properties["Date"] ??
     properties["Created At"];
 
-  const date = dateProp?.date?.start ?? null;
+  const publishedAtRaw =
+    dateProp?.created_time ?? dateProp?.date?.start ?? dateProp?.date?.end ?? null;
+  const publishedAt = publishedAtRaw
+    ? new Date(publishedAtRaw)
+    : page.created_time
+      ? new Date(page.created_time)
+      : new Date();
 
   // You can extend this mapping to include any extra fields
   const item: NotionPortfolioItem = {
@@ -155,8 +162,8 @@ function mapPageToPortfolioItem(page: RawNotionPage): NotionPortfolioItem {
     coverImage,
     excerpt,
     tags,
-    date,
-  } as NotionPortfolioItem;
+    publishedAt,
+  };
 
   return item;
 }

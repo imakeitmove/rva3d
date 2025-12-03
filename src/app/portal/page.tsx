@@ -10,7 +10,8 @@ export default async function PortalIndex() {
     return redirect("/login");
   }
 
-  const userId = (session.user as any).userId;
+  const sessionUser = session.user as any;
+  const userId = sessionUser.portalUserId ?? sessionUser.userId;
 
   if (!userId) {
     return (

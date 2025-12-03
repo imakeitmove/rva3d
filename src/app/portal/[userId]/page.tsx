@@ -10,14 +10,31 @@ import { redirect } from "next/navigation";
 import "./portal.css";
 
 type Props = {
-  params: Promise<{ userId: string }>;
+  params: { userId: string };
 };
 
+function resolvePortalUserId(session: Awaited<ReturnType<typeof getServerSession>>) {
+  const candidate = session?.user;
+  if (!candidate || typeof candidate !== "object") return null;
+
+  if ("portalUserId" in candidate && typeof candidate.portalUserId === "string") {
+    return candidate.portalUserId;
+  }
+
+  if ("userId" in candidate && typeof candidate.userId === "string") {
+    return candidate.userId;
+  }
+
+  return null;
+}
+
 export default async function PortalHome({ params }: Props) {
-  const { userId } = await params;
+  const { userId } = params;
 
   const session = await getServerSession(authOptions);
-  if (!session || (session.user as any).userId !== userId) {
+  const portalUserId = resolvePortalUserId(session);
+
+  if (!session || portalUserId !== userId) {
     return redirect("/login");
   }
 
