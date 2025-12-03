@@ -30,7 +30,8 @@ export async function POST(req: NextRequest) {
   }
 
   const allowedStatuses: FeedbackStatus[] = ["Comment", "Needs Changes", "Approved"];
-  const safeStatus = allowedStatuses.includes(status) ? status : undefined;
+  const safeStatus =
+    status && allowedStatuses.includes(status) ? status : undefined;
 
   const role: FeedbackRole = session.user.email.endsWith("@rva3d.com")
     ? "Studio"
