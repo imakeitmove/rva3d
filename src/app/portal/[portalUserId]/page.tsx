@@ -1,30 +1,48 @@
-// src/app/portal/[userId]/page.tsx (with posts awaiting review)
+// src/app/portal/[portalUserId]/page.tsx (with posts awaiting review)
 import {
   getProjectsForPortal,
   getPostsAwaitingReview,
   getRecentVisiblePostsForPortal,
 } from "@/lib/notion";
 import { getServerSession } from "next-auth";
+import type { Session } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import "./portal.css";
 
 type Props = {
-  params: Promise<{ userId: string }>;
+  params: { portalUserId: string };
 };
 
+function resolvePortalUserId(session: Session | null) {
+  const candidate = session?.user;
+  if (!candidate || typeof candidate !== "object") return null;
+
+  if ("portalUserId" in candidate && typeof candidate.portalUserId === "string") {
+    return candidate.portalUserId;
+  }
+
+  if ("userId" in candidate && typeof candidate.userId === "string") {
+    return candidate.userId;
+  }
+
+  return null;
+}
+
 export default async function PortalHome({ params }: Props) {
-  const { userId } = await params;
+  const { portalUserId } = params;
 
   const session = await getServerSession(authOptions);
-  if (!session || (session.user as any).userId !== userId) {
+  const sessionPortalUserId = resolvePortalUserId(session);
+
+  if (!session || sessionPortalUserId !== portalUserId) {
     return redirect("/login");
   }
 
   const [projectsRaw, reviewPosts, recentPostsRaw] = await Promise.all([
-    getProjectsForPortal(userId),
-    getPostsAwaitingReview(userId),
-    getRecentVisiblePostsForPortal(userId, 10),
+    getProjectsForPortal(portalUserId),
+    getPostsAwaitingReview(portalUserId),
+    getRecentVisiblePostsForPortal(portalUserId, 10),
   ]);
 
   // Safe defaults
@@ -60,7 +78,7 @@ export default async function PortalHome({ params }: Props) {
             {reviewPosts.map((post) => (
               <a
                 key={post.postId}
-                href={`/portal/${userId}/projects/${post.projectId}/posts/${post.postId}`}
+                href={`/portal/${portalUserId}/projects/${post.projectId}/posts/${post.postId}`}
                 className="review-post-card"
               >
                 <div className="review-badge">Needs Review</div>
@@ -96,7 +114,7 @@ export default async function PortalHome({ params }: Props) {
             return (
               <a
                 key={p.projectId}
-                href={`/portal/${userId}/projects/${p.projectId}`}
+                href={`/portal/${portalUserId}/projects/${p.projectId}`}
                 className="project-card"
               >
                 <div className="project-card-title">{p.name}</div>
@@ -126,7 +144,7 @@ export default async function PortalHome({ params }: Props) {
             {recentPosts.map((post) => (
               <li key={post.postId}>
                 <a 
-                  href={`/portal/${userId}/projects/${post.projectId}/posts/${post.postId}`}
+                  href={`/portal/${portalUserId}/projects/${post.projectId}/posts/${post.postId}`}
                   className="post-link"
                 >
                   <span className="post-project-name">
@@ -150,7 +168,7 @@ export default async function PortalHome({ params }: Props) {
             {projects.archived.map((p) => (
               <a
                 key={p.projectId}
-                href={`/portal/${userId}/projects/${p.projectId}`}
+                href={`/portal/${portalUserId}/projects/${p.projectId}`}
                 className="project-card project-card-archived"
               >
                 <div className="project-card-title">{p.name}</div>

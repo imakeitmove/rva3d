@@ -1,4 +1,5 @@
 import { Client } from "@notionhq/client";
+import type { CreatePageResponse } from "@notionhq/client/build/src/api-endpoints";
 
 // --- Notion client setup ---
 
@@ -37,6 +38,101 @@ function richTextToPlainText(richText: any[] | undefined): string {
   return richText.map((r) => r.plain_text ?? "").join("");
 }
 
+function getTextLikeValue(prop: any | undefined): string {
+  if (!prop) return "";
+  if (typeof prop.url === "string") return prop.url;
+  if (Array.isArray(prop.rich_text)) return richTextToPlainText(prop.rich_text);
+  if (Array.isArray(prop.title)) return richTextToPlainText(prop.title);
+  return "";
+}
+
+function extractFileUrlFromProp(prop: any | undefined): string | undefined {
+  if (!prop || !Array.isArray(prop.files) || !prop.files.length) return undefined;
+  const file = prop.files[0];
+  if (file.external?.url) return file.external.url;
+  if (file.file?.url) return file.file.url;
+  return undefined;
+}
+
+async function fetchAllBlocks(pageId: string) {
+  const blocks: any[] = [];
+  let cursor: string | undefined;
+
+  do {
+    const response = await notion.blocks.children.list({
+      block_id: pageId,
+      start_cursor: cursor,
+      page_size: 50,
+    });
+
+    blocks.push(...response.results);
+    cursor = response.has_more ? response.next_cursor ?? undefined : undefined;
+  } while (cursor);
+
+  return blocks;
+}
+
+function extractMediaFromBlocks(blocks: any[]): PortalMediaItem[] {
+  const media: PortalMediaItem[] = [];
+
+  for (const block of blocks) {
+    if (block.type === "video") {
+      const url = block.video?.external?.url ?? block.video?.file?.url;
+      if (url) {
+        media.push({
+          type: "video",
+          url,
+          caption: richTextToPlainText(block.video.caption),
+        });
+      }
+    }
+
+    if (block.type === "image") {
+      const url = block.image?.external?.url ?? block.image?.file?.url;
+      if (url) {
+        media.push({
+          type: "image",
+          url,
+          caption: richTextToPlainText(block.image.caption),
+        });
+      }
+    }
+
+    if (block.type === "file") {
+      const url = block.file?.external?.url ?? block.file?.file?.url;
+      if (url) {
+        media.push({
+          type: "file",
+          url,
+          caption: richTextToPlainText(block.file.caption),
+        });
+      }
+    }
+
+    if (block.type === "embed" || block.type === "bookmark") {
+      const url = block[block.type]?.url;
+      if (url) {
+        media.push({
+          type: "embed",
+          url,
+          caption: richTextToPlainText(block[block.type].caption),
+        });
+      }
+    }
+  }
+
+  return media;
+}
+
+function extractNotesFromBlocks(blocks: any[]): string[] {
+  return blocks
+    .filter((block) => block.type === "paragraph" || block.type === "callout")
+    .map((block) =>
+      block[block.type]?.rich_text ? richTextToPlainText(block[block.type].rich_text) : ""
+    )
+    .filter(Boolean);
+}
+
 // --- Types ---
 
 export type PortalRecentPost = {
@@ -45,6 +141,21 @@ export type PortalRecentPost = {
   title: string;
   projectName: string; // from Projects.Name
   projectId: string; // from Projects.Project ID (slug)
+};
+
+export type PortalMediaItem = {
+  type: "video" | "image" | "file" | "embed";
+  url: string;
+  caption?: string;
+};
+
+export type PortalPostSummary = {
+  id: string;
+  postId: string;
+  title: string;
+  status?: string;
+  createdAt?: string;
+  thumbnail?: string;
 };
 
 export type PortalProject = {
@@ -73,6 +184,16 @@ export type FeedbackRole = "Client" | "Studio";
 export type FeedbackStatus = "Comment" | "Needs Changes" | "Approved";
 // ^ note: "Needs Changes" capitalisation should match your Notion select exactly
 
+export type PortalFeedbackMessage = {
+  id: string;
+  author: string;
+  role: FeedbackRole;
+  message: string;
+  createdAt: string;
+  timecodeSec?: number;
+  status?: FeedbackStatus;
+};
+
 export type ProjectPage = {
   id: string;
   title: string;
@@ -83,6 +204,13 @@ export type PostPage = {
   id: string;
   title: string;
   postId: string;
+};
+
+export type PortalPostDetail = PostPage & {
+  status?: string;
+  createdAt?: string;
+  media: PortalMediaItem[];
+  notes: string[];
 };
 
 // --- Portal page helpers ---
@@ -152,9 +280,7 @@ export async function getPostsAwaitingReview(
     const name = nameProp?.title
       ? richTextToPlainText(nameProp.title)
       : "Untitled project";
-    const projectIdSlug = projectIdProp?.rich_text
-      ? richTextToPlainText(projectIdProp.rich_text)
-      : page.id;
+    const projectIdSlug = getTextLikeValue(projectIdProp) || page.id;
 
     projectIds.push(page.id);
     projectMap.set(page.id, {
@@ -216,9 +342,7 @@ export async function getPostsAwaitingReview(
     const title = titleProp?.title
       ? richTextToPlainText(titleProp.title)
       : "Untitled post";
-    const postIdSlug = postIdProp?.rich_text
-      ? richTextToPlainText(postIdProp.rich_text)
-      : page.id;
+    const postIdSlug = getTextLikeValue(postIdProp) || page.id;
 
     const projectRelId: string | undefined = projectRelProp?.relation?.[0]?.id;
 
@@ -299,7 +423,7 @@ export async function getProjectPageForClientProject(options: {
     database_id: PROJECTS_DB_ID,
     filter: {
       property: "Project ID",
-      rich_text: {
+      url: {
         equals: projectId,
       },
     },
@@ -326,9 +450,7 @@ export async function getProjectPageForClientProject(options: {
   return {
     id: projectPage.id,
     title: titleProp?.title ? richTextToPlainText(titleProp.title) : "",
-    projectId: projectIdProp?.rich_text
-      ? richTextToPlainText(projectIdProp.rich_text)
-      : "",
+    projectId: getTextLikeValue(projectIdProp),
   };
 }
 
@@ -358,7 +480,7 @@ export async function getPostBySlugForProject(options: {
       and: [
         {
           property: "Post ID",
-          rich_text: { equals: postSlug },
+          url: { equals: postSlug },
         },
         {
           property: "Project",
@@ -379,9 +501,7 @@ export async function getPostBySlugForProject(options: {
   return {
     id: postPage.id,
     title: titleProp?.title ? richTextToPlainText(titleProp.title) : "",
-    postId: postIdProp?.rich_text
-      ? richTextToPlainText(postIdProp.rich_text)
-      : "",
+    postId: getTextLikeValue(postIdProp),
   };
 }
 
@@ -420,9 +540,7 @@ export async function getProjectsForPortal(
     const project: PortalProject = {
       id: page.id,
       name: nameProp?.title ? richTextToPlainText(nameProp.title) : "Untitled",
-      projectId: projectIdProp?.rich_text
-        ? richTextToPlainText(projectIdProp.rich_text)
-        : page.id,
+      projectId: getTextLikeValue(projectIdProp) || page.id,
       status: statusProp?.select?.name,
       summary: summaryProp?.rich_text
         ? richTextToPlainText(summaryProp.rich_text)
@@ -453,38 +571,38 @@ export async function getRecentVisiblePostsForPortal(
   }
 
   // 2. Find all visible Work Projects linked to this Portal Page
-const projectsRes = await notion.databases.query({
-  database_id: PROJECTS_DB_ID,
-  filter: {
-    and: [
-      {
-        property: "Portal Page",
-        relation: { contains: portalPage.id },
-      },
-      {
-        // Client Visible (formula outputs true/false)
-        property: "Client Visible",
-        formula: {
-          checkbox: {
-            equals: true,
+  const projectsRes = await notion.databases.query({
+    database_id: PROJECTS_DB_ID,
+    filter: {
+      and: [
+        {
+          property: "Portal Page",
+          relation: { contains: portalPage.id },
+        },
+        {
+          // Client Visible (formula outputs true/false)
+          property: "Client Visible",
+          formula: {
+            checkbox: {
+              equals: true,
+            },
           },
         },
-      },
-            {
-        // Hide Project must be unchecked (false)
-        property: "Hide Project",
-        checkbox: {
-          equals: false,
+        {
+          // Hide Project must be unchecked (false)
+          property: "Hide Project",
+          checkbox: {
+            equals: false,
+          },
         },
-      },
-      {
-        property: "Category",
-        select: { equals: "Work Project" },
-      },
-    ],
-  },
-  page_size: 100,
-});
+        {
+          property: "Category",
+          select: { equals: "Work Project" },
+        },
+      ],
+    },
+    page_size: 100,
+  });
 
 
   if (!projectsRes.results.length) {
@@ -502,9 +620,7 @@ const projectsRes = await notion.databases.query({
     const name = nameProp?.title
       ? richTextToPlainText(nameProp.title)
       : "Untitled project";
-    const projectIdSlug = projectIdProp?.rich_text
-      ? richTextToPlainText(projectIdProp.rich_text)
-      : page.id;
+    const projectIdSlug = getTextLikeValue(projectIdProp) || page.id;
 
     projectIds.push(page.id);
     projectMap.set(page.id, {
@@ -560,9 +676,7 @@ const projectsRes = await notion.databases.query({
     const title = titleProp?.title
       ? richTextToPlainText(titleProp.title)
       : "Untitled post";
-    const postIdSlug = postIdProp?.rich_text
-      ? richTextToPlainText(postIdProp.rich_text)
-      : page.id;
+    const postIdSlug = getTextLikeValue(postIdProp) || page.id;
 
     const projectRelId: string | undefined = projectRelProp?.relation?.[0]?.id;
 
@@ -587,17 +701,124 @@ export async function getLatestVisiblePostForPortal(
   return posts.length > 0 ? posts[0] : null;
 }
 
-// Stubs you can flesh out later
 export async function getProjectBySlug(userId: string, projectId: string) {
-  // You can just call getProjectPageForClientProject here and map the fields if needed
+  return getProjectPageForClientProject({ userId, projectId });
 }
 
-export async function getPostsForProject(userId: string, projectId: string) {
-  // Posts where Project = that project & Client Visible = true
+export async function getPostsForProject(
+  userId: string,
+  projectId: string
+): Promise<PortalPostSummary[]> {
+  const project = await getProjectPageForClientProject({ userId, projectId });
+  if (!project) return [];
+
+  const res = await notion.databases.query({
+    database_id: POSTS_DB_ID,
+    filter: {
+      and: [
+        {
+          property: "Project",
+          relation: { contains: project.id },
+        },
+        {
+          property: "Category",
+          select: { does_not_equal: "Internal Post" },
+        },
+      ],
+    },
+    sorts: [
+      {
+        property: "Created",
+        direction: "descending",
+      },
+    ],
+    page_size: 50,
+  });
+
+  return res.results.map((result: any) => {
+    const titleProp = result.properties?.["Name"];
+    const postIdProp = result.properties?.["Post ID"];
+    const statusProp = result.properties?.["Status"];
+    const thumbProp =
+      result.properties?.["Thumbnail"] ??
+      result.properties?.["Preview"] ??
+      result.properties?.["Cover"];
+
+    return {
+      id: result.id,
+      title: titleProp?.title ? richTextToPlainText(titleProp.title) : "Untitled post",
+      postId: getTextLikeValue(postIdProp) || result.id,
+      status: statusProp?.status?.name ?? statusProp?.select?.name,
+      createdAt: result.created_time,
+      thumbnail: extractFileUrlFromProp(thumbProp),
+    } satisfies PortalPostSummary;
+  });
 }
 
-export async function getPostBySlug(userId: string, postId: string) {
-  // Alternate version if you want a URL like /posts/[postId] without project in the path
+export async function getPostBySlug(
+  userId: string,
+  postId: string
+): Promise<PostPage | null> {
+  // Without project scoping, fall back to the stricter helper
+  return getPostBySlugForProject({ userId, projectId: "", postSlug: postId });
+}
+
+export async function getPostWithContentForProject(options: {
+  userId: string;
+  projectId: string;
+  postSlug: string;
+}): Promise<PortalPostDetail | null> {
+  const { userId, projectId, postSlug } = options;
+
+  const projectPage = await getProjectPageForClientProject({ userId, projectId });
+  if (!projectPage) return null;
+
+  const postsRes = await notion.databases.query({
+    database_id: POSTS_DB_ID,
+    filter: {
+      and: [
+        {
+          property: "Post ID",
+          url: { equals: postSlug },
+        },
+        {
+          property: "Project",
+          relation: { contains: projectPage.id },
+        },
+        {
+          property: "Category",
+          select: { does_not_equal: "Internal Post" },
+        },
+      ],
+    },
+    page_size: 1,
+  });
+
+  if (!postsRes.results.length) return null;
+
+  const postPage = postsRes.results[0] as any;
+  const titleProp = postPage.properties["Name"];
+  const postIdProp = postPage.properties["Post ID"];
+  const statusProp = postPage.properties["Status"];
+  const linkProp = postPage.properties["Link"];
+  const blocks = await fetchAllBlocks(postPage.id);
+
+  const mediaFromBlocks = extractMediaFromBlocks(blocks);
+
+  // Fallback to a Link property if no media blocks exist
+  if (!mediaFromBlocks.length && linkProp?.url) {
+    mediaFromBlocks.push({ type: "embed", url: linkProp.url });
+  }
+
+  return {
+    id: postPage.id,
+    title: titleProp?.title ? richTextToPlainText(titleProp.title) : "",
+    postId: getTextLikeValue(postIdProp),
+    status: statusProp?.status?.name ?? statusProp?.select?.name,
+    createdAt: postPage.created_time,
+    media: mediaFromBlocks,
+    notes: extractNotesFromBlocks(blocks),
+  };
 }
 
 // --- Feedback helpers ---
@@ -611,7 +832,7 @@ export async function createFeedbackForPost(options: {
   message: string;
   timecodeSec?: number;
   status?: FeedbackStatus;
-}) {
+}): Promise<CreatePageResponse> {
   const {
     postPageId,
     portalPageId,
@@ -625,7 +846,7 @@ export async function createFeedbackForPost(options: {
 
   const title = `Feedback – ${authorName || authorEmail}`;
 
-  await notion.pages.create({
+  const created = await notion.pages.create({
     parent: { database_id: FEEDBACK_DB_ID },
     properties: {
       Name: {
@@ -641,13 +862,6 @@ export async function createFeedbackForPost(options: {
       "Author Email": {
         email: authorEmail,
       },
-      ...(authorName
-        ? {
-            "Author Name": {
-              rich_text: [{ text: { content: authorName } }],
-            },
-          }
-        : {}),
       Role: {
         select: { name: role },
       },
@@ -665,9 +879,49 @@ export async function createFeedbackForPost(options: {
             Timecode: { number: timecodeSec },
           }
         : {}),
-      Source: {
-        select: { name: "Portal" }, // optional, if you want to mark where it came from
-      },
     },
+  });
+
+  return created;
+}
+
+export async function getFeedbackForPost(
+  postPageId: string
+): Promise<PortalFeedbackMessage[]> {
+  const res = await notion.databases.query({
+    database_id: FEEDBACK_DB_ID,
+    filter: {
+      property: "Post",
+      relation: { contains: postPageId },
+    },
+    sorts: [
+      {
+        timestamp: "created_time",
+        direction: "ascending",
+      },
+    ],
+  });
+
+  return res.results.map((page: any) => {
+    const messageProp = page.properties?.["Message"];
+    const roleProp = page.properties?.["Role"];
+    const statusProp = page.properties?.["Status"];
+    const authorNameProp = page.properties?.["Author Name"];
+    const timecodeProp = page.properties?.["Timecode"];
+
+    return {
+      id: page.id,
+      author:
+        authorNameProp?.created_by?.name ||
+        page.properties?.["Author Email"]?.email ||
+        "Guest",
+      role: (roleProp?.select?.name as FeedbackRole) ?? "Client",
+      message: messageProp?.rich_text
+        ? richTextToPlainText(messageProp.rich_text)
+        : "",
+      createdAt: page.created_time,
+      timecodeSec: timecodeProp?.number ?? undefined,
+      status: statusProp?.select?.name as FeedbackStatus | undefined,
+    };
   });
 }

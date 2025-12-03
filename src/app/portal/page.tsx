@@ -10,9 +10,10 @@ export default async function PortalIndex() {
     return redirect("/login");
   }
 
-  const userId = (session.user as any).userId;
+  const sessionUser = session.user as any;
+  const portalUserId = sessionUser.portalUserId ?? sessionUser.userId;
 
-  if (!userId) {
+  if (!portalUserId) {
     return (
       <main style={{ padding: 40, fontFamily: "system-ui" }}>
         <h1>No client linked to your account</h1>
@@ -21,5 +22,5 @@ export default async function PortalIndex() {
     );
   }
 
-  return redirect(`/portal/${userId}`);
+  return redirect(`/portal/${portalUserId}`);
 }
