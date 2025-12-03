@@ -5,6 +5,7 @@ import {
   getRecentVisiblePostsForPortal,
 } from "@/lib/notion";
 import { getServerSession } from "next-auth";
+import type { Session } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import "./portal.css";
@@ -13,7 +14,7 @@ type Props = {
   params: { userId: string };
 };
 
-function resolvePortalUserId(session: Awaited<ReturnType<typeof getServerSession>>) {
+function resolvePortalUserId(session: Session | null) {
   const candidate = session?.user;
   if (!candidate || typeof candidate !== "object") return null;
 
