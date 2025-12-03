@@ -12,7 +12,9 @@ import { getServerSession } from "next-auth";
 import { notFound, redirect } from "next/navigation";
 import "./project.css";
 
-function resolvePortalUserId(session: Awaited<ReturnType<typeof getServerSession>>) {
+import type { Session } from "next-auth";
+
+function resolvePortalUserId(session: Session | null) {
   const candidate = session?.user;
   if (!candidate || typeof candidate !== "object") return null;
 
