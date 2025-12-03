@@ -6,13 +6,23 @@ import type { NotionPortfolioItem } from "@/types/portfolio";
 // Notion client
 // ----------------------
 
-if (!process.env.NOTION_TOKEN) {
-  throw new Error("NOTION_TOKEN is not set in environment");
+let notion: Client | null = null;
+
+function requireEnv(name: string): string {
+  const value = process.env[name];
+  if (!value) {
+    throw new Error(`${name} is not set in environment`);
+  }
+  return value;
 }
 
-const notion = new Client({
-  auth: process.env.NOTION_TOKEN,
-});
+function getNotionClient() {
+  if (!notion) {
+    const token = requireEnv("NOTION_TOKEN");
+    notion = new Client({ auth: token });
+  }
+  return notion;
+}
 
 // NOTE: if your env var has a different name, change this to match.
 const PORTFOLIO_DB_ID = process.env.NOTION_PORTFOLIO_DB_ID;
@@ -180,6 +190,7 @@ export async function getPortfolioItems(): Promise<NotionPortfolioItem[]> {
     return [];
   }
 
+  const notion = getNotionClient();
   const pages: RawNotionPage[] = [];
   let cursor: string | undefined;
 

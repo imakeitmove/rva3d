@@ -3,32 +3,38 @@ import type { CreatePageResponse } from "@notionhq/client/build/src/api-endpoint
 
 // --- Notion client setup ---
 
-if (!process.env.NOTION_TOKEN) {
-  throw new Error("NOTION_TOKEN is not set in environment");
+let notionClient: Client | null = null;
+
+function requireEnv(name: string): string {
+  const value = process.env[name];
+  if (!value) {
+    throw new Error(`${name} is not set in environment`);
+  }
+  return value;
 }
 
-export const notion = new Client({
-  auth: process.env.NOTION_TOKEN,
-});
-
-const PORTAL_DB_ID = process.env.NOTION_PORTAL_DB_ID as string;
-if (!PORTAL_DB_ID) {
-  throw new Error("NOTION_PORTAL_DB_ID is not set in environment");
+export function getNotionClient(): Client {
+  if (!notionClient) {
+    const token = requireEnv("NOTION_TOKEN");
+    notionClient = new Client({ auth: token });
+  }
+  return notionClient;
 }
 
-const FEEDBACK_DB_ID = process.env.NOTION_FEEDBACK_DB_ID as string;
-if (!FEEDBACK_DB_ID) {
-  throw new Error("NOTION_FEEDBACK_DB_ID is not set in environment");
+function getPortalDbId() {
+  return requireEnv("NOTION_PORTAL_DB_ID");
 }
 
-const PROJECTS_DB_ID = process.env.NOTION_PROJECTS_DB_ID as string;
-const POSTS_DB_ID = process.env.NOTION_POSTS_DB_ID as string;
-
-if (!PROJECTS_DB_ID) {
-  throw new Error("NOTION_PROJECTS_DB_ID is not set in environment");
+function getFeedbackDbId() {
+  return requireEnv("NOTION_FEEDBACK_DB_ID");
 }
-if (!POSTS_DB_ID) {
-  throw new Error("NOTION_POSTS_DB_ID is not set in environment");
+
+function getProjectsDbId() {
+  return requireEnv("NOTION_PROJECTS_DB_ID");
+}
+
+function getPostsDbId() {
+  return requireEnv("NOTION_POSTS_DB_ID");
 }
 
 // --- Helpers ---
@@ -56,6 +62,7 @@ function extractFileUrlFromProp(prop: any | undefined): string | undefined {
 
 async function fetchAllBlocks(pageId: string) {
   const blocks: any[] = [];
+  const notion = getNotionClient();
   let cursor: string | undefined;
 
   do {
@@ -225,6 +232,9 @@ export type PortalPostDetail = PostPage & {
 export async function getPostsAwaitingReview(
   userId: string
 ): Promise<PortalRecentPost[]> {
+  const notion = getNotionClient();
+  const projectsDbId = getProjectsDbId();
+  const postsDbId = getPostsDbId();
   // 1. Resolve the Portal Page for this client
   const portalPage = await getPortalPageByClientId(userId);
   if (!portalPage) {
@@ -233,7 +243,7 @@ export async function getPostsAwaitingReview(
 
   // 2. Find all visible Work Projects linked to this Portal Page
   const projectsRes = await notion.databases.query({
-    database_id: PROJECTS_DB_ID,
+    database_id: projectsDbId,
     filter: {
       and: [
         {
@@ -296,7 +306,7 @@ export async function getPostsAwaitingReview(
   // 3. Query Posts DB for posts in "Client Review" status
   // Note: Using "status" type instead of "select" - Notion has a dedicated Status property type
   const postsRes = await notion.databases.query({
-    database_id: POSTS_DB_ID,
+    database_id: postsDbId,
     filter: {
       and: [
         {
@@ -367,8 +377,11 @@ export async function getPortalPageByClientId(
     throw new Error("userId is required");
   }
 
+  const notion = getNotionClient();
+  const portalDbId = getPortalDbId();
+
   const response = await notion.databases.query({
-    database_id: PORTAL_DB_ID,
+    database_id: portalDbId,
     filter: {
       property: "User ID",
       rich_text: {
@@ -413,6 +426,8 @@ export async function getProjectPageForClientProject(options: {
   projectId: string; // slug used in URL
 }): Promise<ProjectPage | null> {
   const { userId, projectId } = options;
+  const notion = getNotionClient();
+  const projectsDbId = getProjectsDbId();
 
   // First resolve the portal page for security
   const portalPage = await getPortalPageByClientId(userId);
@@ -420,7 +435,7 @@ export async function getProjectPageForClientProject(options: {
 
   // Find the project with Project ID = projectId
   const projectsRes = await notion.databases.query({
-    database_id: PROJECTS_DB_ID,
+    database_id: projectsDbId,
     filter: {
       property: "Project ID",
       url: {
@@ -466,6 +481,8 @@ export async function getPostBySlugForProject(options: {
   postSlug: string;
 }): Promise<PostPage | null> {
   const { userId, projectId, postSlug } = options;
+  const notion = getNotionClient();
+  const postsDbId = getPostsDbId();
 
   // 1. Resolve the project page for this client + project
   const projectPage = await getProjectPageForClientProject({ userId, projectId });
@@ -475,7 +492,7 @@ export async function getPostBySlugForProject(options: {
   //    - Post ID = postSlug
   //    - Project relation contains this project page
   const postsRes = await notion.databases.query({
-    database_id: POSTS_DB_ID,
+    database_id: postsDbId,
     filter: {
       and: [
         {
@@ -510,6 +527,8 @@ export async function getPostBySlugForProject(options: {
 export async function getProjectsForPortal(
   userId: string
 ): Promise<PortalProjectsForClient> {
+  const notion = getNotionClient();
+  const projectsDbId = getProjectsDbId();
   // 1. Find this client's Portal Page
   const portalPage = await getPortalPageByClientId(userId);
   if (!portalPage) {
@@ -518,7 +537,7 @@ export async function getProjectsForPortal(
 
   // 2. Query Projects DB for projects linked to this Portal Page
   const res = await notion.databases.query({
-    database_id: PROJECTS_DB_ID,
+    database_id: projectsDbId,
     filter: {
       property: "Portal Page",
       relation: {
@@ -564,6 +583,9 @@ export async function getRecentVisiblePostsForPortal(
   userId: string,
   limit = 5
 ): Promise<PortalRecentPost[]> {
+  const notion = getNotionClient();
+  const projectsDbId = getProjectsDbId();
+  const postsDbId = getPostsDbId();
   // 1. Resolve the Portal Page for this client
   const portalPage = await getPortalPageByClientId(userId);
   if (!portalPage) {
@@ -572,7 +594,7 @@ export async function getRecentVisiblePostsForPortal(
 
   // 2. Find all visible Work Projects linked to this Portal Page
   const projectsRes = await notion.databases.query({
-    database_id: PROJECTS_DB_ID,
+    database_id: projectsDbId,
     filter: {
       and: [
         {
@@ -635,7 +657,7 @@ export async function getRecentVisiblePostsForPortal(
 
   // 3. Query Posts DB for posts in those projects, visible to clients
   const postsRes = await notion.databases.query({
-    database_id: POSTS_DB_ID,
+    database_id: postsDbId,
     filter: {
       and: [
         {
@@ -709,11 +731,13 @@ export async function getPostsForProject(
   userId: string,
   projectId: string
 ): Promise<PortalPostSummary[]> {
+  const notion = getNotionClient();
+  const postsDbId = getPostsDbId();
   const project = await getProjectPageForClientProject({ userId, projectId });
   if (!project) return [];
 
   const res = await notion.databases.query({
-    database_id: POSTS_DB_ID,
+    database_id: postsDbId,
     filter: {
       and: [
         {
@@ -769,12 +793,14 @@ export async function getPostWithContentForProject(options: {
   postSlug: string;
 }): Promise<PortalPostDetail | null> {
   const { userId, projectId, postSlug } = options;
+  const notion = getNotionClient();
+  const postsDbId = getPostsDbId();
 
   const projectPage = await getProjectPageForClientProject({ userId, projectId });
   if (!projectPage) return null;
 
   const postsRes = await notion.databases.query({
-    database_id: POSTS_DB_ID,
+    database_id: postsDbId,
     filter: {
       and: [
         {
@@ -833,6 +859,8 @@ export async function createFeedbackForPost(options: {
   timecodeSec?: number;
   status?: FeedbackStatus;
 }): Promise<CreatePageResponse> {
+  const notion = getNotionClient();
+  const feedbackDbId = getFeedbackDbId();
   const {
     postPageId,
     portalPageId,
@@ -847,7 +875,7 @@ export async function createFeedbackForPost(options: {
   const title = `Feedback – ${authorName || authorEmail}`;
 
   const created = await notion.pages.create({
-    parent: { database_id: FEEDBACK_DB_ID },
+    parent: { database_id: feedbackDbId },
     properties: {
       Name: {
         title: [{ text: { content: title } }],
@@ -888,8 +916,10 @@ export async function createFeedbackForPost(options: {
 export async function getFeedbackForPost(
   postPageId: string
 ): Promise<PortalFeedbackMessage[]> {
+  const notion = getNotionClient();
+  const feedbackDbId = getFeedbackDbId();
   const res = await notion.databases.query({
-    database_id: FEEDBACK_DB_ID,
+    database_id: feedbackDbId,
     filter: {
       property: "Post",
       relation: { contains: postPageId },
