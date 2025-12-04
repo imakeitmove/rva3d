@@ -1,209 +1,157 @@
-# RVA3D
+RVA3D is a cinematic, 3D-first web experience for portfolio storytelling, a collaborative sandbox, and a client review portal. Everything is rendered in Three.js (via React Three Fiber), navigated with camera-led state transitions, and backed by Notion-driven content plus a database layer for auth and metadata.
 
-RVA3D is a Next.js + React Three Fiber application boostrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app) that renders interactive 3D scenes alongside a standard React UI layer.  
+## Vision
+- **3D-native UI:** Text, panels, and buttons are modeled geometry or textured planes; navigation is camera choreography between scene states (Landing → Projects → Sandbox → Portal).
+- **Physics-enhanced interactions:** Rapier/Cannon-backed rigid bodies for floating cards, draggables, and playful landing-page motion.
+- **Stateful flows instead of pages:** A lightweight state machine (or GSAP timelines) mounts/unmounts scene elements per state, keeping logic predictable and transitions smooth.
+- **Client-first portal:** Notion content powers projects, posts, and feedback; the app layers media playback, chat-style comments, and approvals on top.
+- **Graceful fallbacks:** Offer a “flat” mode or reduced effects for mobile/low-power devices and maintain semantic HTML for SEO/accessibility.
 
-The project uses the App Router, Prisma for database access, Zustand for client-state, and modern Three.js tooling via `@react-three/fiber` and `@react-three/drei`.
+## Core Experiences
+- **Landing:** Cinematic intro with physics flourishes and CTA to enter the 3D experience or view a fallback.
+- **Portfolio:** 3D cards for projects/posts with hover/click affordances, lazy-loaded media, and camera focus per selection.
+- **Sandbox:** Shared 3D space with simple tools (add/move/reset), optional real-time sync, and tutorial overlays for first-time users.
+- **Client Portal:** Project/post viewer with media player or image carousel, chat-style feedback (with optional timecodes), approval status, and thumbnail history to swap the “post in focus.”
 
-This README gives you a **quick overview**, **setup instructions**, and **common workflows**.
+## Architecture (recommended)
+- **Framework:** Next.js App Router (TypeScript, React 18).
+- **3D/Rendering:** `@react-three/fiber`, `@react-three/drei`, Three.js; GSAP for camera timelines; GLTF assets under `public/models`.
+- **Physics:** Rapier (`@dimforge/rapier3d-compat`) preferred for performance; Cannon.js acceptable for simplicity. Sync rigid bodies to meshes in the render loop.
+- **State:** Zustand stores for global/app state; scene-level state machines for visibility, interactions, and camera targets.
+- **Data:** Prisma ORM for relational data; Notion API for content (projects, posts, feedback). Consider offloading large media to S3/R2/B2 and storing URLs in Notion.
+- **Auth/API:** Next.js route handlers under `src/app/api/*`; keep server concerns isolated in `src/lib`.
+- **Styling:** Tailwind or CSS Modules; keep shared UI primitives in `src/components`.
 
----
+## Content & Data Model (Notion-focused)
+- **Projects:** Client ownership, status, dates, categories, and permalink (`Project ID`). Includes client-visible flags and optional hierarchy.
+- **Posts:** Child of a project with status (Draft → Client Review → Approved, etc.), summary/caveats, media links, tags/category, and unique `Post ID`/passcode.
+- **Client Feedback:** Chat-style entries linked to a Post with role (Studio/Client), status (Comment/Needs Changes/Approved), optional timecode, attachments, and timestamps.
+- **Portal Users:** Basic profile (name, email/username, status), relations to projects, and avatar image.
 
-## 🚀 Features
+## Implementation Notes
+- Keep 3D scene logic inside `(three)` routes; shared UI goes in `src/components`.
+- Avoid allocations inside `useFrame`; memoize expensive calculations and dispose of resources properly.
+- Prefer server components by default; add `"use client"` only when hooks/events require it.
+- Maintain clear camera/state transition helpers (e.g., `setState("Projects")` → unload previous objects, move camera, enable interactions).
+- Provide onboarding overlays/tooltips for the sandbox and a toggle to exit the 3D mode when needed.
 
-- **Interactive 3D Scenes** using `@react-three/fiber` + `@react-three/drei`
-- **Modular App Router** with `(three)` routes dedicated to 3D views
-- **Prisma-powered database layer**
-- **Auth-ready** (Next.js route handlers under `app/api/`)
-- **Zustand** for lightweight global state
-- **Highly structured project architecture** (see `ARCHITECTURE.md`)
-- **Strict code quality guidelines** (see `Repository Guidelines.md`)
+## Local Development
+1. Install dependencies: `npm install`.
+2. Copy `.env.example` to `.env.local` and fill Notion/DB credentials.
+3. Run the dev server: `npm run dev` (http://localhost:3000).
 
----
+## Scripts
+- `npm run dev` – start Next.js in development.
+- `npm run lint` – lint with Next.js `core-web-vitals` rules.
+- `npm run build` – production build.
+- `npm start` – serve the production build.
 
-## 📦 Tech Stack
+## Resources
+- Three.js docs: https://threejs.org/docs/
+- React Three Fiber: https://docs.pmnd.rs/react-three-fiber/getting-started/introduction
+- Rapier: https://rapier.rs/docs/user_guides/javascript/getting_started_simulation
+- Notion API: https://developers.notion.com/docs
 
-| Layer | Tools |
-|------|-------|
-| Framework | Next.js App Router, React 18 |
-| 3D Engine | Three.js + @react-three/fiber + @react-three/drei |
-| State | Zustand |
-| Database | Prisma ORM | Notion CMS
-| Styling | Tailwind or CSS Modules (depending on the project) |
-| Types | TypeScript everywhere |
+## Questions to Prioritize Next
+1. **3D vs fallback:** Do we need an explicit “Enter 3D mode” toggle and a fully flat/accessible path from day one? no. barebones 3D preferred over none at all.
+2. **Physics scope:** Where is physics mandatory (landing, portfolio cards, sandbox tools), and where can we fake motion with tweening for performance? real physics in sandbox for sure. on landing page would be great on select objects
+3. **State machine:** Should we formalize a small state machine helper (e.g., XState-lite) or keep manual `setState` + GSAP timelines? whatever is recommended. if it makes sense we can use a helper.
+4. **Media pipeline:** Will media live in Notion Files & Media only, or should we plan S3/R2/B2 storage with URLs stored in Notion/Prisma? I have Dreamhost shared stored and ssh access. I could potentially store portfolio content there and push from notion to publish it and make it live on the site. recomendations welcome.
+5. **Realtime needs:** Do we want live co-presence in the sandbox/portal (SSE/WebSockets), or is periodic refresh acceptable initially? periodic refresh is fine.
+6. **Portal auth:** Which auth provider/flow should we use (passwordless email, OAuth, invite codes)? Any SSO requirements? Oauth but I have not reason for that. Please advise.
+7. **Approvals:** What is the authoritative status source—Notion, Prisma, or both? Do clients need audit history or versioning beyond the “post in focus”? Notion. No current status is all we'll need to see.
+8. **Devices:** What minimum hardware/mobile support do we target? Should we ship adaptive quality presets (DPR, effects) at launch? my target clients are probably going to have an iphone, a mac laptop, and/or a windows desktop. as long as we cover those we're good for now.
+9. **Analytics:** Which interactions are must-track (state transitions, asset loads, feedback submits), and what privacy constraints apply?
 
----
+Must-Track Interactions
+These are the core events that typically need instrumentation because they directly affect product reliability, user experience, and business insights:
+- State Transitions
+- Moving between key states in the app (e.g., draft → published, loading → ready, logged out → logged in).
+- Must-track because they define the lifecycle of a post, session, or workflow.
+- Useful for debugging, analytics, and understanding user flows.
+- Asset Loads
+- When critical assets (images, videos, scripts, data models) are requested and loaded.
+- Must-track because failures here directly impact usability and performance.
+- Helps optimize caching, CDNs, and load times.
+- Feedback Submits
+- When users submit ratings, comments, bug reports, or surveys.
+- Must-track because they provide direct signals about satisfaction and issues.
+- Often tied to product improvement and compliance (e.g., accessibility feedback).
+👉 These three categories are “must-track” because they represent system health, user engagement, and product improvement loops.
 
-Notion is being used to drive the content in the Portfolio and Portal sections of the site.
+Privacy Constraints
+When tracking these interactions, you need to respect user privacy and regulatory requirements:
+- Data Minimization
+- Collect only what’s necessary (e.g., event type, timestamp, anonymized user/session ID).
+- Avoid storing raw personal content unless explicitly required.
+- Consent & Transparency
+- Inform users what is being tracked (via privacy policy or consent dialogs).
+- Allow opt-out where legally required (GDPR, CCPA).
+- Anonymization & Pseudonymization
+- Strip or hash identifiers so events can’t be tied back to a specific person without additional data.
+- Example: track “feedback submitted” but not the full text unless users consent.
+- Retention Limits
+- Keep logs only as long as needed for analytics or compliance.
+- Define clear policies (e.g., 90 days for raw logs, aggregated data retained longer).
+- Sensitive Data Exclusion
+- Never log passwords, personal identifiers, or private content by default.
+- Apply redaction for free-text feedback to avoid accidental PII capture.
 
-Portal Overview
-the Client Portal page for RVA3d.com is for use by clients (and studio employees) to review and leave feedback on Posts created and managed in Notion on the backend. Studio employees can drag+drop rendered images and video files, or even add them automatically when a file gets rendered from resolve or after effects. 
-Notion is used to organize, request and keep track of internal and external (client visible) Posts with their associated feedback for all company projects and related posts.
-The portal design is minimal but very functional. 
-Users log in from /portal to see a dashboard with their projects, posts, and review requests. 
-Click on either a Project or a Post → see the "viewer" page that displays Posts related to a Project. That viewer page looks roughly like this: 
+10. **Accessibility:** Are there specific WCAG targets or keyboard navigation requirements for 3D navigation/fallback views?
 
-Top: viewer area - If latest Post is a video → video player. If it’s images → image carousel or static preview. Title, date, status (“Client Review”, “Approved”, etc.). In notion I have been adding videos, notes, and whatever to the body of the entry, rather than inside properties. Having drag+drop in windows is nice with this workflow, but please let me know if there is a better way to handle adding and pulling content for review on the website.
+WCAG & 3D Navigation Overview
+- WCAG does not have unique criteria for 3D content, but general accessibility rules apply
+- Keyboard operability is mandatory for all functionality, including 3D navigation and fallback views
+- Compliance is tied to WCAG 2.1 Level AA, which is the baseline for ADA and Section 508 in the U.S.
 
-Middle under the viewer: conversation - A chat-style thread: Each message = one row in the Client Feedback DB, linked to that Post. Each message shows: Who said it (you vs client) When (Optional timecode badge e.g. 1:23 that jumps the video there). A composer at the bottom of the chat window: Text Area with button (enter key also works) to add to the chat.
+Keyboard Navigation Requirements
+- Tab / Shift+Tab → Move between interactive elements (menus, hotspots, controls)
+- Arrow Keys → Navigate spatially (rotate, pan, zoom, move through 3D space)
+- Enter / Space → Activate selected controls or trigger actions
+- Escape → Exit 3D mode or return to fallback view
+- Visible Focus Indicators → Always show which element is active
 
-Directly below that, “This is approved” / “Needs changes” dropdown menu and in a different color, a more official looking submit button. 
+Risks & Constraints
+- Keyboard Traps: Users may get stuck inside a 3D canvas with no way to exit
+- Performance vs Accessibility: 3D rendering may prioritize visuals over usability; fallback views are essential
+- Legal Compliance: Lack of keyboard access or fallback views can violate WCAG 2.1 Level AA, ADA, and Section 508
+- Assistive Tech Compatibility: Screen readers often cannot interpret 3D canvases; fallback text or structured alternatives are required
 
-Bottom: post history - thumbnail grid of previous Posts for that project: Thumbnail + title + status 
-Clicking one: Loads it into the viewer Loads its comment thread Updates the URL (like ?post=postId). So there’s always “one post in focus” whether you are looking at a Post or at the Projects page, but you can hop around via thumbnails. 
+WCAG Accessibility Checklist for 3D Navigation & Fallback Views
 
+1. Keyboard Operability
+- All functionality operable via keyboard (WCAG 2.1.1)
+- Arrow keys for spatial navigation
+- Tab/Shift+Tab for moving between elements
+- Enter/Space for activating controls
+- Escape to exit 3D mode
+- No keyboard traps (WCAG 2.1.2)
 
-For the Portal, there are 4 databases being used:
-Notion databases:
+2. Focus Management
+- Logical focus order (WCAG 2.4.3)
+- Visible focus indicators (WCAG 2.4.7)
 
-Projects (database NOTION_PROJECTS_DB_ID=5081bb38eafa4e9588e15a1245ea8cea)
- Name
- Clients (relation to Companies database)
- Status
- --Inquiry
- --Upcoming
- --Active
- --With Client
- --On Hold
- --Perpetual
- --Ready To Invoice
- --Invoiced
- --Archived
- --Cancelled
- Summary (text)
- Client Visible (formula that outputs checkbox)
- Hide Project (checkbox to completely turn off client visibility)
- Invoices (relation to Invoices database)
- Project Dates (contains start and end date data as well as times of day)
- Category (select)
- --Work Project
- --Passion Project
- --Life Project
- --Admin Work
- Archive Drive (relation to Archive Drives database)
- Job Number (internal string for folder naming in windows)
- Project ID (url permalink name - automation generates once from Name property and does not change)
- Created (there is no property called Published or publishedAt. Notion uses Created instead)
- Blocked By (relation to Projects)
- Is Blocking (erlation to Projects)
- Completion (rollup of Mileston database's Status property calculating percent per group)
- Priority (select)
- --Optional
- --Low Priority
- --Medium Priority
- --Mandatory
- --Top Priority
- Milestones (relation to Milestons database)
- Files & Media (originally intended for delivery files but now using Posts database to store client-viewable media)
- Outputs (redundant and originally for link to hosted video on google drive)
- Parent Project (relation to Projects)
- Portal Page (relation to Portal Pages database)
- 
- 
- Portal Users (database NOTION_PORTAL_DB_ID=1fba9ba2f2588048a693c5e1ffd85db0)
- Name
- User ID (text, manual entry)
- Status
- --Inactive
- --Active
- --Archived
- username (display-friendly name - Firstname Lastname for example)
- email (email property type - manual entry)
- Notes (text)
- Content (text)
- Work Projects (relation to Projects database)
- Client (rollup from Projects)
- Created (Created time property)
- Slug (text)
- Profile Image (Files and Media for user avatar)
- 
- 
- Posts (database NOTION_POSTS_DB_ID=2aaa9ba2f25880049ba9c299d0c9607d)
- Name
- Status (for both internal and external approvals)
- --New Content
- --Draft
- --Internal QC
- --CQ Feedback
- --Client Review
- --Client Feedback
- --Approved
- --Rejected
- --Reviewed
- --Void
- Summary (text)
- Caveats (text)
- Internal Notes (text - may opt to have notes be another feedback comment in Post page)
- Tags (multiselect  - not currently being used but may want another way to filter Posts)
- Link (URL link to output/download file)
- Project (relation to Projects database)
- Client (rollup from projects)
- Created (Created time. Notion does not use the term "publish" for this database property)
- Post ID (url permalink name - automation generates once from Name property and does not change)
-Passcode (formula that generates a unique passcode for each post)
- Milestone (relation to Milestones database)
- Client Feedback (relation to Client Feedback database)
- Category (select)
- --Internal Post
- --WIP Post
- --Rough for Review
- --Delivery for Review
- --Deliverables 
- 
- Client Feedback (database NOTION_FEEDBACK_DB_ID=2aaa9ba2f25880f8845ef13b0094801b)
- Name
- Category (I have not filled out the options for this, nor am I sure if I need it)
- Post (relation to Posts database)
- Message (text)
- Internal Notes (not sure I need this... they could just be comment entries same as the client message. I know the database is called Client Feedback but it could contain internal feedback as well.)
- Status
- --Comment
- --Needs Changes
- --Approved
- Approved (checkbox)
- Author Name (Created by property)
- Author Email (email property)
- Role (select)
- --Studio
- --Client
- Attachments (Files & Media)
- Created (Created time)
- No ID (unique integer generated for each entry in the DB)
- Portal Pages (relation)
- Timecode (Number)
- TimecodeFormatted (formula to display timecode in min:sec)
+3. Fallback Views
+- Provide accessible alternatives (WCAG 1.1.1)
+- Semantic structure for screen readers (WCAG 1.3.1)
 
+4. Non-Text Content
+- Text alternatives for 3D elements (WCAG 1.1.1)
+- ARIA roles and labels for controls
 
-## Getting Started
+5. User Control & Flexibility
+- Pause/stop/hide animations (WCAG 2.2.2)
+- Customizable navigation presets (e.g., reduced-motion modes)
 
-First, run the development server:
+6. Testing & Validation
+- Test with screen readers (NVDA, JAWS, VoiceOver)
+- Test with keyboard-only navigation
+- Validate against WCAG 2.1 Level AA
+- Include user testing with assistive tech users
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Key Takeaway
+- 3D navigation should be treated like any other interactive component
+- Ensure full keyboard operability
+- Maintain logical focus order and visible indicators
+- Provide accessible fallback views for users unable to interact with 3D directly
+- Test thoroughly with assistive technologies to confirm compliance

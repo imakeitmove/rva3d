@@ -179,7 +179,7 @@ function transformNotionPageToPortfolioItem(page: any): NotionPortfolioItem {
   
   // Extract or generate slug
   let slug = properties.slug?.rich_text?.[0]?.plain_text || 
-             properties.Slug?.rich_text?.[0]?.plain_text || '';
+             properties.slug?.rich_text?.[0]?.plain_text || '';
   if (!slug) {
     // Generate slug from title
     slug = title
