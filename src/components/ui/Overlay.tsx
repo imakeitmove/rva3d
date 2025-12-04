@@ -17,6 +17,8 @@ export function Overlay() {
         borderRadius: 8,
         color: "#fff",
         zIndex: 20,
+        fontFamily: "arial-bold, arial",
+        fontSize:20
       }}
     >
       <div>Mode: {mode}</div>

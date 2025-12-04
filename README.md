@@ -35,6 +35,23 @@ This README gives you a **quick overview**, **setup instructions**, and **common
 
 Notion is being used to drive the content in the Portfolio and Portal sections of the site.
 
+Portal Overview
+the Client Portal page for RVA3d.com is for use by clients (and studio employees) to review and leave feedback on Posts created and managed in Notion on the backend. Studio employees can drag+drop rendered images and video files, or even add them automatically when a file gets rendered from resolve or after effects. 
+Notion is used to organize, request and keep track of internal and external (client visible) Posts with their associated feedback for all company projects and related posts.
+The portal design is minimal but very functional. 
+Users log in from /portal to see a dashboard with their projects, posts, and review requests. 
+Click on either a Project or a Post → see the "viewer" page that displays Posts related to a Project. That viewer page looks roughly like this: 
+
+Top: viewer area - If latest Post is a video → video player. If it’s images → image carousel or static preview. Title, date, status (“Client Review”, “Approved”, etc.). In notion I have been adding videos, notes, and whatever to the body of the entry, rather than inside properties. Having drag+drop in windows is nice with this workflow, but please let me know if there is a better way to handle adding and pulling content for review on the website.
+
+Middle under the viewer: conversation - A chat-style thread: Each message = one row in the Client Feedback DB, linked to that Post. Each message shows: Who said it (you vs client) When (Optional timecode badge e.g. 1:23 that jumps the video there). A composer at the bottom of the chat window: Text Area with button (enter key also works) to add to the chat.
+
+Directly below that, “This is approved” / “Needs changes” dropdown menu and in a different color, a more official looking submit button. 
+
+Bottom: post history - thumbnail grid of previous Posts for that project: Thumbnail + title + status 
+Clicking one: Loads it into the viewer Loads its comment thread Updates the URL (like ?post=postId). So there’s always “one post in focus” whether you are looking at a Post or at the Projects page, but you can hop around via thumbnails. 
+
+
 For the Portal, there are 4 databases being used:
 Notion databases:
 
@@ -155,7 +172,6 @@ Passcode (formula that generates a unique passcode for each post)
  Timecode (Number)
  TimecodeFormatted (formula to display timecode in min:sec)
 
- 
 
 ## Getting Started
 
