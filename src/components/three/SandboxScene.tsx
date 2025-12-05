@@ -2,9 +2,10 @@
 
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
+import type { Mesh } from "three";
 
 export function SandboxScene() {
-  const mesh = useRef<any>(null);
+  const mesh = useRef<Mesh | null>(null);
   const t = useRef(0);
 
   useFrame((state, delta) => {

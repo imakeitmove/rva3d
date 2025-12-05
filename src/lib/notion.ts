@@ -1,4 +1,10 @@
 import { Client } from "@notionhq/client";
+import type {
+  PageObjectResponse,
+  PartialPageObjectResponse,
+  RichTextItemResponse,
+  RelationPropertyItemObjectResponse,
+} from "@notionhq/client/build/src/api-endpoints";
 
 // --- Notion client setup ---
 
@@ -32,9 +38,37 @@ if (!POSTS_DB_ID) {
 
 // --- Helpers ---
 
-function richTextToPlainText(richText: any[] | undefined): string {
+const isFullPageObjectResponse = (
+  result: PageObjectResponse | PartialPageObjectResponse
+): result is PageObjectResponse => "properties" in result;
+
+function richTextToPlainText(
+  richText: RichTextItemResponse[] | undefined
+): string {
   if (!Array.isArray(richText)) return "";
   return richText.map((r) => r.plain_text ?? "").join("");
+}
+
+function getTitleText(page: PageObjectResponse, property: string): string {
+  const prop = page.properties[property];
+  if (prop?.type !== "title") return "";
+  return richTextToPlainText(prop.title);
+}
+
+function getRichText(page: PageObjectResponse, property: string): string {
+  const prop = page.properties[property];
+  if (prop?.type !== "rich_text") return "";
+  return richTextToPlainText(prop.rich_text);
+}
+
+function getFirstRelationId(
+  page: PageObjectResponse,
+  property: string
+): string | undefined {
+  const prop = page.properties[property];
+  if (prop?.type !== "relation") return undefined;
+  const relation = prop.relation as RelationPropertyItemObjectResponse[];
+  return relation[0]?.id;
 }
 
 // --- Types ---
@@ -141,19 +175,13 @@ export async function getPostsAwaitingReview(
   const projectMap = new Map<string, { name: string; projectId: string }>();
 
   for (const result of projectsRes.results) {
-    const page = result as any;
-    const nameProp = page.properties["Name"];
-    const projectIdProp = page.properties["Project ID"];
+    if (!isFullPageObjectResponse(result)) continue;
 
-    const name = nameProp?.title
-      ? richTextToPlainText(nameProp.title)
-      : "Untitled project";
-    const projectIdSlug = projectIdProp?.rich_text
-      ? richTextToPlainText(projectIdProp.rich_text)
-      : page.id;
+    const name = getTitleText(result, "Name") || "Untitled project";
+    const projectIdSlug = getRichText(result, "Project ID") || result.id;
 
-    projectIds.push(page.id);
-    projectMap.set(page.id, {
+    projectIds.push(result.id);
+    projectMap.set(result.id, {
       name,
       projectId: projectIdSlug,
     });
@@ -203,23 +231,16 @@ export async function getPostsAwaitingReview(
   const reviewPosts: PortalRecentPost[] = [];
 
   for (const result of postsRes.results) {
-    const page = result as any;
-    const titleProp = page.properties["Name"];
-    const postIdProp = page.properties["Post ID"];
-    const projectRelProp = page.properties["Project"];
+    if (!isFullPageObjectResponse(result)) continue;
 
-    const title = titleProp?.title
-      ? richTextToPlainText(titleProp.title)
-      : "Untitled post";
-    const postIdSlug = postIdProp?.rich_text
-      ? richTextToPlainText(postIdProp.rich_text)
-      : page.id;
+    const title = getTitleText(result, "Name") || "Untitled post";
+    const postIdSlug = getRichText(result, "Post ID") || result.id;
 
-    const projectRelId: string | undefined = projectRelProp?.relation?.[0]?.id;
+    const projectRelId = getFirstRelationId(result, "Project");
     const projectMeta = projectRelId ? projectMap.get(projectRelId) : undefined;
 
     reviewPosts.push({
-      id: page.id,
+      id: result.id,
       postId: postIdSlug,
       title,
       projectName: projectMeta?.name ?? "Unknown project",
@@ -253,19 +274,12 @@ export async function getPortalPageByPortalUserId(
 
   if (!response.results.length) return null;
 
-  const page = response.results[0] as any;
+  const page = response.results[0];
+  if (!isFullPageObjectResponse(page)) return null;
 
-  const titleProp = page.properties["Name"];
-  const portalUserIdProp = page.properties["User ID"];
-  const contentProp = page.properties["Content"];
-
-  const title = titleProp?.title ? richTextToPlainText(titleProp.title) : "";
-  const portalUserIdValue = portalUserIdProp?.rich_text
-    ? richTextToPlainText(portalUserIdProp.rich_text)
-    : "";
-  const content = contentProp?.rich_text
-    ? richTextToPlainText(contentProp.rich_text)
-    : "";
+  const title = getTitleText(page, "Name");
+  const portalUserIdValue = getRichText(page, "User ID");
+  const content = getRichText(page, "Content");
 
   return {
     id: page.id,
@@ -305,27 +319,23 @@ export async function getProjectPageForClientProject(options: {
 
   if (!projectsRes.results.length) return null;
 
-  const projectPage = projectsRes.results[0] as any;
+  const projectPage = projectsRes.results[0];
+  if (!isFullPageObjectResponse(projectPage)) return null;
 
   // Optional security: ensure project is linked back to this Portal Page
   const portalRelation = projectPage.properties["Portal Page"];
-  if (portalRelation && Array.isArray(portalRelation.relation)) {
-    const linkedPortalIds = portalRelation.relation.map((r: any) => r.id);
+  if (portalRelation?.type === "relation") {
+    const linkedPortalIds = portalRelation.relation.map((r) => r.id);
     if (!linkedPortalIds.includes(portalPage.id)) {
       // Project exists but is not linked to this portal user → treat as not found
       return null;
     }
   }
 
-  const titleProp = projectPage.properties["Name"];
-  const projectIdProp = projectPage.properties["Project ID"];
-
   return {
     id: projectPage.id,
-    title: titleProp?.title ? richTextToPlainText(titleProp.title) : "",
-    projectId: projectIdProp?.rich_text
-      ? richTextToPlainText(projectIdProp.rich_text)
-      : "",
+    title: getTitleText(projectPage, "Name"),
+    projectId: getRichText(projectPage, "Project ID"),
   };
 }
 
@@ -371,17 +381,13 @@ export async function getPostBySlugForProject(options: {
 
   if (!postsRes.results.length) return null;
 
-  const postPage = postsRes.results[0] as any;
-
-  const titleProp = postPage.properties["Name"];
-  const postIdProp = postPage.properties["Post ID"];
+  const postPage = postsRes.results[0];
+  if (!isFullPageObjectResponse(postPage)) return null;
 
   return {
     id: postPage.id,
-    title: titleProp?.title ? richTextToPlainText(titleProp.title) : "",
-    postId: postIdProp?.rich_text
-      ? richTextToPlainText(postIdProp.rich_text)
-      : "",
+    title: getTitleText(postPage, "Name"),
+    postId: getRichText(postPage, "Post ID"),
   };
 }
 
@@ -411,24 +417,21 @@ export async function getProjectsForPortal(
   const archived: PortalProject[] = [];
 
   for (const result of res.results) {
-    const page = result as any;
-    const nameProp = page.properties["Name"];
-    const projectIdProp = page.properties["Project ID"];
-    const statusProp = page.properties["Status"];
-    const summaryProp = page.properties["Summary"];
+    if (!isFullPageObjectResponse(result)) continue;
+
+    const projectId = getRichText(result, "Project ID") || result.id;
+    const statusProp = result.properties["Status"];
+    const summaryProp = result.properties["Summary"];
 
     const project: PortalProject = {
-      id: page.id,
-      name: nameProp?.title
-        ? richTextToPlainText(nameProp.title)
-        : "Untitled",
-      projectId: projectIdProp?.rich_text
-        ? richTextToPlainText(projectIdProp.rich_text)
-        : page.id,
-      status: statusProp?.select?.name,
-      summary: summaryProp?.rich_text
-        ? richTextToPlainText(summaryProp.rich_text)
-        : undefined,
+      id: result.id,
+      name: getTitleText(result, "Name") || "Untitled",
+      projectId,
+      status: statusProp?.type === "select" ? statusProp.select?.name : undefined,
+      summary:
+        summaryProp?.type === "rich_text"
+          ? richTextToPlainText(summaryProp.rich_text)
+          : undefined,
     };
 
     const isArchived = project.status === "Archived"; // adjust if your statuses differ
@@ -496,19 +499,13 @@ export async function getRecentVisiblePostsForPortal(
   const projectMap = new Map<string, { name: string; projectId: string }>();
 
   for (const result of projectsRes.results) {
-    const page = result as any;
-    const nameProp = page.properties["Name"];
-    const projectIdProp = page.properties["Project ID"];
+    if (!isFullPageObjectResponse(result)) continue;
 
-    const name = nameProp?.title
-      ? richTextToPlainText(nameProp.title)
-      : "Untitled project";
-    const projectIdSlug = projectIdProp?.rich_text
-      ? richTextToPlainText(projectIdProp.rich_text)
-      : page.id;
+    const name = getTitleText(result, "Name") || "Untitled project";
+    const projectIdSlug = getRichText(result, "Project ID") || result.id;
 
-    projectIds.push(page.id);
-    projectMap.set(page.id, {
+    projectIds.push(result.id);
+    projectMap.set(result.id, {
       name,
       projectId: projectIdSlug,
     });
@@ -553,23 +550,16 @@ export async function getRecentVisiblePostsForPortal(
   const recent: PortalRecentPost[] = [];
 
   for (const result of postsRes.results) {
-    const page = result as any;
-    const titleProp = page.properties["Name"];
-    const postIdProp = page.properties["Post ID"];
-    const projectRelProp = page.properties["Project"];
+    if (!isFullPageObjectResponse(result)) continue;
 
-    const title = titleProp?.title
-      ? richTextToPlainText(titleProp.title)
-      : "Untitled post";
-    const postIdSlug = postIdProp?.rich_text
-      ? richTextToPlainText(postIdProp.rich_text)
-      : page.id;
+    const title = getTitleText(result, "Name") || "Untitled post";
+    const postIdSlug = getRichText(result, "Post ID") || result.id;
 
-    const projectRelId: string | undefined = projectRelProp?.relation?.[0]?.id;
+    const projectRelId = getFirstRelationId(result, "Project");
     const projectMeta = projectRelId ? projectMap.get(projectRelId) : undefined;
 
     recent.push({
-      id: page.id,
+      id: result.id,
       postId: postIdSlug,
       title,
       projectName: projectMeta?.name ?? "Unknown project",
@@ -588,8 +578,13 @@ export async function getLatestVisiblePostForPortal(
 }
 
 // Stubs you can flesh out later
-export async function getProjectBySlug(portalUserId: string, projectId: string) {
+export async function getProjectBySlug(
+  portalUserId: string,
+  projectId: string
+) {
   // You can just call getProjectPageForClientProject here and map the fields if needed
+  void portalUserId;
+  void projectId;
 }
 
 export async function getPostsForProject(
@@ -597,10 +592,14 @@ export async function getPostsForProject(
   projectId: string
 ) {
   // Posts where Project = that project & Client Visible = true
+  void portalUserId;
+  void projectId;
 }
 
 export async function getPostBySlug(portalUserId: string, postId: string) {
   // Alternate version if you want a URL like /posts/[postId] without project in the path
+  void portalUserId;
+  void postId;
 }
 
 // --- Feedback helpers ---
