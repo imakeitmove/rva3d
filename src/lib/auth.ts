@@ -1,9 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import type { NextAuthOptions } from "next-auth";
+import type { NextAuthOptions, DefaultSession } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import { Resend } from "resend";
-import type { AdapterUser } from "next-auth/adapters";
+import type { Adapter, AdapterUser } from "next-auth/adapters";
 
 const prisma = new PrismaClient();
 const resend = new Resend(process.env.RESEND_API_KEY!);
@@ -13,8 +13,13 @@ type PortalAdapterUser = AdapterUser & {
   clientId?: string | null; // optional if you still have this in DB
 };
 
+type SessionUser = DefaultSession["user"] & {
+  id?: string;
+  portalUserId?: string | null;
+};
+
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma) as any,
+  adapter: PrismaAdapter(prisma) as Adapter,
   providers: [
     EmailProvider({
       from: process.env.EMAIL_FROM,
@@ -45,10 +50,12 @@ export const authOptions: NextAuthOptions = {
       const u = user as PortalAdapterUser;
 
       if (session.user) {
-        (session.user as any).id = u.id;
+        const sessionUser = session.user as SessionUser;
+
+        sessionUser.id = u.id;
         // pull from portalUserId (or clientId fallback if that still exists in your DB)
-        (session.user as any).portalUserId =
-          u.portalUserId ?? u.clientId ?? null;
+        sessionUser.portalUserId = u.portalUserId ?? u.clientId ?? null;
+        session.user = sessionUser;
       }
 
       return session;

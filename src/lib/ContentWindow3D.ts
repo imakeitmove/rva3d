@@ -1,7 +1,7 @@
 // lib/ContentWindow3D.ts
 import * as THREE from 'three';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
-import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
+import { FontLoader, type Font } from 'three/examples/jsm/loaders/FontLoader.js';
 import type { World } from '@dimforge/rapier3d-compat';
 import type { NotionPortfolioItem } from '@/types/portfolio';
 
@@ -9,7 +9,7 @@ export type ContentWindowState = 'idle' | 'transitioning' | 'active';
 export type GeometryShape = 'cube' | 'pie-slice' | 'card' | 'sphere-segment' | 'wave-segment';
 export type DisplayMode = 'thumbnail' | 'fullscreen';
 
-let fontCache: any = null;
+let fontCache: Font | null = null;
 
 export class ContentWindow3D {
   id: string;
@@ -43,6 +43,9 @@ export class ContentWindow3D {
   
   // Display state
   displayMode: DisplayMode = 'thumbnail';
+
+  // Physics world (reserved for future use)
+  world?: World;
   
   // Physics
   velocity: THREE.Vector3 = new THREE.Vector3();
@@ -68,10 +71,11 @@ export class ContentWindow3D {
   constructor(
     notionData: NotionPortfolioItem,
     position: THREE.Vector3 = new THREE.Vector3(),
-    _world?: World // kept for future physics use
+    world?: World // kept for future physics use
   ) {
     this.id = notionData.id;
     this.notionData = notionData;
+    this.world = world;
 
     // Create invisible target
     this.targetObject = new THREE.Object3D();
@@ -425,10 +429,10 @@ export class ContentWindow3D {
     }
   }
   
-  async morphToShape(shape: GeometryShape, _duration: number = 1.0) {
+  async morphToShape(shape: GeometryShape, duration: number = 1.0) {
     if (this.currentShape === shape) return;
-    
-    console.log(`🔄 Morphing ${this.notionData.title} to ${shape}`);
+
+    console.log(`🔄 Morphing ${this.notionData.title} to ${shape} over ${duration}s`);
     
     const targetGeometry = this.createGeometryForShape(shape);
     this.cubeMesh.geometry.dispose();

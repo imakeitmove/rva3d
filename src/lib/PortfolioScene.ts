@@ -2,12 +2,13 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import gsap from "gsap";
-import { ContentWindow3D } from "./ContentWindow3D";
+import { ContentWindow3D, type GeometryShape } from "./ContentWindow3D";
 import { LayoutFactory } from "./layouts/calculators";
 import type {
   NotionPortfolioItem,
   ViewMode,
   LayoutConfig,
+  LayoutParams,
   // ⚠️ Note: we intentionally do NOT import InteractionState from here anymore
 } from "@/types/portfolio";
 
@@ -291,7 +292,7 @@ export class PortfolioScene {
 
   async transitionToLayout(
     mode: ViewMode,
-    params: any = {},
+    params: LayoutParams = {},
     duration: number = 1.5
   ) {
     if (this.isTransitioning) return;
@@ -355,7 +356,7 @@ export class PortfolioScene {
       });
 
       // Morph geometry based on layout
-      const shapeMap: { [key in ViewMode]?: any } = {
+      const shapeMap: Partial<Record<ViewMode, GeometryShape>> = {
         grid: "cube",
         carousel: "pie-slice",
         sphere: "sphere-segment",
