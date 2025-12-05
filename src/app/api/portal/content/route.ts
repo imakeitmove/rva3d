@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
     }
 
     return NextResponse.json(page);
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Error loading portal content", err);
     return NextResponse.json(
       { error: "Internal server error" },
