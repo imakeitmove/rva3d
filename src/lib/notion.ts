@@ -4,6 +4,8 @@ import type {
   PartialPageObjectResponse,
   RichTextItemResponse,
   RelationPropertyItemObjectResponse,
+  PartialDatabaseObjectResponse,
+  DatabaseObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
 
 // --- Notion client setup ---
@@ -39,8 +41,13 @@ if (!POSTS_DB_ID) {
 // --- Helpers ---
 
 const isFullPageObjectResponse = (
-  result: PageObjectResponse | PartialPageObjectResponse
-): result is PageObjectResponse => "properties" in result;
+  result:
+    | PageObjectResponse
+    | PartialPageObjectResponse
+    | PartialDatabaseObjectResponse
+    | DatabaseObjectResponse
+): result is PageObjectResponse =>
+  "object" in result && result.object === "page" && "properties" in result;
 
 function richTextToPlainText(
   richText: RichTextItemResponse[] | undefined
@@ -592,14 +599,14 @@ export async function getPostsForProject(
   _projectId: string
 ) {
   // Posts where Project = that project & Client Visible = true
-  void portalUserId;
-  void projectId;
+  void _portalUserId;
+  void _projectId;
 }
 
 export async function getPostBySlug(_portalUserId: string, _postId: string) {
   // Alternate version if you want a URL like /posts/[postId] without project in the path
-  void portalUserId;
-  void postId;
+  void _portalUserId;
+  void _postId;
 }
 
 // --- Feedback helpers ---
