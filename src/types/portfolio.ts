@@ -77,11 +77,14 @@ export interface LayoutParams {
   amplitude?: number;
   columns?: number;
   rows?: number;
+  // Some layouts (e.g., constellation) expose their generated positions for reuse/debugging
+  positions?: THREE.Vector3[];
   [key: string]:
     | number
     | string
     | boolean
     | THREE.Vector3
+    | THREE.Vector3[]
     | THREE.Euler
     | THREE.Color
     | undefined;
