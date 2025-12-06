@@ -1,9 +1,43 @@
 // lib/layouts/calculators.ts
 import * as THREE from 'three';
-import type { LayoutConfig, LayoutCalculator } from '@/types/portfolio';
+import type {
+  LayoutConfig,
+  LayoutCalculator,
+  LayoutParams,
+} from '@/types/portfolio';
+
+type GridParams = LayoutParams & { spacing?: number; aspectRatio?: number };
+type SpiralParams = LayoutParams & {
+  radiusStart?: number;
+  radiusGrowth?: number;
+  heightGrowth?: number;
+  rotations?: number;
+};
+type SphereParams = LayoutParams & { radius?: number };
+type WaveParams = LayoutParams & {
+  spacing?: number;
+  amplitude?: number;
+  frequency?: number;
+  phase?: number;
+};
+type ConstellationParams = LayoutParams & {
+  spread?: number;
+  minDistance?: number;
+  seed?: number;
+};
+type CarouselParams = LayoutParams & {
+  radius?: number;
+  tilt?: number;
+  currentIndex?: number;
+};
+type TimelineParams = LayoutParams & {
+  spacing?: number;
+  curve?: number;
+  dates?: Array<string | Date>;
+};
 
 export class GridLayout implements LayoutCalculator {
-  calculate(itemCount: number, params: any = {}): LayoutConfig {
+  calculate(itemCount: number, params: GridParams = {}): LayoutConfig {
     const { spacing = 3, aspectRatio = 16/9 } = params;
     
     // Calculate optimal grid dimensions
@@ -46,7 +80,7 @@ export class GridLayout implements LayoutCalculator {
 }
 
 export class SpiralLayout implements LayoutCalculator {
-  calculate(itemCount: number, params: any = {}): LayoutConfig {
+  calculate(itemCount: number, params: SpiralParams = {}): LayoutConfig {
     const { 
       radiusStart = 2, 
       radiusGrowth = 0.5, 
@@ -97,7 +131,7 @@ export class SpiralLayout implements LayoutCalculator {
 }
 
 export class SphereLayout implements LayoutCalculator {
-  calculate(itemCount: number, params: any = {}): LayoutConfig {
+  calculate(itemCount: number, params: SphereParams = {}): LayoutConfig {
     const { radius = 8 } = params;
     
     const transforms = [];
@@ -145,7 +179,7 @@ export class SphereLayout implements LayoutCalculator {
 }
 
 export class WaveLayout implements LayoutCalculator {
-  calculate(itemCount: number, params: any = {}): LayoutConfig {
+  calculate(itemCount: number, params: WaveParams = {}): LayoutConfig {
     const { 
       spacing = 2.5,
       amplitude = 3,
@@ -194,7 +228,7 @@ export class WaveLayout implements LayoutCalculator {
 }
 
 export class ConstellationLayout implements LayoutCalculator {
-  calculate(itemCount: number, params: any = {}): LayoutConfig {
+  calculate(itemCount: number, params: ConstellationParams = {}): LayoutConfig {
     const { 
       spread = 15,
       minDistance = 2,
@@ -266,7 +300,7 @@ export class ConstellationLayout implements LayoutCalculator {
 }
 
 export class CarouselLayout implements LayoutCalculator {
-  calculate(itemCount: number, params: any = {}): LayoutConfig {
+  calculate(itemCount: number, params: CarouselParams = {}): LayoutConfig {
     const { 
       radius = 12,
       tilt = 0.2,
@@ -317,7 +351,7 @@ export class CarouselLayout implements LayoutCalculator {
 }
 
 export class TimelineLayout implements LayoutCalculator {
-  calculate(itemCount: number, params: any = {}): LayoutConfig {
+  calculate(itemCount: number, params: TimelineParams = {}): LayoutConfig {
     const { 
       spacing = 4,
       curve = 0.5,
@@ -379,7 +413,7 @@ export class LayoutFactory {
     this.calculators.set(name, calculator);
   }
   
-  calculate(mode: string, itemCount: number, params: any = {}): LayoutConfig {
+  calculate(mode: string, itemCount: number, params: LayoutParams = {}): LayoutConfig {
     const calculator = this.calculators.get(mode);
     if (!calculator) {
       throw new Error(`Layout calculator not found: ${mode}`);
