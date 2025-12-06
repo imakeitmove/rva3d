@@ -4,6 +4,8 @@ import type {
   PartialPageObjectResponse,
   RichTextItemResponse,
   RelationPropertyItemObjectResponse,
+  PartialDatabaseObjectResponse,
+  DatabaseObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
 
 // --- Notion client setup ---
@@ -39,8 +41,13 @@ if (!POSTS_DB_ID) {
 // --- Helpers ---
 
 const isFullPageObjectResponse = (
-  result: PageObjectResponse | PartialPageObjectResponse
-): result is PageObjectResponse => "properties" in result;
+  result:
+    | PageObjectResponse
+    | PartialPageObjectResponse
+    | PartialDatabaseObjectResponse
+    | DatabaseObjectResponse
+): result is PageObjectResponse =>
+  "object" in result && result.object === "page" && "properties" in result;
 
 function richTextToPlainText(
   richText: RichTextItemResponse[] | undefined

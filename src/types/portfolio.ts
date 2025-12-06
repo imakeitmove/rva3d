@@ -83,10 +83,12 @@ export interface LayoutParams {
     | number
     | string
     | boolean
+    | Date
     | THREE.Vector3
     | THREE.Vector3[]
     | THREE.Euler
     | THREE.Color
+    | (string | Date)[]
     | undefined;
 }
 
