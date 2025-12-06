@@ -77,8 +77,7 @@ export interface LayoutParams {
   amplitude?: number;
   columns?: number;
   rows?: number;
-  // Some layouts (e.g., constellation) need to surface collections of positions
-  // for reuse/debugging, so allow arrays of vectors alongside single transforms.
+  // Some layouts (e.g., constellation) expose their generated positions for reuse/debugging
   positions?: THREE.Vector3[];
   [key: string]:
     | number

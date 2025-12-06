@@ -283,6 +283,7 @@ export class ConstellationLayout implements LayoutCalculator {
         target: new THREE.Vector3(0, 0, 0),
         fov: 50
       },
+      // Expose generated positions for consumers that need the full constellation layout
       params: { spread, minDistance, seed, positions },
       interactionMode: 'drag',
       physicsEnabled: true
