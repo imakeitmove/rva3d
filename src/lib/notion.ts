@@ -599,14 +599,14 @@ export async function getPostsForProject(
   _projectId: string
 ) {
   // Posts where Project = that project & Client Visible = true
-  void portalUserId;
-  void projectId;
+  void _portalUserId;
+  void _projectId;
 }
 
 export async function getPostBySlug(_portalUserId: string, _postId: string) {
   // Alternate version if you want a URL like /posts/[postId] without project in the path
-  void portalUserId;
-  void postId;
+  void _portalUserId;
+  void _postId;
 }
 
 // --- Feedback helpers ---
