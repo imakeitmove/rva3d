@@ -64,6 +64,7 @@ interface NotionPageProperties extends Record<string, unknown> {
   published_at?: { date: { start: string } | null };
   'Published At'?: { date: { start: string } | null };
   PublishedAt?: { date: { start: string } | null };
+  'Featured Start Date'?: { date: { start: string } | null };
   excerpt?: { rich_text: Array<{ plain_text: string }> };
   Excerpt?: { rich_text: Array<{ plain_text: string }> };
   cover_image?: { url: string } | null;
@@ -99,7 +100,8 @@ export async function getPortfolioItems(): Promise<NotionPortfolioItem[]> {
       },
       sorts: [
         {
-          property: 'Published At',
+          // property: 'Published At',
+          property: 'Featured Start Date',
           direction: 'descending',
         },
       ],
@@ -240,6 +242,7 @@ function transformNotionPageToPortfolioItem(page: PageObjectResponse): NotionPor
 
   // Extract published date
   const publishedProperty =
+    properties['Featured Start Date'] ||
     properties.published_at ||
     properties['Published At'] ||
     properties.PublishedAt;
@@ -374,7 +377,8 @@ export async function getPortfolioByCategory(category: string): Promise<NotionPo
       },
       sorts: [
         {
-          property: 'Published At',
+          // property: 'Published At',
+          property: 'Featured Start Date',
           direction: 'descending',
         },
       ],
@@ -403,7 +407,8 @@ export async function getPortfolioByTag(tag: string): Promise<NotionPortfolioIte
       },
       sorts: [
         {
-          property: 'Published At',
+          // property: 'Published At',
+          property: 'Featured Start Date',
           direction: 'descending',
         },
       ],
