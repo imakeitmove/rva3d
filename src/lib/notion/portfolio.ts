@@ -1,5 +1,13 @@
 // lib/notion/portfolio.ts
 import { Client } from '@notionhq/client';
+import type {
+  BlockObjectResponse,
+  GetPageResponse,
+  ListBlockChildrenResponse,
+  PageObjectResponse,
+  PartialBlockObjectResponse,
+  QueryDatabaseResponse,
+} from '@notionhq/client/build/src/api-endpoints';
 import type { NotionPortfolioItem } from '@/types/portfolio';
 
 // Initialize Notion client
@@ -8,6 +16,20 @@ const notion = new Client({
 });
 
 const PORTFOLIO_DATABASE_ID = process.env.NOTION_PORTFOLIO_DB || '';
+
+type QueryResult = QueryDatabaseResponse['results'][number];
+
+function hasPageProperties(
+  page: QueryResult | GetPageResponse,
+): page is PageObjectResponse {
+  return page.object === 'page' && 'properties' in page;
+}
+
+function isBlockObject(
+  block: ListBlockChildrenResponse['results'][number],
+): block is BlockObjectResponse | PartialBlockObjectResponse {
+  return block.object === 'block';
+}
 
 // Debug logging (remove after fixing)
 if (typeof window === 'undefined') { // Only log on server
@@ -25,15 +47,28 @@ if (typeof window === 'undefined') { // Only log on server
   }
 }
 
-interface NotionPageProperties {
-  title: { title: Array<{ plain_text: string }> };
+interface FilePropertyValue {
+  files: Array<{ file?: { url: string }; external?: { url: string } }>;
+}
+
+interface NotionPageProperties extends Record<string, unknown> {
+  title?: { title: Array<{ plain_text: string }> };
+  Name?: { title: Array<{ plain_text: string }> };
+  name?: { title: Array<{ plain_text: string }> };
+  Slug?: { rich_text: Array<{ plain_text: string }> };
   slug?: { rich_text: Array<{ plain_text: string }> };
   category?: { select: { name: string } | null };
+  Category?: { select: { name: string } | null };
   tags?: { multi_select: Array<{ name: string }> };
+  Tags?: { multi_select: Array<{ name: string }> };
   published_at?: { date: { start: string } | null };
+  'Published At'?: { date: { start: string } | null };
+  PublishedAt?: { date: { start: string } | null };
   excerpt?: { rich_text: Array<{ plain_text: string }> };
+  Excerpt?: { rich_text: Array<{ plain_text: string }> };
   cover_image?: { url: string } | null;
-  thumbnail?: { files: Array<{ file?: { url: string }; external?: { url: string } }> };
+  thumbnail?: FilePropertyValue;
+  Thumbnail?: FilePropertyValue;
 }
 
 /**
@@ -72,13 +107,14 @@ export async function getPortfolioItems(): Promise<NotionPortfolioItem[]> {
 
     console.log(`✅ Fetched ${response.results.length} featured portfolio items`);
     
+    const pages = response.results.filter(hasPageProperties);
+
     // Debug: Log the first item's properties to see the structure
-    if (response.results.length > 0) {
-      const firstPage = response.results[0] as any;
-      console.log('🔍 First item properties:', Object.keys(firstPage.properties || {}));
+    if (pages.length > 0) {
+      console.log('🔍 First item properties:', Object.keys(pages[0].properties || {}));
     }
-    
-    const items = response.results.map(page => transformNotionPageToPortfolioItem(page as any));
+
+    const items = pages.map(page => transformNotionPageToPortfolioItem(page));
     
     console.log(`✅ Transformed ${items.length} portfolio items`);
     if (items.length > 0) {
@@ -105,7 +141,12 @@ export async function getPortfolioItems(): Promise<NotionPortfolioItem[]> {
 export async function getPortfolioItem(pageId: string): Promise<NotionPortfolioItem | null> {
   try {
     const page = await notion.pages.retrieve({ page_id: pageId });
-    return transformNotionPageToPortfolioItem(page as any);
+    if (!hasPageProperties(page)) {
+      console.error('Retrieved page is missing properties');
+      return null;
+    }
+
+    return transformNotionPageToPortfolioItem(page);
   } catch (error) {
     console.error('Error fetching portfolio item from Notion:', error);
     return null;
@@ -131,7 +172,12 @@ export async function getPortfolioItemBySlug(slug: string): Promise<NotionPortfo
       return null;
     }
 
-    return transformNotionPageToPortfolioItem(response.results[0] as any);
+    const page = response.results.find(hasPageProperties);
+    if (!page) {
+      return null;
+    }
+
+    return transformNotionPageToPortfolioItem(page);
   } catch (error) {
     console.error('Error fetching portfolio item by slug:', error);
     return null;
@@ -141,13 +187,13 @@ export async function getPortfolioItemBySlug(slug: string): Promise<NotionPortfo
 /**
  * Fetch page content blocks for a portfolio item
  */
-export async function getPortfolioItemContent(pageId: string) {
+export async function getPortfolioItemContent(pageId: string): Promise<Array<BlockObjectResponse | PartialBlockObjectResponse>> {
   try {
     const blocks = await notion.blocks.children.list({
       block_id: pageId,
     });
 
-    return blocks.results;
+    return blocks.results.filter(isBlockObject);
   } catch (error) {
     console.error('Error fetching portfolio item content:', error);
     return [];
@@ -157,29 +203,25 @@ export async function getPortfolioItemContent(pageId: string) {
 /**
  * Transform a Notion page to our portfolio item format
  */
-function transformNotionPageToPortfolioItem(page: any): NotionPortfolioItem {
+function transformNotionPageToPortfolioItem(page: PageObjectResponse): NotionPortfolioItem {
   const properties = page.properties as NotionPageProperties;
   
   console.log('🔄 Transforming page:', page.id);
   console.log('   Properties available:', Object.keys(properties));
-  
+
   // Extract title - try common property names
   let title = 'Untitled';
-  const titleProperty = 
-    (properties as any)["Name"] ?? (properties as any)["name"];
-  
-  if (titleProperty) {
-    console.log('   Title property type:', titleProperty.type);
-    if (titleProperty.type === 'title' && titleProperty.title?.[0]) {
-      title = titleProperty.title[0].plain_text;
-    }
+  const titleProperty = properties.Name ?? properties.name ?? properties.title;
+
+  if (titleProperty?.title?.[0]) {
+    title = titleProperty.title[0].plain_text;
   }
-  
+
   console.log('   Extracted title:', title);
-  
+
   // Extract or generate slug
-  let slug = properties.slug?.rich_text?.[0]?.plain_text || 
-             properties.slug?.rich_text?.[0]?.plain_text || '';
+  const slugProperty = properties.slug ?? properties.Slug;
+  let slug = slugProperty?.rich_text?.[0]?.plain_text || '';
   if (!slug) {
     // Generate slug from title
     slug = title
@@ -189,28 +231,25 @@ function transformNotionPageToPortfolioItem(page: any): NotionPortfolioItem {
   }
   
   // Extract category
-  const category = properties.category?.select?.name || 
-                   properties.Category?.select?.name || 
-                   undefined;
-  
+  const categoryProperty = properties.category ?? properties.Category;
+  const category = categoryProperty?.select?.name || undefined;
+
   // Extract tags
-  const tags = properties.tags?.multi_select?.map(tag => tag.name) || 
-               properties.Tags?.multi_select?.map(tag => tag.name) || 
-               [];
-  
+  const tagsProperty = properties.tags ?? properties.Tags;
+  const tags = tagsProperty?.multi_select?.map(tag => tag.name) || [];
+
   // Extract published date
-  const publishedAt = properties.published_at?.date?.start || 
-                      properties['Published At']?.date?.start ||
-                      properties.PublishedAt?.date?.start
-    ? new Date(properties.published_at?.date?.start || 
-               properties['Published At']?.date?.start ||
-               properties.PublishedAt?.date?.start)
-    : new Date();
-  
+  const publishedProperty =
+    properties.published_at ||
+    properties['Published At'] ||
+    properties.PublishedAt;
+
+  const publishedDate = publishedProperty?.date?.start;
+  const publishedAt = publishedDate ? new Date(publishedDate) : new Date();
+
   // Extract excerpt
-  const excerpt = properties.excerpt?.rich_text?.[0]?.plain_text || 
-                  properties.Excerpt?.rich_text?.[0]?.plain_text || 
-                  undefined;
+  const excerptProperty = properties.excerpt ?? properties.Excerpt;
+  const excerpt = excerptProperty?.rich_text?.[0]?.plain_text || undefined;
   
   // Extract cover image
   let coverImage: string | undefined;
@@ -224,7 +263,7 @@ function transformNotionPageToPortfolioItem(page: any): NotionPortfolioItem {
   
   // Extract thumbnail (fallback to cover)
   let thumbnail: string | undefined;
-  const thumbnailProp = properties.thumbnail?.files?.[0] || 
+  const thumbnailProp = properties.thumbnail?.files?.[0] ||
                        properties.Thumbnail?.files?.[0];
   if (thumbnailProp) {
     thumbnail = thumbnailProp.file?.url || thumbnailProp.external?.url;
@@ -312,7 +351,8 @@ export async function searchPortfolio(query: string): Promise<NotionPortfolioIte
       },
     });
 
-    return response.results.map(page => transformNotionPageToPortfolioItem(page as any));
+    const pages = response.results.filter(hasPageProperties);
+    return pages.map(page => transformNotionPageToPortfolioItem(page));
   } catch (error) {
     console.error('Error searching portfolio:', error);
     return [];
@@ -340,7 +380,8 @@ export async function getPortfolioByCategory(category: string): Promise<NotionPo
       ],
     });
 
-    return response.results.map(page => transformNotionPageToPortfolioItem(page as any));
+    const pages = response.results.filter(hasPageProperties);
+    return pages.map(page => transformNotionPageToPortfolioItem(page));
   } catch (error) {
     console.error('Error fetching portfolio by category:', error);
     return [];
@@ -368,7 +409,8 @@ export async function getPortfolioByTag(tag: string): Promise<NotionPortfolioIte
       ],
     });
 
-    return response.results.map(page => transformNotionPageToPortfolioItem(page as any));
+    const pages = response.results.filter(hasPageProperties);
+    return pages.map(page => transformNotionPageToPortfolioItem(page));
   } catch (error) {
     console.error('Error fetching portfolio by tag:', error);
     return [];

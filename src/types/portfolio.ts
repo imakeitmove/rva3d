@@ -1,6 +1,10 @@
 // types/portfolio.ts
 import * as THREE from 'three';
 import type { RigidBody } from '@dimforge/rapier3d-compat';
+import type {
+  BlockObjectResponse,
+  PartialBlockObjectResponse,
+} from '@notionhq/client/build/src/api-endpoints';
 
 export interface NotionPortfolioItem {
   id: string;
@@ -13,7 +17,7 @@ export interface NotionPortfolioItem {
   publishedAt: Date;
   excerpt?: string;
   // Rich Notion page content
-  blocks?: any[];
+  blocks?: Array<BlockObjectResponse | PartialBlockObjectResponse>;
 }
 
 export interface ContentWindowState {
@@ -67,6 +71,25 @@ export type ViewMode =
   | 'timeline'       // Linear timeline based on date
   | 'fullscreen';    // Single item fullscreen
 
+export interface LayoutParams {
+  spacing?: number;
+  radius?: number;
+  amplitude?: number;
+  columns?: number;
+  rows?: number;
+  // Some layouts (e.g., constellation) expose their generated positions for reuse/debugging
+  positions?: THREE.Vector3[];
+  [key: string]:
+    | number
+    | string
+    | boolean
+    | THREE.Vector3
+    | THREE.Vector3[]
+    | THREE.Euler
+    | THREE.Color
+    | undefined;
+}
+
 export interface LayoutConfig {
   mode: ViewMode;
   itemCount: number;
@@ -86,14 +109,7 @@ export interface LayoutConfig {
   };
   
   // Layout-specific parameters
-  params: {
-    spacing?: number;
-    radius?: number;
-    amplitude?: number;
-    columns?: number;
-    rows?: number;
-    [key: string]: any;
-  };
+  params: LayoutParams;
   
   // Behavior overrides for this layout
   interactionMode?: 'hover' | 'drag' | 'click' | 'none';
@@ -171,7 +187,7 @@ export interface PortfolioSceneConfig {
 
 // Layout calculator interface
 export interface LayoutCalculator {
-  calculate(items: number, params: any): LayoutConfig;
+  calculate(items: number, params: LayoutParams): LayoutConfig;
 }
 
 // Transition orchestrator

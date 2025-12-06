@@ -22,6 +22,142 @@ RVA3D is a cinematic, 3D-first web experience for portfolio storytelling, a coll
 - **Auth/API:** Next.js route handlers under `src/app/api/*`; keep server concerns isolated in `src/lib`.
 - **Styling:** Tailwind or CSS Modules; keep shared UI primitives in `src/components`.
 
+## Notion Database Setups
+
+Notion database being used with NOTION_TOKEN:
+
+Portfolio (NOTION_PORTFOLIO_DB)
+ Name
+ Status
+ --Not Featured
+ --Featured
+ --To Be Featured
+ Summary (text)
+ Internal Notes (text)
+ Tags (multiselect  - various labels to make searchable Rendering, Animation, Photoreal, Beverage, VFX, etc)
+ Link (URL link to output/download file)
+ Project (relation to Projects database)
+ Client (rollup from projects)
+ Created (Created time. Notion does not use the term "publish" for this database property)
+ Post ID (url permalink name - automation generates once from Name property and does not change)
+ Category (select)
+
+Projects (NOTION_PROJECTS_DB_ID)
+ Name
+ Clients (relation to Companies database)
+ Status
+ --Inquiry
+ --Upcoming
+ --Active
+ --With Client
+ --On Hold
+ --Perpetual
+ --Ready To Invoice
+ --Invoiced
+ --Archived
+ --Cancelled
+ Summary (text)
+ Client Visible (formula that outputs checkbox)
+ Hide Project (checkbox to completely turn off client visibility)
+ Invoices (relation to Invoices database)
+ Project Dates (contains start and end date data as well as times of day)
+ Category (select)
+ --Work Project
+ --Passion Project
+ --Life Project
+ --Admin Work
+ Archive Drive (relation to Archive Drives database)
+ Job Number (internal string for folder naming in windows)
+ Project ID (url permalink name - automation generates once from Name property and does not change)
+ Created (Created on)
+ Blocked By (relation to Projects)
+ Is Blocking (relation to Projects)
+ Completion (rollup of Mileston database's Status property calculating percent per group)
+ Priority (select)
+ --Optional
+ --Low Priority
+ --Medium Priority
+ --Mandatory
+ --Top Priority
+ Milestones (relation to Milestons database)
+ Files & Media (originally intended for delivery files but now using Posts database to store client-viewable media)
+ Outputs (redundant and originally for link to hosted video on google drive)
+ Parent Project (relation to Projects)
+ Portal Page (relation to Portal Pages database)
+ 
+ Portal Users (NOTION_PORTAL_DB_ID)
+ Name
+ User ID (text, manual entry)
+ Status
+ --Inactive
+ --Active
+ --Archived
+ username (display-friendly name - Firstname Lastname for example)
+ email (email property type - manual entry)
+ Notes (text)
+ Content (text)
+ Work Projects (relation to Projects database)
+ Client (rollup from Projects)
+ Created (Created time property)
+ Slug (text)
+ Profile Image (Files and Media for user avatar)
+ 
+ Posts (NOTION_POSTS_DB_ID)
+ Name
+ Status (for both internal and external approvals)
+ --New Content
+ --Draft
+ --Internal QC
+ --CQ Feedback
+ --Client Review
+ --Client Feedback
+ --Approved
+ --Rejected
+ --Reviewed
+ --Void
+ Summary (text)
+ Caveats (text)
+ Internal Notes (text - may opt to have notes be another feedback comment in Post page)
+ Tags (multiselect  - not currently being used but may want another way to filter Posts)
+ Link (URL link to output/download file)
+ Project (relation to Projects database)
+ Client (rollup from projects)
+ Created (Created time. Notion does not use the term "publish" for this database property)
+ Post ID (url permalink name - automation generates once from Name property and does not change)
+Passcode (formula that generates a unique passcode for each post)
+ Milestone (relation to Milestones database)
+ Client Feedback (relation to Client Feedback database)
+ Category (select)
+ --Internal Post
+ --WIP Post
+ --Rough for Review
+ --Delivery for Review
+ --Deliverables 
+ 
+ Client Feedback (NOTION_FEEDBACK_DB_ID)
+ Name
+ Category (I have not filled out the options for this, nor am I sure if I need it)
+ Post (relation to Posts database)
+ Message (text)
+ Internal Notes (not sure I need this... they could just be comment entries same as the client message. I know the database is called Client Feedback but it could contain internal feedback as well.)
+ Status
+ --Comment
+ --Needs Changes
+ --Approved
+ Approved (checkbox)
+ Author Name (Created by property)
+ Author Email (email property)
+ Role (select)
+ --Studio
+ --Client
+ Attachments (Files & Media)
+ Created (Created time)
+ No ID (unique integer generated for each entry in the DB)
+ Portal Pages (relation)
+ Timecode (Number)
+ TimecodeFormatted (formula to display timecode in min:sec)
+
+
 ## Content & Data Model (Notion-focused)
 - **Projects:** Client ownership, status, dates, categories, and permalink (`Project ID`). Includes client-visible flags and optional hierarchy.
 - **Posts:** Child of a project with status (Draft → Client Review → Approved, etc.), summary/caveats, media links, tags/category, and unique `Post ID`/passcode.

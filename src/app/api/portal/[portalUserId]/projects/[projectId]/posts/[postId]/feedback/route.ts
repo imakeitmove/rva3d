@@ -15,6 +15,12 @@ const ALLOWED_STATUSES: FeedbackStatus[] = [
   "Approved",
 ];
 
+type SessionUser = {
+  email?: string | null;
+  name?: string | null;
+  portalUserId?: string | null;
+};
+
 type RouteParams = {
   portalUserId: string;
   projectId: string;
@@ -33,10 +39,10 @@ export async function POST(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const sessionPortalUserId = (session.user as any)
-    .portalUserId as string | undefined;
-  const email = (session.user as any).email as string | undefined;
-  const name = (session.user as any).name as string | undefined;
+  const sessionUser = session.user as SessionUser;
+  const sessionPortalUserId = sessionUser.portalUserId ?? undefined;
+  const email = sessionUser.email ?? undefined;
+  const name = sessionUser.name ?? undefined;
 
   if (!email) {
     return NextResponse.json({ error: "No email in session" }, { status: 400 });
