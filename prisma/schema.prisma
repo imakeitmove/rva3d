@@ -15,7 +15,8 @@ model User {
   createdAt     DateTime @default(now())
 
   /// Notion "User ID" from Portal Users DB
-  portalportalUserId  String?  @unique
+  // portalportalUserId  String?  @unique
+  portalUserId    String?  @unique @map("portalportalUserId")
 
   accounts      Account[]
   sessions      Session[]
@@ -24,7 +25,8 @@ model User {
 
 model Account {
   id                String  @id @default(cuid())
-  portalUserId            String
+  // portalUserId            String
+  userId            String @map("portalUserId")
   type              String
   provider          String
   providerAccountId String
@@ -37,7 +39,7 @@ model Account {
   session_state     String?
 
   // RELATION MUST POINT TO User.id
-  user User @relation(fields: [portalUserId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -45,11 +47,12 @@ model Account {
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique
-  portalUserId       String
+  // portalUserId       String
+  userId       String @map("portalUserId")
   expires      DateTime
 
   // RELATION MUST POINT TO User.id
-  user User @relation(fields: [portalUserId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model VerificationToken {
@@ -62,12 +65,13 @@ model VerificationToken {
 
 model PostView {
   id           String   @id @default(cuid())
-  portalUserId       String
+  // portalUserId       String
+  userId       String @map("portalUserId")
   postId       String   // Notion Post ID / slug
   lastViewedAt DateTime @default(now())
 
   // RELATION MUST POINT TO User.id
-  user User @relation(fields: [portalUserId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([portalUserId, postId])
+  @@unique([userId, postId])
 }
