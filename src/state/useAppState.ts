@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type Mode = "intro" | "sandbox" | "portal";
+export type Mode = "intro" | "sandbox" | "portal" | "work" | "services";
 
 export const useAppState = create<{
   mode: Mode;

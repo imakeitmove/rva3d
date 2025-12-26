@@ -7,6 +7,7 @@ import { IntroScene } from "@/components/three/IntroScene";
 import { SandboxScene } from "@/components/three/SandboxScene";
 import { Overlay } from "@/components/ui/Overlay";
 import { useAppState } from "@/state/useAppState";
+import { getSceneModeForPathname } from "@/lib/routeSceneMap";
 
 export function MarketingCanvas() {
   const pathname = usePathname();
@@ -22,14 +23,11 @@ export function MarketingCanvas() {
   }, [pathname]);
 
   useEffect(() => {
-    if (!pathname) return;
-    if (pathname.startsWith("/sandbox")) {
-      setMode("sandbox");
-      return;
+    const nextMode = getSceneModeForPathname(pathname);
+    if (nextMode !== mode) {
+      setMode(nextMode);
     }
-    // default marketing experience
-    setMode("intro");
-  }, [pathname, setMode]);
+  }, [pathname, setMode, mode]);
 
   if (!shouldShowCanvas) {
     return null;
