@@ -1,18 +1,16 @@
 import Link from "next/link";
 import type React from "react";
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildPageMetadata } from "@/lib/seoMetadata";
+import { getLocalBusinessSchema } from "@/lib/jsonLdSchemas";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Contact RVA3D | Richmond, VA Studio",
   description:
     "Reach RVA3D in Richmond, VA for 3D animation, interactive web, and visualization projects. Schedule a discovery call or RVA studio session.",
-  openGraph: {
-    title: "Contact RVA3D | Richmond, VA Studio",
-    description:
-      "Connect with RVA3D to plan launches, installations, or interactive campaigns built in Richmond, VA.",
-    type: "website",
-  },
-};
+  path: "/contact",
+});
 
 const containerStyle: React.CSSProperties = {
   minHeight: "100vh",
@@ -71,6 +69,7 @@ export default function ContactPage() {
             RVA. We look forward to collaborating.
           </p>
         </section>
+        <JsonLd data={getLocalBusinessSchema()} />
       </section>
     </main>
   );

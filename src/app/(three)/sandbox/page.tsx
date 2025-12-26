@@ -1,18 +1,21 @@
 import type { Metadata } from "next";
 import SandboxPageClient from "./SandboxPageClient";
+import { buildPageMetadata } from "@/lib/seoMetadata";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { getLocalBusinessSchema } from "@/lib/jsonLdSchemas";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Sandbox | RVA3D Interactive Experiments",
   description:
     "Explore RVA3D sandbox prototypes from Richmond, VA—early interactive 3D ideas and shader explorations before they become launch-ready experiences.",
-  openGraph: {
-    title: "Sandbox | RVA3D Interactive Experiments",
-    description:
-      "Try RVA3D’s Richmond-built sandbox experiments showcasing interactive controls, camera rigs, and shader studies.",
-    type: "website",
-  },
-};
+  path: "/sandbox",
+});
 
 export default function SandboxPage() {
-  return <SandboxPageClient />;
+  return (
+    <>
+      <SandboxPageClient />
+      <JsonLd data={getLocalBusinessSchema()} />
+    </>
+  );
 }

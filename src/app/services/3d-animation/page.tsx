@@ -1,18 +1,16 @@
 import Link from "next/link";
 import type React from "react";
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildPageMetadata } from "@/lib/seoMetadata";
+import { getLocalBusinessSchema } from "@/lib/jsonLdSchemas";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "3D Animation Services | RVA3D in Richmond",
   description:
     "Cinematic 3D animation from RVA3D in Richmond, VA—launch films, explainers, and motion identities built for broadcast and real-time delivery.",
-  openGraph: {
-    title: "3D Animation Services | RVA3D in Richmond",
-    description:
-      "Partner with RVA3D’s Richmond team for cinematic 3D animation, simulations, and lighting that ship as polished launch assets.",
-    type: "website",
-  },
-};
+  path: "/services/3d-animation",
+});
 
 const containerStyle: React.CSSProperties = {
   minHeight: "100vh",
@@ -76,6 +74,7 @@ export default function AnimationPage() {
             storyboard this week.
           </p>
         </section>
+        <JsonLd data={getLocalBusinessSchema()} />
       </section>
     </main>
   );

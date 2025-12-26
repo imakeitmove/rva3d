@@ -2,6 +2,9 @@ import Link from "next/link";
 import type React from "react";
 import type { Metadata } from "next";
 import { sampleProjects } from "../page";
+import { buildPageMetadata } from "@/lib/seoMetadata";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { getLocalBusinessSchema } from "@/lib/jsonLdSchemas";
 
 const containerStyle: React.CSSProperties = {
   minHeight: "100vh",
@@ -53,15 +56,11 @@ export function generateMetadata({ params }: Props): Metadata {
     entry?.description ??
     `Explore "${toTitle(params.slug)}", a Richmond-crafted case study from RVA3D featuring 3D animation, interactive web, and visualization.`;
 
-  return {
+  return buildPageMetadata({
     title,
     description,
-    openGraph: {
-      title,
-      description,
-      type: "website",
-    },
-  };
+    path: `/work/${params.slug}`,
+  });
 }
 
 export default function WorkDetailPage({ params }: Props) {
@@ -109,6 +108,7 @@ export default function WorkDetailPage({ params }: Props) {
             kickoff from Richmond.
           </p>
         </section>
+        <JsonLd data={getLocalBusinessSchema()} />
       </section>
     </main>
   );

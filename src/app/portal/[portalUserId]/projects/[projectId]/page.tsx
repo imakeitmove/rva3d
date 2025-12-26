@@ -3,6 +3,8 @@ import { authOptions } from "@/lib/auth";
 import { redirect, notFound } from "next/navigation";
 import { getProjectPageForClientProject } from "@/lib/notion";
 import type { DefaultSession } from "next-auth";
+import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seoMetadata";
 
 type PortalSessionUser = DefaultSession["user"] & {
   portalUserId?: string;
@@ -17,6 +19,13 @@ type Props = {
     post?: string;
   };
 };
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Client Portal Project | RVA3D",
+  description: "Secure project workspace in the RVA3D client portal.",
+  path: "/portal",
+  noIndex: true,
+});
 
 export default async function PortalProjectPage({ params, searchParams }: Props) {
   const { portalUserId, projectId } = params;

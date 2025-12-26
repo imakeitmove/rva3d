@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import type { ReactNode } from "react";
-import { MarketingCanvas } from "@/components/three/MarketingCanvas";
 import { RouteSceneSync } from "@/components/RouteSceneSync";
 import { SiteNav } from "@/components/ui/SiteNav";
 import { FlatToggle } from "@/components/ui/FlatToggle";
+import { MarketingCanvas } from "@/components/three/MarketingCanvas";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

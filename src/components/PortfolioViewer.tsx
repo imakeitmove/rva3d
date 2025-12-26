@@ -1,6 +1,10 @@
 // components/PortfolioViewer.tsx
 'use client';
 
+// NOTE: This viewer uses an imperative Three.js renderer (not R3F) so it stays
+// independent from the global CanvasShell and avoids double WebGL contexts on
+// work/portfolio routes. Marketing canvas is hidden on these routes.
+
 import { useEffect, useRef, useState } from 'react';
 import { PortfolioScene } from '@/lib/PortfolioScene';
 import type { NotionPortfolioItem, ViewMode } from '@/types/portfolio';

@@ -1,3 +1,15 @@
+import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seoMetadata";
+import { getLocalBusinessSchema, getWebsiteSchema } from "@/lib/jsonLdSchemas";
+import { JsonLd } from "@/components/seo/JsonLd";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "RVA3D | Immersive 3D animation and interactive web",
+  description:
+    "RVA3D crafts cinematic 3D animation and interactive web experiences from Richmond, VA. Explore services, work, and live sandbox experiments.",
+  path: "/",
+});
+
 /**
  * NOTE: The Three.js canvas now mounts globally via MarketingCanvas to stay
  * persistent across marketing page navigation. The content below remains a
@@ -29,6 +41,8 @@ export default function HomePage() {
           the background.
         </p>
       </section>
+      <JsonLd data={getWebsiteSchema()} />
+      <JsonLd data={getLocalBusinessSchema()} />
     </main>
   );
 }

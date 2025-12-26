@@ -1,18 +1,16 @@
 import Link from "next/link";
 import type React from "react";
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildPageMetadata } from "@/lib/seoMetadata";
+import { getLocalBusinessSchema } from "@/lib/jsonLdSchemas";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Interactive Web Experiences | RVA3D Richmond",
   description:
     "Immersive Next.js and React Three Fiber experiences from RVA3D in Richmond, VA—performance-minded storytelling across web and devices.",
-  openGraph: {
-    title: "Interactive Web Experiences | RVA3D Richmond",
-    description:
-      "Explore RVA3D’s Richmond-built interactive web experiences that blend 3D, UX, and performance for launches and brand stories.",
-    type: "website",
-  },
-};
+  path: "/services/interactive-web-experiences",
+});
 
 const containerStyle: React.CSSProperties = {
   minHeight: "100vh",
@@ -72,6 +70,7 @@ export default function InteractiveWebExperiencesPage() {
             kickoff from RVA.
           </p>
         </section>
+        <JsonLd data={getLocalBusinessSchema()} />
       </section>
     </main>
   );
