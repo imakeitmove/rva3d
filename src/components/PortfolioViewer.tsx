@@ -74,6 +74,7 @@ export default function PortfolioViewer({
       };
     } catch (error) {
       console.error('❌ Error initializing scene:', error);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsLoading(false);
     }
   }, [items]);

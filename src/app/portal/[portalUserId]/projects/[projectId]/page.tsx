@@ -2,23 +2,31 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect, notFound } from "next/navigation";
 import { getProjectPageForClientProject } from "@/lib/notion";
+import type { DefaultSession } from "next-auth";
+
+type PortalSessionUser = DefaultSession["user"] & {
+  portalUserId?: string;
+};
 
 type Props = {
-  params: Promise<{
+  params: {
     portalUserId: string;
     projectId: string;
-  }>;
-  searchParams: Promise<{
+  };
+  searchParams?: {
     post?: string;
-  }>;
+  };
 };
 
 export default async function PortalProjectPage({ params, searchParams }: Props) {
-  const { portalUserId, projectId } = await params;
-  const { post: postSlug } = await searchParams;
+  const { portalUserId, projectId } = params;
+  const postSlug = searchParams?.post;
 
   const session = await getServerSession(authOptions);
-  if (!session || (session.user as any).portalUserId !== portalUserId) {
+  if (
+    !session ||
+    (session.user as PortalSessionUser | null)?.portalUserId !== portalUserId
+  ) {
     return redirect("/login");
   }
 
@@ -49,6 +57,11 @@ export default async function PortalProjectPage({ params, searchParams }: Props)
           Posts for this project will be listed here. You can add a thumbnail
           grid that links to individual posts.
         </p>
+        {postSlug && (
+          <p style={{ opacity: 0.7, marginTop: 12 }}>
+            You opened the page with a post request for <code>{postSlug}</code>.
+          </p>
+        )}
         <p style={{ opacity: 0.7, marginTop: 16 }}>
           Example link to a post:{" "}
           <a

@@ -1,6 +1,11 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import type { DefaultSession } from "next-auth";
+
+type PortalSessionUser = DefaultSession["user"] & {
+  portalUserId?: string;
+};
 
 export default async function PortalIndex() {
   const session = await getServerSession(authOptions);
@@ -9,7 +14,7 @@ export default async function PortalIndex() {
     return redirect("/login");
   }
 
-  const portalUserId = (session.user as any).portalUserId;
+  const portalUserId = (session.user as PortalSessionUser)?.portalUserId;
 
   if (!portalUserId) {
     return (

@@ -6,19 +6,27 @@ import {
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import type { DefaultSession } from "next-auth";
 import "./portal.css";
 
+type PortalSessionUser = DefaultSession["user"] & {
+  portalUserId?: string;
+};
+
 type Props = {
-  params: Promise<{
+  params: {
     portalUserId: string;
-  }>;
+  };
 };
 
 export default async function PortalHome({ params }: Props) {
-  const { portalUserId } = await params; // 👈 await the Promise
+  const { portalUserId } = params;
 
   const session = await getServerSession(authOptions);
-  if (!session || (session.user as any).portalUserId !== portalUserId) {
+  if (
+    !session ||
+    (session.user as PortalSessionUser | null)?.portalUserId !== portalUserId
+  ) {
     return redirect("/login");
   }
 
