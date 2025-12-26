@@ -1,28 +1,8 @@
 // app/portfolio/page.tsx
-import { Suspense } from 'react';
-import PortfolioViewer from '@/components/PortfolioViewer';
-import { getPortfolioItems } from '@/lib/notion/portfolio';
+import { redirect } from "next/navigation";
 
-export const revalidate = 3600; // Revalidate every hour
+export const runtime = "edge";
 
-export default async function PortfolioPage() {
-  const portfolioItems = await getPortfolioItems();
-
-  return (
-    <main className="w-full h-screen">
-      <Suspense fallback={<PortfolioLoadingState />}>
-        <PortfolioViewer items={portfolioItems} initialMode="grid" />
-      </Suspense>
-    </main>
-  );
-}
-
-function PortfolioLoadingState() {
-  return (
-    <div className="w-full h-screen bg-black flex items-center justify-center">
-      <div className="text-white text-2xl font-light animate-pulse">
-        Loading Portfolio...
-      </div>
-    </div>
-  );
+export default function PortfolioRedirect() {
+  return redirect("/work");
 }

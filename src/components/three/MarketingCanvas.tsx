@@ -7,12 +7,10 @@ import { IntroScene } from "@/components/three/IntroScene";
 import { SandboxScene } from "@/components/three/SandboxScene";
 import { Overlay } from "@/components/ui/Overlay";
 import { useAppState } from "@/state/useAppState";
-import { getSceneModeForPathname } from "@/lib/routeSceneMap";
 
 export function MarketingCanvas() {
   const pathname = usePathname();
   const mode = useAppState((s) => s.mode);
-  const setMode = useAppState((s) => s.setMode);
   const flatMode = useAppState((s) => s.flatMode);
   const reducedMotion = useAppState((s) => s.reducedMotion);
   const setReducedMotion = useAppState((s) => s.setReducedMotion);
@@ -22,15 +20,9 @@ export function MarketingCanvas() {
     if (pathname.startsWith("/portal")) return false;
     if (pathname.startsWith("/login")) return false;
     if (pathname.startsWith("/api")) return false;
+    if (pathname.startsWith("/work")) return false; // avoid double WebGL with PortfolioViewer
     return true;
   }, [pathname]);
-
-  useEffect(() => {
-    const nextMode = getSceneModeForPathname(pathname);
-    if (nextMode !== mode) {
-      setMode(nextMode);
-    }
-  }, [pathname, setMode, mode]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
