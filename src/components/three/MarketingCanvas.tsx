@@ -13,6 +13,9 @@ export function MarketingCanvas() {
   const pathname = usePathname();
   const mode = useAppState((s) => s.mode);
   const setMode = useAppState((s) => s.setMode);
+  const flatMode = useAppState((s) => s.flatMode);
+  const reducedMotion = useAppState((s) => s.reducedMotion);
+  const setReducedMotion = useAppState((s) => s.setReducedMotion);
 
   const shouldShowCanvas = useMemo(() => {
     if (!pathname) return true;
@@ -29,7 +32,20 @@ export function MarketingCanvas() {
     }
   }, [pathname, setMode, mode]);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const handleChange = () => setReducedMotion(media.matches);
+    handleChange();
+    media.addEventListener("change", handleChange);
+    return () => media.removeEventListener("change", handleChange);
+  }, [setReducedMotion]);
+
   if (!shouldShowCanvas) {
+    return null;
+  }
+
+  if (flatMode) {
     return null;
   }
 
@@ -44,7 +60,7 @@ export function MarketingCanvas() {
       }}
     >
       <Overlay />
-      <CanvasShell>
+      <CanvasShell reducedMotion={reducedMotion}>
         {mode === "intro" && <IntroScene />}
         {mode === "sandbox" && <SandboxScene />}
       </CanvasShell>
