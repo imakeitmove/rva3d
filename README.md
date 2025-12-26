@@ -22,6 +22,13 @@ RVA3D is a cinematic, 3D-first web experience for portfolio storytelling, a coll
 - **Auth/API:** Next.js route handlers under `src/app/api/*`; keep server concerns isolated in `src/lib`.
 - **Styling:** Tailwind or CSS Modules; keep shared UI primitives in `src/components`.
 
+## Current Routing & SEO Surface
+- **Persistent canvas:** `MarketingCanvas` mounts globally (App Router layout) via dynamic import and is driven by `RouteSceneSync`, which maps URL → scene mode. Canvas is hidden on `/work` to avoid double WebGL with the imperative `PortfolioViewer`.
+- **Routes:** Marketing (`/`, `/about`, `/services`, `/services/*`, `/work`, `/work/[slug]`, `/sandbox`, `/contact`), auth (`/login`), portal (`/portal/*`), API under `/api/*`. `/portfolio` redirects to `/work` for canonical routing.
+- **Navigation:** Shared `SiteNav` uses `<Link>` for accessible keyboard-friendly navigation to Home, Services, Work, Sandbox, Contact, Portal.
+- **SEO tooling:** `buildPageMetadata` helper for canonical/OG/Twitter/robots, JSON-LD helpers for WebSite + ProfessionalService schemas, sitemap/robots outputs under `src/app`.
+- **Accessibility & fallbacks:** Flat mode toggle and reduced-motion support keep semantic HTML visible when 3D is disabled; overlays use real links instead of mode buttons.
+
 ## Notion Database Setups
 
 Notion database being used with NOTION_TOKEN:

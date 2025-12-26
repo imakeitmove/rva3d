@@ -1,10 +1,10 @@
 "use client";
 
 import { useAppState } from "@/state/useAppState";
+import Link from "next/link";
 
 export function Overlay() {
   const mode = useAppState((s) => s.mode);
-  const setMode = useAppState((s) => s.setMode);
 
   return (
     <div
@@ -22,9 +22,15 @@ export function Overlay() {
       }}
     >
       <div>Mode: {mode}</div>
-      <button onClick={() => setMode("intro")}>Intro</button>
-      <button onClick={() => setMode("sandbox")}>Sandbox</button>
-      <button onClick={() => setMode("portal")}>Portal</button>
+      <Link href="/" style={{ color: "#60a5fa", marginRight: 8 }}>
+        Intro
+      </Link>
+      <Link href="/sandbox" style={{ color: "#60a5fa", marginRight: 8 }}>
+        Sandbox
+      </Link>
+      <Link href="/portal" style={{ color: "#60a5fa" }}>
+        Portal
+      </Link>
     </div>
   );
 }

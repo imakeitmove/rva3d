@@ -6,19 +6,36 @@ import {
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import type { DefaultSession } from "next-auth";
+import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seoMetadata";
 import "./portal.css";
 
-type Props = {
-  params: Promise<{
-    portalUserId: string;
-  }>;
+type PortalSessionUser = DefaultSession["user"] & {
+  portalUserId?: string;
 };
 
+type Props = {
+  params: {
+    portalUserId: string;
+  };
+};
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Client Portal | RVA3D",
+  description: "View projects and review posts inside the secure RVA3D client portal.",
+  path: "/portal",
+  noIndex: true,
+});
+
 export default async function PortalHome({ params }: Props) {
-  const { portalUserId } = await params; // 👈 await the Promise
+  const { portalUserId } = params;
 
   const session = await getServerSession(authOptions);
-  if (!session || (session.user as any).portalUserId !== portalUserId) {
+  if (
+    !session ||
+    (session.user as PortalSessionUser | null)?.portalUserId !== portalUserId
+  ) {
     return redirect("/login");
   }
 

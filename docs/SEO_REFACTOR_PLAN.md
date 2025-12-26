@@ -1,0 +1,18 @@
+# SEO & Routing Refactor Plan
+
+## Current State
+- **Routing model:** Uses the Next.js App Router (`src/app`), with route group `(three)` providing the landing `/` and `/sandbox` pages, plus `/login`, `/portal`, `/portal/[portalUserId]`, `/portfolio`, and API route handlers under `/api/*`. 【F:src/app/layout.tsx†L1-L24】【F:src/app/(three)/page.tsx†L1-L41】【F:src/app/(three)/sandbox/page.tsx†L1-L15】【F:src/app/portal/page.tsx†L1-L24】【F:src/app/portal/[portalUserId]/page.tsx†L1-L162】【F:src/app/portfolio/page.tsx†L1-L26】
+- **3D canvas mounting:** The landing and sandbox routes mount a single @react-three/fiber `<Canvas>` via `CanvasShell`, layering scenes by Zustand `mode`. The portfolio route mounts a separate imperative Three.js `WebGLRenderer` on a raw `<canvas>` through `PortfolioViewer`/`PortfolioScene`. 【F:src/components/three/CanvasShell.tsx†L1-L22】【F:src/app/(three)/page.tsx†L4-L25】【F:src/app/(three)/sandbox/page.tsx†L4-L13】【F:src/components/PortfolioViewer.tsx†L18-L143】【F:src/lib/PortfolioScene.ts†L45-L116】
+- **Navigation:** Landing page scene selection is internal state (Zustand `mode`) rather than URL changes; the portal flow relies on server redirects and anchor links for deeper navigation; portfolio detail links are plain anchors. There is no shared nav or URL-based state for the 3D modes. 【F:src/components/ui/Overlay.tsx†L5-L33】【F:src/state/useAppState.ts†L1-L16】【F:src/app/portal/page.tsx†L1-L24】【F:src/app/portal/[portalUserId]/page.tsx†L28-L159】【F:src/components/PortfolioViewer.tsx†L112-L143】
+- **Metadata/SEO:** Only the root layout exports static `metadata` (title + description). Routes lack per-page metadata, Open Graph, canonical URLs, or structured data; login/portal/portfolio pages render without head overrides. 【F:src/app/layout.tsx†L13-L24】
+
+## Refactor Plan
+- **URL-driven navigation:** Promote scene mode into the router (e.g., dedicated routes or search params) and mirror the Zustand store to route state so sessions reload predictably and URLs are shareable. Add lightweight top-level navigation using Next `Link`/`useRouter` instead of only in-component buttons.
+- **Canvas lifecycle:** Centralize Canvas mounting in a layout for the 3D grouping to ensure consistent sizing, error boundaries, and fallbacks. For the portfolio, evaluate reusing the R3F shell or documenting why the custom Three.js renderer remains; add resize management and SSR guards if kept.
+- **Metadata coverage:** Implement `generateMetadata` per route with descriptive titles, summaries, Open Graph/Twitter cards, canonical URLs, and sensible defaults (especially for portal login/redirect flows). Ensure 3D pages supply crawlable fallback text and preloading hints for heavy assets.
+- **SEO/accessibility hygiene:** Add semantic landmarks and accessible labels for overlays/buttons, ensure anchor/link usage instead of bare buttons where navigation occurs, and expose meaningful loading and error states for canvas-backed screens.
+
+## Implemented Changes
+- Added a shared primary navigation bar and RouteSceneSync so URL paths drive the scene mode and camera state across marketing and 3D pages.
+- Introduced flat/reduced-motion handling and hid the marketing canvas on work/portfolio routes to avoid double WebGL contexts while keeping semantic overlays active.
+- Canonicalized routing by redirecting `/portfolio` to `/work` and replacing in-canvas mode buttons with URL-based navigation links.
