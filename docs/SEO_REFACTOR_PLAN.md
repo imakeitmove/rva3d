@@ -11,3 +11,8 @@
 - **Canvas lifecycle:** Centralize Canvas mounting in a layout for the 3D grouping to ensure consistent sizing, error boundaries, and fallbacks. For the portfolio, evaluate reusing the R3F shell or documenting why the custom Three.js renderer remains; add resize management and SSR guards if kept.
 - **Metadata coverage:** Implement `generateMetadata` per route with descriptive titles, summaries, Open Graph/Twitter cards, canonical URLs, and sensible defaults (especially for portal login/redirect flows). Ensure 3D pages supply crawlable fallback text and preloading hints for heavy assets.
 - **SEO/accessibility hygiene:** Add semantic landmarks and accessible labels for overlays/buttons, ensure anchor/link usage instead of bare buttons where navigation occurs, and expose meaningful loading and error states for canvas-backed screens.
+
+## Implemented Changes
+- Added a shared primary navigation bar and RouteSceneSync so URL paths drive the scene mode and camera state across marketing and 3D pages.
+- Introduced flat/reduced-motion handling and hid the marketing canvas on work/portfolio routes to avoid double WebGL contexts while keeping semantic overlays active.
+- Canonicalized routing by redirecting `/portfolio` to `/work` and replacing in-canvas mode buttons with URL-based navigation links.
