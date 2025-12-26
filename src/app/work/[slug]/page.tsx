@@ -1,5 +1,7 @@
 import Link from "next/link";
 import type React from "react";
+import type { Metadata } from "next";
+import { sampleProjects } from "../page";
 
 const containerStyle: React.CSSProperties = {
   minHeight: "100vh",
@@ -21,6 +23,46 @@ type Props = {
     slug: string;
   };
 };
+
+const projectMetadata: Record<
+  string,
+  { title: string; description: string }
+> = Object.fromEntries(
+  sampleProjects.map((project) => [
+    project.slug,
+    {
+      title: `${project.title} | RVA3D Case Study`,
+      description:
+        `${project.title} is a Richmond-crafted collaboration where RVA3D blended 3D animation, interactive web, and visualization to deliver launch-ready storytelling.`,
+    },
+  ])
+);
+
+const toTitle = (slug: string) =>
+  slug
+    .split("-")
+    .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1))
+    .join(" ");
+
+export function generateMetadata({ params }: Props): Metadata {
+  const fallbackTitle = `${toTitle(params.slug)} | RVA3D Case Study`;
+  const entry = projectMetadata[params.slug];
+
+  const title = entry?.title ?? fallbackTitle;
+  const description =
+    entry?.description ??
+    `Explore "${toTitle(params.slug)}", a Richmond-crafted case study from RVA3D featuring 3D animation, interactive web, and visualization.`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "website",
+    },
+  };
+}
 
 export default function WorkDetailPage({ params }: Props) {
   const { slug } = params;

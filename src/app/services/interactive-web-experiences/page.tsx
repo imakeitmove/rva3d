@@ -1,5 +1,18 @@
 import Link from "next/link";
 import type React from "react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Interactive Web Experiences | RVA3D Richmond",
+  description:
+    "Immersive Next.js and React Three Fiber experiences from RVA3D in Richmond, VA—performance-minded storytelling across web and devices.",
+  openGraph: {
+    title: "Interactive Web Experiences | RVA3D Richmond",
+    description:
+      "Explore RVA3D’s Richmond-built interactive web experiences that blend 3D, UX, and performance for launches and brand stories.",
+    type: "website",
+  },
+};
 
 const containerStyle: React.CSSProperties = {
   minHeight: "100vh",

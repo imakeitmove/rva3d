@@ -1,5 +1,18 @@
 import Link from "next/link";
 import type React from "react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Work | RVA3D Case Studies from Richmond, VA",
+  description:
+    "Browse RVA3D case studies featuring 3D animation, interactive web, and product visualization crafted in Richmond, VA for launches and installations.",
+  openGraph: {
+    title: "Work | RVA3D Case Studies from Richmond, VA",
+    description:
+      "See RVA3D’s Richmond-made collaborations across animation, interactive web, and visualization with performance-focused delivery.",
+    type: "website",
+  },
+};
 
 const containerStyle: React.CSSProperties = {
   minHeight: "100vh",
@@ -23,7 +36,7 @@ const listStyle: React.CSSProperties = {
   listStyle: "none",
 };
 
-const sampleProjects = [
+export const sampleProjects = [
   { slug: "riverfront-light-trail", title: "Riverfront Light Trail" },
   { slug: "rva-product-launch", title: "RVA Product Launch" },
   { slug: "museum-immersive-room", title: "Museum Immersive Room" },

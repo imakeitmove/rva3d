@@ -1,5 +1,18 @@
 import Link from "next/link";
 import type React from "react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "3D Animation Services | RVA3D in Richmond",
+  description:
+    "Cinematic 3D animation from RVA3D in Richmond, VA—launch films, explainers, and motion identities built for broadcast and real-time delivery.",
+  openGraph: {
+    title: "3D Animation Services | RVA3D in Richmond",
+    description:
+      "Partner with RVA3D’s Richmond team for cinematic 3D animation, simulations, and lighting that ship as polished launch assets.",
+    type: "website",
+  },
+};
 
 const containerStyle: React.CSSProperties = {
   minHeight: "100vh",
