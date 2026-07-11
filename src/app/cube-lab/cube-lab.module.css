@@ -145,18 +145,15 @@
   transform: rotateX(-90deg) translateZ(110px);
 }
 
-/* Central tap, drag, and hold target */
+/* Standard-mode base face tap, drag, and hold target */
 
 .gestureSurface {
   position: absolute;
-  left: 19%;
-  top: 19%;
-  width: 62%;
-  height: 62%;
+  inset: 0;
   z-index: 5;
 
   border: 1px dashed transparent;
-  border-radius: 50%;
+  border-radius: inherit;
   outline: none;
   background: transparent;
 
@@ -176,6 +173,11 @@
   background: rgb(255 255 255 / 3%);
 }
 
+.front > strong,
+.front > span {
+  pointer-events: none;
+}
+
 .node.pressed .gestureSurface {
   border-color: rgb(255 255 255 / 55%);
   background: rgb(255 255 255 / 8%);
@@ -185,6 +187,94 @@
 
 .node.dragging .gestureSurface {
   cursor: grabbing;
+}
+
+/* Temporary active-node feedback for testing persistent selection state. */
+
+.node.activeNode .front {
+  outline: 1px solid rgb(180 211 255 / 22%);
+  outline-offset: 3px;
+}
+
+/* Persistent edge controls. These are temporarily visible on hover while the
+   perimeter interaction is being prototyped. */
+
+.edgeZone {
+  position: absolute;
+  z-index: 20;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    inset 120ms ease,
+    width 120ms ease,
+    height 120ms ease,
+    background 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.edgeZone[data-active="true"],
+.edgeZone:focus-visible {
+  background: rgb(173 205 255 / 18%);
+  box-shadow: inset 0 0 12px rgb(180 211 255 / 20%);
+  outline: 1px solid rgb(202 222 255 / 38%);
+  outline-offset: -1px;
+}
+
+.edgeTop,
+.edgeBottom {
+  left: 38px;
+  width: calc(100% - 76px);
+  height: 27px;
+}
+
+.edgeTop {
+  top: -9px;
+}
+
+.edgeBottom {
+  bottom: -9px;
+}
+
+.edgeLeft,
+.edgeRight {
+  top: 38px;
+  width: 27px;
+  height: calc(100% - 76px);
+}
+
+.edgeLeft {
+  left: -9px;
+}
+
+.edgeRight {
+  right: -9px;
+}
+
+.edgeTop[data-active="true"],
+.edgeTop:focus-visible {
+  top: -13px;
+  height: 36px;
+}
+
+.edgeBottom[data-active="true"],
+.edgeBottom:focus-visible {
+  bottom: -13px;
+  height: 36px;
+}
+
+.edgeLeft[data-active="true"],
+.edgeLeft:focus-visible {
+  left: -13px;
+  width: 36px;
+}
+
+.edgeRight[data-active="true"],
+.edgeRight:focus-visible {
+  right: -13px;
+  width: 36px;
 }
 
 /* Maximized state */
@@ -198,6 +288,22 @@
   height: auto;
   transform: none !important;
   user-select: auto;
+}
+
+.node.maximized.snappedLeft {
+  right: calc(50% + 6px);
+}
+
+.node.maximized.snappedRight {
+  left: calc(50% + 6px);
+}
+
+.node.maximized.snappedTop {
+  bottom: calc(50% + 6px);
+}
+
+.node.maximized.snappedBottom {
+  top: calc(50% + 6px);
 }
 
 .node.maximized .cuboid {
@@ -218,7 +324,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  overflow: visible;
 
   transform: none;
   backface-visibility: visible;
@@ -240,6 +346,8 @@
   height: 100%;
   display: grid;
   grid-template-rows: 58px 1fr;
+  overflow: hidden;
+  border-radius: inherit;
 }
 
 .titleBar {
@@ -251,6 +359,27 @@
   border-bottom: 1px solid rgb(255 255 255 / 14%);
   background: rgb(8 13 24 / 24%);
   backdrop-filter: blur(16px);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.node.dragging .titleBar {
+  cursor: grabbing;
+}
+
+.standardTitleBar {
+  position: absolute;
+  top: 18px;
+  left: 38px;
+  z-index: 10;
+  width: calc(100% - 76px);
+  height: 34px;
+  grid-template-columns: 1fr;
+  padding: 0 8px;
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 10px;
+  background: rgb(8 13 24 / 12%);
 }
 
 .restoreButton {
@@ -389,7 +518,7 @@
     padding: 24px;
   }
 
-  .scene {
+  .scene:not(.expandedScene) {
     transform: scale(0.78);
   }
 
