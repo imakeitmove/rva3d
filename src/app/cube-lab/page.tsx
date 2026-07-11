@@ -6,30 +6,89 @@ import styles from "./cube-lab.module.css";
 
 const HOLD_DELAY_MS = 650;
 const DRAG_THRESHOLD_PX = 7;
+const TITLE_RESTORE_THRESHOLD_PX = 45;
 const MIN_VISIBLE_CUBE_PX = 60;
 const DEFERRED_CLICK_MS = 250;
 const NODE_ID = "cube-node-1";
-const FACE_ID = "front-face";
-
-type LayoutMode =
-  | "standard"
-  | "maximized"
-  | "snapped-left"
-  | "snapped-right"
-  | "snapped-top"
-  | "snapped-bottom";
+const FRONT_FACE = {
+  id: "front-face",
+} as const;
 
 type EdgeName = "top" | "right" | "bottom" | "left";
+type CornerName =
+  | "top-left"
+  | "top-right"
+  | "bottom-left"
+  | "bottom-right";
+type SnapTarget = EdgeName | CornerName;
+type SnappedLayout = `snapped-${SnapTarget}`;
+type LayoutMode = "standard" | "maximized" | SnappedLayout;
+type Direction = "left" | "right" | "up" | "down";
 
-const EDGE_LAYOUT: Record<
-  EdgeName,
-  Exclude<LayoutMode, "standard" | "maximized">
-> = {
-  top: "snapped-top",
-  right: "snapped-right",
-  bottom: "snapped-bottom",
-  left: "snapped-left",
+type ContentNode = {
+  id: string;
+  title: string;
+  neighbors: Partial<Record<Direction, string>>;
 };
+
+const CONTENT_NODES: Record<string, ContentNode> = {
+  home: {
+    id: "home",
+    title: "Front",
+    neighbors: {
+      left: "library",
+      right: "studio",
+      up: "overview",
+      down: "details",
+    },
+  },
+  library: {
+    id: "library",
+    title: "Library",
+    neighbors: { right: "home" },
+  },
+  studio: {
+    id: "studio",
+    title: "Studio",
+    neighbors: { left: "home" },
+  },
+  overview: {
+    id: "overview",
+    title: "Overview",
+    neighbors: { down: "home" },
+  },
+  details: {
+    id: "details",
+    title: "Details",
+    neighbors: { up: "home" },
+  },
+};
+
+const EDGE_DIRECTION: Record<EdgeName, Direction> = {
+  left: "left",
+  right: "right",
+  top: "up",
+  bottom: "down",
+};
+
+const SNAP_TARGETS: ReadonlyArray<{
+  target: SnapTarget;
+  label: string;
+  kind: "edge" | "corner";
+}> = [
+  { target: "top", label: "top half", kind: "edge" },
+  { target: "right", label: "right half", kind: "edge" },
+  { target: "bottom", label: "bottom half", kind: "edge" },
+  { target: "left", label: "left half", kind: "edge" },
+  { target: "top-left", label: "top-left quarter", kind: "corner" },
+  { target: "top-right", label: "top-right quarter", kind: "corner" },
+  { target: "bottom-left", label: "bottom-left quarter", kind: "corner" },
+  { target: "bottom-right", label: "bottom-right quarter", kind: "corner" },
+];
+
+function getSnapLayout(target: SnapTarget): SnappedLayout {
+  return `snapped-${target}`;
+}
 
 function isInteractiveKeyboardTarget(target: EventTarget | null) {
   if (!(target instanceof HTMLElement)) {
@@ -92,6 +151,22 @@ type TitleGestureState = {
   moved: boolean;
 };
 
+type RotationGestureState = {
+  active: boolean;
+  pointerId: number | null;
+  sourceEdge: EdgeName | null;
+  axis: "x" | "y";
+  direction: Direction;
+  startPointerX: number;
+  startPointerY: number;
+  relevantDimension: number;
+  signedDirection: 1 | -1;
+  previewAngle: number;
+  crossedThreshold: boolean;
+  committing: boolean;
+  destinationContentId: string | null;
+};
+
 export default function CubeLabPage() {
   const [position, setPosition] = useState<Position>({
     x: 0,
@@ -101,12 +176,22 @@ export default function CubeLabPage() {
   const [isPressed, setIsPressed] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [isTitleRestoring, setIsTitleRestoring] = useState(false);
+  const [isTitlePending, setIsTitlePending] = useState(false);
   // The previous boolean maximized state is represented by layoutMode so snap
   // states can reuse the same expanded, interactive front-face content.
   const [layoutMode, setLayoutMode] = useState<LayoutMode>("standard");
-  const [activeEdge, setActiveEdge] = useState<EdgeName | null>(null);
+  const [activeSnapTarget, setActiveSnapTarget] =
+    useState<SnapTarget | null>(null);
   const [activeNodeId, setActiveNodeId] = useState<string | null>(null);
   const [activeFaceId, setActiveFaceId] = useState<string | null>(null);
+  const [activeContentId, setActiveContentId] = useState("home");
+  const [shellRotation, setShellRotation] = useState({ x: 0, y: 0 });
+  const [isRotationAnimating, setIsRotationAnimating] = useState(false);
+  const [isRotationResetting, setIsRotationResetting] = useState(false);
+  const [rotationDebug, setRotationDebug] = useState<{
+    direction: Direction;
+    angle: number;
+  } | null>(null);
 
   const [contextMenu, setContextMenu] =
     useState<ContextMenuPosition | null>(null);
@@ -132,8 +217,31 @@ export default function CubeLabPage() {
   });
   const nodeRef = useRef<HTMLDivElement>(null);
   const restoreRectangle = useRef<RestoreRectangle | null>(null);
-  const edgeCollapseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const snapCollapseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pendingClickTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const doubleClickSuppressionTimer =
+    useRef<ReturnType<typeof setTimeout> | null>(null);
+  const suppressDoubleClick = useRef(false);
+  const suppressSnapClick = useRef(false);
+  const rotationAnimationTimer = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
+  const rotationResetFrame = useRef<number | null>(null);
+  const rotationGesture = useRef<RotationGestureState>({
+    active: false,
+    pointerId: null,
+    sourceEdge: null,
+    axis: "y",
+    direction: "left",
+    startPointerX: 0,
+    startPointerY: 0,
+    relevantDimension: 1,
+    signedDirection: 1,
+    previewAngle: 0,
+    crossedThreshold: false,
+    committing: false,
+    destinationContentId: null,
+  });
   const titleGesture = useRef<TitleGestureState>({
     active: false,
     pointerId: null,
@@ -152,14 +260,70 @@ export default function CubeLabPage() {
   });
 
   const isExpanded = layoutMode !== "standard";
+  const activeContent = CONTENT_NODES[activeContentId] ?? CONTENT_NODES.home;
+  const faceTitle = activeContent.title;
+
+  function getNeighborContent(direction: Direction) {
+    const neighborId = activeContent.neighbors[direction];
+    return neighborId ? CONTENT_NODES[neighborId] : undefined;
+  }
+
+  const physicalFaceContent = {
+    front: activeContent,
+    left: getNeighborContent("left"),
+    right: getNeighborContent("right"),
+    top: getNeighborContent("up"),
+    bottom: getNeighborContent("down"),
+    back: activeContent,
+  };
 
   function activateFrontFace() {
     setActiveNodeId(NODE_ID);
-    setActiveFaceId(FACE_ID);
+    setActiveFaceId(FRONT_FACE.id);
   }
 
   function isFinitePosition(nextPosition: Position) {
     return Number.isFinite(nextPosition.x) && Number.isFinite(nextPosition.y);
+  }
+
+  function getClampedPosition(
+    current: Pick<
+      GestureState,
+      | "startObjectX"
+      | "startObjectY"
+      | "startNodeLeft"
+      | "startNodeRight"
+      | "startNodeTop"
+      | "startNodeBottom"
+    >,
+    deltaX: number,
+    deltaY: number,
+  ): Position | null {
+    const clampedDeltaX = Math.min(
+      window.innerWidth - MIN_VISIBLE_CUBE_PX - current.startNodeLeft,
+      Math.max(MIN_VISIBLE_CUBE_PX - current.startNodeRight, deltaX),
+    );
+    const clampedDeltaY = Math.min(
+      window.innerHeight - MIN_VISIBLE_CUBE_PX - current.startNodeTop,
+      Math.max(MIN_VISIBLE_CUBE_PX - current.startNodeBottom, deltaY),
+    );
+    const nextPosition = {
+      x: current.startObjectX + clampedDeltaX,
+      y: current.startObjectY + clampedDeltaY,
+    };
+
+    return isFinitePosition(nextPosition) ? nextPosition : null;
+  }
+
+  function suppressDragDoubleClick() {
+    suppressDoubleClick.current = true;
+    if (doubleClickSuppressionTimer.current !== null) {
+      clearTimeout(doubleClickSuppressionTimer.current);
+    }
+    doubleClickSuppressionTimer.current = setTimeout(() => {
+      suppressDoubleClick.current = false;
+      doubleClickSuppressionTimer.current = null;
+    }, 350);
   }
 
   function clearHoldTimer() {
@@ -220,6 +384,13 @@ export default function CubeLabPage() {
     }
   }
 
+  function clearRotationAnimationTimer() {
+    if (rotationAnimationTimer.current !== null) {
+      clearTimeout(rotationAnimationTimer.current);
+      rotationAnimationTimer.current = null;
+    }
+  }
+
   function scheduleClickAction(action: () => void) {
     clearPendingClickTimer();
     pendingClickTimer.current = setTimeout(() => {
@@ -228,18 +399,18 @@ export default function CubeLabPage() {
     }, DEFERRED_CLICK_MS);
   }
 
-  function clearEdgeCollapseTimer() {
-    if (edgeCollapseTimer.current !== null) {
-      clearTimeout(edgeCollapseTimer.current);
-      edgeCollapseTimer.current = null;
+  function clearSnapCollapseTimer() {
+    if (snapCollapseTimer.current !== null) {
+      clearTimeout(snapCollapseTimer.current);
+      snapCollapseTimer.current = null;
     }
   }
 
-  function scheduleEdgeCollapse() {
-    clearEdgeCollapseTimer();
-    edgeCollapseTimer.current = setTimeout(() => {
-      setActiveEdge(null);
-      edgeCollapseTimer.current = null;
+  function scheduleSnapCollapse() {
+    clearSnapCollapseTimer();
+    snapCollapseTimer.current = setTimeout(() => {
+      setActiveSnapTarget(null);
+      snapCollapseTimer.current = null;
     }, 300);
   }
 
@@ -254,7 +425,7 @@ export default function CubeLabPage() {
       if (
         event.key === "Enter" &&
         activeNodeId === NODE_ID &&
-        activeFaceId === FACE_ID &&
+        activeFaceId === FRONT_FACE.id &&
         !isInteractiveKeyboardTarget(event.target)
       ) {
         event.preventDefault();
@@ -268,10 +439,33 @@ export default function CubeLabPage() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
       clearHoldTimer();
-      clearEdgeCollapseTimer();
+      clearSnapCollapseTimer();
       clearPendingClickTimer();
+      clearRotationAnimationTimer();
+      if (doubleClickSuppressionTimer.current !== null) {
+        clearTimeout(doubleClickSuppressionTimer.current);
+      }
+      if (rotationResetFrame.current !== null) {
+        cancelAnimationFrame(rotationResetFrame.current);
+      }
     };
   }, [activeFaceId, activeNodeId, expandCube, restoreCube]);
+
+  useEffect(() => {
+    if (layoutMode !== "maximized") {
+      return;
+    }
+
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousRootOverflow = document.documentElement.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousRootOverflow;
+    };
+  }, [layoutMode]);
 
   function handlePointerDown(
     event: ReactPointerEvent<HTMLDivElement>,
@@ -375,21 +569,8 @@ export default function CubeLabPage() {
       return;
     }
 
-    const clampedDeltaX = Math.min(
-      window.innerWidth - MIN_VISIBLE_CUBE_PX - current.startNodeLeft,
-      Math.max(MIN_VISIBLE_CUBE_PX - current.startNodeRight, deltaX),
-    );
-    const clampedDeltaY = Math.min(
-      window.innerHeight - MIN_VISIBLE_CUBE_PX - current.startNodeTop,
-      Math.max(MIN_VISIBLE_CUBE_PX - current.startNodeBottom, deltaY),
-    );
-
-    const nextPosition = {
-      x: current.startObjectX + clampedDeltaX,
-      y: current.startObjectY + clampedDeltaY,
-    };
-
-    if (isFinitePosition(nextPosition)) {
+    const nextPosition = getClampedPosition(current, deltaX, deltaY);
+    if (nextPosition) {
       setPosition(nextPosition);
     }
   }
@@ -445,17 +626,36 @@ export default function CubeLabPage() {
       return;
     }
 
+    if (
+      event.target instanceof Element &&
+      event.target.closest("button, input, select, textarea, a, [contenteditable]")
+    ) {
+      return;
+    }
+
     event.preventDefault();
     event.stopPropagation();
     activateFrontFace();
     clearPendingClickTimer();
 
     const nodeRectangle = nodeRef.current?.getBoundingClientRect();
-    if (!nodeRectangle) {
+    if (
+      !nodeRectangle ||
+      !Number.isFinite(nodeRectangle.left) ||
+      !Number.isFinite(nodeRectangle.right) ||
+      !Number.isFinite(nodeRectangle.top) ||
+      !Number.isFinite(nodeRectangle.bottom) ||
+      !Number.isFinite(nodeRectangle.width) ||
+      !Number.isFinite(nodeRectangle.height) ||
+      nodeRectangle.width <= 0 ||
+      nodeRectangle.height <= 0 ||
+      !isFinitePosition(position)
+    ) {
       return;
     }
 
     event.currentTarget.setPointerCapture(event.pointerId);
+    setIsTitlePending(true);
 
     titleGesture.current = {
       active: true,
@@ -483,20 +683,14 @@ export default function CubeLabPage() {
       return;
     }
 
-    let deltaX = event.clientX - current.startPointerX;
-    let deltaY = event.clientY - current.startPointerY;
+    const deltaX = event.clientX - current.startPointerX;
+    const deltaY = event.clientY - current.startPointerY;
 
-    if (!current.moved) {
-      if (Math.hypot(deltaX, deltaY) < DRAG_THRESHOLD_PX) {
+    if (!current.restoredForDrag) {
+      if (deltaY < TITLE_RESTORE_THRESHOLD_PX) {
         return;
       }
 
-      current.moved = true;
-      setIsDragging(true);
-      setContextMenu(null);
-    }
-
-    if (!current.restoredForDrag) {
       const savedRectangle = restoreRectangle.current;
       if (
         !savedRectangle ||
@@ -510,6 +704,11 @@ export default function CubeLabPage() {
         setIsDragging(false);
         return;
       }
+
+      current.moved = true;
+      setIsTitlePending(false);
+      setIsDragging(true);
+      setContextMenu(null);
 
       const scaleX = savedRectangle.width / 320 || 1;
       const scaleY = savedRectangle.height / 220 || 1;
@@ -557,21 +756,21 @@ export default function CubeLabPage() {
       return;
     }
 
-    deltaX = event.clientX - current.startPointerX;
-    deltaY = event.clientY - current.startPointerY;
-    const clampedDeltaX = Math.min(
-      window.innerWidth - MIN_VISIBLE_CUBE_PX - current.startNodeLeft,
-      Math.max(MIN_VISIBLE_CUBE_PX - current.startNodeRight, deltaX),
-    );
-    const clampedDeltaY = Math.min(
-      window.innerHeight - MIN_VISIBLE_CUBE_PX - current.startNodeTop,
-      Math.max(MIN_VISIBLE_CUBE_PX - current.startNodeBottom, deltaY),
-    );
+    if (!current.moved) {
+      if (Math.hypot(deltaX, deltaY) < DRAG_THRESHOLD_PX) {
+        return;
+      }
 
-    setPosition({
-      x: current.startObjectX + clampedDeltaX,
-      y: current.startObjectY + clampedDeltaY,
-    });
+      current.moved = true;
+      setIsTitlePending(false);
+      setIsDragging(true);
+      setContextMenu(null);
+    }
+
+    const nextPosition = getClampedPosition(current, deltaX, deltaY);
+    if (nextPosition) {
+      setPosition(nextPosition);
+    }
   }
 
   function finishTitleGesture(
@@ -583,10 +782,18 @@ export default function CubeLabPage() {
       return;
     }
 
+    const completedDrag = current.moved && !cancelled;
     current.active = false;
     current.pointerId = null;
+    current.moved = false;
     setIsDragging(false);
     setIsTitleRestoring(false);
+    setIsTitlePending(false);
+
+    if (completedDrag) {
+      clearPendingClickTimer();
+      suppressDragDoubleClick();
+    }
 
     if (cancelled) {
       clearPendingClickTimer();
@@ -595,29 +802,250 @@ export default function CubeLabPage() {
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
+
   }
 
-  function handleEdgePointerEnter(
-    edge: EdgeName,
+  function handleSnapPointerEnter(
+    target: SnapTarget,
     event: ReactPointerEvent<HTMLButtonElement>,
   ) {
     if (event.pointerType === "touch") {
       return;
     }
 
-    clearEdgeCollapseTimer();
-    setActiveEdge(edge);
+    clearSnapCollapseTimer();
+    setActiveSnapTarget(target);
   }
 
-  function handleEdgeClick(edge: EdgeName) {
-    const edgeLayout = EDGE_LAYOUT[edge];
+  function handleRotationPointerDown(
+    edge: EdgeName,
+    event: ReactPointerEvent<HTMLButtonElement>,
+  ) {
+    if (layoutMode !== "standard" || rotationGesture.current.committing) {
+      return;
+    }
+
+    if (event.pointerType === "mouse" && event.button !== 0) {
+      return;
+    }
+
+    const nodeRectangle = nodeRef.current?.getBoundingClientRect();
+    if (
+      !nodeRectangle ||
+      !Number.isFinite(nodeRectangle.width) ||
+      !Number.isFinite(nodeRectangle.height) ||
+      nodeRectangle.width <= 0 ||
+      nodeRectangle.height <= 0
+    ) {
+      return;
+    }
+
+    const direction = EDGE_DIRECTION[edge];
+    const destinationContentId = activeContent.neighbors[direction] ?? null;
+    const isHorizontal = edge === "left" || edge === "right";
+
+    suppressSnapClick.current = false;
+    event.currentTarget.setPointerCapture(event.pointerId);
+    rotationGesture.current = {
+      active: true,
+      pointerId: event.pointerId,
+      sourceEdge: edge,
+      axis: isHorizontal ? "y" : "x",
+      direction,
+      startPointerX: event.clientX,
+      startPointerY: event.clientY,
+      relevantDimension: isHorizontal
+        ? nodeRectangle.width
+        : nodeRectangle.height,
+      signedDirection:
+        edge === "left" || edge === "bottom" ? 1 : -1,
+      previewAngle: 0,
+      crossedThreshold: false,
+      committing: false,
+      destinationContentId,
+    };
+  }
+
+  function handleRotationPointerMove(
+    event: ReactPointerEvent<HTMLButtonElement>,
+  ) {
+    const current = rotationGesture.current;
+    if (
+      !current.active ||
+      current.pointerId !== event.pointerId ||
+      !current.sourceEdge ||
+      current.committing
+    ) {
+      return;
+    }
+
+    const deltaX = event.clientX - current.startPointerX;
+    const deltaY = event.clientY - current.startPointerY;
+    if (
+      !current.crossedThreshold &&
+      Math.hypot(deltaX, deltaY) < 8
+    ) {
+      return;
+    }
+
+    if (!current.crossedThreshold) {
+      current.crossedThreshold = true;
+      suppressSnapClick.current = true;
+      clearPendingClickTimer();
+      clearHoldTimer();
+      setContextMenu(null);
+    }
+
+    const inwardDistance = Math.max(
+      0,
+      current.sourceEdge === "left"
+        ? deltaX
+        : current.sourceEdge === "right"
+          ? -deltaX
+          : current.sourceEdge === "top"
+            ? deltaY
+            : -deltaY,
+    );
+    const previewAngle = Math.min(
+      100,
+      (inwardDistance / (current.relevantDimension * 0.45)) * 90,
+    );
+    const signedAngle = previewAngle * current.signedDirection;
+
+    current.previewAngle = previewAngle;
+    setShellRotation(
+      current.axis === "x"
+        ? { x: signedAngle, y: 0 }
+        : { x: 0, y: signedAngle },
+    );
+    setRotationDebug({
+      direction: current.direction,
+      angle: previewAngle,
+    });
+  }
+
+  function finishRotationGesture(
+    event: ReactPointerEvent<HTMLButtonElement>,
+    cancelled = false,
+  ) {
+    const current = rotationGesture.current;
+    if (!current.active || current.pointerId !== event.pointerId) {
+      return;
+    }
+
+    const crossedThreshold = current.crossedThreshold;
+    const shouldCommit =
+      !cancelled &&
+      crossedThreshold &&
+      current.previewAngle >= 40 &&
+      current.destinationContentId !== null;
+
+    current.active = false;
+    current.pointerId = null;
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+
+    if (!crossedThreshold) {
+      return;
+    }
+
+    suppressSnapClick.current = true;
+    suppressDragDoubleClick();
+    clearPendingClickTimer();
+    clearRotationAnimationTimer();
+    current.committing = true;
+    setIsRotationAnimating(true);
+
+    const finalAngle = shouldCommit ? 90 * current.signedDirection : 0;
+    setShellRotation(
+      current.axis === "x"
+        ? { x: finalAngle, y: 0 }
+        : { x: 0, y: finalAngle },
+    );
+
+    const animationDuration = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches
+      ? 30
+      : 220;
+
+    rotationAnimationTimer.current = setTimeout(() => {
+      if (shouldCommit && current.destinationContentId) {
+        setIsRotationResetting(true);
+        setIsRotationAnimating(false);
+        setActiveContentId(current.destinationContentId);
+        setShellRotation({ x: 0, y: 0 });
+        rotationResetFrame.current = requestAnimationFrame(() => {
+          setIsRotationResetting(false);
+          rotationResetFrame.current = null;
+        });
+      } else {
+        setIsRotationAnimating(false);
+      }
+
+      current.committing = false;
+      current.previewAngle = 0;
+      current.crossedThreshold = false;
+      setRotationDebug(null);
+      rotationAnimationTimer.current = null;
+    }, animationDuration);
+
+    setTimeout(() => {
+      suppressSnapClick.current = false;
+    }, 0);
+  }
+
+  function cancelRotationGesture(
+    event: ReactPointerEvent<HTMLButtonElement>,
+  ) {
+    const current = rotationGesture.current;
+    if (!current.active || current.pointerId !== event.pointerId) {
+      return;
+    }
+
+    const crossedThreshold = current.crossedThreshold;
+    current.active = false;
+    current.pointerId = null;
+    current.crossedThreshold = false;
+    current.previewAngle = 0;
+    current.committing = false;
+    suppressSnapClick.current = crossedThreshold;
+    clearRotationAnimationTimer();
+    setIsRotationAnimating(false);
+    setIsRotationResetting(false);
+    setShellRotation({ x: 0, y: 0 });
+    setRotationDebug(null);
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+
+    setTimeout(() => {
+      suppressSnapClick.current = false;
+    }, 0);
+  }
+
+  function handleSnapClick(target: SnapTarget) {
+    if (suppressSnapClick.current) {
+      suppressSnapClick.current = false;
+      return;
+    }
+
+    const snapLayout = getSnapLayout(target);
     scheduleClickAction(() => {
-      expandCube(layoutMode === edgeLayout ? "maximized" : edgeLayout);
+      expandCube(layoutMode === snapLayout ? "maximized" : snapLayout);
     });
   }
 
   function handleFaceDoubleClick() {
     clearPendingClickTimer();
+
+    if (suppressDoubleClick.current) {
+      suppressDoubleClick.current = false;
+      return;
+    }
 
     if (layoutMode === "maximized") {
       restoreCube();
@@ -646,12 +1074,25 @@ export default function CubeLabPage() {
             styles.node,
             isPressed ? styles.pressed : "",
             isDragging ? styles.dragging : "",
+            isTitlePending ? styles.titlePending : "",
+            rotationDebug ? styles.rotationPreview : "",
+            isRotationAnimating ? styles.rotationAnimating : "",
+            isRotationResetting ? styles.rotationResetting : "",
             isExpanded ? styles.maximized : "",
+            layoutMode === "maximized" ? styles.fullscreen : "",
             layoutMode === "snapped-left" ? styles.snappedLeft : "",
             layoutMode === "snapped-right" ? styles.snappedRight : "",
             layoutMode === "snapped-top" ? styles.snappedTop : "",
             layoutMode === "snapped-bottom" ? styles.snappedBottom : "",
-            activeNodeId === NODE_ID && activeFaceId === FACE_ID
+            layoutMode === "snapped-top-left" ? styles.snappedTopLeft : "",
+            layoutMode === "snapped-top-right" ? styles.snappedTopRight : "",
+            layoutMode === "snapped-bottom-left"
+              ? styles.snappedBottomLeft
+              : "",
+            layoutMode === "snapped-bottom-right"
+              ? styles.snappedBottomRight
+              : "",
+            activeNodeId === NODE_ID && activeFaceId === FRONT_FACE.id
               ? styles.activeNode
               : "",
           ].join(" ")}
@@ -659,11 +1100,17 @@ export default function CubeLabPage() {
             isExpanded
               ? undefined
               : {
-                  transform: `translate3d(${position.x}px, ${position.y}px, 0)`,
+                  transform: `translate3d(${position.x}px, ${position.y}px, 0) scale(var(--cube-standard-scale))`,
+                  transformOrigin: "center",
                 }
           }
         >
-          <div className={styles.cuboid}>
+          <div
+            className={styles.cuboid}
+            style={{
+              transform: `rotateX(${shellRotation.x}deg) rotateY(${shellRotation.y}deg)`,
+            }}
+          >
             <div
               className={`${styles.face} ${styles.front}`}
               onPointerEnter={activateFrontFace}
@@ -694,15 +1141,13 @@ export default function CubeLabPage() {
                         event.stopPropagation();
                         handleFaceDoubleClick();
                       }}
-                      aria-label="Restore cube"
-                      title="Restore cube"
+                      aria-label={`Restore ${faceTitle}`}
+                      title={`Restore ${faceTitle}`}
                     >
                       ↙
                     </button>
 
-                    <span className={styles.faceTitle}>
-                      Front face
-                    </span>
+                    <span className={styles.faceTitle}>{faceTitle}</span>
 
                     <span className={styles.titleBarSpacer} />
                   </header>
@@ -740,14 +1185,30 @@ export default function CubeLabPage() {
                 </div>
               ) : (
                 <>
-                  <strong>Front</strong>
+                  <header
+                    className={`${styles.titleBar} ${styles.standardTitleBar}`}
+                    onPointerDown={handleTitlePointerDown}
+                    onPointerMove={handleTitlePointerMove}
+                    onPointerUp={finishTitleGesture}
+                    onPointerCancel={(event) =>
+                      finishTitleGesture(event, true)
+                    }
+                    onLostPointerCapture={(event) =>
+                      finishTitleGesture(event, true)
+                    }
+                  >
+                    <span className={styles.faceTitle}>{faceTitle}</span>
+                  </header>
+                  {/* The former centered title is now represented by the
+                      draggable title bar above. */}
+                  {/* <strong>{faceTitle}</strong> */}
                   <span>Main content face</span>
 
                   <div
                     className={styles.gestureSurface}
                     role="button"
                     tabIndex={0}
-                    aria-label="Tap to maximize, drag to move, or hold for a context menu"
+                    aria-label={`${faceTitle}: tap to maximize, drag to move, or hold for a context menu`}
                     onPointerDown={handlePointerDown}
                     onPointerMove={handlePointerMove}
                     onPointerUp={(event) =>
@@ -770,109 +1231,77 @@ export default function CubeLabPage() {
                 </>
               )}
 
-              <button
-                type="button"
-                className={`${styles.edgeZone} ${styles.edgeTop}`}
-                data-active={activeEdge === "top"}
-                aria-label="Snap cube to top half"
-                onPointerEnter={(event) => handleEdgePointerEnter("top", event)}
-                onPointerLeave={scheduleEdgeCollapse}
-                onPointerDown={() => setActiveEdge("top")}
-                onPointerUp={scheduleEdgeCollapse}
-                onPointerCancel={() => {
-                  clearPendingClickTimer();
-                  scheduleEdgeCollapse();
-                }}
-                onClick={() => handleEdgeClick("top")}
-                onDoubleClick={(event) => {
-                  event.stopPropagation();
-                  handleFaceDoubleClick();
-                }}
-              />
-              <button
-                type="button"
-                className={`${styles.edgeZone} ${styles.edgeRight}`}
-                data-active={activeEdge === "right"}
-                aria-label="Snap cube to right half"
-                onPointerEnter={(event) =>
-                  handleEdgePointerEnter("right", event)
-                }
-                onPointerLeave={scheduleEdgeCollapse}
-                onPointerDown={() => setActiveEdge("right")}
-                onPointerUp={scheduleEdgeCollapse}
-                onPointerCancel={() => {
-                  clearPendingClickTimer();
-                  scheduleEdgeCollapse();
-                }}
-                onClick={() => handleEdgeClick("right")}
-                onDoubleClick={(event) => {
-                  event.stopPropagation();
-                  handleFaceDoubleClick();
-                }}
-              />
-              <button
-                type="button"
-                className={`${styles.edgeZone} ${styles.edgeBottom}`}
-                data-active={activeEdge === "bottom"}
-                aria-label="Snap cube to bottom half"
-                onPointerEnter={(event) =>
-                  handleEdgePointerEnter("bottom", event)
-                }
-                onPointerLeave={scheduleEdgeCollapse}
-                onPointerDown={() => setActiveEdge("bottom")}
-                onPointerUp={scheduleEdgeCollapse}
-                onPointerCancel={() => {
-                  clearPendingClickTimer();
-                  scheduleEdgeCollapse();
-                }}
-                onClick={() => handleEdgeClick("bottom")}
-                onDoubleClick={(event) => {
-                  event.stopPropagation();
-                  handleFaceDoubleClick();
-                }}
-              />
-              <button
-                type="button"
-                className={`${styles.edgeZone} ${styles.edgeLeft}`}
-                data-active={activeEdge === "left"}
-                aria-label="Snap cube to left half"
-                onPointerEnter={(event) =>
-                  handleEdgePointerEnter("left", event)
-                }
-                onPointerLeave={scheduleEdgeCollapse}
-                onPointerDown={() => setActiveEdge("left")}
-                onPointerUp={scheduleEdgeCollapse}
-                onPointerCancel={() => {
-                  clearPendingClickTimer();
-                  scheduleEdgeCollapse();
-                }}
-                onClick={() => handleEdgeClick("left")}
-                onDoubleClick={(event) => {
-                  event.stopPropagation();
-                  handleFaceDoubleClick();
-                }}
-              />
+              {SNAP_TARGETS.map(({ target, label, kind }) => (
+                <button
+                  key={target}
+                  type="button"
+                  className={`${styles.snapZone} ${
+                    kind === "corner" ? styles.cornerZone : styles.edgeZone
+                  }`}
+                  data-target={target}
+                  data-active={activeSnapTarget === target}
+                  aria-label={`${faceTitle}: snap to ${label}`}
+                  onPointerEnter={(event) =>
+                    handleSnapPointerEnter(target, event)
+                  }
+                  onPointerLeave={scheduleSnapCollapse}
+                  onPointerDown={(event) => {
+                    setActiveSnapTarget(target);
+                    if (kind === "edge") {
+                      handleRotationPointerDown(target as EdgeName, event);
+                    }
+                  }}
+                  onPointerMove={(event) => {
+                    if (kind === "edge") {
+                      handleRotationPointerMove(event);
+                    }
+                  }}
+                  onPointerUp={(event) => {
+                    scheduleSnapCollapse();
+                    if (kind === "edge") {
+                      finishRotationGesture(event);
+                    }
+                  }}
+                  onPointerCancel={(event) => {
+                    clearPendingClickTimer();
+                    scheduleSnapCollapse();
+                    if (kind === "edge") {
+                      cancelRotationGesture(event);
+                    }
+                  }}
+                  onLostPointerCapture={(event) => {
+                    if (kind === "edge") {
+                      cancelRotationGesture(event);
+                    }
+                  }}
+                  onClick={() => handleSnapClick(target)}
+                  onDoubleClick={(event) => {
+                    event.stopPropagation();
+                    handleFaceDoubleClick();
+                  }}
+                />
+              ))}
             </div>
 
             <div className={`${styles.face} ${styles.back}`}>
-              <strong>Back</strong>
-              <span>Secondary content</span>
+              <strong>{physicalFaceContent.back.title}</strong>
+              <span>Physical back slot</span>
             </div>
 
             <div className={`${styles.face} ${styles.left}`}>
-              <strong>Left</strong>
+              <strong>{physicalFaceContent.left?.title ?? "No neighbor"}</strong>
             </div>
 
             <div className={`${styles.face} ${styles.right}`}>
-              <strong>Right</strong>
+              <strong>{physicalFaceContent.right?.title ?? "No neighbor"}</strong>
             </div>
 
             <div className={`${styles.face} ${styles.top}`}>
-              <strong>Top</strong>
+              <strong>{physicalFaceContent.top?.title ?? "No neighbor"}</strong>
             </div>
 
             <div className={`${styles.face} ${styles.bottom}`}>
-              <strong>Bottom</strong>
+              <strong>{physicalFaceContent.bottom?.title ?? "No neighbor"}</strong>
             </div>
           </div>
         </div>
@@ -883,6 +1312,17 @@ export default function CubeLabPage() {
           Tap center to maximize · Drag center to move · Hold
           center for menu
         </p>
+      )}
+
+      {!isExpanded && (
+        <div className={styles.rotationDebug} aria-live="polite">
+          <span>Active: {faceTitle}</span>
+          {rotationDebug && (
+            <span>
+              {rotationDebug.direction} {rotationDebug.angle.toFixed(0)}°
+            </span>
+          )}
+        </div>
       )}
 
       {contextMenu && (

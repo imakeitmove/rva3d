@@ -40,10 +40,16 @@
   min-height: 0;
   display: grid;
   place-items: center;
+}
+
+.scene:not(.expandedScene) {
   perspective: 1100px;
+  perspective-origin: 50% 50%;
 }
 
 .node {
+  --cube-standard-scale: 1;
+
   width: 320px;
   height: 220px;
   user-select: none;
@@ -55,10 +61,20 @@
   width: 320px;
   height: 220px;
   transform-style: preserve-3d;
-  transform: rotateX(-10deg) rotateY(18deg);
+  transform: rotateX(0deg) rotateY(0deg);
   transition:
     filter 120ms ease,
-    transform 260ms ease;
+    transform 0ms linear;
+}
+
+.node.rotationAnimating .cuboid {
+  transition:
+    filter 120ms ease,
+    transform 220ms cubic-bezier(0.22, 0.72, 0.24, 1);
+}
+
+.node.rotationResetting .cuboid {
+  transition: none !important;
 }
 
 .node.dragging .cuboid {
@@ -199,14 +215,14 @@
 /* Persistent edge controls. These are temporarily visible on hover while the
    perimeter interaction is being prototyped. */
 
-.edgeZone {
+.snapZone {
   position: absolute;
   z-index: 20;
   padding: 0;
   border: 0;
   background: transparent;
   cursor: pointer;
-  touch-action: manipulation;
+  touch-action: none;
   transition:
     inset 120ms ease,
     width 120ms ease,
@@ -215,12 +231,122 @@
     box-shadow 120ms ease;
 }
 
-.edgeZone[data-active="true"],
-.edgeZone:focus-visible {
+.snapZone[data-active="true"],
+.snapZone:focus-visible {
   background: rgb(173 205 255 / 18%);
   box-shadow: inset 0 0 12px rgb(180 211 255 / 20%);
   outline: 1px solid rgb(202 222 255 / 38%);
   outline-offset: -1px;
+}
+
+.edgeZone[data-target="top"],
+.edgeZone[data-target="bottom"] {
+  left: 42px;
+  width: calc(100% - 84px);
+  height: 27px;
+}
+
+.edgeZone[data-target="top"] {
+  top: -9px;
+}
+
+.edgeZone[data-target="bottom"] {
+  bottom: -9px;
+}
+
+.edgeZone[data-target="left"],
+.edgeZone[data-target="right"] {
+  top: 42px;
+  width: 27px;
+  height: calc(100% - 84px);
+}
+
+.edgeZone[data-target="left"] {
+  left: -9px;
+}
+
+.edgeZone[data-target="right"] {
+  right: -9px;
+}
+
+.edgeZone[data-target="top"][data-active="true"],
+.edgeZone[data-target="top"]:focus-visible {
+  top: -13px;
+  height: 36px;
+}
+
+.edgeZone[data-target="bottom"][data-active="true"],
+.edgeZone[data-target="bottom"]:focus-visible {
+  bottom: -13px;
+  height: 36px;
+}
+
+.edgeZone[data-target="left"][data-active="true"],
+.edgeZone[data-target="left"]:focus-visible {
+  left: -13px;
+  width: 36px;
+}
+
+.edgeZone[data-target="right"][data-active="true"],
+.edgeZone[data-target="right"]:focus-visible {
+  right: -13px;
+  width: 36px;
+}
+
+.cornerZone {
+  z-index: 30;
+  width: 48px;
+  height: 48px;
+}
+
+.cornerZone[data-target="top-left"] {
+  top: -6px;
+  left: -6px;
+}
+
+.cornerZone[data-target="top-right"] {
+  top: -6px;
+  right: -6px;
+}
+
+.cornerZone[data-target="bottom-left"] {
+  bottom: -6px;
+  left: -6px;
+}
+
+.cornerZone[data-target="bottom-right"] {
+  right: -6px;
+  bottom: -6px;
+}
+
+.cornerZone[data-active="true"],
+.cornerZone:focus-visible {
+  width: 60px;
+  height: 60px;
+}
+
+.cornerZone[data-target="top-left"][data-active="true"],
+.cornerZone[data-target="top-left"]:focus-visible {
+  top: -10px;
+  left: -10px;
+}
+
+.cornerZone[data-target="top-right"][data-active="true"],
+.cornerZone[data-target="top-right"]:focus-visible {
+  top: -10px;
+  right: -10px;
+}
+
+.cornerZone[data-target="bottom-left"][data-active="true"],
+.cornerZone[data-target="bottom-left"]:focus-visible {
+  bottom: -10px;
+  left: -10px;
+}
+
+.cornerZone[data-target="bottom-right"][data-active="true"],
+.cornerZone[data-target="bottom-right"]:focus-visible {
+  right: -10px;
+  bottom: -10px;
 }
 
 .edgeTop,
@@ -306,6 +432,56 @@
   top: calc(50% + 6px);
 }
 
+.node.maximized.snappedTopLeft,
+.node.maximized.snappedTopRight,
+.node.maximized.snappedBottomLeft,
+.node.maximized.snappedBottomRight {
+  width: 50vw;
+  height: 50vh;
+  height: 50dvh;
+}
+
+.node.maximized.snappedTopLeft {
+  inset: 0 auto auto 0;
+}
+
+.node.maximized.snappedTopRight {
+  inset: 0 0 auto auto;
+}
+
+.node.maximized.snappedBottomLeft {
+  inset: auto auto 0 0;
+}
+
+.node.maximized.snappedBottomRight {
+  inset: auto 0 0 auto;
+}
+
+.node.maximized.snappedTopLeft .front,
+.node.maximized.snappedTopRight .front,
+.node.maximized.snappedBottomLeft .front,
+.node.maximized.snappedBottomRight .front {
+  border: 0;
+  border-radius: 0;
+  box-shadow: inset 0 1px rgb(255 255 255 / 18%);
+}
+
+.node.maximized.fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  transform: none !important;
+}
+
+.node.maximized.fullscreen .front {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
 .node.maximized .cuboid {
   width: 100%;
   height: 100%;
@@ -350,6 +526,76 @@
   border-radius: inherit;
 }
 
+.node.fullscreen .maximizedFace {
+  grid-template-rows:
+    calc(58px + env(safe-area-inset-top))
+    minmax(0, 1fr);
+}
+
+.node.fullscreen .titleBar {
+  padding:
+    calc(6px + env(safe-area-inset-top))
+    calc(10px + env(safe-area-inset-right))
+    6px
+    calc(10px + env(safe-area-inset-left));
+}
+
+.node.fullscreen .faceContent {
+  box-sizing: border-box;
+  width: min(680px, 100%);
+  padding:
+    24px
+    calc(24px + env(safe-area-inset-right))
+    calc(24px + env(safe-area-inset-bottom))
+    calc(24px + env(safe-area-inset-left));
+}
+
+.node.snappedTopLeft .maximizedFace,
+.node.snappedTopRight .maximizedFace {
+  grid-template-rows:
+    calc(58px + env(safe-area-inset-top))
+    minmax(0, 1fr);
+}
+
+.node.snappedTopLeft .titleBar,
+.node.snappedTopRight .titleBar {
+  padding-top: calc(6px + env(safe-area-inset-top));
+}
+
+.node.snappedTopLeft .titleBar,
+.node.snappedBottomLeft .titleBar {
+  padding-left: calc(10px + env(safe-area-inset-left));
+}
+
+.node.snappedTopRight .titleBar,
+.node.snappedBottomRight .titleBar {
+  padding-right: calc(10px + env(safe-area-inset-right));
+}
+
+.node.snappedTopLeft .faceContent,
+.node.snappedTopRight .faceContent,
+.node.snappedBottomLeft .faceContent,
+.node.snappedBottomRight .faceContent {
+  box-sizing: border-box;
+  width: min(680px, 100%);
+  padding: 20px;
+}
+
+.node.snappedTopLeft .faceContent,
+.node.snappedBottomLeft .faceContent {
+  padding-left: calc(20px + env(safe-area-inset-left));
+}
+
+.node.snappedTopRight .faceContent,
+.node.snappedBottomRight .faceContent {
+  padding-right: calc(20px + env(safe-area-inset-right));
+}
+
+.node.snappedBottomLeft .faceContent,
+.node.snappedBottomRight .faceContent {
+  padding-bottom: calc(20px + env(safe-area-inset-bottom));
+}
+
 .titleBar {
   display: grid;
   grid-template-columns: 46px 1fr 46px;
@@ -362,6 +608,14 @@
   cursor: grab;
   touch-action: none;
   user-select: none;
+  transition:
+    background 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.node.titlePending .titleBar {
+  background: rgb(100 137 207 / 20%);
+  box-shadow: inset 0 -1px rgb(190 216 255 / 18%);
 }
 
 .node.dragging .titleBar {
@@ -518,8 +772,8 @@
     padding: 24px;
   }
 
-  .scene:not(.expandedScene) {
-    transform: scale(0.78);
+  .node:not(.maximized) {
+    --cube-standard-scale: 0.78;
   }
 
   .node.maximized {
@@ -535,5 +789,33 @@
     max-width: calc(100% - 24px);
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+
+.rotationDebug {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  z-index: 10;
+  display: flex;
+  gap: 10px;
+  padding: 7px 10px;
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 10px;
+  color: rgb(255 255 255 / 55%);
+  background: rgb(0 0 0 / 20%);
+  font-size: 11px;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .node.rotationAnimating .cuboid {
+    transition-duration: 30ms;
+  }
+}
+
+@media (max-width: 699px), (max-height: 599px) {
+  .cornerZone {
+    display: none;
   }
 }
