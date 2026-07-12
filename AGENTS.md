@@ -1,158 +1,439 @@
-AGENTS.md — RVA3D Project Guidelines
-Code Quality Principles
-Every session should prioritize application functionality and client experience (performance, accessibility, reliability) over structural refactoring. Code changes should remain scoped to the current task unless explicitly directed otherwise.
-- Scoped
-Make changes only within the boundaries of the current task. Do not refactor unrelated files or modules unless explicitly requested.
-- Preserve
-Do not delete existing code. If functionality is replaced or improved, comment out the old code instead of removing it, so it can be restored if needed.
-- Stable
-Favor working solutions over structural optimizations. Ensure that changes do not break existing functionality or introduce regressions.
-- Readable
-Maintain clarity with comments and descriptive naming. When commenting out old code, explain why it was replaced.
-- Leverage
-Use well-supported packages and libraries when they directly improve functionality, performance, or accessibility. Avoid introducing dependencies solely for stylistic or structural reasons.
-- Performance & Accessibility First
-Prioritize load times, responsiveness, and inclusive design over reducing lines of code or abstracting patterns.
-Leave the code functional and stable. Cleanup and refactoring should be deferred until explicitly scheduled.
+# AGENTS.md — RVA3D Repository Guidelines
 
+## Scope
 
-Tech Stack & Key Libraries
-- Framework: Next.js App Router (TypeScript, React 18)
-- 3D: @react-three/fiber, @react-three/drei, Three.js
-- State: Zustand (in src/state)
-- Database: Prisma + (your DB here)
-- Auth / APIs: Next.js Route Handlers in src/app/api/*
-Keep new dependencies lightweight and focused. If you add a new core dependency, mention it in the PR description and explain why.
+This file contains repository-wide instructions for work in RVA3D.
 
-Project Structure & Module Organization
-- src/app
-Next.js App Router. Routes include:
-- portal
-- portfolio
-- login
-- (three) for 3D scenes
-- api for server handlers
-Co-locate route-specific components here.
-- src/components
-Shared UI and layout primitives. Reuse before adding new variants.
-- src/lib
-Utilities and external integrations (auth, mail, data helpers). Keep side-effects isolated.
-- src/state
-Zustand stores and client-only state helpers; prefix hooks with use.
-- src/hooks
-Reusable React hooks beyond Zustand state.
-- src/types
-Shared TypeScript contracts; favor narrow, explicit types for API and component props.
-- src/tests
-Integration/system tests. Co-locate unit tests with features when appropriate.
-- config/
-Centralized configs (lint, prettier, tsconfig, next.config.js).
-- docs/
-Developer-facing documentation, onboarding notes, or architectural decisions.
-- prisma/schema.prisma and prisma/migrations
-Database model and migration history. Regenerate the client after edits.
-- public
-Static assets served at the root (images, fonts, models, HDRIs). Prefer hashed names for large media.
-- public/fonts → font files
-- public/models → 3D assets
-- public/textures → textures
-- public/styles → global/static styles
+More specific `AGENTS.md` files may exist inside feature directories. When working in one of those directories, follow both this file and the nearest feature-specific instructions. The feature-specific file takes precedence for feature behavior and architecture, while this root file continues to govern repository-wide security, stability, deployment, and data-handling requirements.
 
-3D / Three.js / R3F Guidelines
-- Use r3f + drei first
-Prefer @react-three/fiber and @react-three/drei abstractions over manual new THREE.* unless truly needed.
-- Scene vs UI separation
-Keep scene/3D logic in (three) routes. Shared UI (panels, controls, overlays) lives in src/components.
-- Performance
-- Use useFrame sparingly; avoid allocations (e.g., new Vector3()) inside the render loop.
-- Memoize expensive calculations and derived data.
-- Keep dpr and shadows reasonable; don’t assume a high-end GPU.
-- Resources & cleanup
-- Prefer .glb / .gltf models.
-- Use loaders/helpers from drei where possible.
-- Ensure geometries/materials/textures are disposed or managed by r3f/drei.
-- Assets
-- Place models under public/models and textures under public/textures.
-- Use consistent naming (e.g., rva_building.glb, tree_lowpoly.glb).
-- Only check in assets with clear licensing (ideally CC0).
+The user’s current request always defines the task. Do not expand the scope without approval.
 
-Environment & Setup
-- Node: Use the version specified in .nvmrc or package.json#engines (if present).
-- Env vars:
-- Copy .env & .env.local.
-- Document any new env vars in your PR and ensure they have safe defaults when possible.
-- Secrets (auth keys, DB passwords) belong in .env.local and should not be committed.
+---
 
-Build, Test, and Development Commands
-Local development
-- npm run dev → Start the development server on port 3000 with hot reload.
-Production build
-- npm run build → Create an optimized production build; run this before cutting release branches.
-- npm start → Serve the built app locally.
-Quality
-- npm run lint → Run ESLint with Next.js core-web-vitals rules.
-Database
-- npx prisma migrate dev --name <change> → Create and apply a schema migration locally.
-- npx prisma generate → Refresh the Prisma client after schema changes or when pulling new migrations.
-Before pushing: run at least npm run lint (and any tests that exist). Fix warnings, not just errors.
+## Source of Truth
 
+Before making changes, inspect the files relevant to the task.
 
-Coding Style & Naming Conventions
-- Language & components
-- TypeScript-first.
-- Functional React components with PascalCase filenames.
-- Hooks follow useThing naming.
-- Next.js
-- Prefer server components by default.
-- Mark client components with "use client" only when needed (e.g., hooks, event handlers, browser APIs).
-- Formatting
-- Two-space indentation.
-- Double quotes.
-- Trailing commas where valid.
-- Keep imports grouped by scope (std libs → third-party → internal).
-- 3D organization
-- Keep 3D/scene logic in (three) routes.
-- Shared visual primitives (e.g., buttons, panels, HUD elements) live in src/components.
-- Avoid cross-route coupling; share via src/lib, src/components, and src/types instead of deep imports.
+Use these as the authoritative sources:
 
-Testing Guidelines
-Currently there is no repo-wide test harness. When adding tests:
-- Co-locate them with features (e.g., Component.test.tsx, lib.test.ts).
-- Prefer:
-- Integration tests for critical flows (auth, portal interactions).
-- Snapshot or visual tests for 3D where feasible, knowing they can be brittle.
-- Document any new test commands here or in README.md and ensure they pass in CI.
-If you introduce a test runner (Vitest, Jest, Playwright, etc.), add:
-- The npm script(s) to package.json.
-- A short “Testing” section here with npm test usage.
+- `package.json` and the lockfile for installed packages, versions, and scripts
+- `tsconfig.json` for TypeScript and path-alias configuration
+- `prisma/schema.prisma` and migration history for the database model
+- Existing nearby components and feature code for local conventions
+- The nearest `AGENTS.md` for feature-specific rules
+- Product documents under `docs/` for intended behavior
 
-Commit & Pull Request Guidelines
-- Commit messages
-Short, present-tense summaries, e.g.:
-- adjust portal copy
-- fix prisma schema type
-- refactor three scene loader
-- Commit scope
-- Keep commits focused (one feature or fix).
-- Include schema and generated Prisma client changes in the same commit.
-- Pull requests
-- Include:
-- A brief summary.
-- Linked issue/ticket (if applicable).
-- Screenshots or short clips for UI/3D changes if possible.
-- Steps to validate (build, lint, relevant tests/flows).
-- Note any migration or .env.local changes and provide safe defaults or fallbacks.
+Do not rely on stale route lists, remembered package versions, or assumptions about infrastructure when the repository can answer the question directly.
 
-Workflow & Agent Experience
+---
 
-Agent Workflow Checklist:
-- Understand the task → read issue/PR description carefully.
-- Scope changes → only touch files relevant to the task.
-- Preserve old code → comment out instead of deleting.
-- Document decisions → inline comments or PR notes explaining why.
-- Run quality checks → npm run lint, npm run build, and tests.
-- Validate locally → confirm app runs before pushing.
-- Summarize in PR → what changed, why, how to test.
+## Priorities
 
+In order of importance:
 
-UPDATED!
+1. Preserve correct application behavior and user data.
+2. Fulfill the current task completely.
+3. Protect security, privacy, accessibility, and reliability.
+4. Preserve or improve performance and responsiveness.
+5. Keep the implementation understandable and maintainable.
+6. Avoid unrelated cleanup or architectural churn.
+
+Working code is not an excuse for fragile code, but structural cleanup should remain proportional to the task.
+
+---
+
+## Change Discipline
+
+### Keep changes scoped
+
+- Modify only files required by the current task.
+- Do not refactor unrelated modules.
+- Do not rename or move files without a concrete task-related reason.
+- Call out any necessary adjacent change before expanding the scope substantially.
+
+### Preserve behavior, not dead code
+
+- Do not delete unrelated functionality.
+- When replacing code within the approved scope, remove obsolete code once the replacement is working.
+- Use Git history for rollback; do not routinely leave large commented-out implementations in production files.
+- Keep old code commented out only when the user explicitly requests it or when a short-lived comparison is genuinely useful.
+- Comments should explain non-obvious decisions, constraints, or tradeoffs—not restate the code.
+
+### Prefer small cohesive steps
+
+- Make the smallest change that fully solves the problem.
+- Avoid speculative abstractions for features that do not yet exist.
+- Do not add partial versions of future features unless they are part of the current milestone.
+
+### Avoid destructive operations
+
+Do not run destructive commands such as hard resets, broad file deletion, force pushes, migration resets, or database wipes unless the user explicitly requests them and the impact is understood.
+
+---
+
+## Current Technology
+
+Treat `package.json` as authoritative. The project currently uses:
+
+- Next.js App Router
+- TypeScript
+- React
+- Tailwind CSS
+- Three.js
+- `@react-three/fiber`
+- `@react-three/drei`
+- React Three Rapier / Rapier
+- Zustand
+- Prisma
+- NextAuth and Prisma adapter
+- Notion, Resend, and Nodemailer integrations
+
+Do not hardcode package versions in guidance unless the version itself is relevant to the task.
+
+Use npm and the committed lockfile unless the user explicitly chooses another package manager.
+
+---
+
+## Project Organization
+
+Use the existing repository structure first. These are the preferred responsibilities:
+
+### `src/app/`
+
+Next.js routes, layouts, route handlers, loading/error boundaries, and route-level composition.
+
+- Prefer Server Components by default.
+- Add `"use client"` only when browser APIs, event handlers, refs, or client state are required.
+- Keep route files focused on composition when a feature grows beyond a small prototype.
+- API handlers belong under `src/app/api/`.
+
+### `src/features/`
+
+Feature-specific models, components, state, interactions, geometry, and rendering.
+
+Use this for substantial systems that should not be embedded inside one route file.
+
+### `src/components/`
+
+Shared UI primitives and reusable presentation components used across features.
+
+Reuse an existing primitive before creating a nearly identical variant.
+
+### `src/lib/`
+
+Utilities and external integrations, including server-side data access, mail, authentication helpers, and API clients.
+
+Keep side effects and credentials isolated from presentation code.
+
+### `src/state/`
+
+Repository-wide Zustand stores and client state shared across multiple features.
+
+Feature-local state should normally remain inside the feature unless it truly needs global reach.
+
+### `src/hooks/`
+
+Reusable React hooks that are not better owned by one feature.
+
+### `src/types/`
+
+Shared TypeScript contracts used across feature boundaries.
+
+Prefer narrow explicit types. Avoid large catch-all interfaces.
+
+### `docs/`
+
+Product specifications, design decisions, onboarding notes, and architecture records.
+
+Documentation is not automatically an implementation request. Follow the current task and roadmap.
+
+### `prisma/`
+
+Database schema and migrations.
+
+Do not hand-edit generated Prisma client output.
+
+### `public/`
+
+Static assets such as images, models, textures, fonts, and HDRIs.
+
+Use clear stable names. Only commit assets with appropriate licensing and a practical reason to live in the repository.
+
+---
+
+## Cubetube Feature Boundary
+
+Cubetube is a distinct spatial-workspace feature inside RVA3D.
+
+For tasks involving any of these paths:
+
+- `src/app/cube-lab/**`
+- `src/features/cubetube/**`
+- `docs/cubetube/**`
+
+read, when present, in this order:
+
+1. `docs/cubetube/VISION.md`
+2. `docs/cubetube/DESIGN.md`
+3. `docs/cubetube/ROADMAP.md`
+4. `src/features/cubetube/AGENTS.md`
+
+Cubetube-specific rules supplement this repository file.
+
+When a Cubetube rule conflicts with a general code-organization preference, use the Cubetube rule for Cubetube files. Repository-wide requirements for security, secrets, data safety, build stability, and deployment still apply.
+
+Do not:
+
+- Treat every idea in `DESIGN.md` as an immediate coding task.
+- Change product behavior merely because a different implementation is easier.
+- Rewrite `VISION.md` or materially reinterpret `DESIGN.md` without calling out the proposed design change.
+- Force Cubetube 3D code into a route group solely because older repository guidance placed 3D scenes there.
+
+---
+
+## React and Next.js Guidelines
+
+- Prefer Server Components unless interactivity requires a Client Component.
+- Keep client boundaries as narrow as practical.
+- Do not access browser globals during server rendering.
+- Use Route Handlers for server endpoints.
+- Keep secrets and privileged data access on the server.
+- Avoid unnecessary client-side fetching when data can be loaded on the server.
+- Use the `@/` path alias for `src/` imports where it improves clarity.
+- Do not introduce hydration-sensitive behavior without testing the initial render.
+- Handle loading, empty, and error states for user-facing asynchronous work.
+
+---
+
+## State and Data Modeling
+
+- Keep persistent domain data separate from transient UI state.
+- Do not use DOM nesting as the source of truth for relationships.
+- Avoid duplicating the same state in multiple stores or components.
+- Prefer derived values over synchronized copies.
+- Use Zustand for state that genuinely needs shared client access.
+- Keep temporary pointer, animation, and gesture state local or feature-scoped.
+- Validate untrusted input at server boundaries.
+- Make destructive data operations explicit and recoverable where practical.
+
+---
+
+## 3D, Three.js, and R3F Guidelines
+
+### Use the right level of abstraction
+
+- Prefer React Three Fiber and Drei when their abstractions fit the task.
+- Use direct Three.js APIs when they provide necessary control or better performance.
+- Do not force a DOM/CSS implementation into WebGL, or vice versa, without a clear benefit.
+
+### Keep rendering separate from the model
+
+- Rendering consumes application state; it is not the source of truth.
+- Keep geometry, interaction classification, domain state, and scene rendering separable.
+- Substantial reusable 3D systems may live under `src/features/`, not only route directories.
+
+### Performance
+
+- Use `useFrame` only for work that must happen every frame.
+- Avoid allocations inside render loops.
+- Reuse vectors, quaternions, matrices, materials, and temporary objects.
+- Memoize expensive derived geometry and calculations where it measurably helps.
+- Keep DPR, post-processing, shadows, texture sizes, and model complexity appropriate for ordinary hardware and mobile devices.
+- Pause or reduce work for hidden, inactive, or offscreen scenes when practical.
+
+### Resources
+
+- Prefer `.glb` / `.gltf` for 3D assets.
+- Use Drei loaders and helpers where appropriate.
+- Ensure manually created geometries, materials, render targets, and textures are disposed.
+- Keep asset licensing documented.
+
+### Interaction and motion
+
+- Support pointer cancellation and lost pointer capture.
+- Avoid invisible dead zones and overlapping gesture ownership.
+- Respect `prefers-reduced-motion`.
+- Test mouse, touch, pen, keyboard, and mobile viewport behavior when relevant.
+
+---
+
+## Performance and Accessibility
+
+Performance and accessibility are product requirements, not cleanup tasks.
+
+- Use semantic HTML for ordinary UI.
+- Preserve keyboard access and visible focus.
+- Add meaningful labels for icon-only controls.
+- Do not block text selection, scrolling, or browser gestures outside intentional manipulation surfaces.
+- Avoid layout shift and unnecessary hydration.
+- Optimize images and media appropriately.
+- Keep touch targets reasonably sized.
+- Test contrast and reduced-motion behavior for new interaction feedback.
+- Do not assume a high-end GPU, large screen, mouse, or precise pointer.
+
+---
+
+## Dependencies
+
+Before adding a package:
+
+1. Confirm the existing stack cannot reasonably solve the problem.
+2. Prefer a maintained, well-supported, focused package.
+3. Consider bundle size, browser support, licensing, security, and server/client compatibility.
+4. Explain why the dependency is needed.
+5. Update the lockfile through npm rather than editing it manually.
+
+Do not add dependencies solely to avoid writing a small, clear utility.
+
+Do not run broad forced audit upgrades without reviewing breaking changes.
+
+---
+
+## Environment Variables and Secrets
+
+- Never commit secrets, tokens, private keys, passwords, or production credentials.
+- Local secrets belong in `.env.local` or another ignored environment file.
+- Use existing environment-variable naming conventions.
+- Document newly required variables in the appropriate developer documentation or example environment file.
+- Provide safe failure behavior when an optional integration is unavailable.
+- Do not expose server-only variables to client bundles.
+- Do not log secrets or complete sensitive payloads.
+
+---
+
+## Prisma and Database Changes
+
+Before changing the schema, inspect the current schema and migrations.
+
+When a schema change is required:
+
+1. Update `prisma/schema.prisma`.
+2. Create a named migration with `npx prisma migrate dev --name <change>`.
+3. Run `npx prisma generate` when needed.
+4. Update affected queries and types.
+5. Validate existing data and migration safety.
+6. Document new environment or deployment requirements.
+
+Do not reset or wipe a database to make a migration easier without explicit approval.
+
+---
+
+## Coding Style
+
+- TypeScript first.
+- Keep TypeScript strict; avoid `any` unless unavoidable and explained.
+- Use functional React components.
+- Use PascalCase for component names and component filenames.
+- Prefix hooks with `use`.
+- Use two-space indentation.
+- Use double quotes.
+- Use trailing commas where valid.
+- Group imports logically: framework/third-party, then internal modules.
+- Prefer named domain concepts over generic names such as `data`, `thing`, or `handler2`.
+- Keep functions focused and extract pure calculations from components when they become complex.
+- Avoid deep cross-feature imports. Promote genuinely shared code to an appropriate shared directory.
+
+Follow the formatter and linter actually configured in the repository rather than manually enforcing a conflicting style.
+
+---
+
+## Testing and Validation
+
+There may not be a complete repository-wide test harness. Use the strongest checks available for the task.
+
+### During development
+
+- Run focused checks after meaningful changes.
+- Test the actual user interaction, not only compilation.
+- Check browser console and terminal errors.
+- Test failure and cancellation paths where relevant.
+
+### Before committing code changes
+
+At minimum:
+
+```bash
+npm run lint
+```
+
+Also run relevant tests if they exist.
+
+### Before a deployment-ready checkpoint
+
+Run:
+
+```bash
+npm run lint
+npm run build
+```
+
+Do not claim a check passed unless it was actually run successfully.
+
+Existing unrelated warnings should be reported, not silently “fixed” through broad scope expansion.
+
+When introducing a test runner or new test script:
+
+- Add the script to `package.json`.
+- Document how to run it.
+- Keep tests focused on meaningful behavior.
+- Prefer integration tests for critical user flows.
+- Use visual or interaction tests for 3D behavior where they provide stable value.
+
+---
+
+## Git and Commit Practices
+
+- Check `git status` before and after work.
+- Do not overwrite unrelated local edits.
+- Keep commits focused on one coherent feature or fix.
+- Use short present-tense commit messages.
+- Include schema and corresponding migration changes together.
+- Do not commit `.env.local`, build output, caches, or temporary files.
+- Do not force-push unless explicitly requested.
+
+For UI or 3D changes, include screenshots or a short recording in a pull request when practical.
+
+A pull request or handoff summary should state:
+
+- What changed
+- Why it changed
+- How it was validated
+- Any new dependencies, migrations, or environment variables
+- Known limitations or unresolved conflicts
+
+---
+
+## Agent Workflow
+
+For each task:
+
+1. Read the user request carefully.
+2. Inspect the relevant files and nearest instructions.
+3. Check repository status before editing.
+4. Identify the smallest complete scope.
+5. Make the change without disturbing unrelated behavior.
+6. Validate with the most relevant checks.
+7. Review the diff for accidental changes.
+8. Summarize the result honestly.
+
+When requirements are ambiguous, prefer inspecting existing behavior and documents before asking the user. Ask a question when a wrong assumption would materially change the product or risk data.
+
+Do not present speculative future ideas as completed behavior.
+
+---
+
+## Final Checklist
+
+Before finishing, verify as applicable:
+
+- The requested behavior works.
+- Existing nearby behavior still works.
+- No secrets were added.
+- No unrelated files were changed.
+- Server/client boundaries remain correct.
+- Pointer and keyboard cancellation paths are handled.
+- Mobile and accessibility implications were considered.
+- Lint and relevant tests were run.
+- Build was run for deployment-ready work.
+- Documentation reflects any new setup requirement.
+- The final summary states what was and was not completed.
