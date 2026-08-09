@@ -5,6 +5,7 @@ import {
 } from "@/lib/notion";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import type { PortalSessionUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import "./portal.css";
 
@@ -18,7 +19,10 @@ export default async function PortalHome({ params }: Props) {
   const { portalUserId } = await params; // 👈 await the Promise
 
   const session = await getServerSession(authOptions);
-  if (!session || (session.user as any).portalUserId !== portalUserId) {
+  if (
+    !session ||
+    (session.user as PortalSessionUser).portalUserId !== portalUserId
+  ) {
     return redirect("/login");
   }
 

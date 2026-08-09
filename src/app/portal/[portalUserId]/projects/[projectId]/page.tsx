@@ -1,5 +1,6 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import type { PortalSessionUser } from "@/lib/auth";
 import { redirect, notFound } from "next/navigation";
 import { getProjectPageForClientProject } from "@/lib/notion";
 
@@ -16,9 +17,13 @@ type Props = {
 export default async function PortalProjectPage({ params, searchParams }: Props) {
   const { portalUserId, projectId } = await params;
   const { post: postSlug } = await searchParams;
+  void postSlug;
 
   const session = await getServerSession(authOptions);
-  if (!session || (session.user as any).portalUserId !== portalUserId) {
+  if (
+    !session ||
+    (session.user as PortalSessionUser).portalUserId !== portalUserId
+  ) {
     return redirect("/login");
   }
 

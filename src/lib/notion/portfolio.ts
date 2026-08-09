@@ -35,7 +35,7 @@ function isBlockObject(
 if (typeof window === 'undefined') { // Only log on server
   console.log('🔍 Notion Config Check:');
   console.log('  Token exists:', !!process.env.NOTION_PORTFOLIO_TOKEN);
-  console.log('  Token preview:', process.env.NOTION_PORTFOLIO_TOKEN?.substring(0, 15) + '...');
+  // Never log token fragments; diagnostics expose presence only.
   console.log('  Database ID:', PORTFOLIO_DATABASE_ID);
   console.log('  Database ID length:', PORTFOLIO_DATABASE_ID?.length || 0);
   

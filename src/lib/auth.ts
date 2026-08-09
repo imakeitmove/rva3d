@@ -6,14 +6,26 @@ import { Resend } from "resend";
 import type { Adapter, AdapterUser } from "next-auth/adapters";
 
 const prisma = new PrismaClient();
-const resend = new Resend(process.env.RESEND_API_KEY!);
+// Previously instantiated at module load:
+// const resend = new Resend(process.env.RESEND_API_KEY!);
+// Defer email-only configuration until a login link is actually requested so
+// public pages can build without legacy portal credentials.
+function getResendClient() {
+  const apiKey = process.env.RESEND_API_KEY;
+
+  if (!apiKey) {
+    throw new Error("Portal email configuration is missing: RESEND_API_KEY");
+  }
+
+  return new Resend(apiKey);
+}
 
 type PortalAdapterUser = AdapterUser & {
   portalUserId?: string | null;
   clientId?: string | null; // optional if you still have this in DB
 };
 
-type SessionUser = DefaultSession["user"] & {
+export type PortalSessionUser = DefaultSession["user"] & {
   id?: string;
   portalUserId?: string | null;
 };
@@ -25,6 +37,7 @@ export const authOptions: NextAuthOptions = {
       from: process.env.EMAIL_FROM,
       maxAge: 10 * 60, // 10 minutes
       async sendVerificationRequest({ identifier, url, provider }) {
+        const resend = getResendClient();
         await resend.emails.send({
           from: provider.from ?? process.env.EMAIL_FROM!,
           to: identifier,
@@ -50,7 +63,7 @@ export const authOptions: NextAuthOptions = {
       const u = user as PortalAdapterUser;
 
       if (session.user) {
-        const sessionUser = session.user as SessionUser;
+        const sessionUser = session.user as PortalSessionUser;
 
         sessionUser.id = u.id;
         // pull from portalUserId (or clientId fallback if that still exists in your DB)

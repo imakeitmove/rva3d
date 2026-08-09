@@ -74,7 +74,9 @@ export default function PortfolioViewer({
       };
     } catch (error) {
       console.error('❌ Error initializing scene:', error);
-      setIsLoading(false);
+      // Defer the state update so the effect remains focused on synchronizing
+      // the Three.js scene and does not trigger a cascading render.
+      queueMicrotask(() => setIsLoading(false));
     }
   }, [items]);
   
@@ -176,6 +178,9 @@ export default function PortfolioViewer({
             {/* Content */}
             <div className="text-white">
               {selectedItem.coverImage && (
+                // Portfolio media URLs come from Notion and are not guaranteed
+                // to use a host configured for Next Image optimization.
+                // eslint-disable-next-line @next/next/no-img-element
                 <img 
                   src={selectedItem.coverImage} 
                   alt={selectedItem.title}

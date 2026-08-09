@@ -9,33 +9,36 @@ import type {
 } from "@notionhq/client/build/src/api-endpoints";
 
 // --- Notion client setup ---
-
-if (!process.env.NOTION_TOKEN) {
-  throw new Error("NOTION_TOKEN is not set in environment");
-}
+// Configuration is checked when a portal operation is requested. The previous
+// import-time checks made unrelated public pages and production builds depend
+// on credentials used only by the legacy portal.
 
 export const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
-const PORTAL_DB_ID = process.env.NOTION_PORTAL_DB_ID as string;
-if (!PORTAL_DB_ID) {
-  throw new Error("NOTION_PORTAL_DB_ID is not set in environment");
-}
+const PORTAL_DB_ID = process.env.NOTION_PORTAL_DB_ID ?? "";
+const FEEDBACK_DB_ID = process.env.NOTION_FEEDBACK_DB_ID ?? "";
+const PROJECTS_DB_ID = process.env.NOTION_PROJECTS_DB_ID ?? "";
+const POSTS_DB_ID = process.env.NOTION_POSTS_DB_ID ?? "";
 
-const FEEDBACK_DB_ID = process.env.NOTION_FEEDBACK_DB_ID as string;
-if (!FEEDBACK_DB_ID) {
-  throw new Error("NOTION_FEEDBACK_DB_ID is not set in environment");
-}
+function assertNotionConfiguration() {
+  const requiredVariables = {
+    NOTION_TOKEN: process.env.NOTION_TOKEN,
+    NOTION_PORTAL_DB_ID: PORTAL_DB_ID,
+    NOTION_FEEDBACK_DB_ID: FEEDBACK_DB_ID,
+    NOTION_PROJECTS_DB_ID: PROJECTS_DB_ID,
+    NOTION_POSTS_DB_ID: POSTS_DB_ID,
+  };
+  const missingVariables = Object.entries(requiredVariables)
+    .filter(([, value]) => !value)
+    .map(([name]) => name);
 
-const PROJECTS_DB_ID = process.env.NOTION_PROJECTS_DB_ID as string;
-const POSTS_DB_ID = process.env.NOTION_POSTS_DB_ID as string;
-
-if (!PROJECTS_DB_ID) {
-  throw new Error("NOTION_PROJECTS_DB_ID is not set in environment");
-}
-if (!POSTS_DB_ID) {
-  throw new Error("NOTION_POSTS_DB_ID is not set in environment");
+  if (missingVariables.length > 0) {
+    throw new Error(
+      `Portal configuration is missing: ${missingVariables.join(", ")}`,
+    );
+  }
 }
 
 // --- Helpers ---
@@ -134,6 +137,7 @@ export type PostPage = {
 export async function getPostsAwaitingReview(
   portalUserId: string
 ): Promise<PortalRecentPost[]> {
+  assertNotionConfiguration();
   // 1. Resolve the Portal Page for this portal user
   const portalPage = await getPortalPageByPortalUserId(portalUserId);
   if (!portalPage) {
@@ -264,6 +268,7 @@ export async function getPostsAwaitingReview(
 export async function getPortalPageByPortalUserId(
   portalUserId: string
 ): Promise<PortalPage | null> {
+  assertNotionConfiguration();
   if (!portalUserId) {
     throw new Error("portalUserId is required");
   }
@@ -306,6 +311,7 @@ export async function getProjectPageForClientProject(options: {
   portalUserId: string;
   projectId: string; // slug used in URL
 }): Promise<ProjectPage | null> {
+  assertNotionConfiguration();
   const { portalUserId, projectId } = options;
 
   // First resolve the portal page for security
@@ -357,6 +363,7 @@ export async function getPostBySlugForProject(options: {
   projectId: string;
   postSlug: string;
 }): Promise<PostPage | null> {
+  assertNotionConfiguration();
   const { portalUserId, projectId, postSlug } = options;
 
   // 1. Resolve the project page for this portal user + project
@@ -403,6 +410,7 @@ export async function getPostBySlugForProject(options: {
 export async function getProjectsForPortal(
   portalUserId: string
 ): Promise<PortalProjectsForClient> {
+  assertNotionConfiguration();
   // 1. Find this portal user's Portal Page
   const portalPage = await getPortalPageByPortalUserId(portalUserId);
   if (!portalPage) {
@@ -458,6 +466,7 @@ export async function getRecentVisiblePostsForPortal(
   portalUserId: string,
   limit = 5
 ): Promise<PortalRecentPost[]> {
+  assertNotionConfiguration();
   // 1. Resolve the Portal Page for this portal user
   const portalPage = await getPortalPageByPortalUserId(portalUserId);
   if (!portalPage) {
@@ -621,6 +630,7 @@ export async function createFeedbackForPost(options: {
   timecodeSec?: number;
   status?: FeedbackStatus;
 }) {
+  assertNotionConfiguration();
   const {
     postPageId,
     portalPageId,
