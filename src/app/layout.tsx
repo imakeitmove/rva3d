@@ -1,27 +1,43 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
 import type { ReactNode } from "react";
+import localFont from "next/font/local";
 
-const geistSans = Geist({
+import "./globals.css";
+
+const geistSans = localFont({
+  src: "../../public/fonts/Geist/Geist-VariableFont_wght.ttf",
   variable: "--font-geist-sans",
-  subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
+const geistMono = localFont({
+  src: "../../public/fonts/Geist_Mono/GeistMono-VariableFont_wght.ttf",
   variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "RVA3D",
-  description: "Interactive 3D portfolio and client portal",
+  metadataBase: new URL("https://rva3d.com"),
+  title: "RVA3D — 3D Visualization, Animation & Motion Design",
+  description:
+    "Senior-led 3D visualization, animation, and motion design for products, systems, and ideas that are hard to explain, hard to film, or need to look exceptional.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "RVA3D",
+    title: "RVA3D — 3D Visualization, Animation & Motion Design",
+    description:
+      "Senior-led 3D visualization, animation, and motion design for products, systems, and ideas that are hard to explain, hard to film, or need to look exceptional.",
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body style={{ margin: 0, padding: 0, overflow: "hidden" }}>
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
       </body>
     </html>

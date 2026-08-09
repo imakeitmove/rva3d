@@ -1,9 +1,7 @@
 import { ReactNode } from "react";
 
 export default function ThreeLayout({ children }: { children: ReactNode }) {
-  return (
-    <div style={{ height: "100vh", width: "100vw", overflow: "hidden" }}>
-      {children}
-    </div>
-  );
+  // Full-screen scene routes own their viewport sizing. Keeping this layout
+  // neutral lets the public homepage use normal document scrolling.
+  return children;
 }
