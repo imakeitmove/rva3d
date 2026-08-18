@@ -821,3 +821,271 @@
     display: none;
   }
 }
+
+/* The original centered mailto contact treatment above is preserved for
+   reference. These scoped overrides support the new two-column contact form. */
+.contact {
+  display: block;
+  min-height: auto;
+  padding: clamp(6rem, 10vw, 10rem) 0;
+  text-align: left;
+}
+
+.contactOrb {
+  left: 18%;
+  width: min(58vw, 48rem);
+  opacity: 0.72;
+}
+
+.contactInner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(17rem, 0.78fr) minmax(28rem, 1.22fr);
+  gap: clamp(3rem, 8vw, 9rem);
+  align-items: start;
+  width: min(100% - 4rem, 96rem);
+  margin-inline: auto;
+}
+
+.contactIntro h2 {
+  max-width: 42rem;
+  font-size: clamp(3rem, 5.6vw, 6.3rem);
+}
+
+.contactIntro > p:not(.sectionLabel, .businessDetails) {
+  max-width: 36rem;
+  margin: 2rem 0 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.65;
+}
+
+.contactMethods {
+  display: grid;
+  gap: 0;
+  margin-top: 3rem;
+  border-top: 1px solid var(--line);
+  font-style: normal;
+}
+
+.contactMethods a {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.contactMethods a:hover {
+  color: var(--accent);
+}
+
+.contactMethods span,
+.businessDetails {
+  color: var(--muted);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  line-height: 1.7;
+  text-transform: uppercase;
+}
+
+.businessDetails {
+  margin: 1.3rem 0 0;
+}
+
+.contactForm {
+  position: relative;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border: 1px solid var(--line);
+  background: rgba(14, 17, 15, 0.88);
+  box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, 0.22);
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.55rem;
+  margin-bottom: 1.35rem;
+}
+
+.field label {
+  color: #d1d1cb;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.68rem;
+  font-weight: 560;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.field label span {
+  color: #747670;
+  font-size: 0.58rem;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  border: 1px solid rgba(243, 241, 233, 0.22);
+  border-radius: 0;
+  background: #0a0c0b;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.4;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.field input,
+.field select {
+  min-height: 3.15rem;
+  padding: 0.75rem 0.9rem;
+}
+
+.field textarea {
+  min-height: 10rem;
+  padding: 0.9rem;
+  resize: vertical;
+}
+
+.field select {
+  color-scheme: dark;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+  outline: none;
+}
+
+.field input[aria-invalid="true"],
+.field select[aria-invalid="true"],
+.field textarea[aria-invalid="true"] {
+  border-color: #ff9c85;
+}
+
+.fieldError {
+  color: #ffb29f;
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.formFooter {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  min-height: 3.25rem;
+}
+
+.submitButton {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  min-width: 12.5rem;
+  min-height: 3.25rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #080a09;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 720;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  transition: background 160ms ease, color 160ms ease, opacity 160ms ease;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: transparent;
+  color: var(--accent);
+}
+
+.submitButton:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.formStatus,
+.formSuccess {
+  margin: 0;
+  color: #ffb29f;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.formSuccess {
+  color: var(--accent);
+}
+
+@media (max-width: 900px) {
+  .contactInner {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  .contactIntro {
+    max-width: 46rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .contact {
+    min-height: auto;
+    padding: 6rem 0;
+  }
+
+  .contactInner {
+    width: min(100% - 2.5rem, 96rem);
+  }
+
+  .contactIntro h2 {
+    font-size: clamp(3rem, 13vw, 4.5rem);
+  }
+
+  .contactMethods a {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+
+  .contactForm {
+    padding: 1.25rem;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .formFooter {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .submitButton {
+    width: 100%;
+  }
+}

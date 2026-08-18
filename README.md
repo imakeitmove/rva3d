@@ -173,8 +173,20 @@ Passcode (formula that generates a unique passcode for each post)
 
 ## Local Development
 1. Install dependencies: `npm install`.
-2. Copy `.env.example` to `.env.local` and fill Notion/DB credentials.
+2. Create `.env.local` and fill the required server-side credentials.
 3. Run the dev server: `npm run dev` (http://localhost:3000).
+
+### Contact form email
+
+The public contact form sends through the existing Resend integration. Configure
+these server-side environment variables locally and in the deployment:
+
+- `RESEND_API_KEY` — Resend API key (also used by portal login email).
+- `EMAIL_FROM` — a Resend-verified sender, for example `RVA3D Website <hello@rva3d.com>`.
+- `CONTACT_EMAIL_TO` — optional delivery address; defaults to `hello@rva3d.com`.
+
+The form returns an explicit error and keeps email/phone contact links visible if
+delivery configuration is missing or Resend rejects the message.
 
 ## Scripts
 - `npm run dev` – start Next.js in development.

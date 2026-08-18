@@ -1,4 +1,5 @@
 import styles from "./home.module.css";
+import ContactForm from "./ContactForm";
 
 const problems = [
   {
@@ -50,7 +51,7 @@ export default function HomePage() {
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
         </nav>
-        <a className={styles.headerContact} href="mailto:hello@rva3d.com">
+        <a className={styles.headerContact} href="#contact">
           Start a project
           <span aria-hidden="true">↗</span>
         </a>
@@ -73,7 +74,7 @@ export default function HomePage() {
               hard to film, or need to look exceptional.
             </p>
             <div className={styles.heroActions}>
-              <a className={styles.primaryButton} href="mailto:hello@rva3d.com">
+              <a className={styles.primaryButton} href="#contact">
                 Start a project
                 <span aria-hidden="true">↗</span>
               </a>
@@ -166,18 +167,37 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* The previous contact block was a single mailto link. The direct link
+            remains below, with an optional form added for convenience. */}
         <section className={styles.contact} id="contact" aria-labelledby="contact-title">
           <div className={styles.contactOrb} aria-hidden="true" />
-          <p className={styles.sectionLabel}>Start a conversation</p>
-          <h2 id="contact-title">Have something difficult to show?</h2>
-          <p>
-            Tell me what you’re making, who needs to understand it, and what
-            makes it challenging.
-          </p>
-          <a href="mailto:hello@rva3d.com">
-            hello@rva3d.com
-            <span aria-hidden="true">↗</span>
-          </a>
+          <div className={styles.contactInner}>
+            <div className={styles.contactIntro}>
+              <p className={styles.sectionLabel}>Start a conversation</p>
+              <h2 id="contact-title">Have something difficult to show?</h2>
+              <p>
+                Tell us what you’re making and where RVA3D can help. Use the
+                form, email, or call — whichever is easiest.
+              </p>
+
+              <address className={styles.contactMethods}>
+                <a href="mailto:hello@rva3d.com">
+                  <span>Email</span>
+                  hello@rva3d.com
+                </a>
+                <a href="tel:+18043928183">
+                  <span>Call or text</span>
+                  (804) 392-8183
+                </a>
+              </address>
+
+              <p className={styles.businessDetails}>
+                RVA3D · Richmond, Virginia · Founded 2026
+              </p>
+            </div>
+
+            <ContactForm />
+          </div>
         </section>
       </main>
 
@@ -186,7 +206,7 @@ export default function HomePage() {
           <span>RVA</span>
           <span className={styles.brandAccent}>3D</span>
         </a>
-        <p>Senior-led 3D visualization and animation.</p>
+        <p>Richmond, Virginia · Founded 2026</p>
         <p>© {new Date().getFullYear()} RVA3D</p>
       </footer>
     </div>

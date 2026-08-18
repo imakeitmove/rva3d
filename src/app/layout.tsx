@@ -34,11 +34,33 @@ export const metadata: Metadata = {
   },
 };
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "RVA3D",
+  url: "https://rva3d.com",
+  email: "hello@rva3d.com",
+  telephone: "+1-804-392-8183",
+  foundingDate: "2026",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Richmond",
+    addressRegion: "VA",
+    addressCountry: "US",
+  },
+};
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema).replace(/</g, "\\u003c"),
+          }}
+        />
       </body>
     </html>
   );
