@@ -67,7 +67,7 @@ export default function HomePage() {
             </p>
             <h1 id="hero-title">
               Make complex things clear
-              <span> — and impossible to ignore.</span>
+              <span> and impossible to ignore.</span>
             </h1>
             <p className={styles.heroLead}>
               RVA3D creates senior-led 3D visualization, animation, and motion
@@ -101,9 +101,13 @@ export default function HomePage() {
           */}
 
           <div className={styles.heroCube}>
+            {/* Previous branded fallback retained for rollback. It is not
+            rendered because it would remain visible beneath the transparent
+            hero canvas:
             <div className={styles.heroCubeFallback} aria-hidden="true">
               <span>RVA</span>3D
             </div>
+            */}
             <div className={styles.heroCubeStage}>
               <HomepageCubeHero />
             </div>

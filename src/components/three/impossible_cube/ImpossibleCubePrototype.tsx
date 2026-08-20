@@ -1266,7 +1266,7 @@ export function ImpossibleCubePrototype({
         width: isHeroPresentation ? "100%" : "100vw",
         height: isHeroPresentation ? "100%" : "100vh",
         overflow: "hidden",
-        background: RVA3D_INK,
+        background: isHeroPresentation ? "transparent" : RVA3D_INK,
       }}
     >
       {!isHeroPresentation ? (
@@ -1309,10 +1309,12 @@ export function ImpossibleCubePrototype({
         <Canvas
           camera={{ position: [0, 0, 5.6], fov: 42, near: 0.1, far: 100 }}
           dpr={[1, 1.5]}
-          gl={{ antialias: true }}
+          gl={{ antialias: true, alpha: isHeroPresentation }}
           shadows="basic"
         >
-          <color attach="background" args={[RVA3D_INK]} />
+          {!isHeroPresentation ? (
+            <color attach="background" args={[RVA3D_INK]} />
+          ) : null}
           <ambientLight intensity={0.85} />
           <directionalLight position={[3, 4, 5]} intensity={2} />
 
