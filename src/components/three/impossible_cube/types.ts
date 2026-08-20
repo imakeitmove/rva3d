@@ -2,11 +2,13 @@ import type { MutableRefObject } from "react";
 import type { Quaternion, Vector2 } from "three";
 
 export type FaceTransform = {
-  markerColor: string;
+  faceNumber: CubeFaceNumber;
   name: string;
   position: [number, number, number];
   rotation: [number, number, number];
 };
+
+export type CubeFaceNumber = 1 | 2 | 3 | 4 | 5 | 6;
 
 export type CubeInteractionState = {
   angularVelocity: Vector2;

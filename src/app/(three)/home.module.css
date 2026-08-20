@@ -334,6 +334,61 @@
   bottom: 12%;
 }
 
+/* The approved cube is intentionally isolated here so a future hero identity
+   can replace it without changing the surrounding homepage structure. */
+.heroCube {
+  position: relative;
+  align-self: center;
+  justify-self: center;
+  width: clamp(23rem, 38vw, 38rem);
+  max-width: 100%;
+  aspect-ratio: 1;
+  animation: reveal 1s 120ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  isolation: isolate;
+}
+
+.heroCubeFallback,
+.heroCubeStage {
+  position: absolute;
+  inset: 0;
+}
+
+.heroCubeFallback {
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(243, 241, 233, 0.1);
+  background:
+    radial-gradient(circle at center, rgba(124, 255, 79, 0.08), transparent 58%),
+    #07090c;
+  color: rgba(242, 244, 241, 0.28);
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 760;
+  letter-spacing: -0.07em;
+}
+
+.heroCubeFallback span {
+  color: rgba(242, 244, 241, 0.52);
+}
+
+.heroCubeStage {
+  z-index: 1;
+  overflow: hidden;
+}
+
+.heroCubeHint {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  z-index: 2;
+  margin: 0;
+  color: rgba(242, 244, 241, 0.52);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
 .heroFoot {
   grid-column: 1 / -1;
   display: flex;
@@ -686,6 +741,11 @@
     opacity: 0.52;
   }
 
+  .heroCube {
+    width: min(100%, 32rem);
+    margin-block: 0.5rem;
+  }
+
   .problems,
   .capabilities {
     grid-template-columns: 1fr;
@@ -757,6 +817,10 @@
   .heroObject {
     top: 9rem;
     right: -17rem;
+  }
+
+  .heroCube {
+    width: min(100%, 25rem);
   }
 
   .heroFoot {

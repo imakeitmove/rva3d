@@ -1,5 +1,6 @@
 import styles from "./home.module.css";
 import ContactForm from "./ContactForm";
+import { HomepageCubeHero } from "@/components/three/impossible_cube/HomepageCubeHero";
 
 const problems = [
   {
@@ -84,6 +85,7 @@ export default function HomePage() {
             </div>
           </div>
 
+          {/* Previous decorative CSS hero retained as a rollback reference:
           <div className={styles.heroObject} aria-hidden="true">
             <div className={styles.orbitOuter} />
             <div className={styles.orbitInner} />
@@ -95,6 +97,17 @@ export default function HomePage() {
             </div>
             <span className={styles.coordinateOne}>37.5407° N</span>
             <span className={styles.coordinateTwo}>77.4360° W</span>
+          </div>
+          */}
+
+          <div className={styles.heroCube}>
+            <div className={styles.heroCubeFallback} aria-hidden="true">
+              <span>RVA</span>3D
+            </div>
+            <div className={styles.heroCubeStage}>
+              <HomepageCubeHero />
+            </div>
+            <p className={styles.heroCubeHint}>Drag to rotate</p>
           </div>
 
           <div className={styles.heroFoot}>

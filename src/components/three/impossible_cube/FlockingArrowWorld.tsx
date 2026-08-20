@@ -3,6 +3,7 @@
 import { useFrame } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import {
+  Color,
   DynamicDrawUsage,
   Matrix4,
   Quaternion,
@@ -10,6 +11,14 @@ import {
 } from "three";
 import type { InstancedMesh } from "three";
 
+import {
+  mixRva3dColor,
+  RVA3D_BLUE,
+  RVA3D_GREEN,
+  RVA3D_INK,
+  RVA3D_PINK,
+  RVA3D_WHITE,
+} from "./rva3dPalette";
 import type { CubeInteractionRef } from "./types";
 
 export const FLOCK_ARROW_COUNT = 42;
@@ -26,6 +35,7 @@ const COHESION_WEIGHT = 0.36;
 const BOUNDARY_WEIGHT = 1.55;
 const THROW_DISTURBANCE_WEIGHT = 0.16;
 const MAX_FLOCK_DELTA = 1 / 30;
+const FLOCK_SIMULATION_SPEED = 3;
 const BOUNDS = {
   x: 0.78,
   y: 0.78,
@@ -35,6 +45,20 @@ const BOUNDS = {
 
 const ARROW_UP = new Vector3(0, 1, 0);
 const ARROW_SCALE = new Vector3(1, 1, 1);
+const ARROW_COLORS = [
+  new Color(RVA3D_GREEN),
+  new Color(RVA3D_GREEN),
+  new Color(mixRva3dColor(RVA3D_GREEN, RVA3D_WHITE, 0.18)),
+  new Color(RVA3D_GREEN),
+  new Color(mixRva3dColor(RVA3D_GREEN, RVA3D_INK, 0.14)),
+  new Color(RVA3D_GREEN),
+  new Color(RVA3D_BLUE),
+  new Color(RVA3D_GREEN),
+  new Color(mixRva3dColor(RVA3D_GREEN, RVA3D_WHITE, 0.1)),
+  new Color(RVA3D_GREEN),
+  new Color(RVA3D_PINK),
+  new Color(RVA3D_GREEN),
+] as const;
 
 type FlockState = {
   accelerations: Vector3[];
@@ -106,7 +130,21 @@ export function FlockingArrowWorld({
   const instanceQuaternion = useRef(new Quaternion());
 
   useEffect(() => {
-    instancedMeshRef.current?.instanceMatrix.setUsage(DynamicDrawUsage);
+    const instancedMesh = instancedMeshRef.current;
+
+    if (!instancedMesh) {
+      return;
+    }
+
+    instancedMesh.instanceMatrix.setUsage(DynamicDrawUsage);
+
+    for (let index = 0; index < FLOCK_ARROW_COUNT; index += 1) {
+      instancedMesh.setColorAt(index, ARROW_COLORS[index % ARROW_COLORS.length]);
+    }
+
+    if (instancedMesh.instanceColor) {
+      instancedMesh.instanceColor.needsUpdate = true;
+    }
   }, []);
 
   useFrame((_, frameDelta) => {
@@ -117,7 +155,12 @@ export function FlockingArrowWorld({
     }
 
     if (!prefersReducedMotion) {
-      const delta = Math.min(frameDelta, MAX_FLOCK_DELTA);
+      // Previous 1x simulation retained for rollback:
+      // const delta = Math.min(frameDelta, MAX_FLOCK_DELTA);
+      // Scale simulation time in one place so the flock keeps the same forces,
+      // speed limits, and steering relationships while moving three times faster.
+      const delta =
+        Math.min(frameDelta, MAX_FLOCK_DELTA) * FLOCK_SIMULATION_SPEED;
       const neighborRadiusSquared = NEIGHBOR_RADIUS * NEIGHBOR_RADIUS;
       const separationRadiusSquared = SEPARATION_RADIUS * SEPARATION_RADIUS;
       const throwStrength = Math.min(
@@ -263,7 +306,7 @@ export function FlockingArrowWorld({
     <group name="BOTTOM_FLOCK_WORLD">
       <mesh position={[0, 0, -1.52]}>
         <boxGeometry args={[1.72, 1.72, 0.04]} />
-        <meshStandardMaterial color="#101d24" roughness={0.88} />
+        <meshStandardMaterial color={RVA3D_INK} roughness={0.88} />
       </mesh>
       <instancedMesh
         ref={instancedMeshRef}
@@ -271,8 +314,11 @@ export function FlockingArrowWorld({
         frustumCulled={false}
       >
         <coneGeometry args={[0.045, 0.16, 3]} />
+        {/* Previous single-color arrow material retained for rollback:
+        color="#79d5c6"
+        */}
         <meshStandardMaterial
-          color="#79d5c6"
+          color={RVA3D_WHITE}
           metalness={0.08}
           roughness={0.5}
         />
