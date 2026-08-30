@@ -1,0 +1,150 @@
+.page {
+  --ink: #f3f1e9;
+  --muted: #a4a59f;
+  --line: rgba(243, 241, 233, 0.16);
+  --accent: #d7ff43;
+  min-height: 100svh;
+  background:
+    radial-gradient(circle at 70% 45%, rgba(125, 141, 119, 0.2), transparent 32%),
+    #080a09;
+  color: var(--ink);
+}
+
+.skipLink {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: var(--accent);
+  color: #080a09;
+  font-weight: 700;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skipLink:focus {
+  transform: translateY(0);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  width: min(100% - 4rem, 96rem);
+  margin-inline: auto;
+  padding-block: 1.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  color: var(--ink);
+  font-size: 1.25rem;
+  font-weight: 760;
+  letter-spacing: -0.06em;
+  text-decoration: none;
+}
+
+.brand span {
+  color: var(--accent);
+}
+
+.header nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.header nav a {
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.header nav a:hover {
+  color: var(--accent);
+}
+
+.experiment {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.55fr) minmax(22rem, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 7vw, 8rem);
+  width: min(100% - 4rem, 96rem);
+  min-height: calc(100svh - 5rem);
+  margin-inline: auto;
+  padding-block: 3rem;
+}
+
+.intro > p:first-child {
+  margin: 0 0 1.25rem;
+  color: var(--accent);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.intro h1 {
+  margin: 0;
+  font-size: clamp(3rem, 7vw, 7rem);
+  font-weight: 430;
+  letter-spacing: -0.07em;
+  line-height: 0.92;
+}
+
+.intro > p:last-child {
+  max-width: 34rem;
+  margin: 2rem 0 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.stage {
+  width: min(100%, 46rem);
+  aspect-ratio: 1;
+  justify-self: center;
+  overflow: hidden;
+}
+
+.hint {
+  position: absolute;
+  right: 1rem;
+  bottom: 2rem;
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 800px) {
+  .header,
+  .experiment {
+    width: min(100% - 2.5rem, 96rem);
+  }
+
+  .header nav a:last-child {
+    display: none;
+  }
+
+  .experiment {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding-top: 4rem;
+  }
+
+  .stage {
+    width: min(100%, 32rem);
+  }
+
+  .hint {
+    position: static;
+    justify-self: end;
+    margin-top: -1rem;
+  }
+}

@@ -1,0 +1,298 @@
+.page {
+  --ink: #f3f1e9;
+  --muted: #a4a59f;
+  --line: rgba(243, 241, 233, 0.16);
+  --accent: #d7ff43;
+  min-height: 100svh;
+  background: #080a09;
+  color: var(--ink);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  width: min(100% - 4rem, 96rem);
+  margin-inline: auto;
+  padding-block: 1.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.header > a:last-child {
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.brand {
+  color: var(--ink);
+  font-size: 1.25rem;
+  font-weight: 760;
+  letter-spacing: -0.06em;
+  text-decoration: none;
+}
+
+.brand span {
+  color: var(--accent);
+}
+
+.workIndex,
+.caseStudy {
+  width: min(100% - 4rem, 96rem);
+  margin-inline: auto;
+  padding-block: clamp(5rem, 10vw, 10rem);
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: minmax(10rem, 0.35fr) minmax(0, 1fr);
+  gap: clamp(2rem, 7vw, 8rem);
+  margin-bottom: clamp(5rem, 10vw, 10rem);
+}
+
+.intro > p,
+.caseHeader > p:first-child,
+.story section > p:first-child,
+.process > div:first-child > p:first-child,
+.caseFooter > div > p:first-child {
+  margin: 0;
+  color: var(--accent);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.intro h1,
+.caseHeader h1 {
+  max-width: 70rem;
+  margin: 0;
+  font-size: clamp(3rem, 7vw, 7.6rem);
+  font-weight: 430;
+  letter-spacing: -0.07em;
+  line-height: 0.94;
+}
+
+.cards {
+  display: grid;
+  gap: 6rem;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 0.65fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+
+.cardMedia,
+.heroMedia,
+.mediaGrid,
+.gallery {
+  overflow: hidden;
+}
+
+.cardMedia img,
+.cardMedia video,
+.heroMedia img,
+.heroMedia video,
+.mediaGrid img,
+.mediaGrid video,
+.gallery img,
+.gallery video {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #111411;
+}
+
+.cardCopy > p:first-child {
+  margin: 0 0 1.25rem;
+  color: var(--muted);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cardCopy h2 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 440;
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+
+.cardCopy > p:not(:first-child),
+.emptyState {
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.cardCopy a {
+  display: inline-block;
+  margin-top: 1rem;
+  color: var(--accent);
+  text-underline-offset: 0.35rem;
+}
+
+.emptyState {
+  max-width: 38rem;
+  margin-left: auto;
+}
+
+.caseStudy {
+  padding-top: clamp(4rem, 8vw, 8rem);
+}
+
+.caseHeader {
+  max-width: 76rem;
+}
+
+.caseHeader > p:nth-of-type(2) {
+  max-width: 52rem;
+  margin: 2rem 0 0;
+  color: var(--muted);
+  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+  line-height: 1.65;
+}
+
+.caseHeader dl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem 5rem;
+  margin: 3rem 0 0;
+}
+
+.caseHeader dl div {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.caseHeader dt {
+  color: var(--muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.caseHeader dd {
+  margin: 0;
+}
+
+.heroMedia {
+  margin-top: clamp(4rem, 8vw, 8rem);
+}
+
+.story {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: clamp(5rem, 10vw, 10rem);
+  border-top: 1px solid var(--line);
+}
+
+.story section {
+  padding: 2rem;
+  border-right: 1px solid var(--line);
+}
+
+.story section:first-child {
+  padding-left: 0;
+}
+
+.story section:last-child {
+  border-right: 0;
+}
+
+.story h2,
+.process h2 {
+  margin: 1.25rem 0 0;
+  font-size: clamp(1.6rem, 3vw, 3rem);
+  font-weight: 440;
+  letter-spacing: -0.05em;
+  line-height: 1.05;
+}
+
+.story section > p:last-child,
+.process > div:first-child > p:last-child {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.process {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.45fr) minmax(0, 1fr);
+  gap: clamp(2rem, 7vw, 8rem);
+  margin-top: clamp(6rem, 10vw, 11rem);
+}
+
+.mediaGrid,
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.gallery {
+  margin-top: clamp(6rem, 10vw, 11rem);
+}
+
+.caseFooter {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+  margin-top: clamp(6rem, 10vw, 11rem);
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+
+.caseFooter ul {
+  margin: 1.5rem 0 0;
+  padding: 0;
+  color: var(--muted);
+  line-height: 1.8;
+  list-style: none;
+}
+
+.caseFooter strong {
+  color: var(--ink);
+  font-weight: 520;
+}
+
+@media (max-width: 800px) {
+  .header,
+  .workIndex,
+  .caseStudy {
+    width: min(100% - 2.5rem, 96rem);
+  }
+
+  .intro,
+  .card,
+  .process {
+    grid-template-columns: 1fr;
+  }
+
+  .story {
+    grid-template-columns: 1fr;
+  }
+
+  .story section,
+  .story section:first-child {
+    padding: 2rem 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .story section:last-child {
+    border-bottom: 0;
+  }
+
+  .mediaGrid,
+  .gallery,
+  .caseFooter {
+    grid-template-columns: 1fr;
+  }
+}

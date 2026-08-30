@@ -16,6 +16,7 @@ import {
   useState,
 } from "react";
 import type {
+  KeyboardEvent as ReactKeyboardEvent,
   PointerEvent as ReactPointerEvent,
   RefObject,
 } from "react";
@@ -1232,6 +1233,49 @@ export function ImpossibleCubePrototype({
     [finishPointerInteraction],
   );
 
+  const handleKeyDown = useCallback(
+    (event: ReactKeyboardEvent<HTMLDivElement>) => {
+      const interaction = interactionRef.current;
+      const rotationStep = 0.14;
+      let pitch = 0;
+      let yaw = 0;
+
+      switch (event.key) {
+        case "ArrowUp":
+          pitch = -rotationStep;
+          break;
+        case "ArrowDown":
+          pitch = rotationStep;
+          break;
+        case "ArrowLeft":
+          yaw = -rotationStep;
+          break;
+        case "ArrowRight":
+          yaw = rotationStep;
+          break;
+        default:
+          return;
+      }
+
+      event.preventDefault();
+      interaction.angularVelocity.set(0, 0);
+
+      if (pitch !== 0) {
+        interaction.pitchDelta.setFromAxisAngle(WORLD_X_AXIS, pitch);
+        interaction.orientation.premultiply(interaction.pitchDelta);
+      }
+
+      if (yaw !== 0) {
+        interaction.yawDelta.setFromAxisAngle(WORLD_Y_AXIS, yaw);
+        interaction.orientation.premultiply(interaction.yawDelta);
+      }
+
+      interaction.orientation.normalize();
+      setInteractionLabel("keyboard");
+    },
+    [],
+  );
+
   const portalStatuses = Object.values(portalAnimationStatuses);
   const clockworkStatuses = portalStatuses.filter(
     (status) => status.worldKind === "clockwork",
@@ -1288,14 +1332,17 @@ export function ImpossibleCubePrototype({
       ) : null}
 
       <div
-        aria-label="Interactive six-face RVA3D impossible cube. Drag to rotate."
+        aria-describedby="rva3d-cube-keyboard-instructions"
+        aria-label="Interactive six-face RVA3D impossible cube"
         onDragStart={(event) => event.preventDefault()}
+        onKeyDown={handleKeyDown}
         onLostPointerCapture={handlePointerCancel}
         onPointerCancel={handlePointerCancel}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         role="region"
+        tabIndex={0}
         style={{
           position: "relative",
           width: "100%",
@@ -1306,6 +1353,22 @@ export function ImpossibleCubePrototype({
           WebkitUserSelect: "none",
         }}
       >
+        <span
+          id="rva3d-cube-keyboard-instructions"
+          style={{
+            position: "absolute",
+            width: 1,
+            height: 1,
+            padding: 0,
+            margin: -1,
+            overflow: "hidden",
+            clip: "rect(0, 0, 0, 0)",
+            whiteSpace: "nowrap",
+            border: 0,
+          }}
+        >
+          Drag to rotate, or focus the cube and use the arrow keys.
+        </span>
         <Canvas
           camera={{ position: [0, 0, 5.6], fov: 42, near: 0.1, far: 100 }}
           dpr={[1, 1.5]}

@@ -1,9 +1,19 @@
 // app/portfolio/page.tsx
+import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import PortfolioViewer from '@/components/PortfolioViewer';
 import { getPortfolioItems } from '@/lib/notion/portfolio';
 
 export const revalidate = 3600; // Revalidate every hour
+
+export const metadata: Metadata = {
+  title: 'Experimental Portfolio Archive | RVA3D',
+  description: 'An experimental legacy portfolio view maintained by RVA3D.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default async function PortfolioPage() {
   const portfolioItems = await getPortfolioItems();
