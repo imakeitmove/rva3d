@@ -17,18 +17,20 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://rva3d.com"),
-  title: "RVA3D — 3D Visualization, Animation & Motion Design",
+  metadataBase: new URL("https://www.rva3d.com"),
+  title: "RVA3D | 3D Visualization, Animation and Motion Design",
   description:
     "Senior-led 3D visualization, animation, and motion design for products, systems, and ideas that are hard to explain, hard to film, or need to look exceptional.",
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     type: "website",
-    url: "/",
     siteName: "RVA3D",
-    title: "RVA3D — 3D Visualization, Animation & Motion Design",
+    title: "RVA3D | 3D Visualization, Animation and Motion Design",
+    description:
+      "Senior-led 3D visualization, animation, and motion design for products, systems, and ideas that are hard to explain, hard to film, or need to look exceptional.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "RVA3D | 3D Visualization, Animation and Motion Design",
     description:
       "Senior-led 3D visualization, animation, and motion design for products, systems, and ideas that are hard to explain, hard to film, or need to look exceptional.",
   },
@@ -38,7 +40,7 @@ const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "RVA3D",
-  url: "https://rva3d.com",
+  url: "https://www.rva3d.com",
   email: "hello@rva3d.com",
   telephone: "+1-804-392-8183",
   foundingDate: "2026",

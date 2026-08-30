@@ -1,41 +1,67 @@
-import styles from "./home.module.css";
-import ContactForm from "./ContactForm";
-import { HomepageCubeHero } from "@/components/three/impossible_cube/HomepageCubeHero";
+import type { Metadata } from "next";
+import Link from "next/link";
 
-const problems = [
+import { HomepageCubeHero } from "@/components/three/impossible_cube/HomepageCubeHero";
+import { WorkMedia } from "@/components/work/WorkMedia";
+import { getFeaturedWork } from "@/content/work";
+
+import ContactForm from "./ContactForm";
+import styles from "./home.module.css";
+
+const homeTitle = "RVA3D | 3D Visualization, Animation and Motion Design";
+const homeDescription =
+  "Senior-led 3D visualization, animation, and motion design for products, systems, and ideas that are hard to explain, hard to film, or need to look exceptional.";
+
+export const metadata: Metadata = {
+  title: homeTitle,
+  description: homeDescription,
+  alternates: {
+    canonical: "https://www.rva3d.com",
+  },
+  openGraph: {
+    type: "website",
+    url: "https://www.rva3d.com",
+    siteName: "RVA3D",
+    title: homeTitle,
+    description: homeDescription,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: homeTitle,
+    description: homeDescription,
+  },
+};
+
+const reasons = [
   {
     number: "01",
-    title: "Reveal what can’t be filmed",
-    copy: "Internals, invisible processes, future products, enormous systems, microscopic details, and environments that are impractical or impossible to photograph clearly.",
+    title: "Make difficult things easier to understand.",
+    copy: "Some products, systems, and ideas are too internal, too large, too small, too dangerous, or not yet real enough to film. RVA3D turns technical references, CAD files, and real-world measurements into accurate visuals that help people see how something works and why it matters.",
   },
   {
     number: "02",
-    title: "Explain what isn’t obvious",
-    copy: "Turn complicated mechanisms, products, and ideas into visuals people can actually understand.",
+    title: "Turn half-formed ideas into finished work.",
+    copy: "A project does not need to arrive fully solved. We can develop a loose direction, strengthen an existing concept, fill in what is missing, and carry the work through design, animation, VFX, interaction, and final delivery.",
   },
   {
     number: "03",
-    title: "Make it look exceptional",
-    copy: "Cinematic product visualization, lighting, rendering, animation, compositing, and finish.",
-  },
-  {
-    number: "04",
-    title: "Add senior production firepower",
-    copy: "Experienced independent 3D and motion support for agencies, production teams, and organizations that need reliable specialist capacity.",
+    title: "Get it right, not just close.",
+    copy: "When a project needs to look or behave a very particular way, close enough is not enough. RVA3D combines careful listening, creative judgment, and controllable production methods to match specific products, proportions, materials, movement, and brand requirements. When the first approach falls short, we can diagnose the problem, rebuild what is needed, and carry the project over the finish line.",
   },
 ];
 
 const capabilities = [
-  "3D Visualization",
-  "Product Animation",
-  "Technical Animation",
+  "3D Animation",
+  "Product and Technical Visualization",
   "Motion Design",
-  "VFX & Compositing",
-  "Look Development",
-  "Rendering",
+  "VFX and Compositing",
+  "Interactive 3D",
+  "Creative Production Support",
 ];
 
 export default function HomePage() {
+  const featuredWork = getFeaturedWork();
+
   return (
     <div className={styles.siteShell}>
       <a className={styles.skipLink} href="#main-content">
@@ -48,6 +74,7 @@ export default function HomePage() {
           <span className={styles.brandAccent}>3D</span>
         </a>
         <nav className={styles.nav} aria-label="Primary navigation">
+          {featuredWork.length > 0 ? <a href="#work">Work</a> : null}
           <a href="#capabilities">Capabilities</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
@@ -66,13 +93,14 @@ export default function HomePage() {
               <span /> Richmond, Virginia · Available worldwide
             </p>
             <h1 id="hero-title">
-              Make complex things clear
-              <span> and impossible to ignore.</span>
+              If a picture is worth a thousand words,
+              <span>imagine what an animation could say.</span>
             </h1>
             <p className={styles.heroLead}>
-              RVA3D creates senior-led 3D visualization, animation, and motion
-              design for products, systems, and ideas that are hard to explain,
-              hard to film, or need to look exceptional.
+              Bring us the product, the problem, or even the beginning of an
+              idea. We help figure out what the project needs, fill in the
+              missing pieces, solve the creative and technical problems, and
+              carry it through production.
             </p>
             <div className={styles.heroActions}>
               <a className={styles.primaryButton} href="#contact">
@@ -124,17 +152,15 @@ export default function HomePage() {
 
         <section className={styles.problems} aria-labelledby="problems-title">
           <div className={styles.sectionIntro}>
-            <p className={styles.sectionLabel}>What we solve</p>
-            <h2 id="problems-title">
-              Some things need more than a camera.
-            </h2>
+            <p className={styles.sectionLabel}>Why RVA3D</p>
+            <h2 id="problems-title">Three reasons to hire RVA3D.</h2>
           </div>
           <div className={styles.problemList}>
-            {problems.map((problem) => (
-              <article className={styles.problem} key={problem.number}>
-                <span className={styles.problemNumber}>{problem.number}</span>
-                <h3>{problem.title}</h3>
-                <p>{problem.copy}</p>
+            {reasons.map((reason) => (
+              <article className={styles.problem} key={reason.number}>
+                <span className={styles.problemNumber}>{reason.number}</span>
+                <h3>{reason.title}</h3>
+                <p>{reason.copy}</p>
                 <span className={styles.problemArrow} aria-hidden="true">
                   ↗
                 </span>
@@ -142,6 +168,35 @@ export default function HomePage() {
             ))}
           </div>
         </section>
+
+        {featuredWork.length > 0 ? (
+          <section className={styles.work} id="work" aria-labelledby="work-title">
+            <div className={styles.workHeader}>
+              <div>
+                <p className={styles.sectionLabel}>Selected work</p>
+                <h2 id="work-title">Proof in the work itself.</h2>
+              </div>
+              <Link href="/work">View all work</Link>
+            </div>
+            <div className={styles.workList}>
+              {featuredWork.map((study) => (
+                <article className={styles.workCard} key={study.slug}>
+                  <div className={styles.workMedia}>
+                    <WorkMedia media={study.heroMedia} />
+                  </div>
+                  <div className={styles.workCopy}>
+                    <p>
+                      {study.client} · {study.year}
+                    </p>
+                    <h3>{study.title}</h3>
+                    <p>{study.summary}</p>
+                    <Link href={`/work/${study.slug}`}>Read case study</Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         <section
           className={styles.capabilities}
@@ -151,7 +206,7 @@ export default function HomePage() {
           <div className={styles.capabilityHeader}>
             <p className={styles.sectionLabel}>Capabilities</p>
             <h2 id="capabilities-title">
-              Built to move from technical accuracy to cinematic finish.
+              From technical accuracy to cinematic finish.
             </h2>
           </div>
           <ul className={styles.capabilityList}>
@@ -173,13 +228,13 @@ export default function HomePage() {
             <p className={styles.sectionLabel}>Senior-led, start to finish</p>
             <h2 id="about-title">Experience in every frame.</h2>
             <p className={styles.aboutLead}>
-              RVA3D is led by Deven James, a motion designer and 3D artist with
-              20 years of professional production experience across animation,
-              visualization, VFX, compositing, and design.
+              RVA3D is led by Deven James, who remains directly involved from
+              discovery through delivery.
             </p>
             <p>
-              Based in Richmond, Virginia. Working with clients and creative
-              teams wherever the project takes us.
+              When a project needs additional capacity or specialized
+              expertise, RVA3D brings in trusted independent collaborators and
+              remains responsible for scope, communication, and delivery.
             </p>
           </div>
         </section>
@@ -194,7 +249,7 @@ export default function HomePage() {
               <h2 id="contact-title">Have something difficult to show?</h2>
               <p>
                 Tell us what you’re making and where RVA3D can help. Use the
-                form, email, or call — whichever is easiest.
+                form, email, or phone, whichever is easiest.
               </p>
 
               <address className={styles.contactMethods}>

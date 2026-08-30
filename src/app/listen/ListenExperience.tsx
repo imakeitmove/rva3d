@@ -240,7 +240,7 @@ export function ListenExperience() {
         >
           <div className={styles.levelHeading}>
             <span>Input</span>
-            <span>{isListening ? displayLevel.toFixed(2) : "—"}</span>
+            <span>{isListening ? displayLevel.toFixed(2) : "Not active"}</span>
           </div>
           <div className={styles.levelTrack} aria-hidden="true">
             <span style={{ transform: `scaleX(${isListening ? displayLevel : 0})` }} />

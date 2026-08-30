@@ -123,7 +123,7 @@ export async function submitContactForm(
   if (values.website) {
     return {
       status: "success",
-      message: "Thanks — your message has been sent.",
+      message: "Thanks. Your message has been sent.",
       submissionId: crypto.randomUUID(),
     };
   }
@@ -198,7 +198,7 @@ export async function submitContactForm(
 
     return {
       status: "success",
-      message: "Thanks — your message has been sent. RVA3D will be in touch soon.",
+      message: "Thanks. Your message has been sent. RVA3D will be in touch soon.",
       submissionId: crypto.randomUUID(),
     };
   } catch (error) {
