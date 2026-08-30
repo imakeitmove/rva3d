@@ -3,7 +3,6 @@
   --muted: #a4a59f;
   --line: rgba(243, 241, 233, 0.16);
   --accent: #d7ff43;
-  --warm: #c9a88b;
   min-width: 0;
   background: #080a09;
   color: var(--ink);
@@ -92,12 +91,8 @@
 
 .hero {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1.18fr) minmax(20rem, 0.82fr);
-  grid-template-rows: 1fr auto;
-  gap: 2rem;
-  min-height: max(47rem, 100svh);
-  padding: clamp(9rem, 16vh, 12rem) max(2rem, calc((100vw - 96rem) / 2)) 2rem;
+  min-height: 100svh;
+  padding: clamp(8rem, 14vh, 10rem) max(2rem, calc((100vw - 96rem) / 2)) 2rem;
   overflow: hidden;
   isolation: isolate;
 }
@@ -124,11 +119,11 @@
   mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
 }
 
-.heroCopy {
+.heroIntro {
   position: relative;
   z-index: 2;
-  align-self: center;
-  max-width: 58rem;
+  width: min(100%, 96rem);
+  margin-inline: auto;
   animation: reveal 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
@@ -156,18 +151,39 @@
 }
 
 .hero h1 {
-  max-width: 57rem;
+  max-width: 40rem;
   margin: 0;
-  font-size: clamp(3.1rem, 6.1vw, 6.7rem);
-  font-weight: 380;
-  letter-spacing: -0.075em;
-  line-height: 0.94;
+  color: #d1d1cb;
+  font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+  font-weight: 430;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
 }
 
-.hero h1 span {
-  display: block;
-  color: var(--ink);
-  font-weight: 690;
+.heroMedia {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 96rem);
+  max-width: calc(70svh * 1.7778);
+  margin: clamp(1.5rem, 3vw, 2.5rem) auto 0;
+  animation: reveal 900ms 80ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.heroPayoffBlock {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 96rem);
+  margin: clamp(2.5rem, 5vw, 5rem) auto 0;
+  animation: reveal 900ms 160ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.heroPayoff {
+  max-width: 88rem;
+  margin: 0;
+  font-size: clamp(3.4rem, 7.8vw, 8.4rem);
+  font-weight: 680;
+  letter-spacing: -0.078em;
+  line-height: 0.9;
 }
 
 .heroLead {
@@ -221,179 +237,12 @@
   transition: color 160ms ease;
 }
 
-.heroObject {
-  position: relative;
-  align-self: center;
-  justify-self: center;
-  width: min(35vw, 31rem);
-  aspect-ratio: 1;
-  animation: reveal 1s 120ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  perspective: 800px;
-}
-
-.orbitOuter,
-.orbitInner {
-  position: absolute;
-  border: 1px solid rgba(243, 241, 233, 0.17);
-  border-radius: 50%;
-}
-
-.orbitOuter {
-  inset: 2%;
-  transform: rotateX(67deg) rotateZ(14deg);
-}
-
-.orbitOuter::before,
-.orbitInner::before {
-  position: absolute;
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 1rem rgba(215, 255, 67, 0.65);
-  content: "";
-}
-
-.orbitOuter::before {
-  top: 16%;
-  right: 10%;
-}
-
-.orbitInner {
-  inset: 18%;
-  border-color: rgba(201, 168, 139, 0.35);
-  transform: rotateY(62deg) rotateZ(-25deg);
-}
-
-.orbitInner::before {
-  bottom: 9%;
-  left: 14%;
-  background: var(--warm);
-  box-shadow: 0 0 1rem rgba(201, 168, 139, 0.55);
-}
-
-.objectGlow {
-  position: absolute;
-  inset: 23%;
-  border-radius: 50%;
-  background: rgba(197, 211, 188, 0.14);
-  filter: blur(2rem);
-}
-
-.objectCore {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 43%;
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%) rotateX(56deg) rotateZ(45deg);
-  transform-style: preserve-3d;
-  animation: drift 7s ease-in-out infinite;
-}
-
-.objectCore span {
-  position: absolute;
-  inset: 0;
-  display: block;
-  border: 1px solid rgba(255, 255, 255, 0.58);
-  background: linear-gradient(145deg, rgba(230, 235, 222, 0.6), rgba(70, 78, 67, 0.15));
-  box-shadow: inset 0 0 2rem rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
-}
-
-.coreFaceOne {
-  transform: translateZ(4rem);
-}
-
-.coreFaceTwo {
-  transform: rotateX(90deg) translateZ(4rem);
-  transform-origin: top;
-}
-
-.coreFaceThree {
-  transform: rotateY(90deg) translateZ(-4rem);
-  transform-origin: right;
-}
-
-.coordinateOne,
-.coordinateTwo {
-  position: absolute;
-  color: rgba(243, 241, 233, 0.42);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.12em;
-}
-
-.coordinateOne {
-  top: 14%;
-  left: 4%;
-}
-
-.coordinateTwo {
-  right: 4%;
-  bottom: 12%;
-}
-
-/* The approved cube is intentionally isolated here so a future hero identity
-   can replace it without changing the surrounding homepage structure. */
-.heroCube {
-  position: relative;
-  align-self: center;
-  justify-self: center;
-  width: clamp(23rem, 38vw, 38rem);
-  max-width: 100%;
-  aspect-ratio: 1;
-  animation: reveal 1s 120ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  isolation: isolate;
-}
-
-.heroCubeFallback,
-.heroCubeStage {
-  position: absolute;
-  inset: 0;
-}
-
-.heroCubeFallback {
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(243, 241, 233, 0.1);
-  background:
-    radial-gradient(circle at center, rgba(124, 255, 79, 0.08), transparent 58%),
-    #07090c;
-  color: rgba(242, 244, 241, 0.28);
-  font-size: clamp(2rem, 5vw, 4rem);
-  font-weight: 760;
-  letter-spacing: -0.07em;
-}
-
-.heroCubeFallback span {
-  color: rgba(242, 244, 241, 0.52);
-}
-
-.heroCubeStage {
-  z-index: 1;
-  overflow: hidden;
-}
-
-.heroCubeHint {
-  position: absolute;
-  right: 0.75rem;
-  bottom: 0.75rem;
-  z-index: 2;
-  margin: 0;
-  color: rgba(242, 244, 241, 0.52);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 0.58rem;
-  letter-spacing: 0.12em;
-  pointer-events: none;
-  text-transform: uppercase;
-}
-
 .heroFoot {
-  grid-column: 1 / -1;
   display: flex;
   gap: 1.4rem;
   align-items: center;
+  width: min(100%, 96rem);
+  margin: clamp(4rem, 8vw, 7rem) auto 0;
   padding-top: 1.4rem;
   border-top: 1px solid var(--line);
   color: #8e908a;
@@ -777,14 +626,11 @@
   }
 }
 
-@keyframes drift {
-  0%,
-  100% {
-    transform: translate(-50%, -50%) rotateX(56deg) rotateZ(45deg) translateY(-0.5rem);
-  }
-
-  50% {
-    transform: translate(-50%, -50%) rotateX(56deg) rotateZ(51deg) translateY(0.5rem);
+@media (prefers-reduced-motion: reduce) {
+  .heroIntro,
+  .heroMedia,
+  .heroPayoffBlock {
+    animation: none;
   }
 }
 
@@ -798,28 +644,7 @@
   }
 
   .hero {
-    grid-template-columns: minmax(0, 1fr);
     padding-top: 9rem;
-  }
-
-  .heroCopy {
-    width: 100%;
-    min-width: 0;
-    max-width: 48rem;
-  }
-
-  .heroObject {
-    position: absolute;
-    top: 12rem;
-    right: -13rem;
-    z-index: -1;
-    width: 32rem;
-    opacity: 0.52;
-  }
-
-  .heroCube {
-    width: min(100%, 32rem);
-    margin-block: 0.5rem;
   }
 
   .problems,
@@ -872,13 +697,26 @@
   }
 
   .hero {
-    min-height: 46rem;
+    min-height: auto;
     padding: 8rem 1.25rem 1.25rem;
   }
 
   .hero h1 {
     max-width: 100%;
-    font-size: clamp(3rem, 13vw, 4rem);
+    font-size: 1.05rem;
+  }
+
+  .heroMedia {
+    max-width: none;
+    margin-top: 1.4rem;
+  }
+
+  .heroPayoffBlock {
+    margin-top: 2.5rem;
+  }
+
+  .heroPayoff {
+    font-size: clamp(3.25rem, 15vw, 4.75rem);
   }
 
   .heroLead {
@@ -890,15 +728,6 @@
     align-items: flex-start;
     flex-direction: column;
     gap: 1.25rem;
-  }
-
-  .heroObject {
-    top: 9rem;
-    right: -17rem;
-  }
-
-  .heroCube {
-    width: min(100%, 25rem);
   }
 
   .heroFoot {

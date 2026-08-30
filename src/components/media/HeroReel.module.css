@@ -1,0 +1,67 @@
+.frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(243, 241, 233, 0.14);
+  background: #030404;
+  box-shadow: 0 2rem 7rem rgba(0, 0, 0, 0.34);
+  isolation: isolate;
+}
+
+.poster,
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.poster {
+  z-index: 1;
+  display: block;
+  opacity: 1;
+  transition: opacity 320ms ease;
+}
+
+.poster img,
+.video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.posterHidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.video {
+  opacity: 0;
+  transition: opacity 320ms ease;
+}
+
+.videoReady {
+  opacity: 1;
+}
+
+.caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .poster,
+  .video {
+    transition: none;
+  }
+}

@@ -88,13 +88,32 @@ test("draft records cannot pass the public gate", () => {
   assert.throws(() => validateApprovedCaseStudy(study), /not approved/);
 });
 
-test("the preserved cube route reuses the homepage cube and is noindex", async () => {
+test("the preserved cube route keeps the shared cube and is noindex", async () => {
   const route = await readFile(
     resolve(projectRoot, "src/app/(three)/experiment/cube/page.tsx"),
     "utf8",
   );
   assert.match(route, /HomepageCubeHero/);
   assert.match(route, /index:\s*false/);
+});
+
+test("the homepage uses poster-first reel media without loading the cube", async () => {
+  const homepage = await readFile(
+    resolve(projectRoot, "src/app/(three)/page.tsx"),
+    "utf8",
+  );
+  const reel = await readFile(
+    resolve(projectRoot, "src/components/media/HeroReel.tsx"),
+    "utf8",
+  );
+
+  assert.match(homepage, /HeroReel/);
+  assert.doesNotMatch(homepage, /HomepageCubeHero/);
+  assert.match(reel, /prefers-reduced-motion: reduce/);
+  assert.match(reel, /document\.hidden/);
+  assert.match(reel, /preload="metadata"/);
+  assert.match(reel, /rva3d-hero-reel-mobile\.mp4/);
+  assert.match(reel, /rva3d-hero-poster-desktop\.webp/);
 });
 
 test("the shared cube supports keyboard rotation", async () => {

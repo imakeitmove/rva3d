@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { HomepageCubeHero } from "@/components/three/impossible_cube/HomepageCubeHero";
+import { HeroReel } from "@/components/media/HeroReel";
 import { WorkMedia } from "@/components/work/WorkMedia";
 import { getFeaturedWork } from "@/content/work";
 
@@ -88,14 +88,21 @@ export default function HomePage() {
       <main id="main-content">
         <section className={styles.hero} id="top" aria-labelledby="hero-title">
           <div className={styles.heroGrid} aria-hidden="true" />
-          <div className={styles.heroCopy}>
+          <div className={styles.heroIntro}>
             <p className={styles.eyebrow}>
               <span /> Richmond, Virginia · Available worldwide
             </p>
-            <h1 id="hero-title">
-              If a picture is worth a thousand words,
-              <span>imagine what an animation could say.</span>
-            </h1>
+            <h1 id="hero-title">If a picture is worth a thousand words,</h1>
+          </div>
+
+          <div className={styles.heroMedia}>
+            <HeroReel />
+          </div>
+
+          <div className={styles.heroPayoffBlock}>
+            <p className={styles.heroPayoff}>
+              imagine what an animation could say.
+            </p>
             <p className={styles.heroLead}>
               Bring us the product, the problem, or even the beginning of an
               idea. We help figure out what the project needs, fill in the
@@ -111,35 +118,6 @@ export default function HomePage() {
                 hello@rva3d.com
               </a>
             </div>
-          </div>
-
-          {/* Previous decorative CSS hero retained as a rollback reference:
-          <div className={styles.heroObject} aria-hidden="true">
-            <div className={styles.orbitOuter} />
-            <div className={styles.orbitInner} />
-            <div className={styles.objectGlow} />
-            <div className={styles.objectCore}>
-              <span className={styles.coreFaceOne} />
-              <span className={styles.coreFaceTwo} />
-              <span className={styles.coreFaceThree} />
-            </div>
-            <span className={styles.coordinateOne}>37.5407° N</span>
-            <span className={styles.coordinateTwo}>77.4360° W</span>
-          </div>
-          */}
-
-          <div className={styles.heroCube}>
-            {/* Previous branded fallback retained for rollback. It is not
-            rendered because it would remain visible beneath the transparent
-            hero canvas:
-            <div className={styles.heroCubeFallback} aria-hidden="true">
-              <span>RVA</span>3D
-            </div>
-            */}
-            <div className={styles.heroCubeStage}>
-              <HomepageCubeHero />
-            </div>
-            <p className={styles.heroCubeHint}>Drag to rotate</p>
           </div>
 
           <div className={styles.heroFoot}>
