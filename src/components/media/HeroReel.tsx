@@ -1,7 +1,7 @@
 "use client";
 
 import { getImageProps } from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import styles from "./HeroReel.module.css";
 
@@ -29,6 +29,14 @@ export function HeroReel() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [motionAllowed, setMotionAllowed] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
+
+  const setVideoRef = useCallback((video: HTMLVideoElement | null) => {
+    videoRef.current = video;
+
+    if (video && video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      setVideoReady(true);
+    }
+  }, []);
 
   useEffect(() => {
     const motionPreference = window.matchMedia(
@@ -92,30 +100,33 @@ export function HeroReel() {
         <img {...desktopImage} alt={desktopImage.alt} />
       </picture>
 
-      {motionAllowed ? (
-        <video
-          ref={videoRef}
-          className={`${styles.video} ${videoReady ? styles.videoReady : ""}`}
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster={desktopPoster}
-          preload="metadata"
-          aria-hidden="true"
-          onCanPlay={() => setVideoReady(true)}
-        >
-          <source
-            media="(max-width: 640px)"
-            src="/media/hero/rva3d-hero-reel-mobile.mp4"
-            type="video/mp4"
-          />
-          <source
-            src="/media/hero/rva3d-hero-reel-desktop.mp4"
-            type="video/mp4"
-          />
-        </video>
-      ) : null}
+      <video
+        ref={setVideoRef}
+        className={`${styles.video} ${videoReady ? styles.videoReady : ""}`}
+        aria-label="RVA3D animation reel"
+        aria-describedby="hero-reel-caption"
+        autoPlay={motionAllowed}
+        controls
+        controlsList="nodownload noremoteplayback"
+        disablePictureInPicture
+        disableRemotePlayback
+        loop
+        muted
+        playsInline
+        poster={desktopPoster}
+        preload="metadata"
+        onCanPlay={() => setVideoReady(true)}
+      >
+        <source
+          media="(max-width: 640px)"
+          src="/media/hero/rva3d-hero-reel-mobile.mp4"
+          type="video/mp4"
+        />
+        <source
+          src="/media/hero/rva3d-hero-reel-desktop.mp4"
+          type="video/mp4"
+        />
+      </video>
 
       <figcaption id="hero-reel-caption" className={styles.caption}>
         Selected 3D animation and motion work by RVA3D.
