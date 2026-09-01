@@ -1,0 +1,61 @@
+.figure {
+  margin: 0;
+}
+
+.frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--media-aspect, 16 / 9);
+  overflow: hidden;
+  background: #111411;
+  isolation: isolate;
+}
+
+.frame img,
+.frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.poster,
+.loopVideo {
+  position: absolute;
+  inset: 0;
+}
+
+.poster {
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 240ms ease;
+}
+
+.posterHidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loopVideo {
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+
+.videoReady {
+  opacity: 1;
+}
+
+.caption {
+  max-width: 56rem;
+  margin: 0.7rem 0 0;
+  color: #92948e;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .poster,
+  .loopVideo {
+    transition: none;
+  }
+}

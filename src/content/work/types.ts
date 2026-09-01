@@ -4,6 +4,7 @@ export type WorkImageMedia = {
   width: number;
   height: number;
   alt: string;
+  caption?: string;
 };
 
 export type WorkVideoMedia = {
@@ -14,6 +15,9 @@ export type WorkVideoMedia = {
   height: number;
   alt: string;
   poster: WorkImageMedia;
+  presentation: "loop" | "controls";
+  hasAudio?: boolean;
+  caption?: string;
 };
 
 export type WorkMedia = WorkImageMedia | WorkVideoMedia;

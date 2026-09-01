@@ -40,6 +40,7 @@ function syntheticStudy() {
       height: 900,
       alt: "Synthetic product rotating on a neutral test stage",
       poster,
+      presentation: "loop",
     },
     galleryMedia: [poster],
     processChapters: [
@@ -79,6 +80,12 @@ test("approved videos require a poster", () => {
   const study = syntheticStudy();
   delete study.heroMedia.poster;
   assert.throws(() => validateApprovedCaseStudy(study), /poster/);
+});
+
+test("approved videos require a supported presentation mode", () => {
+  const study = syntheticStudy();
+  study.heroMedia.presentation = "ambient";
+  assert.throws(() => validateApprovedCaseStudy(study), /presentation mode/);
 });
 
 test("draft records cannot pass the public gate", () => {

@@ -39,6 +39,9 @@ function validateMedia(media: WorkMedia, label: string) {
 
   if (media.kind === "video") {
     assertNonEmpty(media.mimeType, `${label} MIME type`);
+    if (media.presentation !== "loop" && media.presentation !== "controls") {
+      throw new Error(`${label} presentation mode is required.`);
+    }
     if (!media.poster || media.poster.kind !== "image") {
       throw new Error(`${label} poster is required.`);
     }

@@ -1,0 +1,46 @@
+.figure {
+  margin: 0;
+}
+
+.placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: var(--preview-aspect, 16 / 9);
+  padding: clamp(1.5rem, 5vw, 4rem);
+  border: 1px dashed rgba(215, 255, 67, 0.5);
+  background:
+    linear-gradient(rgba(215, 255, 67, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(215, 255, 67, 0.04) 1px, transparent 1px),
+    #0c0f0d;
+  background-size: 2rem 2rem;
+  color: #f3f1e9;
+  text-align: center;
+}
+
+.placeholderInner {
+  max-width: 32rem;
+}
+
+.placeholderLabel {
+  margin: 0;
+  color: #d7ff43;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.placeholderRequest {
+  margin: 0.8rem 0 0;
+  color: #a4a59f;
+  font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+  line-height: 1.55;
+}
+
+.caption {
+  margin: 0.7rem 0 0;
+  color: #92948e;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
