@@ -1,0 +1,257 @@
+{
+  "reel-03-000-organic-particles.webp": {
+    "group": "organic-motion",
+    "title": "Organic motion study",
+    "alt": "Glowing bubbles and particles drift through a dark blue scene",
+    "source": "RVA3D 2020 demo reel at 00:03"
+  },
+  "reel-06-000-industrial-engine.webp": {
+    "group": "industrial-visualization",
+    "title": "Industrial visualization",
+    "alt": "Detailed mechanical components inside a dark industrial machine",
+    "source": "RVA3D 2020 demo reel at 00:06"
+  },
+  "reel-07-000-industrial-engine-close.webp": {
+    "group": "industrial-visualization",
+    "title": "Industrial visualization",
+    "alt": "Tracking view along interconnected mechanical components",
+    "source": "RVA3D 2020 demo reel at 00:07"
+  },
+  "reel-09-000-industrial-cutaway-blue.webp": {
+    "group": "industrial-visualization",
+    "title": "Industrial visualization",
+    "alt": "Blue and red cutaway rendering of an industrial machine",
+    "source": "RVA3D 2020 demo reel at 00:09"
+  },
+  "reel-12-000-samuel-adams-bottle.webp": {
+    "group": "beverage-product",
+    "title": "Beverage product animation",
+    "client": "Samuel Adams",
+    "alt": "A Samuel Adams bottle covered in cold condensation against blue",
+    "source": "RVA3D 2020 demo reel at 00:12"
+  },
+  "reel-14-000-samuel-adams-wordmark.webp": {
+    "group": "beverage-product",
+    "title": "Beverage product animation",
+    "client": "Samuel Adams",
+    "alt": "A red Samuel Adams bottle stands in front of an oversized wordmark",
+    "source": "RVA3D 2020 demo reel at 00:14"
+  },
+  "reel-16-000-ritz-products.webp": {
+    "group": "food-product",
+    "title": "Product campaign animation",
+    "client": "Ritz",
+    "alt": "Ritz Crisp and Thins product lineup with crackers and dip",
+    "source": "RVA3D 2020 demo reel at 00:16"
+  },
+  "reel-25-000-feed-more-wordmark.webp": {
+    "group": "brand-motion",
+    "title": "Brand motion design",
+    "client": "Feed More",
+    "alt": "The Feed More wordmark appears in white on a deep blue field",
+    "source": "RVA3D 2020 demo reel at 00:25"
+  },
+  "reel-29-000-equipment-kit-close.webp": {
+    "group": "equipment-product",
+    "title": "Equipment product visualization",
+    "alt": "Close view into an open rugged equipment case",
+    "source": "RVA3D 2020 demo reel at 00:29"
+  },
+  "reel-30-000-equipment-case.webp": {
+    "group": "equipment-product",
+    "title": "Equipment product visualization",
+    "alt": "A closed black equipment case rests against a dark background",
+    "source": "RVA3D 2020 demo reel at 00:30"
+  },
+  "reel-34-000-holiday-pattern-close.webp": {
+    "group": "seasonal-motion",
+    "title": "Seasonal motion design",
+    "alt": "Close view of a bright symmetrical holiday animation",
+    "source": "RVA3D 2020 demo reel at 00:34"
+  },
+  "reel-40-000-nature-savanna-close.webp": {
+    "group": "environmental-visualization",
+    "title": "Environmental visualization",
+    "alt": "Closer view of wildlife moving through a dry savanna portal",
+    "source": "RVA3D 2020 demo reel at 00:40"
+  },
+  "reel-42-000-nature-forest.webp": {
+    "group": "environmental-visualization",
+    "title": "Environmental visualization",
+    "alt": "A bear walks through a bright forest clearing inside a circular portal",
+    "source": "RVA3D 2020 demo reel at 00:42"
+  },
+  "reel-43-000-nature-reef.webp": {
+    "group": "environmental-visualization",
+    "title": "Environmental visualization",
+    "alt": "An underwater reef and fish fill a circular viewing portal",
+    "source": "RVA3D 2020 demo reel at 00:43"
+  },
+  "reel-48-000-prototype-bicycle.webp": {
+    "group": "interactive-prototyping",
+    "title": "Interactive product prototyping",
+    "alt": "Robotic work cells surround a bicycle and stacked wooden blocks",
+    "source": "RVA3D 2020 demo reel at 00:48"
+  },
+  "automotive_engine.webp": {
+    "group": "automotive-visualization",
+    "title": "Automotive engine visualization",
+    "alt": "A detailed engine assembly is isolated against a clean white background",
+    "source": "Ribbon source master: engines_V3_octane.jpg"
+  },
+  "automotive_xray_visualization.webp": {
+    "group": "automotive-visualization",
+    "title": "Automotive x-ray visualization",
+    "alt": "A transparent car reveals its internal mechanical systems on a country road",
+    "source": "Ribbon source master: get a move on_full (0-00-07-23).jpg"
+  },
+  "cable_product_visualization.webp": {
+    "group": "equipment-product",
+    "title": "Cable product visualization",
+    "alt": "A flexible black cable product curves upward against a softly focused background",
+    "source": "Ribbon source master: Devenjames_demoReel_2026_sizzle_002_12.jpg"
+  },
+  "capri_sun_trick_pouch.webp": {
+    "group": "beverage-product",
+    "title": "Beverage campaign animation",
+    "client": "Capri Sun",
+    "alt": "Two Capri Sun pouches flank a Trick or Treat display in a moody Halloween scene",
+    "source": "Ribbon source master: CapriSun_TrickPouch_005.jpg"
+  },
+  "creature_fire_effects.webp": {
+    "group": "creature-visualization",
+    "title": "Creature effects study",
+    "alt": "A dark creature render is framed by vivid orange fire and technical overlays",
+    "source": "Ribbon source master: demo-reel-comp-0-00-19-20_split.jpg"
+  },
+  "desmi_pump_closeup.webp": {
+    "group": "industrial-visualization",
+    "title": "Industrial pump closeup",
+    "client": "DESMI",
+    "alt": "A close cutaway view shows the rotor and metal housing of a DESMI pump",
+    "source": "Ribbon source master: desmi 3.jpg"
+  },
+  "dimensional_holiday_lettering.webp": {
+    "group": "seasonal-motion",
+    "title": "Dimensional holiday lettering",
+    "alt": "Large white dimensional letters sit in a snowy evergreen landscape",
+    "source": "Ribbon source master: get a move on_full (0-00-50-08).jpg"
+  },
+  "ecosystem_globe.webp": {
+    "group": "environmental-visualization",
+    "title": "Environmental globe visualization",
+    "alt": "A small forest-covered globe floats against a dark star field",
+    "source": "Ribbon source master: get a move on_full (0-00-56-22).jpg"
+  },
+  "emoji_character_set.webp": {
+    "group": "character-visualization",
+    "title": "Dimensional character set",
+    "alt": "Three colorful dimensional emoji characters appear on a neutral background",
+    "source": "Ribbon source master: messenge3dChicklette0009.png"
+  },
+  "explainer_interface_animation.webp": {
+    "group": "technical-explainer",
+    "title": "Explainer interface animation",
+    "alt": "A magnifying glass highlights icons on a dark blue interface diagram",
+    "source": "Ribbon source master: Devenjames_demoReel_2026_sizzle_002_10.jpg"
+  },
+  "food_brand_explosion.webp": {
+    "group": "food-product",
+    "title": "Food brand animation",
+    "alt": "Illustrated food ingredients burst around a white emblem on a yellow field",
+    "source": "Ribbon source master: Devenjames_demoReel_2026_sizzle_002_3.jpg"
+  },
+  "geico_cereal_product.webp": {
+    "group": "geico-brand-work",
+    "title": "Branded cereal visualization",
+    "client": "GEICO",
+    "alt": "A colorful GEICO cereal box and breakfast setting sit on a kitchen counter",
+    "source": "Ribbon source master: geckOs.jpg"
+  },
+  "geico_holiday_message.webp": {
+    "group": "geico-brand-work",
+    "title": "Holiday brand animation",
+    "client": "GEICO",
+    "alt": "A blue-and-white holiday message is surrounded by snowflakes and festive icons",
+    "source": "Ribbon source master: Devenjames_demoReel_2026_sizzle_002_13.jpg"
+  },
+  "green_brand_mark.webp": {
+    "group": "brand-motion",
+    "title": "Brand identity animation",
+    "alt": "A dimensional green-and-white brand mark sits on a soft green field",
+    "source": "Ribbon source master: Devenjames_demoReel_2026_sizzle_002_15.jpg"
+  },
+  "knex_particle_simulation.webp": {
+    "group": "simulation-design",
+    "title": "Construction-toy simulation",
+    "client": "K'NEX",
+    "alt": "Hundreds of colorful K'NEX pieces scatter through a pale blue environment",
+    "source": "Ribbon source master: get a move on_full (0-00-01-19).jpg"
+  },
+  "overtime_sports_graphics.webp": {
+    "group": "sports-broadcast",
+    "title": "Sports broadcast graphics",
+    "alt": "A bold Overtime title spans a brightly lit arena-style broadcast graphic",
+    "source": "Ribbon source master: Devenjames_demoReel_2026_sizzle_002_6.jpg"
+  },
+  "pliers_wire_visualization.webp": {
+    "group": "technical-product",
+    "title": "Technical tool visualization",
+    "alt": "A precise wireframe rendering shows pliers gripping a thin wire",
+    "source": "Ribbon source master: pliers__with_wire.jpg"
+  },
+  "police_broadcast_graphics.webp": {
+    "group": "broadcast-motion",
+    "title": "Broadcast graphics",
+    "alt": "Yellow police tape crosses a dark nighttime scene with red and blue lights",
+    "source": "Ribbon source master: Devenjames_demoReel_2026_sizzle_002_4.jpg"
+  },
+  "procedural_snow_typography.webp": {
+    "group": "seasonal-motion",
+    "title": "Procedural snow typography",
+    "alt": "White dimensional lettering dissolves into intricate snow-like particles",
+    "source": "Ribbon source master: snowball_AO.jpg"
+  },
+  "production_process_board.webp": {
+    "group": "creative-process",
+    "title": "Creative process animation",
+    "alt": "A hand-drawn production board combines creature sketches and technical notes",
+    "source": "Ribbon source master: Devenjames_demoReel_2026_sizzle_002_8.jpg"
+  },
+  "robot_blocks_closeup.webp": {
+    "group": "interactive-prototyping",
+    "title": "Robotic interaction prototype",
+    "alt": "Two robots face one another across scattered wooden blocks on a white stage",
+    "source": "Ribbon source master: get a move on_full (0-01-00-21).jpg"
+  },
+  "screw_fastener_pattern.webp": {
+    "group": "technical-product",
+    "title": "Mechanical pattern study",
+    "alt": "Screws, nuts, and curved fasteners form a precise black-and-white pattern",
+    "source": "Ribbon source master: screws.jpg"
+  },
+  "snowman_environment.webp": {
+    "group": "seasonal-motion",
+    "title": "Winter character animation",
+    "alt": "A small snowman stands in a bright snow-covered evergreen forest",
+    "source": "Ribbon source master: snowman.jpg"
+  },
+  "technical_cutaway_overlay.webp": {
+    "group": "technical-explainer",
+    "title": "Technical cutaway visualization",
+    "alt": "A translucent blue technical model is layered over detailed schematic drawings",
+    "source": "Ribbon source master: demo-reel-comp-0-00-54-09_split.jpg"
+  },
+  "technical_metal_component.webp": {
+    "group": "technical-product",
+    "title": "Technical product visualization",
+    "alt": "A polished metal component is shown in close detail against a dark studio background",
+    "source": "Ribbon source master: Devenjames_demoReel_2026_sizzle_002.jpg"
+  },
+  "transparent_pipeline_visualization.webp": {
+    "group": "industrial-visualization",
+    "title": "Transparent pipeline visualization",
+    "alt": "A transparent blue pipe assembly reveals its internal mechanism and flow path",
+    "source": "Ribbon source master: Devenjames_demoReel_2026_sizzle_002 (1-00-07-21).jpg"
+  }
+}

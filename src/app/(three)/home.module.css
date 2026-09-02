@@ -349,7 +349,7 @@
   display: grid;
   grid-template-columns: minmax(16rem, 0.72fr) minmax(0, 1.28fr);
   gap: clamp(3rem, 8vw, 9rem);
-  padding-block: clamp(7rem, 12vw, 12rem);
+  padding-block: clamp(3rem, 4vw, 4rem);
 }
 
 .sectionIntro {

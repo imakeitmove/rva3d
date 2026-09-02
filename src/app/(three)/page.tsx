@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { HeroReel } from "@/components/media/HeroReel";
+import { PortfolioRibbonShowcase } from "@/components/portfolio-ribbons/PortfolioRibbonShowcase";
 import { WorkMedia } from "@/components/work/WorkMedia";
 import { getFeaturedWork } from "@/content/work";
+import { getPortfolioRibbonPools } from "@/lib/portfolio-ribbons";
 
 import ContactForm from "./ContactForm";
 import styles from "./home.module.css";
@@ -59,8 +61,9 @@ const capabilities = [
   "Creative Production Support",
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
   const featuredWork = getFeaturedWork();
+  const portfolioRibbonPools = await getPortfolioRibbonPools();
 
   return (
     <div className={styles.siteShell}>
@@ -128,24 +131,29 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className={styles.problems} aria-labelledby="problems-title">
-          <div className={styles.sectionIntro}>
-            <p className={styles.sectionLabel}>Why RVA3D</p>
-            <h2 id="problems-title">Three reasons to hire RVA3D.</h2>
-          </div>
-          <div className={styles.problemList}>
-            {reasons.map((reason) => (
-              <article className={styles.problem} key={reason.number}>
-                <span className={styles.problemNumber}>{reason.number}</span>
-                <h3>{reason.title}</h3>
-                <p>{reason.copy}</p>
-                <span className={styles.problemArrow} aria-hidden="true">
-                  ↗
-                </span>
-              </article>
-            ))}
-          </div>
-        </section>
+        <PortfolioRibbonShowcase
+          bottomImages={portfolioRibbonPools.bottom}
+          topImages={portfolioRibbonPools.top}
+        >
+          <section className={styles.problems} aria-labelledby="problems-title">
+            <div className={styles.sectionIntro}>
+              <p className={styles.sectionLabel}>Why RVA3D</p>
+              <h2 id="problems-title">Three reasons to hire RVA3D.</h2>
+            </div>
+            <div className={styles.problemList}>
+              {reasons.map((reason) => (
+                <article className={styles.problem} key={reason.number}>
+                  <span className={styles.problemNumber}>{reason.number}</span>
+                  <h3>{reason.title}</h3>
+                  <p>{reason.copy}</p>
+                  <span className={styles.problemArrow} aria-hidden="true">
+                    ↗
+                  </span>
+                </article>
+              ))}
+            </div>
+          </section>
+        </PortfolioRibbonShowcase>
 
         {featuredWork.length > 0 ? (
           <section className={styles.work} id="work" aria-labelledby="work-title">

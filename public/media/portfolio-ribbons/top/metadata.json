@@ -1,0 +1,220 @@
+{
+  "reel-01-000-organic-creature.webp": {
+    "group": "organic-motion",
+    "title": "Organic motion study",
+    "alt": "A knitted creature floats through bubbles in a dark blue scene",
+    "source": "RVA3D 2020 demo reel at 00:01"
+  },
+  "reel-04-000-industrial-road.webp": {
+    "group": "industrial-visualization",
+    "title": "Industrial visualization",
+    "alt": "A mechanical assembly travels along a road through a yellow field",
+    "source": "RVA3D 2020 demo reel at 00:04"
+  },
+  "reel-05-000-industrial-machinery.webp": {
+    "group": "industrial-visualization",
+    "title": "Industrial visualization",
+    "alt": "Close view of gears and housings inside an industrial assembly",
+    "source": "RVA3D 2020 demo reel at 00:05"
+  },
+  "reel-10-000-industrial-cutaway-red.webp": {
+    "group": "industrial-visualization",
+    "title": "Industrial visualization",
+    "alt": "Red cutaway rendering reveals a rotating industrial shaft",
+    "source": "RVA3D 2020 demo reel at 00:10"
+  },
+  "reel-11-000-industrial-pump.webp": {
+    "group": "industrial-visualization",
+    "title": "Industrial visualization",
+    "alt": "A blue industrial pump presented against a clean white background",
+    "source": "RVA3D 2020 demo reel at 00:11"
+  },
+  "reel-13-000-samuel-adams-bottle-close.webp": {
+    "group": "beverage-product",
+    "title": "Beverage product animation",
+    "client": "Samuel Adams",
+    "alt": "Close crop of a cold Samuel Adams bottle against a blue field",
+    "source": "RVA3D 2020 demo reel at 00:13"
+  },
+  "reel-15-000-ritz-field.webp": {
+    "group": "food-product",
+    "title": "Product campaign animation",
+    "client": "Ritz",
+    "alt": "Ritz Crisp and Thins packages flank an It's Snack Time message in a stadium",
+    "source": "RVA3D 2020 demo reel at 00:15"
+  },
+  "reel-18-000-explainer-device.webp": {
+    "group": "explainer-motion",
+    "title": "Explainer motion design",
+    "alt": "An illustrated person looks at a device on a blue background",
+    "source": "RVA3D 2020 demo reel at 00:18"
+  },
+  "reel-26-000-brand-mark.webp": {
+    "group": "brand-motion",
+    "title": "Brand identity animation",
+    "alt": "An abstract teal, gold, and white brand mark on a white field",
+    "source": "RVA3D 2020 demo reel at 00:26"
+  },
+  "reel-28-000-equipment-kit.webp": {
+    "group": "equipment-product",
+    "title": "Equipment product visualization",
+    "alt": "A protective equipment case opens to reveal organized components",
+    "source": "RVA3D 2020 demo reel at 00:28"
+  },
+  "reel-32-000-holiday-pattern.webp": {
+    "group": "seasonal-motion",
+    "title": "Seasonal motion design",
+    "alt": "Colorful mirrored mechanical forms create a geometric holiday pattern",
+    "source": "RVA3D 2020 demo reel at 00:32"
+  },
+  "reel-35-000-holiday-lettering.webp": {
+    "group": "seasonal-motion",
+    "title": "Seasonal motion design",
+    "alt": "White dimensional holiday lettering sits in a snowy forest scene",
+    "source": "RVA3D 2020 demo reel at 00:35"
+  },
+  "reel-37-000-nature-globe.webp": {
+    "group": "environmental-visualization",
+    "title": "Environmental visualization",
+    "alt": "A green forest-covered globe floats in a dark star field",
+    "source": "RVA3D 2020 demo reel at 00:37"
+  },
+  "reel-39-000-nature-savanna.webp": {
+    "group": "environmental-visualization",
+    "title": "Environmental visualization",
+    "alt": "Wildlife crosses a savanna inside a circular viewing portal",
+    "source": "RVA3D 2020 demo reel at 00:39"
+  },
+  "reel-44-000-nature-reef-dolphin.webp": {
+    "group": "environmental-visualization",
+    "title": "Environmental visualization",
+    "alt": "A dolphin swims above a colorful reef inside a circular portal",
+    "source": "RVA3D 2020 demo reel at 00:44"
+  },
+  "reel-46-000-prototype-plane.webp": {
+    "group": "interactive-prototyping",
+    "title": "Interactive product prototyping",
+    "alt": "A hand holds a small wooden biplane prototype in a workshop",
+    "source": "RVA3D 2020 demo reel at 00:46"
+  },
+  "automotive_road_visualization.webp": {
+    "group": "automotive-visualization",
+    "title": "Automotive visualization",
+    "alt": "A blue car travels along a road bordered by a bright yellow field",
+    "source": "Ribbon source master: get a move on_full (0-00-07-08).jpg"
+  },
+  "axe_product_lineup.webp": {
+    "group": "personal-care-product",
+    "title": "Personal care product visualization",
+    "client": "AXE",
+    "alt": "An AXE Apollo body spray can framed by metallic mechanical forms",
+    "source": "Ribbon source master: Axe_polaris_lineup_bigX_V2_africa_and_chill_with_foregroundAppollo-960x762.jpg"
+  },
+  "blue_moon_can.webp": {
+    "group": "beverage-product",
+    "title": "Beverage product animation",
+    "client": "Blue Moon",
+    "alt": "A Blue Moon Belgian White can rotates against a clean white background",
+    "source": "Ribbon source master: Devenjames_demoReel_2026_sizzle_002_7.jpg"
+  },
+  "character_couple_model.webp": {
+    "group": "character-visualization",
+    "title": "Character modeling study",
+    "alt": "An untextured sculpt of a seated couple beneath a heart-shaped structure",
+    "source": "Ribbon source master: couch_couple_model.jpg"
+  },
+  "character_couple_portrait.webp": {
+    "group": "character-visualization",
+    "title": "Character portrait",
+    "alt": "A stylized seated couple beneath a large wooden heart sculpture",
+    "source": "Ribbon source master: laurenDevenHeart (00000).jpg"
+  },
+  "coral_reef_environment.webp": {
+    "group": "environmental-visualization",
+    "title": "Underwater environmental visualization",
+    "alt": "A luminous coral reef fills a deep blue underwater environment",
+    "source": "Ribbon source master: get a move on_full (0-00-55-03).jpg"
+  },
+  "desmi_pump_cutaway.webp": {
+    "group": "industrial-visualization",
+    "title": "Industrial pump visualization",
+    "client": "DESMI",
+    "alt": "A blue DESMI pump cutaway reveals the internal rotor and housing",
+    "source": "Ribbon source master: desmi 2.jpg"
+  },
+  "gecko_augmented_reality.webp": {
+    "group": "creature-visualization",
+    "title": "Augmented creature visualization",
+    "alt": "A colorful spotted gecko appears beside a phone in an augmented-reality scene",
+    "source": "Ribbon source master: Devenjames_demoReel_2026_sizzle_002_11.jpg"
+  },
+  "industrial_exploded_shaft.webp": {
+    "group": "industrial-visualization",
+    "title": "Industrial exploded view",
+    "alt": "Blue and silver machine components separate into an exploded assembly view",
+    "source": "Ribbon source master: get a move on_full (0-00-11-12).jpg"
+  },
+  "kinetic_typography_better.webp": {
+    "group": "brand-motion",
+    "title": "Kinetic typography",
+    "alt": "Bold white and red dimensional lettering emerges from a black background",
+    "source": "Ribbon source master: Devenjames_demoReel_2026_sizzle_002_14.jpg"
+  },
+  "knex_falling_simulation.webp": {
+    "group": "simulation-design",
+    "title": "Construction-toy simulation",
+    "client": "K'NEX",
+    "alt": "Colorful K'NEX pieces tumble through a bright white scene",
+    "source": "Ribbon source master: falling knex 2.jpg"
+  },
+  "mobile_food_animation.webp": {
+    "group": "branded-product",
+    "title": "Mobile product animation",
+    "alt": "A green phone rises through a bright field of airborne snack pieces",
+    "source": "Ribbon source master: Devenjames_demoReel_2026_sizzle_002_1.jpg"
+  },
+  "oreo_pattern.webp": {
+    "group": "food-product",
+    "title": "Food product animation",
+    "client": "OREO",
+    "alt": "OREO cookies form a bold black-and-white repeating pattern",
+    "source": "Ribbon source master: Devenjames_demoReel_2026_sizzle_002_2.jpg"
+  },
+  "playoff_football_graphics.webp": {
+    "group": "sports-broadcast",
+    "title": "Sports broadcast graphics",
+    "alt": "A metallic Playoff Football emblem fills a stadium-style broadcast graphic",
+    "source": "Ribbon source master: Devenjames_demoReel_2026_sizzle_002_5.jpg"
+  },
+  "robot_block_interaction.webp": {
+    "group": "interactive-prototyping",
+    "title": "Robotic interaction prototype",
+    "alt": "Two robotic arms interact with stacked wooden blocks on a white stage",
+    "source": "Ribbon source master: get a move on_full (0-00-58-14).jpg"
+  },
+  "samuel_adams_bottle.webp": {
+    "group": "beverage-product",
+    "title": "Beverage product animation",
+    "client": "Samuel Adams",
+    "alt": "An icy Samuel Adams Boston Lager bottle glows against a deep blue field",
+    "source": "Ribbon source master: sam bottle.jpg"
+  },
+  "sea_creature_simulation.webp": {
+    "group": "organic-simulation",
+    "title": "Organic creature simulation",
+    "alt": "A translucent red tentacled sea creature twists through blue water",
+    "source": "Ribbon source master: sea creature 1.jpg"
+  },
+  "technical_workstation_diagram.webp": {
+    "group": "technical-explainer",
+    "title": "Technical explainer animation",
+    "alt": "A fine-line illustration shows a person operating equipment inside a circular guide",
+    "source": "Ribbon source master: Devenjames_demoReel_2026_sizzle_002_9.jpg"
+  },
+  "vr_headset_product.webp": {
+    "group": "immersive-product",
+    "title": "Immersive product visualization",
+    "alt": "A black virtual-reality headset is presented on a clean white background",
+    "source": "Ribbon source master: Devenjames_demoReel_2026_sizzle (1-00-05-00).jpg"
+  }
+}
