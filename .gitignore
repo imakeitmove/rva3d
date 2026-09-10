@@ -56,3 +56,6 @@ next-env.d.ts
 # Candidate verification profiles and private generated media are never broadly staged.
 /scripts/runtime/
 /private-media/
+# Prepared private Preview packages and local verification only.
+/.preview-release.json
+/qa-runtime/

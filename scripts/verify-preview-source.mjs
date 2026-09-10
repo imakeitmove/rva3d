@@ -1,4 +1,5 @@
 import fs from "node:fs/promises";
+import { readFileSync } from "node:fs";
 import path from "node:path";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
@@ -42,6 +43,10 @@ const candidateEntryFiles = [
   "src/proxy.ts",
   "scripts/content-spine.test.mjs",
   "scripts/verify-preview-source.mjs",
+  "scripts/verify-preview-assets.mjs",
+  "scripts/require-preview-assets.mjs",
+  "scripts/prepare-preview-release.mjs",
+  "scripts/build-preview-release.mjs",
   "public/site-assets/home.js",
   "public/site-assets/inner.js",
   "public/site-assets/capability-player.js",
@@ -74,6 +79,11 @@ const projectExtensions = [
 ];
 
 function trackedFiles(root) {
+  // A committed-source release export has its own exact source inventory.
+  try {
+    const release = JSON.parse(readFileSync(path.join(root, ".preview-release.json"), "utf8"));
+    return new Set(Object.keys(release.sourceFiles));
+  } catch { /* Normal Git checkout below. */ }
   try {
     const output = execFileSync("git", ["-C", root, "ls-files", "--cached"], {
       encoding: "utf8",

@@ -1,0 +1,19 @@
+# Protected Preview release
+
+Source-only builds are not media-complete release validation. Git-triggered Vercel Preview builds deliberately fail without a prepared release marker and all selected private assets. No asset source is configured for Git builds. Do not push expecting a usable Preview.
+
+1. Commit the reviewed runtime repair locally. Do not push yet.
+2. Run: `node scripts/prepare-preview-release.mjs --revision <full-commit-sha> --output <new-absolute-temp-directory> --media-root <existing-private-media-directory>`.
+3. In the prepared directory run `npm ci`, `npm run lint`, `npm run test:content`, and `npm run build:preview`. The normal build still uses Turbopack. The release gate verifies source fingerprints, mappings, all media sizes/hashes/types, and the media route trace.
+4. Include `--project-file <existing-candidate>/.vercel/project.json` during preparation to copy only the verified project identity/settings (never environment files). Run `vercel build --target preview --standalone --non-interactive`, then `node scripts/verify-preview-bundle.mjs <package-root>` to inspect the final self-contained function. Every selected file must exist at private-media/<key> inside the media handler's function. Do not use automatic linking or environment pulling. If Windows rejects function symlinks with EPERM, final-bundle acceptance is blocked; do not substitute the Next trace for this check or change system permissions automatically.
+5. Run the application with the existing authorized local review credentials passed only through its process environment. Authenticate through /review/login. Run the runtime guard and browser tests at desktop/mobile widths, including lazy media, real GETs, ranges, image/video decoding, and deliberately blocked GLB/retry.
+6. Before upload, report the revision, media count/bytes, destination, and evidence, and obtain destination-specific private-media upload approval. The only destination is existing project rva3d (prj_bZXgUFRiXRpbAur3F4RQOOHxcQCe), team team_r8laQKfVLK3wUEKlg3AUi4Fa, PREVIEW.
+7. After approval and all local gates, use the prepared directory with its media-gated Vercel build command. Repeat `node scripts/require-preview-assets.mjs --required` immediately before any authorized upload. Do not use --prod. Authenticate at the deployment-specific URL and repeat runtime/browser acceptance. READY and HTML 200 alone are insufficient.
+
+Preparation exports from the specified Git revision, never a dirty worktree. It copies only manifest-selected, hash-named delivery assets from the explicitly supplied private-media directory. Manifest source paths are provenance only; they are never read automatically. No credentials or public original media/model folders enter the package. The generated .preview-release.json records the SHA, source file hashes, and media summary.
+
+The tracing rule targets only /review/assets/* and ./private-media/*. Preparation, Next trace, final function contents, and runtime checks are separate gates.
+
+The optional local `test-preview-package.mjs` integration harness generates temporary credentials only in memory and exercises the real login and session checks; it never discovers a password or disables authentication. Its results do not replace acceptance using the owner's existing authorized credential source or hosted verification. Set RVA3D_BROWSER_CLI to the installed agent-browser CLI path and RVA3D_QA_OUTPUT to a local evidence directory outside the prepared package.
+
+Known publication mismatch: the prior public Git checkpoint includes Five Below video/poster, DESMI video/poster, and the logo GLB despite registration as private-review-only. This workflow excludes those public original folders from upload. Existing Git history remains unchanged; history remediation or a publication reclassification requires a separate explicit decision.

@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { open } from "node:fs/promises";
 import path from "node:path";
 import { hasPrivateReviewSession } from "@/lib/private_review_auth";
 import manifest from "@/content/site/media.generated.json";
@@ -11,6 +11,19 @@ async function serve(request: Request, context: { params: Promise<{ key: string 
   const { key } = await context.params;
   const entry = Object.hasOwn(manifest, key) ? manifest[key as keyof typeof manifest] : null;
   if (!entry) return new Response(null, { status: 404, headers: privateHeaders });
+  // Previously HEAD trusted the manifest alone. Both methods now open/stat the file.
+  let file;
+  try {
+    file = await open(path.join(process.cwd(), "private-media", key), "r");
+    const stat = await file.stat();
+    if (!stat.isFile() || stat.size !== entry.bytes) throw Object.assign(new Error("Asset size mismatch"), { code: "ASSET_SIZE_MISMATCH" });
+  } catch (error) {
+    await file?.close();
+    const code = error && typeof error === "object" && "code" in error ? String(error.code) : "READ_FAILED";
+    console.error("[review-media] unavailable", { key, code: /^[A-Z_]+$/.test(code) ? code : "READ_FAILED" });
+    return new Response("This media is temporarily unavailable.", { status: 503, headers: privateHeaders });
+  }
+  try {
   const headers = new Headers({ ...privateHeaders, "Content-Type": entry.type, "Accept-Ranges": "bytes" });
   let start = 0, end = entry.bytes - 1, status = 200;
   const range = request.headers.get("range");
@@ -24,9 +37,20 @@ async function serve(request: Request, context: { params: Promise<{ key: string 
   }
   headers.set("Content-Length", String(end - start + 1));
   if (request.method === "HEAD") return new Response(null, { status, headers });
-  const assetPath = path.join(process.cwd(), "private-media", key);
-  try { const bytes = await readFile(assetPath); return new Response(new Uint8Array(bytes.subarray(start, end + 1)), { status, headers }); }
-  catch { return new Response("This media is temporarily unavailable.", { status: 503, headers: privateHeaders }); }
+  // Read only the requested range instead of loading an entire film per partial request.
+  const bytes = Buffer.alloc(end - start + 1);
+  let offset = 0;
+  while (offset < bytes.length) {
+    const result = await file.read(bytes, offset, bytes.length - offset, start + offset);
+    if (!result.bytesRead) throw Object.assign(new Error("Truncated asset"), { code: "ASSET_TRUNCATED" });
+    offset += result.bytesRead;
+  }
+  return new Response(new Uint8Array(bytes), { status, headers });
+  } catch (error) {
+    const code = error && typeof error === "object" && "code" in error ? String(error.code) : "READ_FAILED";
+    console.error("[review-media] unavailable", { key, code: /^[A-Z_]+$/.test(code) ? code : "READ_FAILED" });
+    return new Response("This media is temporarily unavailable.", { status: 503, headers: privateHeaders });
+  } finally { await file.close(); }
 }
 export const GET = serve;
 export const HEAD = serve;

@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prebuild": "prisma generate",
+    "prebuild": "node scripts/require-preview-assets.mjs && prisma generate",
+    "build:preview": "node scripts/build-preview-release.mjs",
+    "verify:assets": "node scripts/verify-preview-assets.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

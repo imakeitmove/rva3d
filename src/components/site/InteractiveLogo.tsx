@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Component, Suspense, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Canvas, type ThreeEvent, useFrame, useThree } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
@@ -279,13 +279,57 @@ function LogoScene({ modelUrl, onReady, onStatus, onReplay, onYaw }: LogoScenePr
   );
 }
 
+// Suspense handles loading only. Canvas forwards model errors to this DOM boundary.
+class LogoErrorBoundary extends Component<{ children: ReactNode; onRetry: () => void; variant: LogoVariant }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() { return { failed: true }; }
+  componentDidCatch() { console.error("[interactive-logo] experience unavailable"); }
+  render() {
+    if (!this.state.failed) return this.props.children;
+    return <div className={`${styles.stage} ${styles[this.props.variant]}`} data-interactive-logo={this.props.variant} data-logo-state="unavailable">
+      <div className={styles.fallback} aria-hidden="true">RVA3D</div>
+      <p className={styles.hint} role="status">The interactive logo is unavailable. The rest of the page is ready to explore.</p>
+      <button className={styles.replay} type="button" onClick={this.props.onRetry}>Retry interactive logo</button>
+    </div>;
+  }
+}
+
+// Canvas fallback is ordinary canvas child content, not a WebGL capability check.
+// Renderer creation is guarded below; model failures are caught by LogoErrorBoundary.
+
 export function InteractiveLogo({ modelUrl, variant = "capability" }: { modelUrl: string; variant?: LogoVariant }) {
+  const [attempt, setAttempt] = useState(0);
+  const retry = () => {
+    useGLTF.clear(modelUrl);
+    setAttempt(value => value + 1);
+  };
+  return <LogoErrorBoundary key={`${modelUrl}:${attempt}`} variant={variant} onRetry={retry}>
+    <LogoExperience modelUrl={modelUrl} variant={variant} />
+  </LogoErrorBoundary>;
+}
+
+function LogoExperience({ modelUrl, variant }: { modelUrl: string; variant: LogoVariant }) {
   const replayRef = useRef<() => void>(() => undefined);
   const [status, setStatus] = useState<LogoStatus>("loading");
   const [replayCount, setReplayCount] = useState(0);
   const [yaw, setYaw] = useState(0);
+  const [contextLost, setContextLost] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const loseContext = useCallback(() => setContextLost(true), []);
+  useEffect(() => () => canvasRef.current?.removeEventListener("webglcontextlost", loseContext), [loseContext]);
   const registerReplay = useCallback((replay: () => void) => { replayRef.current = replay; }, []);
   const countReplay = useCallback(() => setReplayCount(count => count + 1), []);
+  const createRenderer = useCallback(async (defaults: THREE.WebGLRendererParameters) => {
+    try {
+      return new THREE.WebGLRenderer({ ...defaults, antialias: true, alpha: true, powerPreference: "high-performance" });
+    } catch {
+      setContextLost(true);
+      // R3F awaits this factory outside its render error boundary. Stop configuration
+      // without rejecting; the state update unmounts Canvas via our local boundary.
+      return new Promise<THREE.WebGLRenderer>(() => {});
+    }
+  }, []);
+  if (contextLost) throw new Error("Interactive logo WebGL context lost");
 
   return (
     <div className={`${styles.stage} ${styles[variant]}`} data-interactive-logo={variant}>
@@ -293,14 +337,18 @@ export function InteractiveLogo({ modelUrl, variant = "capability" }: { modelUrl
         camera={{ fov: 42, near: 0.01, far: 20, position: [0, 0, 1] }}
         dpr={[1, 1.75]}
         frameloop="demand"
-        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+        gl={createRenderer}
         data-logo-animation={status}
         data-logo-dragging={String(status === "dragging")}
         data-logo-model="RVA_Logo_010_intro_001.glb"
         data-logo-replay-count={replayCount}
         data-logo-yaw={yaw.toFixed(3)}
         aria-hidden="true"
-        fallback={<div className={styles.fallback}>RVA3D</div>}
+        fallback={<span>Interactive RVA3D logo</span>}
+        onCreated={({ gl }) => {
+          canvasRef.current = gl.domElement;
+          gl.domElement.addEventListener("webglcontextlost", loseContext);
+        }}
       >
         <ambientLight intensity={1.5} />
         <directionalLight position={[2, 3, 5]} intensity={2.2} />
@@ -315,10 +363,10 @@ export function InteractiveLogo({ modelUrl, variant = "capability" }: { modelUrl
           />
         </Suspense>
       </Canvas>
-      <p className={styles.hint}>Drag the 3D. Tap it to replay.</p>
+      {status !== "loading" && <><p className={styles.hint}>Drag the 3D. Tap it to replay.</p>
       <button className={styles.replay} type="button" onClick={() => replayRef.current()}>
         Replay animation
-      </button>
+      </button></>}
     </div>
   );
 }

@@ -3,7 +3,12 @@ import { workRecords } from "@/content/work/records";
 import { portfolioWorkSlugs } from "@/content/work/records";
 import type { WorkCaseStudy, WorkMedia } from "@/content/work/types";
 import urls from "@/content/site/media-urls.generated.json";
-export const mediaUrl = (src: string) => (urls as Record<string, string>)[src] ?? "";
+export const mediaUrl = (src: string) => {
+  // An empty URL previously hid missing registry dependencies in otherwise valid HTML.
+  const url = (urls as Record<string, string>)[src];
+  if (!url) throw new Error("Unregistered complete-site media: " + src);
+  return url;
+};
 export const studies: readonly WorkCaseStudy[] = portfolioWorkSlugs.map(slug => workRecords.find(item => item.slug === slug)!);
 export const headline: Record<string, string> = {
   "geico-geckos-cereal-box": "Bringing a cereal box to life for GEICO.",

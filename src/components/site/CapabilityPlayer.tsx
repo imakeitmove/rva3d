@@ -14,6 +14,14 @@ export function CapabilityPlayer({ media, destination }: { media: WorkVideoMedia
     const modulePath = "/site-assets/capability-player.js";
     void import(/* webpackIgnore: true */ modulePath).then(module => {
       if (!cancelled && root.current) dispose = module.mountCapabilityPlayer(root.current, media);
+    }).catch(() => {
+      if (cancelled || !root.current) return;
+      console.error("[capability-player] controller unavailable");
+      const video = root.current.querySelector("video");
+      if (video) video.controls = true;
+      root.current.querySelectorAll<HTMLElement>("[data-action]").forEach(button => { button.hidden = true; });
+      const status = root.current.querySelector("[role=status]");
+      if (status) status.textContent = "Enhanced controls are unavailable. Use the video controls.";
     });
     return () => { cancelled = true; dispose?.(); };
   }, [media]);
