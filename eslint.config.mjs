@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Private browser-validation artifacts and temporary Edge profiles.
+    "work_preview_output/**",
+    "scripts/runtime/**",
+    ".vercel/**",
   ]),
 ]);
 

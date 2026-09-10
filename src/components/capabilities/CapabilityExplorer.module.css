@@ -1,0 +1,366 @@
+.explorer {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(20rem, 0.85fr);
+  gap: clamp(3rem, 10vw, 11rem);
+  align-items: center;
+  height: 100%;
+}
+
+.desktopPanel {
+  display: grid;
+  align-items: center;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+}
+
+.desktopCover,
+.desktopDetail {
+  min-width: 0;
+  animation: panel-in 180ms ease-out both;
+}
+
+.desktopDetailLeaving {
+  pointer-events: none;
+  animation: panel-out 140ms ease-in both;
+}
+
+.desktopCover {
+  display: grid;
+  align-content: center;
+  max-width: 50rem;
+}
+
+.sectionLabel {
+  margin: 0 0 1.3rem;
+  color: #8b8d87;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.desktopCover h2,
+.mobileIntro h2 {
+  max-width: 50rem;
+  margin: 0;
+  font-size: clamp(2.5rem, 4.7vw, 5.1rem);
+  font-weight: 430;
+  letter-spacing: -0.06em;
+  line-height: 0.98;
+}
+
+.capabilityHeadingPerspective {
+  /* The near-camera start projects far beyond the mobile viewport while the
+     heading is transparent. Contain that transient paint so it cannot create
+     document-level horizontal overflow before intersection. The local clip
+     margin and inline inset keep the negative-X arrival and its blur from
+     slicing the first readable glyphs without relaxing page-level overflow. */
+  box-sizing: border-box;
+  width: 100%;
+  padding-inline: 0.12em;
+  overflow: clip;
+  overflow-clip-margin: clamp(1rem, 3vw, 2.5rem);
+  perspective: 820px;
+  /* Previous centered projection retained for rollback: 50% 52%. Anchoring
+     the perspective at the reading edge prevents a positive Z translation
+     from projecting the first glyph beyond the viewport while it is visible. */
+  perspective-origin: 0 52%;
+}
+
+.capabilityHeadingPerspective h2 {
+  /* Keep the animation's near-camera projection anchored to the reading edge
+     through every React state class. The previous ready-only 50% origin was
+     dropped as soon as the entered class replaced it, causing the live fly-in
+     to expand past the left viewport edge. */
+  transform-origin: 0 68%;
+  transform-style: preserve-3d;
+}
+
+.capabilityHeadingReady {
+  opacity: 0;
+  filter: blur(6px);
+  transform: translate3d(-0.18em, -0.42em, 510px) rotateX(-9deg);
+  /* Previous state-only placement retained for rollback context:
+     transform-origin: 50% 68%;
+     transform-style: preserve-3d; */
+}
+
+.capabilityHeadingEntered {
+  animation: capability-heading-land 620ms cubic-bezier(0.16, 0.84, 0.2, 1)
+    both;
+}
+
+.capabilityHeadingLanded {
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+
+.coverLead {
+  max-width: 32rem;
+  margin: 1.6rem 0 0;
+  color: #b8b9b3;
+  line-height: 1.65;
+}
+
+.overviewLink {
+  display: inline-flex;
+  gap: 0.7rem;
+  width: max-content;
+  margin-top: 1.4rem;
+  color: #d7ff43;
+  text-underline-offset: 0.35rem;
+}
+
+.previewNumber {
+  margin: 0 0 0.8rem;
+  /* Previous quiet gray (#71736e) missed WCAG AA for this small text. */
+  color: #7c7e78;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.desktopDetail h2 {
+  max-width: 44rem;
+  margin: 0;
+  font-size: clamp(2.45rem, 4.35vw, 4.8rem);
+  font-weight: 430;
+  letter-spacing: -0.065em;
+  line-height: 0.95;
+}
+
+.promise {
+  max-width: 42rem;
+  margin: 1rem 0 1.25rem;
+  color: #b8b9b3;
+  font-size: clamp(0.95rem, 1.35vw, 1.12rem);
+  line-height: 1.55;
+}
+
+.previewVisual > * {
+  height: clamp(10rem, 18vw, 15rem);
+  min-height: clamp(10rem, 18vw, 15rem);
+}
+
+.proofLabels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.9rem 0 1.2rem;
+  padding: 0;
+  list-style: none;
+}
+
+.proofLabels li {
+  padding: 0.42rem 0.55rem;
+  border: 1px solid rgba(243, 241, 233, 0.16);
+  color: #a4a59f;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.previewLink,
+.mobilePanel a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: #d7ff43;
+  text-underline-offset: 0.35rem;
+}
+
+.desktopControls,
+.mobileControls {
+  border-top: 1px solid rgba(243, 241, 233, 0.16);
+}
+
+.desktopControls {
+  align-self: center;
+}
+
+.mobileIntro,
+.mobileControls {
+  display: none;
+}
+
+.row {
+  border-bottom: 1px solid rgba(243, 241, 233, 0.16);
+}
+
+.row button {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: baseline;
+  width: 100%;
+  padding: 1.15rem 0;
+  border: 0;
+  background: transparent;
+  color: #d2d2cc;
+  cursor: pointer;
+  font: inherit;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  font-weight: 440;
+  letter-spacing: -0.02em;
+  text-align: left;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.row button:hover {
+  color: var(--rva-signal);
+}
+
+.row button.selected {
+  background: var(--rva-purple);
+  color: var(--rva-paper);
+}
+
+.row button.selected:hover {
+  background: color-mix(in srgb, var(--rva-purple) 90%, var(--rva-paper));
+  color: var(--rva-paper);
+}
+
+.row button:focus-visible {
+  position: relative;
+  z-index: 1;
+  outline-color: var(--rva-signal);
+  outline-offset: -3px;
+}
+
+.row button.selected .number,
+.row button.selected .icon {
+  color: var(--rva-paper);
+}
+
+.number {
+  /* Previous quiet gray (#71736e) missed WCAG AA for this small text. */
+  color: #7c7e78;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.62rem;
+}
+
+.icon {
+  display: none;
+  color: #d7ff43;
+  font-family: var(--font-geist-mono), monospace;
+}
+
+.mobilePanel {
+  display: none;
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.35rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes panel-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-0.25rem);
+  }
+}
+
+@keyframes capability-heading-land {
+  0% {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translate3d(-0.18em, -0.42em, 510px) rotateX(-9deg);
+  }
+
+  76% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0.018em, -7px) rotateX(0.35deg);
+  }
+
+  100% {
+    opacity: 1;
+    filter: none;
+    transform: translate3d(0, 0, 0) rotateX(0);
+  }
+}
+
+@media (max-width: 900px) {
+  .explorer {
+    display: block;
+    height: auto;
+  }
+
+  .desktopPanel,
+  .desktopControls {
+    display: none;
+  }
+
+  .mobileIntro {
+    display: grid;
+    margin-bottom: 3rem;
+  }
+
+  .mobileControls {
+    display: block;
+  }
+
+  .icon {
+    display: inline;
+  }
+
+  .mobilePanel:not([hidden]) {
+    display: grid;
+    gap: 1.4rem;
+    padding: 0 0 1.5rem 3rem;
+  }
+
+  .mobilePanel p {
+    max-width: 42rem;
+    margin: 0;
+    color: #b8b9b3;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 520px) {
+  .mobilePanel:not([hidden]) {
+    padding-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desktopCover,
+  .desktopDetail,
+  .desktopDetailLeaving {
+    animation: none;
+  }
+
+  .row button {
+    transition: none;
+  }
+
+  .capabilityHeadingReady,
+  .capabilityHeadingEntered,
+  .capabilityHeadingLanded {
+    opacity: 1;
+    animation: none;
+    filter: none;
+    transform: none;
+  }
+}

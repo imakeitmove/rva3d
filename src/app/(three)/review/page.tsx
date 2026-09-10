@@ -7,6 +7,29 @@ import styles from "./review.module.css";
 
 const cases = [
   {
+    title: "VFX & Compositing Capability Pilot",
+    description:
+      "A rights-pending evidence review organized around visible and invisible VFX.",
+    href: "/review/vfx-compositing",
+    image:
+      "/review/media/vfx-compositing/vfx_geico_final_v001_poster.webp",
+    width: 1280,
+    height: 720,
+    alt: "GEICO GeckO's Cereal Box frame used as the private VFX capability review cover.",
+    status: "Capability pilot · Rights pending",
+  },
+  {
+    title: "AXE WHAXE × Lil Baby",
+    description:
+      "Turning incomplete product assets and an open brief into a high-gloss campaign film.",
+    href: "/review/axe-whaxe-lil-baby",
+    image: "/review/media/cover/axe_whaxe_lil_baby_cover_v001.webp",
+    width: 960,
+    height: 540,
+    alt: "Diamond-encrusted WHAXE pendant suspended against a dark teal glow.",
+    status: "Candidate flagship",
+  },
+  {
     title: "AMSOIL XPD Wind Grease",
     description:
       "Technical visualization and communicating what cameras cannot realistically show.",
@@ -121,7 +144,7 @@ export default async function PrivateReviewCover() {
 
         <section className={styles.cases} aria-labelledby="cases-title">
           <div className={styles.sectionHeading}>
-            <p className={styles.eyebrow}>Four working drafts</p>
+            <p className={styles.eyebrow}>Six working drafts</p>
             <h2 id="cases-title">Review the case studies</h2>
           </div>
           <div className={styles.caseGrid}>

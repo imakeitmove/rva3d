@@ -41,3 +41,18 @@ yarn-error.log*
 next-env.d.ts
 
 /generated/prisma
+
+# Rights-pending work previews. Generic preview code is tracked; client data is not.
+/public/_work_preview/
+/src/content/work_preview.local.json
+/scripts/build_work_preview_media.local.mjs
+/scripts/capture_work_preview.local.mjs
+/work_preview_output/
+
+# Unlicensed local visual evaluation only. Replace with a purchased,
+# web-embedding-approved font before removing this safeguard.
+/public/fonts/local-evaluation/NotJustGroovy-enmp.ttf
+
+# Candidate verification profiles and private generated media are never broadly staged.
+/scripts/runtime/
+/private-media/
