@@ -22,7 +22,8 @@ const temporary = await fs.mkdtemp(path.join(os.tmpdir(), "rva3d-source-export-"
 const archive = path.join(temporary, "source.tar");
 const roots = ["src", "prisma", "public/site-assets", "public/fonts", "scripts",
   "package.json", "package-lock.json", "tsconfig.json", "next.config.ts", "postcss.config.mjs",
-  "eslint.config.mjs", "docs/preview-release.md"];
+  "eslint.config.mjs", ".nvmrc", "docs/preview-release.md", "docs/rocky-preview-handoff.md",
+  "docs/public-media-policy-followup.md"];
 const tracked = execFileSync("git", ["-C", repo, "ls-tree", "-r", "--name-only", revision], { encoding: "utf8" }).trim().split("\n");
 const included = tracked.filter(file => roots.some(root => file === root || file.startsWith(root + "/")));
 const forbidden = /(^|\/)(\.env[^/]*|private-media|runtime|node_modules|\.next|\.vercel|screenshots?|captures?)(\/|$)|\.(pem|key)$/i;

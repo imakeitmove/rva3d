@@ -1,5 +1,7 @@
 # Protected Preview release
 
+For the reviewed candidate-checkpoint integration, portable archive, pinned Node/Vercel tooling, and exact Rocky Linux build-only commands, follow [rocky-preview-handoff.md](rocky-preview-handoff.md). That handoff stops before deployment and supersedes the earlier instruction against Preview configuration pulling: read-only Preview pulls on the Linux workstation are now explicitly part of the requested workflow.
+
 Source-only builds are not media-complete release validation. Git-triggered Vercel Preview builds deliberately fail without a prepared release marker and all selected private assets. No asset source is configured for Git builds. Do not push expecting a usable Preview.
 
 1. Commit the reviewed runtime repair locally. Do not push yet.
