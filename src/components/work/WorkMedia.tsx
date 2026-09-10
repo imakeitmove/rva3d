@@ -9,12 +9,14 @@ type WorkMediaProps = {
   media: WorkMediaRecord;
   priority?: boolean;
   privateDelivery?: boolean;
+  sizes?: string;
 };
 
 export function WorkMedia({
   media,
   priority = false,
   privateDelivery = false,
+  sizes,
 }: WorkMediaProps) {
   if (media.kind === "video") {
     return (
@@ -23,6 +25,7 @@ export function WorkMedia({
           media={media}
           priority={priority}
           privateDelivery={privateDelivery}
+          sizes={sizes}
         />
         {media.caption ? (
           <figcaption className={styles.caption}>{media.caption}</figcaption>
@@ -38,7 +41,7 @@ export function WorkMedia({
         alt={media.alt}
         width={media.width}
         height={media.height}
-        sizes="(max-width: 900px) 100vw, 80vw"
+        sizes={sizes ?? "(max-width: 900px) 100vw, 80vw"}
         priority={priority}
         unoptimized={privateDelivery}
       />

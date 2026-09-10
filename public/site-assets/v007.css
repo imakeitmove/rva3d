@@ -1,0 +1,53 @@
+/* V007 scoped UI language lock. V005 composition remains the base authority. */
+.v007{--v-utility:#242527;}
+.v007 .v-kicker a span,.v007 .v-link>span{color:var(--rva-signal);}
+.v007 .v-intro{display:grid;grid-template-columns:clamp(140px,10vw,190px) minmax(0,1fr) auto;gap:32px;align-items:center;padding-top:36px;padding-bottom:72px;}
+.v007 .v-intro-logo{width:100%;height:auto;}
+.v007 .v-intro p{max-width:52ch;}
+.v007 .brand-three-d{width:1.02em;height:.68em;vertical-align:-.025em;}
+.v007 .v-ribbon-tools{position:absolute;inset:0 8px auto;max-width:none;width:auto;height:var(--v-ribbon-height);opacity:1;background:none;border-radius:0;pointer-events:none;}
+.v007 .v-ribbon-tools>div{width:100%;height:100%;display:flex;justify-content:space-between;align-items:center;padding:0;}
+.v007 .v-ribbon-tools button,.v007 .v-viewer-stage>.v-circle,.v007 .v-viewer-close,.v007 .v-viewer-fullscreen,.v007 .v-fullscreen{width:44px;height:44px;min-height:44px;padding:0;display:grid;place-items:center;border:0;border-radius:50%;background:var(--v-utility);color:var(--rva-paper);font-size:15px;pointer-events:auto;}
+.v007 .v-viewer-stage>.v-circle{top:calc(50% - 22px);}
+.v007 .v-viewer-close{font:27px/1 Arial,sans-serif;}
+.v007 .v-fullscreen>span,.v007 .v-viewer-fullscreen>span{font-size:25px;color:var(--rva-signal);}
+.v007 .v-picture:fullscreen>.v-fullscreen{position:absolute;top:12px;right:12px;opacity:1;}
+.v007 .v-viewer-stage:fullscreen>.v-viewer-fullscreen{top:12px;right:12px;left:auto;}
+.v007 .v-viewer-stage:fullscreen>.v-viewer-close{top:12px;left:12px;}
+.v007 .v-band{background:var(--v-utility);isolation:isolate;border-color:rgba(228,215,255,.12);}
+.v007 .v-band::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 75% 0%,rgba(212,195,255,.17),transparent 65%),linear-gradient(105deg,#6230c0 10%,#6338bd 48%,#6b54b9);opacity:1;transition:opacity .28s;}
+.v007 .v-band[data-mode="info"]::before{opacity:0;}
+.v007 .v-purple-info{left:var(--v-info-left,88px);right:auto;width:var(--v-info-width,calc(100% - 176px));margin:0;padding:10px 0;}
+.v007 #viewer-case{justify-self:end;text-align:right;justify-content:flex-end;}
+.v007 #viewer-case span{color:var(--rva-signal);}
+.v007 .v-purple-info[data-narrow="true"]{display:flex;flex-direction:column;align-items:stretch;justify-content:center;gap:0;padding:6px 0;}
+.v007 .v-purple-info[data-narrow="true"] #viewer-title{font-size:20px;}
+.v007 .v-purple-info[data-narrow="true"] #viewer-case{align-self:flex-end;min-height:32px;}
+.v007 .v-purple-info[data-narrow="true"] #viewer-meta{font-size:9px;line-height:1.35;}
+.v007 .v-capabilities .v-section-top>.v-link{align-self:start;font-family:inherit;font-size:17px;line-height:1.35;margin-top:4px;}
+.v007 .v-work .v-cases{margin-top:30px;}
+.v007 .v-case-role{padding:0;margin:0 0 12px;font-size:10px;line-height:1.45;min-height:2.9em;}
+.v007 .v-case-role>.label{font-size:10px;}
+.v007 .v-case-heading{margin:20px 0 8px;}
+.v007 .v-contact-form{padding-top:38px;}
+.v007 .v-contact-form>h2{text-align:center;}
+.v007 .v-footer{grid-template-columns:1fr auto;align-items:end;}
+.v007 .v-footer>div{display:flex;flex-direction:column;gap:7px;}
+.v007 .v-footer small{grid-column:auto;text-align:right;}
+/* Single shallow keyword A/B. Disabled by default; no state-machine changes. */
+.v007[data-keyword-depth="true"] #band-phrase .v-dimensional-keyword{ text-shadow:1px 1px 0 #493081,2px 2px 0 #493081; }
+@media(max-width:1100px){.v007 .v-intro{grid-template-columns:130px minmax(0,1fr);gap:24px;}.v007 .v-intro .button{grid-column:2;justify-self:start;}}
+@media(max-width:640px){
+ .v007 .v-intro{display:flex;flex-direction:column;align-items:flex-start;gap:20px;padding-top:28px;padding-bottom:42px;}
+ .v007 .v-intro-logo{width:170px;}.v007 .v-intro .button{margin-top:0;}
+ .v007 .v-ribbon-tools{inset:0 4px auto;}.v007 .v-ribbon-tools #ribbon-prev,.v007 .v-ribbon-tools #ribbon-next{display:grid;}
+ .v007 .v-viewer-stage>.v-circle{width:44px;height:44px;top:calc(50% - 22px);}
+ .v007 .v-purple-info{padding:8px 0;}.v007 .v-purple-info #viewer-title{font-size:19px;line-height:1.15;}
+ .v007 .v-capabilities .v-section-top>.v-link{display:inline-flex;margin-top:20px;}
+ .v007 .v-case-role{min-height:0;margin-bottom:12px;font-size:9px;}.v007 .v-case-role>.label{font-size:9px;}
+ .v007 .v-contact-form{padding-top:0;}.v007 .v-footer{grid-template-columns:1fr;gap:18px;}.v007 .v-footer small{text-align:left;}
+}
+@media(prefers-reduced-motion:reduce){.v007 .v-band::before{transition:none;}}
+
+/* Final visual review: match inherited picture-control specificity for the hero utility circle. */
+.v007 .v-picture>.v-fullscreen{background:var(--v-utility);border-radius:50%;}

@@ -12,6 +12,7 @@ type WorkVideoProps = {
   media: WorkVideoMedia;
   priority?: boolean;
   privateDelivery?: boolean;
+  sizes?: string;
 };
 
 function aspectStyle(media: WorkVideoMedia) {
@@ -24,6 +25,7 @@ function LoopVideo({
   media,
   priority = false,
   privateDelivery = false,
+  sizes,
 }: WorkVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
@@ -36,7 +38,7 @@ function LoopVideo({
         src={media.poster.src}
         alt={media.poster.alt}
         fill
-        sizes="(max-width: 900px) 100vw, 80vw"
+        sizes={sizes ?? "(max-width: 900px) 100vw, 80vw"}
         priority={priority}
         unoptimized={privateDelivery}
       />
@@ -87,6 +89,7 @@ export function WorkVideo({
   media,
   priority = false,
   privateDelivery = false,
+  sizes,
 }: WorkVideoProps) {
   // Private review video is deliberately poster-first and user initiated.
   // The public/local loop behavior remains unchanged.
@@ -95,6 +98,7 @@ export function WorkVideo({
       media={media}
       priority={priority}
       privateDelivery={privateDelivery}
+      sizes={sizes}
     />
   ) : (
     <ControlledVideo media={media} privateDelivery={privateDelivery} />

@@ -29,6 +29,10 @@ export type CasePreviewAudience = "local-preview" | "private-review";
 
 const reviewMediaPrefixes = [
   [
+    "/preview/media/axe_whaxe_lil_baby/",
+    "/review/media/axe-whaxe-lil-baby/",
+  ],
+  [
     "/preview/media/amsoil_xpd_wind_grease/",
     "/review/media/amsoil-xpd-wind-grease/",
   ],

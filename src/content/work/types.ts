@@ -23,6 +23,7 @@ export type WorkVideoMedia = {
 export type WorkMedia = WorkImageMedia | WorkVideoMedia;
 
 export type WorkProcessChapter = {
+  label?: string;
   title: string;
   summary: string;
   media: readonly WorkMedia[];
@@ -53,20 +54,32 @@ export type ApprovedPublication = {
   approvedAt: string;
 };
 
-export type WorkPublication = DraftPublication | ApprovedPublication;
+export type PreviewPublication = {
+  status: "preview";
+};
+
+export type WorkPublication =
+  | DraftPublication
+  | PreviewPublication
+  | ApprovedPublication;
 
 export type WorkCaseStudy = {
   slug: string;
   title: string;
   client: string;
   productionPartner?: string;
-  year: number | string;
+  year?: number | string;
+  eyebrow: string;
+  indexSummary: string;
   summary: string;
   problem: string;
   approach: string;
   result: string;
+  value: string;
+  authorship?: string;
   role: readonly string[];
   capabilities: readonly string[];
+  indexMedia: WorkMedia;
   heroMedia: WorkMedia;
   galleryMedia: readonly WorkMedia[];
   processChapters: readonly WorkProcessChapter[];
@@ -77,4 +90,8 @@ export type WorkCaseStudy = {
 
 export type ApprovedWorkCaseStudy = Omit<WorkCaseStudy, "publication"> & {
   publication: ApprovedPublication;
+};
+
+export type PreviewWorkCaseStudy = Omit<WorkCaseStudy, "publication"> & {
+  publication: PreviewPublication;
 };

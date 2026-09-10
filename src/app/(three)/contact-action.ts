@@ -1,6 +1,7 @@
 "use server";
 
 import { headers } from "next/headers";
+import { hasPrivateReviewSession } from "@/lib/private_review_auth";
 import { Resend } from "resend";
 
 const CONTACT_EMAIL = "hello@rva3d.com";
@@ -150,6 +151,10 @@ export async function submitContactForm(
     };
   }
 
+  // Ordinary candidate browsing cannot send. Explicit test mode retains the owned recipient.
+  const controlledTest = formData.get("controlledTest") === "1" && process.env.RVA3D_CONTACT_TEST_ENABLED === "1" && await hasPrivateReviewSession();
+  const publicSending = process.env.RVA3D_PUBLIC_LAUNCH_ENABLED === "1";
+  if (!controlledTest && !publicSending) return { status: "error", message: "Your inquiry passed validation. Nothing was sent or stored in this protected preview. Email hello@rva3d.com to start a conversation." };
   const apiKey = process.env.RESEND_API_KEY;
   const fromAddress = process.env.EMAIL_FROM;
   const toAddress = process.env.CONTACT_EMAIL_TO || CONTACT_EMAIL;
@@ -172,7 +177,7 @@ export async function submitContactForm(
       from: fromAddress,
       to: toAddress,
       replyTo: values.email,
-      subject: `RVA3D website inquiry: ${inquiryLabel}`,
+      subject: `${controlledTest ? "[RVA3D CONTROLLED DELIVERY TEST] " : ""}RVA3D website inquiry: ${inquiryLabel}`,
       text: [
         `Name: ${values.name}`,
         `Email: ${values.email}`,
@@ -198,7 +203,7 @@ export async function submitContactForm(
 
     return {
       status: "success",
-      message: "Thanks. Your message has been sent. RVA3D will be in touch soon.",
+      message: "Thanks. Your message was accepted by our email provider. RVA3D will be in touch soon.",
       submissionId: crypto.randomUUID(),
     };
   } catch (error) {

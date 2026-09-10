@@ -1,3 +1,8 @@
+// COMPLETE SITE CANDIDATE
+export { default } from "@/components/site/ClientLogin";
+export const dynamic = "force-dynamic";
+export const metadata = { title: "Client login | RVA3D", robots: { index: false, follow: false, noarchive: true } };
+/* Previous implementation retained for restoration. Replaced only in the isolated complete-site candidate.
 "use client";
 
 import { FormEvent, useState } from "react";
@@ -44,3 +49,5 @@ export default function LoginPage() {
     </main>
   );
 }
+
+*/

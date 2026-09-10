@@ -37,6 +37,32 @@
   color: var(--muted);
 }
 
+.whaxePage {
+  --ink: #f4f8fa;
+  --muted: #a8b7be;
+  --line: rgba(159, 220, 229, 0.24);
+  --accent: #65ecf3;
+  --page-background: #05090d;
+  --intro: #c5d0d5;
+  background:
+    radial-gradient(
+      circle at 78% 11%,
+      rgba(45, 181, 197, 0.12),
+      transparent 27rem
+    ),
+    var(--page-background);
+}
+
+.whaxePage .previewNotice {
+  border-bottom-color: rgba(101, 236, 243, 0.3);
+  background: rgba(5, 16, 20, 0.96);
+}
+
+.whaxePage .facts dt,
+.whaxePage figcaption {
+  color: var(--muted);
+}
+
 /* Shared case-study captions inherit each page's accessible muted tone. */
 .page figcaption {
   color: var(--muted);
@@ -249,6 +275,41 @@
   object-fit: cover;
 }
 
+.whaxeHero {
+  grid-template-columns: minmax(0, 1.05fr) minmax(22rem, 0.75fr);
+  grid-template-areas:
+    "title details"
+    "media media";
+  align-items: start;
+}
+
+.whaxeHero .heroTitle h1 {
+  max-width: 62rem;
+  font-size: clamp(4rem, 8vw, 8.5rem);
+}
+
+.whaxeHero .heroDetails {
+  align-self: end;
+}
+
+.whaxeHero .heroIntroduction {
+  margin-top: 0;
+}
+
+.whaxeHero .heroMedia {
+  margin-top: clamp(1rem, 2vw, 2rem);
+}
+
+.whaxeHero .heroMedia figure,
+.whaxeHero .heroMedia video,
+.whaxeHero .heroMedia img {
+  height: auto;
+}
+
+.whaxeFacts {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .problem {
   display: grid;
   grid-template-columns: minmax(16rem, 0.72fr) minmax(0, 1.28fr);
@@ -413,6 +474,35 @@
 .resultCopy > p:not(.sectionNumber) {
   margin-top: 1.5rem;
   font-size: 1rem;
+}
+
+.whaxeLook {
+  border-bottom: 1px solid var(--line);
+}
+
+.whaxeTechnical {
+  background: rgba(21, 38, 45, 0.32);
+  box-shadow: 0 0 0 100vmax rgba(21, 38, 45, 0.32);
+  clip-path: inset(0 -100vmax);
+}
+
+.whaxeTechnical .greaseMedia {
+  min-width: 0;
+}
+
+.whaxeResult {
+  border-bottom: 1px solid var(--line);
+}
+
+.whaxeValue {
+  border-top: 0;
+}
+
+.whaxePage .pendingFacts {
+  width: min(100% - 4rem, 96rem);
+  margin: clamp(5rem, 8vw, 8rem) auto 0;
+  border-color: rgba(101, 236, 243, 0.26);
+  background: rgba(101, 236, 243, 0.045);
 }
 
 .capriHero {
@@ -789,6 +879,13 @@ The new stack aligns both columns at the top and fills that open field. */
       "details";
   }
 
+  .whaxeHero {
+    grid-template-areas:
+      "title"
+      "details"
+      "media";
+  }
+
   .heroMedia figure,
   .heroMedia img {
     height: auto;
@@ -817,6 +914,10 @@ The new stack aligns both columns at the top and fills that open field. */
   }
 
   .capriProject {
+    width: calc(100% - 2.5rem);
+  }
+
+  .whaxePage .pendingFacts {
     width: calc(100% - 2.5rem);
   }
 

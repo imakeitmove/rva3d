@@ -9,6 +9,7 @@ import { useEffect, useState, type RefObject } from "react";
  */
 export function useVisibilityAwareLoop(
   videoRef: RefObject<HTMLVideoElement | null>,
+  playbackEnabled = true,
 ) {
   const [motionAllowed, setMotionAllowed] = useState(false);
 
@@ -43,7 +44,7 @@ export function useVisibilityAwareLoop(
 
     let isVisible = true;
     const syncPlayback = () => {
-      if (document.hidden || !isVisible) {
+      if (document.hidden || !isVisible || !playbackEnabled) {
         video.pause();
         return;
       }
@@ -70,7 +71,7 @@ export function useVisibilityAwareLoop(
       document.removeEventListener("visibilitychange", syncPlayback);
       video.pause();
     };
-  }, [motionAllowed, videoRef]);
+  }, [motionAllowed, playbackEnabled, videoRef]);
 
   return motionAllowed;
 }

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import type { PreviewMedia } from "@/content/work/preview-types";
 import { isAmsoilPrivatePreviewEnabled } from "@/lib/amsoil_private_preview";
 
+import { AxeWhaxeLilBabyPreview } from "./AxeWhaxeLilBabyPreview";
 import { CapriSunPreview } from "./CapriSunPreview";
 import {
   CaseFooter,
@@ -20,6 +21,7 @@ type PrivatePreviewPageProps = {
 };
 
 const AMSOIL_SLUG = "amsoil-xpd-wind-grease";
+const AXE_WHAXE_SLUG = "axe-whaxe-lil-baby";
 const CAPRI_SUN_SLUG = "capri-sun";
 const WAWA_COFFEE_ISLAND_SLUG = "wawa-coffee-island";
 const PRIVATE_MEDIA_BASE =
@@ -126,6 +128,11 @@ const developmentReviewNotes = [
 export const dynamic = "force-dynamic";
 
 const previewMetadata = {
+  [AXE_WHAXE_SLUG]: {
+    title: "AXE WHAXE × Lil Baby | RVA3D",
+    description:
+      "A private product-animation case study about turning incomplete assets and an open brief into a campaign-ready film.",
+  },
   [AMSOIL_SLUG]: {
     title: "AMSOIL XPD Wind Grease | RVA3D",
     description:
@@ -170,6 +177,10 @@ export default async function PrivatePreviewPage({
   }
 
   const { slug } = await params;
+  if (slug === AXE_WHAXE_SLUG) {
+    return <AxeWhaxeLilBabyPreview />;
+  }
+
   if (slug === CAPRI_SUN_SLUG) {
     return <CapriSunPreview />;
   }

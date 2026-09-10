@@ -12,10 +12,43 @@ const reviewMedia = {
   cover: {
     folder: "cover",
     files: {
+      "axe_whaxe_lil_baby_cover_v001.webp": ["image/webp", 18932],
       "amsoil_xpd_wind_grease_cover_v001.webp": ["image/webp", 30102],
       "cable_snake_cover_v001.webp": ["image/webp", 15188],
       "capri_sun_cover_v001.webp": ["image/webp", 57032],
       "wawa_coffee_island_cover_v001.webp": ["image/webp", 31948],
+    },
+  },
+  "axe-whaxe-lil-baby": {
+    folder: "axe_whaxe_lil_baby",
+    files: {
+      "axe_whaxe_campaign_v001.mp4": ["video/mp4", 5013029],
+      "axe_whaxe_diamond_still_v001.webp": ["image/webp", 39986],
+      "axe_whaxe_hero_poster_v001.webp": ["image/webp", 47478],
+      "axe_whaxe_og_1200x630_v001.webp": ["image/webp", 31502],
+      "axe_whaxe_product_layer_poster_v001.webp": ["image/webp", 91536],
+      "axe_whaxe_product_layer_v001.mp4": ["video/mp4", 3858603],
+      "axe_whaxe_product_still_v001.webp": ["image/webp", 82008],
+    },
+  },
+  "vfx-compositing": {
+    folder: "vfx_compositing",
+    files: {
+      "vfx_candy_final_v001.mp4": ["video/mp4", 1051469],
+      "vfx_candy_final_v001_poster.webp": ["image/webp", 71800],
+      "vfx_candy_original_v001.mp4": ["video/mp4", 1001204],
+      "vfx_candy_original_v001_poster.webp": ["image/webp", 63864],
+      "vfx_candy_process_v001.webp": ["image/webp", 54154],
+      "vfx_geico_final_v001.mp4": ["video/mp4", 2184008],
+      "vfx_geico_final_v001_poster.webp": ["image/webp", 26448],
+      "vfx_ups_final_v001.mp4": ["video/mp4", 2492582],
+      "vfx_ups_final_v001_poster.webp": ["image/webp", 50568],
+      "vfx_ups_process_v001.mp4": ["video/mp4", 1702354],
+      "vfx_ups_process_v001_poster.webp": ["image/webp", 19878],
+      "vfx_va_lottery_final_v001.mp4": ["video/mp4", 478744],
+      "vfx_va_lottery_final_v001_poster.webp": ["image/webp", 27664],
+      "vfx_va_lottery_original_v001.mp4": ["video/mp4", 480030],
+      "vfx_va_lottery_original_v001_poster.webp": ["image/webp", 27746],
     },
   },
   "amsoil-xpd-wind-grease": {

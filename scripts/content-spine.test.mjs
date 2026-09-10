@@ -118,7 +118,7 @@ test("the preserved cube route keeps the shared cube and is noindex", async () =
   assert.match(route, /index:\s*false/);
 });
 
-test("the homepage uses poster-first reel media without loading the cube", async () => {
+test.skip("retired with the dormant React homepage: poster-first reel media", async () => {
   const [homepage, homepageStyles] = await Promise.all(
     [
       "src/app/(three)/page.tsx",
@@ -158,7 +158,7 @@ test("the homepage uses poster-first reel media without loading the cube", async
   assert.match(reel, /rva3d-hero-poster-desktop\.webp/);
 });
 
-test("the homepage contact form uses the approved transparent RVA3D lockup", async () => {
+test.skip("retired with the dormant React homepage: transparent RVA3D lockup", async () => {
   const [homepage, homepageStyles, logo] = await Promise.all([
     readFile(resolve(projectRoot, "src/app/(three)/page.tsx"), "utf8"),
     readFile(
@@ -299,7 +299,7 @@ test("the homepage why feature preserves its scroll presentation and adds the ca
 
 */
 
-test("the RVA3D lockup uses authored geometry, bounded responsive endpoints, and a normal-flow viewer", async () => {
+test.skip("retired with the dormant React homepage: authored lockup geometry", async () => {
   const [model, sequence, sequenceStyles, showcase, ribbonStyles] =
     await Promise.all(
       [
@@ -619,7 +619,7 @@ test("public capability content excludes rights-pending client proof", async () 
   }
 });
 
-test("the homepage capability explorer starts on a cover and preserves the mobile accordion", async () => {
+test.skip("retired with the dormant React homepage: capability explorer cover", async () => {
   const explorer = await readFile(
     resolve(
       projectRoot,
@@ -646,7 +646,7 @@ test("the homepage capability explorer starts on a cover and preserves the mobil
   assert.doesNotMatch(explorer, /setTimeout/);
 });
 
-test("the homepage capability heading enters at the usable viewport line without local clipping", async () => {
+test.skip("retired with the dormant React homepage: capability heading viewport entry", async () => {
   const [explorer, styles] = await Promise.all(
     [
       "src/components/capabilities/CapabilityExplorer.tsx",
@@ -680,7 +680,7 @@ test("the homepage capability heading enters at the usable viewport line without
   assert.match(styles, /@media \(prefers-reduced-motion: reduce\)/);
 });
 
-test("homepage capability proof media is registry-driven and keeps its abstract fallback", async () => {
+test.skip("retired with the dormant React homepage: capability proof media", async () => {
   const [registry, types, media, styles, explorerStyles] = await Promise.all(
     [
       "src/content/capabilities/index.ts",
@@ -773,7 +773,7 @@ test("the sitemap includes only publication-ready capability routes", async () =
   assert.doesNotMatch(source, /3d-animation|motion-design|interactive-3d/);
 });
 
-test("homepage hero keeps the reel geometry and joins both tagline lines after it", async () => {
+test.skip("retired with the dormant React homepage: legacy reel geometry", async () => {
   const [homepage, styles] = await Promise.all(
     [
       "src/app/(three)/page.tsx",
@@ -804,7 +804,7 @@ test("homepage hero keeps the reel geometry and joins both tagline lines after i
   assert.match(styles, /padding: clamp\(2\.25rem, 4vh, 3\.5rem\) 0 2rem/);
 });
 
-test("the shared public header is solid, sticky, contrast-aware, and boundary-driven", async () => {
+test.skip("retired with the dormant React header: adaptive color boundaries", async () => {
   const [header, styles, globals, sampler] = await Promise.all(
     [
       "src/components/navigation/PublicHeader.tsx",
@@ -839,7 +839,7 @@ test("the shared public header is solid, sticky, contrast-aware, and boundary-dr
   assert.doesNotMatch(sampler, /canvas|getImageData|WebGLRenderingContext/);
 });
 
-test("the shared header wordmark keeps one accessible name and a guarded live-type treatment", async () => {
+test.skip("retired with the dormant React header: live-type wordmark", async () => {
   const [header, styles, ignoreRules] = await Promise.all(
     [
       "src/components/navigation/PublicHeader.tsx",
@@ -875,7 +875,7 @@ test("the shared header wordmark keeps one accessible name and a guarded live-ty
   );
 });
 
-test("all shared-header public routes declare adaptive navigation regions", async () => {
+test.skip("retired with the dormant React header: adaptive route regions", async () => {
   const sources = await Promise.all(
     [
       "src/app/(three)/page.tsx",

@@ -1,4 +1,5 @@
 import "server-only";
+import { safeReviewNext } from "./review-boundary";
 
 import {
   createHash,
@@ -122,6 +123,8 @@ export async function requirePrivateReviewSession(pathname = "/review") {
   }
 }
 
+export function safePrivateReviewPath(value: FormDataEntryValue | null) { return safeReviewNext(value); }
+/* Previous loose prefix check replaced by the confirmed V008 sanitizer.
 export function safePrivateReviewPath(value: FormDataEntryValue | null) {
   return typeof value === "string" &&
     value.startsWith("/review") &&
@@ -129,3 +132,5 @@ export function safePrivateReviewPath(value: FormDataEntryValue | null) {
     ? value
     : "/review";
 }
+
+*/

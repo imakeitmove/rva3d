@@ -1,18 +1,24 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { AxeWhaxeLilBabyPreview } from "@/app/(three)/preview/work/[slug]/AxeWhaxeLilBabyPreview";
 import { CapriSunPreview } from "@/app/(three)/preview/work/[slug]/CapriSunPreview";
 import { AmsoilPreview } from "@/app/(three)/preview/work/[slug]/page";
 import { WawaCoffeeIslandPreview } from "@/app/(three)/preview/work/[slug]/WawaCoffeeIslandPreview";
 import { requirePrivateReviewSession } from "@/lib/private_review_auth";
 
 import { CableSnakeReview } from "./CableSnakeReview";
+import { VfxCapabilityReview } from "./VfxCapabilityReview";
 
 type PrivateReviewCasePageProps = {
   params: Promise<{ slug: string }>;
 };
 
 const caseMetadata = {
+  "axe-whaxe-lil-baby": {
+    title: "AXE WHAXE × Lil Baby | Private RVA3D Review",
+    description: "Private working product-animation case-study draft.",
+  },
   "amsoil-xpd-wind-grease": {
     title: "AMSOIL XPD Wind Grease | Private RVA3D Review",
     description: "Private working technical-visualization case-study draft.",
@@ -28,6 +34,11 @@ const caseMetadata = {
   "cable-snake": {
     title: "Cable Snake | Private RVA3D Review",
     description: "Private working hybrid character case-study draft.",
+  },
+  "vfx-compositing": {
+    title: "VFX & Compositing Capability | Private RVA3D Review",
+    description:
+      "Private evidence review for the VFX and Compositing capability pilot.",
   },
 } as const;
 
@@ -58,6 +69,8 @@ export default async function PrivateReviewCasePage({
   await requirePrivateReviewSession(`/review/${slug}`);
 
   switch (slug) {
+    case "axe-whaxe-lil-baby":
+      return <AxeWhaxeLilBabyPreview audience="private-review" />;
     case "amsoil-xpd-wind-grease":
       return <AmsoilPreview audience="private-review" />;
     case "capri-sun":
@@ -66,6 +79,8 @@ export default async function PrivateReviewCasePage({
       return <WawaCoffeeIslandPreview audience="private-review" />;
     case "cable-snake":
       return <CableSnakeReview />;
+    case "vfx-compositing":
+      return <VfxCapabilityReview />;
     default:
       notFound();
   }

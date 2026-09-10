@@ -1,15 +1,15 @@
 import type {
   ApprovedWorkCaseStudy,
+  PreviewWorkCaseStudy,
   WorkCaseStudy,
   WorkMedia,
 } from "./types";
 
-// Rights-pending cases stay out of the public repository. Add a record only
-// after its copy, credits, media, and Notion publication decision are approved.
-const workRecords = [] satisfies readonly WorkCaseStudy[];
+import { portfolioWorkSlugs, workRecords } from "./records.ts";
 
 // This registry is the only source of featured order. Do not add per-record
-// featured position fields.
+// featured position fields. It remains empty in this preview release so the
+// already-approved homepage composition does not change.
 export const featuredWorkSlugs = [] satisfies readonly string[];
 
 function assertNonEmpty(value: string, label: string) {
@@ -69,10 +69,48 @@ function validateNotionDecisionUrl(value: string, slug: string) {
   }
 }
 
+function validateCaseStudy(study: WorkCaseStudy) {
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(study.slug)) {
+    throw new Error(`Work slug "${study.slug}" is not URL safe.`);
+  }
+
+  assertNonEmpty(study.title, `${study.slug} title`);
+  assertNonEmpty(study.eyebrow, `${study.slug} eyebrow`);
+  assertNonEmpty(study.indexSummary, `${study.slug} index summary`);
+  assertNonEmpty(study.summary, `${study.slug} summary`);
+  assertNonEmpty(study.problem, `${study.slug} problem`);
+  assertNonEmpty(study.approach, `${study.slug} approach`);
+  assertNonEmpty(study.result, `${study.slug} result`);
+  assertNonEmpty(study.value, `${study.slug} value`);
+
+  validateMedia(study.indexMedia, `${study.slug} index media`);
+  validateMedia(study.heroMedia, `${study.slug} hero`);
+  study.galleryMedia.forEach((media, index) =>
+    validateMedia(media, `${study.slug} gallery item ${index + 1}`),
+  );
+  study.processChapters.forEach((chapter, chapterIndex) => {
+    assertNonEmpty(chapter.title, `${study.slug} process chapter title`);
+    assertNonEmpty(chapter.summary, `${study.slug} process chapter summary`);
+    chapter.media.forEach((media, mediaIndex) =>
+      validateMedia(
+        media,
+        `${study.slug} process chapter ${chapterIndex + 1} item ${mediaIndex + 1}`,
+      ),
+    );
+  });
+  validateVisualDimensions(study.seo.image, `${study.slug} SEO image`);
+}
+
 export function isApprovedCaseStudy(
   study: WorkCaseStudy,
 ): study is ApprovedWorkCaseStudy {
   return study.publication.status === "approved";
+}
+
+export function isPreviewCaseStudy(
+  study: WorkCaseStudy,
+): study is PreviewWorkCaseStudy {
+  return study.publication.status === "preview";
 }
 
 export function validateApprovedCaseStudy(
@@ -82,9 +120,7 @@ export function validateApprovedCaseStudy(
     throw new Error(`Work "${study.slug}" is not approved for publication.`);
   }
 
-  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(study.slug)) {
-    throw new Error(`Work slug "${study.slug}" is not URL safe.`);
-  }
+  validateCaseStudy(study);
 
   validateNotionDecisionUrl(study.publication.notionDecisionUrl, study.slug);
 
@@ -150,8 +186,55 @@ export function hasApprovedWork() {
   return getApprovedWork().length > 0;
 }
 
+export function isPortfolioPreviewBuild() {
+  return process.env.VERCEL_ENV !== "production";
+}
+
+function isPortfolioVisible(study: WorkCaseStudy) {
+  return (
+    isApprovedCaseStudy(study) ||
+    (isPreviewCaseStudy(study) && isPortfolioPreviewBuild())
+  );
+}
+
+export function getPortfolioWork(): readonly WorkCaseStudy[] {
+  const recordsBySlug = new Map(
+    workRecords.map((study) => [study.slug, study] as const),
+  );
+  const seen = new Set<string>();
+
+  return portfolioWorkSlugs.flatMap((slug) => {
+    if (seen.has(slug)) {
+      throw new Error(`Portfolio work slug "${slug}" is duplicated.`);
+    }
+    seen.add(slug);
+
+    const study = recordsBySlug.get(slug);
+    if (!study) {
+      throw new Error(`Portfolio work slug "${slug}" is missing.`);
+    }
+    if (!isPortfolioVisible(study)) {
+      return [];
+    }
+    validateCaseStudy(study);
+    return [study];
+  });
+}
+
+export function getPortfolioWorkBySlug(slug: string) {
+  return getPortfolioWork().find((study) => study.slug === slug);
+}
+
+export function getNextPortfolioWork(slug: string) {
+  const work = getPortfolioWork();
+  const index = work.findIndex((study) => study.slug === slug);
+  return index < 0 ? undefined : work[(index + 1) % work.length];
+}
+
 export type {
   ApprovedWorkCaseStudy,
+  PreviewPublication,
+  PreviewWorkCaseStudy,
   WorkCaseStudy,
   WorkCredit,
   WorkImageMedia,
