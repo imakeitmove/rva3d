@@ -12,7 +12,8 @@ export function WorkIndex() {
   return <Shell>
     <section className="editorial-opening" data-tone="paper"><div className="v-frame">
       {/* The unrequested top project counter was removed. Collection progress remains dynamic beside Load more. */}
-      <h1>The proof<br />is in the <em>pixels.</em></h1><p className="editorial-lead">Products to explore. Characters to believe. Ideas made visible. Find the work closest to what you have in mind.</p>
+      {/* Previous intro: Products to explore. Characters to believe. Ideas made visible. Find the work closest to what you have in mind. */}
+      <h1>The proof<br />is in the <em>pixels.</em></h1><p className="editorial-lead">We’ve brought characters to life. Made ideas memorable. And advertised the hell out of things! We’d love to elevate your idea, too.</p>
     </div></section>
     <section className="project-catalogue v-broad" data-tone="paper" aria-label="Case studies" data-project-gallery data-project-mode="inventory" data-project-group-size="4">
       <div className="catalogue" data-project-cards>{studies.map((study, index) => <ProjectCard key={study.slug} study={study} hidden={index >= initialCount} />)}</div>

@@ -14,7 +14,8 @@ export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy
   },
   "product-technical-visualization": {
     // Previous: "Really get in there good!"
-    "promise": "No detail is too small!",
+    // Previous approved punctuation: "No detail is too small!"
+    "promise": "No detail is too small.",
     "copy": "Show the inside of a mechanism while it’s running, explain a product, or visualize a space that’s still just an idea. Starting with CAD and physical references, RVA3D turns technical information into clear stills, cutaways and sequences. Keep the useful detail. Find the view that makes the explanation click.",
     "uses": [
       "Technical explainers",

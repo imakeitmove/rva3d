@@ -984,12 +984,12 @@ test("Work incrementally reveals inventory without replacing earlier projects", 
   }
 });
 test("buyer-confidence copy and distinct project interaction contracts stay scoped", async () => {
-  const [home,work,cap,editorial,header,css,about,contact,aboutCss] = await Promise.all([
+  const [home,work,cap,editorial,header,css,about,contact,aboutCss,brand] = await Promise.all([
     "src/lib/site/home-template.mjs","src/components/site/WorkPages.tsx",
     "src/content/site/capability-editorial.ts","src/components/site/CapabilityEditorial.tsx",
     "src/components/site/Header.tsx","public/site-assets/complete-site.css",
     "src/components/site/AboutEditorial.tsx","src/components/site/Contact.tsx",
-    "src/components/site/editorial-refinement.css",
+    "src/components/site/editorial-refinement.css","src/components/site/Brand.tsx",
   ].map(file => readFile(resolve(projectRoot,file),"utf8")));
   const activeHome = home.split("\n").filter(line => !line.trim().startsWith("//")).join("\n");
   const activeWork = work.split("// Superseded four-card")[0].replace(/\{\/\*[\s\S]*?\*\/\}/g, "");
@@ -997,19 +997,23 @@ test("buyer-confidence copy and distinct project interaction contracts stay scop
   assert.match(activeHome,/data-project-mode="sampler"/); assert.doesNotMatch(activeHome,/case-count|data-project-status/);
   assert.match(activeHome,/id="fit"/); assert.match(activeHome,/When \$\{brandName\(\)\} makes sense\./);
   assert.match(activeHome,/needs senior 3D, motion or visualization capacity/);
+  assert.match(activeHome,/class="v-frame v-tagline-unit"/);
   assert.match(activeWork,/data-project-mode="inventory"/); assert.match(activeWork,/data-project-load-more/);
   assert.doesNotMatch(activeWork,/data-project-direction/); assert.match(activeWork,/Showing \{initialCount\} of \{studies.length\} projects/);
   assert.doesNotMatch(activeWork,/Selected work \/ 01/);
-  for (const copy of ["Imaging anything you can imagine.","No detail is too small!","Moving messages make moving messages.","Wait what did you change?","Bring in the render-enforcements!"]) assert(activeCap.includes(copy));
+  assert(activeWork.includes("We’ve brought characters to life. Made ideas memorable. And advertised the hell out of things! We’d love to elevate your idea, too."));
+  for (const copy of ["Imaging anything you can imagine.","No detail is too small.","Moving messages make moving messages.","Wait what did you change?","Bring in the render-enforcements!"]) assert(activeCap.includes(copy));
   assert(activeCap.includes("Use design in motion to draw attention and make a message stick."));
   assert(activeCap.includes("Bring the footage or production question; we’ll work out the rest!"));
+  assert.match(editorial,/WE ARE ON YOUR TEAM/); assert.match(editorial,/We&#8217;ll help you/);
   assert.match(editorial,/capability-story-actions/); assert.match(header,/nav-client-login/);
   assert.match(css,/--control-bg:var\(--rva-purple\);--control-fg:#fff/);
   assert.match(css,/data-project-mode="inventory".*grid-template-columns:minmax\(0,1fr\) auto minmax\(0,1fr\)/);
   for (const id of ["how-we-work","faq","collaborate"]) assert(about.includes(`id="${id}"`));
   for (const step of ["Talk","Define","Make","Refine","Deliver"]) assert(about.includes(`["${step}"`));
   for (const question of ["Who does RVA3D work with?","How are projects priced?","How do revisions work?","Do you take rush projects?","What happens if a project needs more hands?"]) assert(about.includes(question));
-  assert.match(about,/<details key=\{question\}><summary>/); assert.doesNotMatch(about,/1\.5×|1\.5x/);
+  assert.match(about,/<details key=\{question\}><summary data-brand-copy="plain">/); assert.doesNotMatch(about,/1\.5×|1\.5x/);
+  assert.match(brand,/child\.type === "summary" && child\.props\["data-brand-copy"\] === "plain"/);
   assert.match(aboutCss,/\.faq-list summary\{[^}]*min-height:68px/);
   for (const anchor of ["how-we-work","faq","collaborate"]) assert(contact.includes(`siteHref("/about#${anchor}")`));
   assert.match(css,/outline:3px solid #fff!important/);
