@@ -1000,7 +1000,7 @@ test("buyer-confidence copy and distinct project interaction contracts stay scop
   assert.match(activeWork,/data-project-mode="inventory"/); assert.match(activeWork,/data-project-load-more/);
   assert.doesNotMatch(activeWork,/data-project-direction/); assert.match(activeWork,/Showing \{initialCount\} of \{studies.length\} projects/);
   assert.doesNotMatch(activeWork,/Selected work \/ 01/);
-  for (const copy of ["Imaging anything you can imagine.","Get in the good!","Moving messages make moving messages.","Wait what did you change?","Bring in the render-enforcements!"]) assert(activeCap.includes(copy));
+  for (const copy of ["Imaging anything you can imagine.","No detail is too small!","Moving messages make moving messages.","Wait what did you change?","Bring in the render-enforcements!"]) assert(activeCap.includes(copy));
   assert(activeCap.includes("Use design in motion to draw attention and make a message stick."));
   assert(activeCap.includes("Bring the footage or production question; we’ll work out the rest!"));
   assert.match(editorial,/capability-story-actions/); assert.match(header,/nav-client-login/);
@@ -1023,7 +1023,7 @@ test("the QR hello route is public-safe, focused and analytics-ready", async () 
   ].map(file => readFile(resolve(projectRoot, file), "utf8")));
   assert.match(page, /Add dimension to your work\./);
   assert.match(page, /Richmond-based creative studio for 3D visualization/);
-  assert.match(page, /mailto:hello@rva3d\.com/);
+  assert.match(page, /mailto:deven@rva3d\.com/);
   assert.match(page, /tel:\+18043928183/);
   assert.equal((page.match(/data-hello-action=\{action\.tracking\}/g) ?? []).length, 1);
   for (const action of ["work", "capabilities", "contact", "email", "phone"]) {

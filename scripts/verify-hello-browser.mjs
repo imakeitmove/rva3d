@@ -82,7 +82,7 @@ const expectedActions = {
   work: "https://www.rva3d.com/work",
   capabilities: "https://www.rva3d.com/#capabilities",
   contact: "https://www.rva3d.com/#contact",
-  email: "mailto:hello@rva3d.com",
+  email: "mailto:deven@rva3d.com",
   phone: "tel:+18043928183",
 };
 

@@ -137,11 +137,11 @@ export default function HelloPage() {
         <address>
           <a
             data-hello-action="email"
-            href="mailto:hello@rva3d.com"
+            href="mailto:deven@rva3d.com"
             id="hello-email"
-            aria-label="Email Deven at hello@rva3d.com"
+            aria-label="Email Deven at deven@rva3d.com"
           >
-            hello@rva3d.com
+            deven@rva3d.com
           </a>
           <a
             data-hello-action="phone"
