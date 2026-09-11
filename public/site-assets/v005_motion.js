@@ -3,14 +3,16 @@ export function createBandState(count) {
   let index=0,phase="ready",upwardTravel=0;
   return {
     get value(){return {index,phase,upwardTravel};},
-    update({progress,top,height,delta,deliberate}) {
+    update({progress,top,height,delta,deliberate,atPageStart=false}) {
       if(!deliberate)return this.value;
       if(phase==="armed"&&delta>0&&top<height*.98&&progress===0){index=(index+1)%count;phase="ready";upwardTravel=0;}
       // A large downward wheel step can cross the zero-progress approach in one event.
       else if(phase==="armed"&&delta>0&&top<height*.98){index=(index+1)%count;phase="ready";upwardTravel=0;}
       if(progress>=.995&&delta>0)phase="complete";
       if(phase==="complete"&&delta<0)upwardTravel+=-delta;
-      if(phase==="complete"&&progress===0&&top>height+64&&delta<0&&upwardTravel>=100)phase="armed";
+      // Short/mobile layouts may reach the document top before the band clears the viewport.
+      // A deliberate upward return to that real boundary must still re-arm the next phrase.
+      if(phase==="complete"&&delta<0&&upwardTravel>=100&&((progress===0&&top>height+64)||atPageStart))phase="armed";
       return this.value;
     },
   };
@@ -24,6 +26,7 @@ export function initBand(data) {
   let lastY=scrollY,lastTop=section.getBoundingClientRect().top,inputTime=0,inputDirection=0,raf=0;
   function phrase(index){
     const item=data.phrases[index];text.replaceChildren();
+    section.dataset.longPhrase = String((item.before + item.emphasis + item.after).startsWith("A little perspective goes a long way"));
     for(const [value,bold] of [[item.before,false],[item.emphasis,true],[item.after,false]]){
       const words=value.trim().split(/\s+/).filter(Boolean);
       for(const word of words){const node=document.createElement(bold?"strong":"span");node.className="v-band-word";if(/^[.,!?]+$/.test(word)&&text.lastElementChild){text.lastElementChild.textContent+=word;continue;}node.textContent=word;text.append(node,document.createTextNode(" "));}
@@ -36,7 +39,7 @@ export function initBand(data) {
     const progress=Math.max(0,Math.min(1,(innerHeight*.94-line)/(innerHeight*.69)));
     const geometryStable=Math.abs(top-lastTop+delta)<3;
     const deliberate=section.dataset.mode==="phrase"&&performance.now()>blockedUntil&&!document.hidden&&!reduced.matches&&geometryStable&&performance.now()-inputTime<700&&Math.sign(delta)===inputDirection;
-    const before=state.value.index;const value=state.update({progress,top,height:innerHeight,delta,deliberate});
+    const before=state.value.index;const value=state.update({progress,top,height:innerHeight,delta,deliberate,atPageStart:scrollY<=1});
     if(before!==value.index)phrase(value.index);
     const words=[...text.querySelectorAll(".v-band-word")];
     words.forEach((word,i)=>{

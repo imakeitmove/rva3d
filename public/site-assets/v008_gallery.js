@@ -1,3 +1,4 @@
+import { initProjectGroups } from "./project-groups.js";
 import { icon } from "./v004_icons.js";
 import { MediaController, motionPreference } from "./v004_media.js";
 
@@ -248,6 +249,8 @@ export function initGallery(data) {
 }
 
 // Stable finite DOM, infinitely wrapped configurable groups at both breakpoints.
+export function initCases() { initProjectGroups(); }
+/* Previous wrapped pair controller retained for restoration. Shared finite groups now own both routes.
 export function initCases(data) {
   const cards=[...document.querySelectorAll(".v-case")],container=document.querySelector(".v-cases"),phone=matchMedia("(max-width:640px)");
   const previous=document.querySelector("#case-prev"),next=document.querySelector("#case-next");let start=0,animation=null;
@@ -280,3 +283,5 @@ export function initCases(data) {
   let width=0;new ResizeObserver(entries=>{const nextWidth=entries[0].contentRect.width;if(Math.abs(width-nextWidth)>.5){width=nextWidth;reserve();}}).observe(container);
   document.fonts.ready.then(()=>{render();reserve();});render();
 }
+
+*/

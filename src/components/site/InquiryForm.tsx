@@ -1,4 +1,5 @@
 "use client";
+import { BrandCopy } from "./Brand";
 import { useRef, useState, type FormEvent } from "react";
 import { submitContactForm, type ContactFormState } from "@/app/(three)/contact-action";
 const initial = { name: "", email: "", company: "", inquiryType: "", message: "", website: "" };
@@ -17,7 +18,7 @@ export function InquiryForm({ testMode = false, sendingEnabled = false }: { test
     finally { sending.current = false; setPending(false); }
   }
   const field = (name: keyof typeof initial) => ({ name, value: values[name], onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => setValues(v => ({ ...v, [name]: event.target.value })), "aria-invalid": !!result.fieldErrors?.[name as keyof NonNullable<ContactFormState["fieldErrors"]>] });
-  return <div className="v-contact-form"><h2>Ready to say hello?</h2><form id="inquiry" onSubmit={submit} aria-describedby="form-notice">
+  return <BrandCopy><div className="v-contact-form"><h2>Ready to say hello?</h2><form id="inquiry" onSubmit={submit} aria-describedby="form-notice">
     <p id="form-notice" className="form-notice">{testMode ? "Controlled delivery test — sends only to the configured RVA3D destination." : sendingEnabled ? "Tell us what you are making and where RVA3D can help." : "Protected preview — submissions are checked, but no message is sent."}</p>
     <div className="form-row"><label>Name<input {...field("name")} autoComplete="name" required maxLength={100} /></label><label>Email<input {...field("email")} type="email" autoComplete="email" required maxLength={254} /></label></div>
     <div className="form-row"><label>Company <span>(optional)</span><input {...field("company")} autoComplete="organization" maxLength={150} /></label><label>What can we help with?<select {...field("inquiryType")} required><option value="">Select one</option><option value="visualization">3D visualization</option><option value="animation">Product or technical animation</option><option value="motion">Motion design or VFX</option><option value="support">Production support</option><option value="other">Something else</option></select></label></div>
@@ -28,5 +29,5 @@ export function InquiryForm({ testMode = false, sendingEnabled = false }: { test
     <p className="form-result" role={result.status === "error" ? "alert" : "status"}>{result.message}</p>
     {result.fieldErrors && <ul className="field-errors">{Object.entries(result.fieldErrors).map(([key, text]) => <li key={key}>{text}</li>)}</ul>}
 
-  </form></div>;
+  </form></div></BrandCopy>;
 }

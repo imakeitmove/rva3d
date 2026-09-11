@@ -1,4 +1,4 @@
-.page {
+.page.page {
   display: grid;
   min-height: 100svh;
   place-items: center;
@@ -73,6 +73,7 @@
 }
 
 .form label {
+  margin:0;
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.72rem;
   letter-spacing: 0.08em;
@@ -109,6 +110,9 @@
   outline-offset: 4px;
 }
 
+/* Prior text-logo substitution retained; the active placement is the protected image artwork. */
+.centeredBrand { width:auto;color:inherit;font-size:clamp(36px,7vw,64px);text-decoration:none; }
+
 .centeredBrand {
   justify-self: center;
   display: block;
@@ -131,3 +135,16 @@
   outline: 2px solid var(--rva-signal);
   outline-offset: 4px;
 }
+
+/* Refined client-access frame. Review-password gate remains a separate component. */
+.panel { width:min(100%,72rem);grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:center;gap:clamp(2rem,5vw,5rem); }
+.brandIntro,.formSide { min-width:0; }
+.centeredBrand { justify-self:start;width:min(100%,16rem);margin-bottom:2.5rem; }
+.panel h1 { font-size:clamp(2.6rem,4.8vw,4.8rem);line-height:1.02; }
+.notice { font-size:.94rem;line-height:1.5;color:#bfc2bc;margin:0 0 1.5rem; }
+.backLink { display:inline-flex;align-items:center;min-height:44px;margin-top:1.25rem;color:inherit;text-underline-offset:.25em; }
+.backLink:focus-visible,.centeredBrand:focus-visible { outline:2px solid #d7ff43;outline-offset:4px; }
+.form input { min-width:0;width:100%;box-sizing:border-box; }
+.message { margin:1rem 0 0; }
+.emptyMessage { margin:0; }
+@media(max-width:767px) { .panel { grid-template-columns:1fr;gap:2rem; }.centeredBrand { margin-bottom:2rem;width:12rem; }.page{padding:1rem}.panel h1{font-size:clamp(2.6rem,10vw,4rem)} }

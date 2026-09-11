@@ -5,7 +5,7 @@ const headers = { "Cache-Control": "private, no-store", "CDN-Cache-Control": "no
 /* Previous buyer allowlist retained for rollback; it did not include /interactive.
 const buyerRoutePattern = /^\/(?:$|work(?:\/[^/]+)?\/?$|capabilities(?:\/[^/]+)?\/?$|about\/?$|privacy\/?$|login\/?$|client-login\/?$|contact(?:-test)?\/?$)/;
 */
-const buyerRoutePattern = /^\/(?:$|work(?:\/[^/]+)?\/?$|capabilities(?:\/[^/]+)?\/?$|interactive\/?$|about\/?$|privacy\/?$|login\/?$|client-login\/?$|contact(?:-test)?\/?$)/;
+const buyerRoutePattern = /^\/(?:$|work(?:\/[^/]+)?\/?$|capabilities(?:\/[^/]+)?\/?$|interactive\/?$|about\/?$|privacy\/?$|login(?:\/recovery)?\/?$|client-login\/?$|contact(?:-test)?\/?$)/;
 export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const finish = (response: NextResponse) => { for (const [k,v] of Object.entries(headers)) response.headers.set(k,v); return response; };

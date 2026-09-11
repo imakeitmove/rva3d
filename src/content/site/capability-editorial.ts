@@ -8,7 +8,8 @@ export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy
       "Character animation",
       "Impossible camera moves"
     ],
-    "proof": "AXE WHAXE × Lil Baby: supplied product ingredients, custom jewels, camera development and high-end CG finishing. Selected founder work for SuperJoy."
+    // Previous proof described AXE WHAXE; the selected review example is now Five Below.
+    "proof": "Five Below: a zig-zag retail display brought into motion, making its shape and arrangement easy to follow."
   },
   "product-technical-visualization": {
     "promise": "Make the hard-to-see easy to understand.",
@@ -18,17 +19,19 @@ export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy
       "Product cutaways",
       "Spaces & configurations"
     ],
-    "proof": "AMSOIL: a reconstructed turbine mechanism makes inaccessible mechanical conditions visible and comparable."
+    "proof": "DESMI ROTAN CHD: cutaways, exploded views and rotor movement bring the pump’s inner workings into view."
   },
   "motion-design": {
-    "promise": "Make the message move with intent.",
+    // Previous: "Make the message move with intent."
+    "promise": "Make messages move with intent.",
     "copy": "Use design, movement and timing to guide attention and make a message stick. RVA3D brings type, graphics and dimensional elements into a coherent visual rhythm, from a short brand moment to an explainer sequence. The reel shows the range; the brief gives it direction.",
     "uses": [
       "Brand moments",
       "Explainer sequences",
       "Titles & graphics"
     ],
-    "proof": "Selected motion-design reel. Design, animation and visual rhythm across different kinds of work."
+    // Former reel caption removed at review request; do not render an empty paragraph.
+    "proof": ""
   },
   "vfx-compositing": {
     "promise": "Make everything belong in the same shot.",

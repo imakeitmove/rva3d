@@ -46,7 +46,7 @@ try {
     console.log(JSON.stringify({ baseline: true, errors: report.errors, body: report.body.slice(0, 600) }));
   } else {
     const routes = ["", "work", "about", "capabilities", "interactive", "capabilities/vfx-compositing",
-      "work/cable-snake", "work/amsoil-xpd-wind-grease", "work/capri-sun", "work/axe-whaxe-lil-baby", "work/wawa-coffee-island", "work/geico-geckos-cereal-box"];
+      "work/cable-snake", "work/amsoil-xpd-wind-grease", "work/desmi-rotan-pump", "work/capri-sun", "work/axe-whaxe-lil-baby", "work/wawa-coffee-island", "work/geico-geckos-cereal-box"];
     for (const width of [1440, 390]) {
       ab(["set", "viewport", String(width), "1000"]);
       for (const route of routes) {
@@ -111,7 +111,9 @@ try {
     assert(!(report.console.messages ?? []).some(message => message.type === "error"), "Browser console errors during healthy runtime");
     assert.equal(report.failedResponses.length, 0, "Failed network responses during healthy runtime");
     report.healthy = { errors: report.errors.errors ?? [], consoleErrors: [], failedResponses: report.failedResponses };
-    const glb = Object.keys(manifest).find(key => key.endsWith(".glb"));
+    // Previous first-GLB lookup targeted the archived model after a canonical replacement.
+    const { urls } = await readRegistry(root);
+    const glb = urls["/models/RVA_Logo_010_intro_002.glb"].split("/").at(-1);
     for (const route of ["capabilities", "interactive"]) {
       ab(["network", "route", "**/review/assets/" + glb, "--abort"]);
       ab(["open", base + "/review/site/" + route]);

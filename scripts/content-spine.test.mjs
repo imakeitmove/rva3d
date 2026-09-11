@@ -912,7 +912,7 @@ test("complete-site capability refinements stay registered, protected, and inter
   );
 
   assert.match(capability, /five-below-zig-zag-display-loop\.mp4/);
-  assert.match(capability, /desmi-chocolate-pump-loop\.mp4/);
+  assert.match(capability, /desmi-rotan-chd-sizzle-loop\.mp4/);
   assert.match(capability, /siteHref\("\/work\/wawa-coffee-island"\)/);
   assert.match(capability, /siteHref\("\/interactive"\)/);
   assert.match(player, /ambient: true/);
@@ -921,7 +921,7 @@ test("complete-site capability refinements stay registered, protected, and inter
   assert.match(logo, /getObjectByName\("3D_text"\)/);
   assert.match(logo, /touch-action: pan-y pinch-zoom|DRAG_START_PX = 8/);
   assert.match(logo, /TAP_LIMIT_PX = 6/);
-  assert.match(logo, /RVA_Logo_010_intro_001\.glb/);
+  assert.match(logo, /RVA_Logo_010_intro_002\.glb/);
   assert.match(page, /More ways to get into the work are coming soon\./);
   assert.match(proxy, /interactive\\\/\?\$/);
   assert.match(css, /header-inquiry>span\{color:var\(--rva-purple\)!important\}/);
@@ -930,11 +930,26 @@ test("complete-site capability refinements stay registered, protected, and inter
   const media = JSON.parse(mediaSource);
   for (const logicalPath of [
     "/media/capabilities/five-below-zig-zag-display-loop.mp4",
-    "/media/capabilities/desmi-chocolate-pump-loop.mp4",
-    "/models/RVA_Logo_010_intro_001.glb",
+    "/media/capabilities/desmi-rotan-chd-sizzle-loop.mp4",
+    "/models/RVA_Logo_010_intro_002.glb",
   ]) {
     assert.match(urls[logicalPath], /^\/review\/assets\/[a-f0-9]{20}\./);
     const privateKey = urls[logicalPath].split("/").at(-1);
     assert.ok(media[privateKey]);
   }
+});
+
+// Canonical interactive model supersedes 010 intro 001; archived source assets remain intact.
+
+test("phrase cycling re-arms at the real document top on short responsive layouts", async () => {
+  const { createBandState } = await import("../public/site-assets/v005_motion.js");
+  const state = createBandState(3);
+  state.update({ progress: 1, top: -200, height: 1000, delta: 800, deliberate: true });
+  assert.equal(state.value.phase, "complete");
+  state.update({ progress: .1, top: 750, height: 1000, delta: -800, deliberate: false, atPageStart: true });
+  assert.equal(state.value.phase, "complete", "Layout-only updates must not advance phrase state");
+  state.update({ progress: .1, top: 750, height: 1000, delta: -800, deliberate: true, atPageStart: true });
+  assert.equal(state.value.phase, "armed");
+  state.update({ progress: .4, top: 450, height: 1000, delta: 300, deliberate: true });
+  assert.equal(state.value.index, 1);
 });

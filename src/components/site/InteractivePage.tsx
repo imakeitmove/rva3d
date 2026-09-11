@@ -4,7 +4,7 @@ import { Shell } from "./Shell";
 import styles from "./InteractivePage.module.css";
 
 export function InteractivePage() {
-  const logoModelUrl = mediaUrl("/models/RVA_Logo_010_intro_001.glb");
+  const logoModelUrl = mediaUrl("/models/RVA_Logo_010_intro_002.glb");
 
   return (
     <Shell>
@@ -45,3 +45,5 @@ export function InteractivePage() {
     </Shell>
   );
 }
+
+// Canonical interactive model supersedes 010 intro 001; archived source assets remain intact.

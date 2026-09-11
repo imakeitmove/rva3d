@@ -79,3 +79,26 @@
 
 /* The closing thought stands apart from the experience paragraph. */
 .about-positioning .about-kicker{margin-top:1.25em}
+
+/* Local recovered-release refinement. Earlier compositions remain above for restoration. */
+.capabilities-v2 .capability-wayfinding nav a { min-height:96px;padding:24px;background:var(--rva-purple);border-color:var(--rva-purple);color:#fff;font-weight:750;text-align:center;justify-content:center; }
+.capabilities-v2 .capability-wayfinding nav a:hover { background:#4e249d;border-color:#4e249d; }
+.capabilities-v2 .capability-proof-grid > .capability-section-heading { grid-column:1 / -1; margin:0; }
+.capabilities-v2 .refined-motion-design .capability-proof-grid { grid-template-columns:minmax(0,1fr) minmax(0,1.65fr);gap:24px 45px; }
+.capabilities-v2 .refined-motion-design .capability-section-heading { grid-column:1;grid-row:1; }
+.capabilities-v2 .refined-motion-design .large-capability-proof { grid-column:2;grid-row:1 / 3; }
+.capabilities-v2 .refined-motion-design .capability-commission { grid-column:1;grid-row:2; }
+.capabilities-v2 .refined-motion-design .capability-section-heading h2 { max-width:15ch; }
+.capabilities-v2 .interactive-proof-grid { grid-template-columns:minmax(0,1fr) minmax(0,1.65fr);align-items:start;gap:24px 45px; }
+.capabilities-v2 .interactive-proof-grid .capability-section-heading { grid-column:1;grid-row:1;margin:0; }
+.capabilities-v2 .interactive-proof-grid > [data-interactive-logo] { grid-column:2;grid-row:1 / 3; }
+.capabilities-v2 .interactive-proof-grid .interactive-copy { grid-column:1;grid-row:2; }
+.capabilities-v2 .interactive-copy > p:first-child { margin-top:0; }
+@media(max-width:700px) {
+  .capabilities-v2 .capability-wayfinding nav a { min-height:82px;padding:20px;font-size:17px; }
+  .capabilities-v2 .refined-motion-design .capability-proof-grid,.capabilities-v2 .interactive-proof-grid { grid-template-columns:minmax(0,1fr);gap:24px; }
+  .capabilities-v2 .refined-motion-design .capability-section-heading,.capabilities-v2 .interactive-proof-grid .capability-section-heading { grid-column:1;grid-row:1; }
+  .capabilities-v2 .refined-motion-design .large-capability-proof,.capabilities-v2 .interactive-proof-grid > [data-interactive-logo] { grid-column:1;grid-row:2; }
+  .capabilities-v2 .refined-motion-design .capability-commission,.capabilities-v2 .interactive-proof-grid .interactive-copy { grid-column:1;grid-row:3; }
+  .capabilities-v2 .refined-motion-design .capability-section-heading h2 { max-width:none; }
+}

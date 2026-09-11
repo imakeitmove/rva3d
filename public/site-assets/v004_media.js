@@ -162,8 +162,10 @@ export function initSampler(data) {
     controller.onChange=()=>{const paused=controller.intent==="pause";toggle.innerHTML=icon(controller.video.paused?"play":"pause");toggle.setAttribute("aria-pressed",String(paused));toggle.setAttribute("aria-label",`${controller.video.paused?"Play":"Pause"} ${data.sampler[i].title} example`);};
     return controller;
   });
+  /* Previous global override retained for restoration; per-example intent now owns pause.
   let sectionPaused=false;
   const button=document.querySelector("#sampler-motion");
   button.addEventListener("click",()=>{sectionPaused=!sectionPaused;for(const item of examples)item.sectionPaused=sectionPaused;button.textContent=sectionPaused?"Resume examples":"Pause all examples";button.setAttribute("aria-pressed",String(sectionPaused));reconcileMedia();});
+  */
   return examples;
 }

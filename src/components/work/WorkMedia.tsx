@@ -1,3 +1,4 @@
+import { BrandText } from "@/components/site/Brand";
 import Image from "next/image";
 
 import type { WorkMedia as WorkMediaRecord } from "@/content/work";
@@ -28,7 +29,7 @@ export function WorkMedia({
           sizes={sizes}
         />
         {media.caption ? (
-          <figcaption className={styles.caption}>{media.caption}</figcaption>
+          <figcaption className={styles.caption}>{privateDelivery ? <BrandText text={media.caption} /> : media.caption}</figcaption>
         ) : null}
       </figure>
     );
@@ -46,7 +47,7 @@ export function WorkMedia({
         unoptimized={privateDelivery}
       />
       {media.caption ? (
-        <figcaption className={styles.caption}>{media.caption}</figcaption>
+        <figcaption className={styles.caption}>{privateDelivery ? <BrandText text={media.caption} /> : media.caption}</figcaption>
       ) : null}
     </figure>
   );

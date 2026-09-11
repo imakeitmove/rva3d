@@ -1,6 +1,7 @@
 "use client";
 
 import { Component, Suspense, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { Brand } from "./Brand";
 import { Canvas, type ThreeEvent, useFrame, useThree } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
@@ -287,7 +288,7 @@ class LogoErrorBoundary extends Component<{ children: ReactNode; onRetry: () => 
   render() {
     if (!this.state.failed) return this.props.children;
     return <div className={`${styles.stage} ${styles[this.props.variant]}`} data-interactive-logo={this.props.variant} data-logo-state="unavailable">
-      <div className={styles.fallback} aria-hidden="true">RVA3D</div>
+      <div className={styles.fallback} aria-hidden="true"><Brand /></div>
       <p className={styles.hint} role="status">The interactive logo is unavailable. The rest of the page is ready to explore.</p>
       <button className={styles.replay} type="button" onClick={this.props.onRetry}>Retry interactive logo</button>
     </div>;
@@ -340,11 +341,11 @@ function LogoExperience({ modelUrl, variant }: { modelUrl: string; variant: Logo
         gl={createRenderer}
         data-logo-animation={status}
         data-logo-dragging={String(status === "dragging")}
-        data-logo-model="RVA_Logo_010_intro_001.glb"
+        data-logo-model="RVA_Logo_010_intro_002.glb"
         data-logo-replay-count={replayCount}
         data-logo-yaw={yaw.toFixed(3)}
         aria-hidden="true"
-        fallback={<span>Interactive RVA3D logo</span>}
+        fallback={<span>Interactive <Brand /> logo</span>}
         onCreated={({ gl }) => {
           canvasRef.current = gl.domElement;
           gl.domElement.addEventListener("webglcontextlost", loseContext);
@@ -370,3 +371,5 @@ function LogoExperience({ modelUrl, variant }: { modelUrl: string; variant: Logo
     </div>
   );
 }
+
+// Canonical interactive model supersedes 010 intro 001; archived source assets remain intact.

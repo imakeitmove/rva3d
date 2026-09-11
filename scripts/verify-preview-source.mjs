@@ -23,6 +23,7 @@ const candidateEntryFiles = [
   "src/app/(three)/work/page.tsx",
   "src/app/(three)/work/[slug]/page.tsx",
   "src/app/login/page.tsx",
+  "src/app/login/recovery/page.tsx",
   "src/app/client-login/page.tsx",
   "src/app/review/assets/[key]/route.ts",
   "src/app/(three)/review/layout.tsx",
@@ -177,7 +178,10 @@ export async function verifyPreviewSource(root=process.cwd()) {
   assert(html.includes("brings 20 years of experience in animation, motion design, and 3D production"),"Homepage experience copy missing");
   const header=await read("src/components/site/Header.tsx");
   assert(header.includes('className="hamburger"')&&!header.includes('More navigation'),"Partial More navigation is not the approved header");
-  for(const name of ["Work","Capabilities","About","Contact","Client login"])assert(header.includes(name));
+  // Previous string-presence check included Contact and could pass against comments.
+  const navigation = JSON.parse(header.match(/const links = (\[[^\n]+\]);/)[1]);
+  assert.deepEqual(navigation.map(([, label]) => label), ["Work", "Capabilities", "About", "Client login"]);
+  assert.equal((header.match(/className="header-inquiry"/g) ?? []).length, 1, "Exactly one header contact CTA");
   assert(!/#[Cc]ase-(prev|next)\{transform:translateX/.test(await read("public/site-assets/v004.css")),"Legacy Selected Work arrows outside media edges");
   const css=await read("public/site-assets/complete-site.css");
   assert(!/background:var\(--rva-signal\)!important/.test(css),"Stale forced green controls");
@@ -191,20 +195,40 @@ export async function verifyPreviewSource(root=process.cwd()) {
   const proxy=await read("src/proxy.ts");
   assert(proxy.includes("verifyPrivateReviewToken")&&proxy.includes("noindex, nofollow, noarchive"));
   assert(proxy.includes("interactive\\/?$"),"Interactive route is absent from the authenticated buyer allowlist");
+  assert(proxy.split("*/")[1].includes("login(?:\\/recovery)?\\/?$"), "Client recovery must be present in the active authenticated allowlist");
   const capability=await read("src/components/site/CapabilityEditorial.tsx");
-  assert(capability.includes("five-below-zig-zag-display-loop.mp4")&&capability.includes("desmi-chocolate-pump-loop.mp4"),"Requested capability videos are not active");
+  assert(capability.includes("five-below-zig-zag-display-loop.mp4")&&capability.includes("desmi-rotan-chd-sizzle-loop.mp4"),"Requested capability videos are not active");
   assert(capability.includes('siteHref("/interactive")')&&capability.includes('siteHref("/work/wawa-coffee-island")'),"Capability destinations are incomplete");
   const player=await read("public/site-assets/capability-player.js");
   assert(player.includes('{ ambient: true }')&&player.includes('restoreIntent("auto")')&&player.includes("loop: true"),"Capability videos are not viewport-aware loops");
   const interactive=await read("src/components/site/InteractiveLogo.tsx");
   assert(interactive.includes('getObjectByName("3D_text")')&&interactive.includes("DRAG_START_PX = 8")&&interactive.includes("TAP_LIMIT_PX = 6"),"Interactive logo gesture boundary is missing");
-  assert(interactive.includes("RVA_Logo_010_intro_001.glb")&&interactive.includes("setEffectiveTimeScale(0)"),"Interactive logo model or reduced-motion handling is missing");
+  assert(interactive.includes("RVA_Logo_010_intro_002.glb")&&interactive.includes("setEffectiveTimeScale(0)"),"Interactive logo model or reduced-motion handling is missing");
   const interactivePage=await read("src/components/site/InteractivePage.tsx");
   assert(interactivePage.includes("More ways to get into the work are coming soon."),"Interactive route support copy is missing");
   const urls=JSON.parse(await read("src/content/site/media-urls.generated.json"));
-  for(const logical of ["/media/capabilities/five-below-zig-zag-display-loop.mp4","/media/capabilities/desmi-chocolate-pump-loop.mp4","/models/RVA_Logo_010_intro_001.glb"])assert(urls[logical]?.startsWith("/review/assets/"),`Private media URL missing for ${logical}`);
+  for(const logical of ["/media/capabilities/five-below-zig-zag-display-loop.mp4","/media/capabilities/desmi-rotan-chd-sizzle-loop.mp4","/models/RVA_Logo_010_intro_002.glb"])assert(urls[logical]?.startsWith("/review/assets/"),`Private media URL missing for ${logical}`);
   const form=await read("src/components/site/InquiryForm.tsx");
   assert(form.includes('"Send message"')&&!form.includes('className="privacy-note"'));
-  return {status:"PASS",implementation:"ApprovedHome + capability refinement + Interactive route",checks:23,dependencyClosure};
+  const privateContent = await read("src/lib/site/content.ts");
+  assert(privateContent.includes('slug: "desmi-rotan-pump"') && privateContent.includes('publication: { status: "preview" }'), "DESMI must remain private review content");
+  assert(!(await read("src/content/work/records.ts")).includes("desmi"), "DESMI must not enter the public registry");
+  assert(capability.includes('siteHref("/work/desmi-rotan-pump")'), "DESMI capability story link missing");
+  // Brand-copy and distinct image-artwork contracts are also exercised in browser QA.
+  const brand = await read("src/components/site/Brand.tsx");
+  assert(brand.includes("export function BrandCopy") && brand.includes("export function BrandText"), "Structured brand-copy helpers missing");
+  assert((await read("src/components/site/Shell.tsx")).includes("<BrandCopy>{children}</BrandCopy>"), "Shared authored-copy coverage missing");
+  assert(html.includes('data-brand-artwork="home-intro"'), "Approved homepage image logo missing");
+  assert((await read("src/components/site/Contact.tsx")).includes('data-brand-artwork="contact"'), "Approved contact image logo missing");
+  const login = (await read("src/components/site/ClientLogin.tsx")).split("// Earlier external")[0];
+  assert(login.includes('data-brand-artwork="client-access"') && login.includes("Forgot username or password?"), "Client access image or recovery link missing");
+  assert(!login.includes("https://www.rva3d.com/login") && login.includes("No email will be sent."), "Recovery must remain honest and local until integrated");
+  assert(!html.includes('id="sampler-motion"'), "Removed global pause control returned");
+  assert((await read("src/components/site/WorkPages.tsx")).includes('data-project-group-size="4"'), "Work must use four-project groups");
+  assert((await read("public/site-assets/project-groups.js")).includes("previous.disabled = page === 0"), "Project group end state missing");
+  // Previous aggregate: 26; add ten brand, login, and project-group regression contracts.
+  return {status:"PASS",implementation:"ApprovedHome + capability refinement + Interactive route",checks:37,dependencyClosure};
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)console.log(await verifyPreviewSource(process.argv[2]));
+
+// Canonical interactive model supersedes 010 intro 001; archived source assets remain intact.

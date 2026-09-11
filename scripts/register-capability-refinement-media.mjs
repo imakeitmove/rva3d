@@ -3,6 +3,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 const assets = [
+  { file: "protected-delivery/desmi-rotan-chd-sizzle-loop.mp4", logical: "/media/capabilities/desmi-rotan-chd-sizzle-loop.mp4", type: "video/mp4", sourceFlag: "--desmi-delivery" },
+  { file: "protected-delivery/desmi-rotan-chd-sizzle-poster.webp", logical: "/media/capabilities/desmi-rotan-chd-sizzle-poster.webp", type: "image/webp", sourceFlag: "--desmi-poster" },
   {
     file: "public/media/capabilities/five-below-zig-zag-display-loop.mp4",
     logical: "/media/capabilities/five-below-zig-zag-display-loop.mp4",
@@ -24,8 +26,9 @@ const assets = [
     type: "image/webp",
   },
   {
-    file: "public/models/RVA_Logo_010_intro_001.glb",
-    logical: "/models/RVA_Logo_010_intro_001.glb",
+    // Previous canonical source: public/models/RVA_Logo_010_intro_001.glb.
+    file: "public/models/RVA_Logo_010_intro_002.glb",
+    logical: "/models/RVA_Logo_010_intro_002.glb",
     type: "model/gltf-binary",
   },
 ];
@@ -38,8 +41,17 @@ const registered = [];
 
 await fs.mkdir("private-media", { recursive: true });
 
-for (const asset of assets) {
-  const bytes = await fs.readFile(asset.file);
+// DESMI-only mode never reads or recopies other public/private source media.
+const selectedAssets = process.argv.includes("--desmi-only") ? assets.filter(asset => asset.sourceFlag) : assets.filter(asset => !asset.sourceFlag);
+for (const asset of selectedAssets) {
+  // Optional external source avoids copying the private GLB into public/ in this checkout.
+  // Previous: const bytes = await fs.readFile(asset.file);
+  const sourceArgument = process.argv.indexOf("--logo-source");
+  const deliveryArgument = asset.sourceFlag ? process.argv.indexOf(asset.sourceFlag) : -1;
+  if (asset.sourceFlag && (deliveryArgument < 0 || !process.argv[deliveryArgument + 1])) throw new Error("Missing protected delivery argument: " + asset.sourceFlag);
+  const input = asset.sourceFlag ? process.argv[deliveryArgument + 1] : asset.type === "model/gltf-binary" && sourceArgument >= 0 ? process.argv[sourceArgument + 1] : asset.file;
+  if (path.extname(input).toLowerCase() !== path.extname(asset.file)) throw new Error("Delivery extension mismatch; never register a source MOV");
+  const bytes = await fs.readFile(input);
   const sha256 = createHash("sha256").update(bytes).digest("hex");
   const key = `${sha256.slice(0, 20)}${path.extname(asset.file)}`;
   const privateFile = `private-media/${key}`;

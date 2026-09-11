@@ -718,5 +718,29 @@
     "sha256": "4a87f375fc7b5d845a7fea8b6b256041e7e9886132c52aa077f6bbb7f2e27428",
     "source": "public/models/RVA_Logo_010_intro_001.glb",
     "publication": "private-review-only"
+  },
+  "e31f848d80967dacf54c.glb": {
+    "file": "private-media/e31f848d80967dacf54c.glb",
+    "type": "model/gltf-binary",
+    "bytes": 96132,
+    "sha256": "e31f848d80967dacf54c9252d075beef756aabea358f9852ed507eaef037079b",
+    "source": "public/models/RVA_Logo_010_intro_002.glb",
+    "publication": "private-review-only"
+  },
+  "f03e2d55e41c89ec7dae.mp4": {
+    "file": "private-media/f03e2d55e41c89ec7dae.mp4",
+    "type": "video/mp4",
+    "bytes": 2720936,
+    "sha256": "f03e2d55e41c89ec7daed9dab427e7690c9b4c4427e970c22ad4efed908d9d2c",
+    "source": "protected-delivery/desmi-rotan-chd-sizzle-loop.mp4",
+    "publication": "private-review-only"
+  },
+  "e49948fb9339a7d1ecdb.webp": {
+    "file": "private-media/e49948fb9339a7d1ecdb.webp",
+    "type": "image/webp",
+    "bytes": 94086,
+    "sha256": "e49948fb9339a7d1ecdb94e1e6ec49f105f5b676ccf990c27d3e55c76fe62167",
+    "source": "protected-delivery/desmi-rotan-chd-sizzle-poster.webp",
+    "publication": "private-review-only"
   }
 }
