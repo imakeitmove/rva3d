@@ -448,6 +448,9 @@
  --brand-rva-weight:700;--brand-three-width:1.035em;--brand-three-height:.69em;
  --brand-three-gap:.14em;--brand-three-stroke:4.9;--brand-three-rise:.032em;
 }
+.complete-site .site-header .inline-brand.brand-accent .brand-three-d {
+ transform:translateY(1px);
+}
 /* Previous reference metrics: RVA 600/900; suffix 1.062em × .708em; stroke 3.6. */
 .complete-site .inline-brand .brand-rva { font-weight:var(--brand-rva-weight);letter-spacing:var(--brand-rva-tracking); }
 .complete-site .inline-brand .brand-r { margin-right:var(--brand-r-gap); }
