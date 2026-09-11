@@ -14,6 +14,7 @@ const candidateEntryFiles = [
   "src/app/sitemap.ts",
   "src/app/(three)/layout.tsx",
   "src/app/(three)/page.tsx",
+  "src/app/(three)/hello/page.tsx",
   "src/app/(three)/about/page.tsx",
   "src/app/(three)/capabilities/page.tsx",
   "src/app/(three)/capabilities/[slug]/page.tsx",
@@ -45,6 +46,7 @@ const candidateEntryFiles = [
   "scripts/content-spine.test.mjs",
   "scripts/verify-preview-source.mjs",
   "scripts/verify-preview-assets.mjs",
+  "scripts/verify-hello-browser.mjs",
   "scripts/require-preview-assets.mjs",
   "scripts/prepare-preview-release.mjs",
   "scripts/build-preview-release.mjs",
@@ -194,6 +196,12 @@ export async function verifyPreviewSource(root=process.cwd()) {
   assert(page.split("/*")[0].includes("ApprovedHome"),"Deploy route does not use approved complete site");
   const proxy=await read("src/proxy.ts");
   assert(proxy.includes("verifyPrivateReviewToken")&&proxy.includes("noindex, nofollow, noarchive"));
+  const hello=await read("src/app/(three)/hello/page.tsx");
+  assert(proxy.indexOf('pathname === "/hello"') < proxy.indexOf("const token = request.cookies"), "Public hello exception must run before review authentication");
+  assert(hello.includes('href={`${publicSite}/work`}') || hello.includes('href: `${publicSite}/work`'), "Hello Work action must use the live public destination");
+  assert(hello.includes('href: `${publicSite}/#capabilities`') && hello.includes('href: `${publicSite}/#contact`'), "Hello capability and contact actions must use public homepage anchors");
+  assert(!/(?:<video|<Image|\.mp4|\.webp|\.glb|\/review\/assets|\/review\/media)/.test(hello), "Hello must not reference review or uncertain media");
+  assert(!hello.includes('"use client"'), "Hello must remain a static Server Component");
   assert(proxy.includes("interactive\\/?$"),"Interactive route is absent from the authenticated buyer allowlist");
   assert(proxy.split("*/")[1].includes("login(?:\\/recovery)?\\/?$"), "Client recovery must be present in the active authenticated allowlist");
   const capability=await read("src/components/site/CapabilityEditorial.tsx");
@@ -227,7 +235,7 @@ export async function verifyPreviewSource(root=process.cwd()) {
   assert((await read("src/components/site/WorkPages.tsx")).split("// Superseded four-card")[0].includes('data-project-mode="inventory"'), "Work must use append-only inventory");
   assert((await read("public/site-assets/project-groups.js")).split("/* Previous finite")[0].includes("nextFeaturedStart") && html.includes('data-project-mode="sampler"'), "Looping homepage sampler missing");
   // Previous aggregate: 26; add ten brand, login, and project-group regression contracts.
-  return {status:"PASS",implementation:"ApprovedHome + capability refinement + Interactive route",checks:37,dependencyClosure};
+  return {status:"PASS",implementation:"ApprovedHome + capability refinement + Interactive route + public Hello route",checks:43,dependencyClosure};
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)console.log(await verifyPreviewSource(process.argv[2]));
 

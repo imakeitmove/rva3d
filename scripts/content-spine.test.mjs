@@ -1014,3 +1014,29 @@ test("buyer-confidence copy and distinct project interaction contracts stay scop
   for (const anchor of ["how-we-work","faq","collaborate"]) assert(contact.includes(`siteHref("/about#${anchor}")`));
   assert.match(css,/outline:3px solid #fff!important/);
 });
+
+test("the QR hello route is public-safe, focused and analytics-ready", async () => {
+  const [page, styles, proxy] = await Promise.all([
+    "src/app/(three)/hello/page.tsx",
+    "src/app/(three)/hello/hello.module.css",
+    "src/proxy.ts",
+  ].map(file => readFile(resolve(projectRoot, file), "utf8")));
+  assert.match(page, /Add dimension to your work\./);
+  assert.match(page, /Richmond-based creative studio for 3D visualization/);
+  assert.match(page, /mailto:hello@rva3d\.com/);
+  assert.match(page, /tel:\+18043928183/);
+  assert.equal((page.match(/data-hello-action=\{action\.tracking\}/g) ?? []).length, 1);
+  for (const action of ["work", "capabilities", "contact", "email", "phone"]) {
+    assert(page.includes(action), `Hello tracking identity missing: ${action}`);
+  }
+  for (const label of ["SEE THE WORK", "WHAT WE DO", "START A PROJECT"]) {
+    assert(page.includes(label), `Hello primary action missing: ${label}`);
+  }
+  assert.doesNotMatch(page, /(?:<video|<Image|\.mp4|\.webp|\.glb|\/review\/assets|\/review\/media)/);
+  assert.doesNotMatch(page, /"use client"/);
+  assert.match(styles, /\.action\s*\{[^}]*min-height:\s*4rem/s);
+  assert.match(styles, /\.contact address a\s*\{[^}]*min-height:\s*3rem/s);
+  assert.match(styles, /@media \(prefers-reduced-motion: reduce\)/);
+  assert(proxy.indexOf('pathname === "/hello"') < proxy.indexOf("const token = request.cookies"));
+  assert.match(proxy, /pathname\.startsWith\("\/review\/assets\/"\).*status: 404/s);
+});

@@ -9,6 +9,15 @@ const buyerRoutePattern = /^\/(?:$|work(?:\/[^/]+)?\/?$|capabilities(?:\/[^/]+)?
 export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const finish = (response: NextResponse) => { for (const [k,v] of Object.entries(headers)) response.headers.set(k,v); return response; };
+  // The business-card route is the only public HTML page in this private-review candidate.
+  // Keep its exception exact so no review route, direct media path or optimizer is exposed.
+  if (pathname === "/hello" || pathname === "/hello/") {
+    const response = NextResponse.next();
+    response.headers.set("Referrer-Policy", "no-referrer");
+    response.headers.set("X-Content-Type-Options", "nosniff");
+    response.headers.set("X-Frame-Options", "DENY");
+    return response;
+  }
   // Only code, open-licensed fonts and the neutral favicon are public. No image optimizer.
   if (pathname.startsWith("/_next/static/") || pathname.startsWith("/site-assets/") || pathname.startsWith("/fonts/Geist/") || pathname.startsWith("/fonts/Geist_Mono/") || pathname === "/favicon.ico") return NextResponse.next();
   if (pathname === "/review/login" || pathname === "/review/auth") return finish(NextResponse.next());
