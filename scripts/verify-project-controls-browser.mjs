@@ -22,7 +22,7 @@ const evaluate = code => ab(["eval", "--stdin"], code).result;
 const run = fn => evaluate("(" + fn.toString() + ")()");
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-const report = { base, pages: [], home: [], work: [], capabilities: [], controls: [], errors: [] };
+const report = { base, pages: [], home: [], work: [], capabilities: [], about: [], textEnlargement: null, controls: [], errors: [] };
 const shot = name => ab(["screenshot", path.join(output, name + ".png")]);
 const visibleProjects = () => run(() => [...document.querySelectorAll("[data-project-card]:not([hidden])")].map(card => card.id || card.dataset.case));
 let pointerSocket, pointerSend, pointerSession;
@@ -74,6 +74,7 @@ async function testControl(selector,name,width) {
   assert(active.active,"Pressed state missing: "+name);
   // Release away from the target: measure :active without activating navigation/forms.
   await pointer("mouseMoved",1,1,1);await pointer("mouseReleased",1,1);
+  evaluate("getSelection()?.removeAllRanges();true");
   ab(["press","Tab"]);ab(["focus",selector]);await pause(180); const focus=surfaceState(selector);
   assert(focus.focus&&parseFloat(focus.outline)>=3,"Keyboard focus ring missing: "+name);
   const states={normal,hover,active,focus};
@@ -102,7 +103,7 @@ try {
   ab(["errors","--clear"]);ab(["console","--clear"]);
   for(const width of (process.env.RVA3D_QA_WIDTHS||"1440,1024,768,390,320").split(",").map(Number)){
     ab(["set","viewport",String(width),"1000"]);
-    for(const route of (process.env.RVA3D_QA_ROUTES||"home,work,capabilities").split(",")){
+    for(const route of (process.env.RVA3D_QA_ROUTES||"home,work,capabilities,about").split(",")){
       ab(["open",base+"/review/site"+(route==="home"?"":"/"+route)]);
       run(async()=>{await document.fonts.ready;for(let i=0;i<60&&document.querySelector("[data-project-gallery]")&&!document.querySelector("[data-gallery-ready]");i++)await new Promise(r=>setTimeout(r,100));return true;});
       ab(["snapshot","-i"]);await pause(300);
@@ -112,6 +113,9 @@ try {
       if(tracking)assert(tracking.client>tracking.other&&tracking.client-tracking.other<tracking.font*.04,"Client login tracking must add a restrained amount only");
       report.pages.push({route,width,overflow:0,tracking});
       if(route==="home"){
+        const fit=run(()=>{const root=document.querySelector("#fit"),list=root.querySelector(".v-fit-list"),items=[...list.children],heading=root.querySelector("h2"),style=getComputedStyle(list),copy=heading.cloneNode(true);copy.querySelector(".inline-brand").replaceWith(document.createTextNode("RVA3D"));return{heading:copy.textContent.replace(/\s+/g," ").trim(),items:items.map(item=>item.textContent.trim()),columns:style.gridTemplateColumns.split(" ").length,wordmark:!!heading.querySelector(".inline-brand"),overflow:items.some(item=>item.scrollWidth>item.clientWidth+1)};});
+        assert.equal(fit.heading,"When RVA3D makes sense.");assert.equal(fit.items.length,6);assert(fit.wordmark&&!fit.overflow);assert.equal(fit.columns,width>640?2:1);
+        evaluate("document.querySelector('#fit').scrollIntoView({block:'start',behavior:'instant'});true");shot("home_buyer_fit_"+width);
         const initial=visibleProjects(), total=evaluate("document.querySelectorAll('[data-project-card]').length");
         assert.equal(initial.length,2);assert.equal(initial[0],"geico-geckos-cereal-box");
         const stacked=evaluate("getComputedStyle(document.querySelector('[data-project-cards]')).gridTemplateColumns.split(' ').length===1");
@@ -140,24 +144,29 @@ try {
         assert.deepEqual(pairs.at(-1),initial);assert.equal(new Set(pairs.flat()).size,total);
         if(stacked)shot("home_pair_arrival_"+width);
         else {await clickControl("#case-prev");await pause(100);assert.equal(evaluate("document.querySelector('[data-project-gallery]').dataset.projectStart"),String(total-2));}
-        report.home.push({width,stacked,geometry,pairs});
+        report.home.push({width,fit,stacked,geometry,pairs});
       } else if(route==="work"){
         const initial=visibleProjects(), total=evaluate("document.querySelectorAll('[data-project-card]').length");
         assert.equal(initial.length,Math.min(4,total));assert.equal(initial[0],"geico-geckos-cereal-box");
         assert.equal(evaluate("document.querySelector('[data-project-status]').textContent"),"Showing "+initial.length+" of "+total+" projects");
         assert.equal(evaluate("document.querySelectorAll('[data-project-direction]').length"),0);
+        assert(!evaluate("!!document.querySelector('.editorial-opening .label')"),"Work opening must not contain a replacement project counter");
+        const loadMoreLayout=run(()=>{const controls=document.querySelector("[data-project-controls]"),button=controls.querySelector("[data-project-load-more]"),status=controls.querySelector("[data-project-status]"),c=controls.getBoundingClientRect(),b=button.getBoundingClientRect(),s=status.getBoundingClientRect();return{centerDelta:Math.abs(b.left+b.width/2-(c.left+c.width/2)),statusVisible:s.width>0&&s.height>0,separate:b.bottom<=s.top||s.bottom<=b.top||b.right<=s.left||s.right<=b.left};});
+        assert(loadMoreLayout.centerDelta<=1&&loadMoreLayout.statusVisible&&loadMoreLayout.separate,"Load more must center on the collection without obscuring status");
         evaluate("document.querySelector('[data-project-controls]').scrollIntoView({block:'center',behavior:'instant'});true");shot("work_load_more_"+width);
         if(width>=1024){await testControl("[data-project-load-more]","work_load_more",width);await testControl(".work-closing-copy .editorial-link","work_process_link",width);}
         ab(["focus","[data-project-load-more]"]);ab(["press","Enter"]);await pause(800);
         const all=visibleProjects();assert.deepEqual(all.slice(0,initial.length),initial);assert.equal(all.length,total);
         assert(evaluate("document.querySelector('[data-project-load-more]').hidden"));
         assert.equal(evaluate("document.querySelector('[data-project-status]').textContent"),"Showing "+total+" of "+total+" projects");
+        const exhaustedLayout=run(()=>{const controls=document.querySelector("[data-project-controls]"),status=controls.querySelector("[data-project-status]"),c=controls.getBoundingClientRect(),s=status.getBoundingClientRect();return{centerDelta:Math.abs(s.left+s.width/2-(c.left+c.width/2)),height:c.height};});
+        assert(exhaustedLayout.centerDelta<=1&&exhaustedLayout.height<80,"Exhausted Work controls must collapse to a centered status without empty space");
         shot("work_append_arrival_"+width);
         evaluate("document.querySelector('.work-closing').scrollIntoView({block:'center',behavior:'instant'});true");
         const closing=run(()=>{const root=document.querySelector(".work-closing"),p=root.querySelector(".work-closing-copy p"),a=root.querySelector(".editorial-link"),b=p.getBoundingClientRect(),c=a.getBoundingClientRect();return{text:root.querySelector("h2").textContent,highlight:root.querySelector(".work-closing-highlight").textContent,align:getComputedStyle(p).textAlign,side:c.left>=b.right,stack:c.top>=b.bottom-1};});
         assert.equal(closing.text,"Your project doesn’t have to look like any of these.");assert.equal(closing.highlight,"Your project");assert.equal(closing.align,"left");assert(closing.side||closing.stack);
         if(width>=1024)assert(closing.side,"Wide closing row should stay horizontal");
-        shot("work_closing_"+width);report.work.push({width,initial,all,closing});
+        shot("work_closing_"+width);report.work.push({width,initial,all,loadMoreLayout,exhaustedLayout,closing});
       } else if(route==="capabilities") {
         const content=run(()=>{
           // Brand exposes one accessible name plus aria-hidden visual glyphs. Compare
@@ -166,7 +175,7 @@ try {
           const ids=["3d-animation","product-technical-visualization","motion-design","vfx-compositing","creative-production-support"];
           return {headings:ids.map(id=>document.getElementById(id).querySelector("h2").textContent),buttons:[...document.querySelectorAll(".capability-wayfinding nav a")].map(e=>({text:e.textContent,uppercase:getComputedStyle(e).textTransform,size:parseFloat(getComputedStyle(e).fontSize),weight:Number(getComputedStyle(e).fontWeight),overflow:e.scrollWidth-e.clientWidth,arrow:!!e.querySelector("span")})),motion:copyText(document.querySelector("#motion-design .capability-commission>p")),composite:[...document.querySelectorAll("#vfx-compositing .capability-commission>p")].map(copyText),bare:[...document.querySelectorAll(".capability-commission p")].filter(e=>e.textContent.includes("RVA3D")&&!e.querySelector(".inline-brand")).length};
         });
-        assert.deepEqual(content.headings,["Imagine anything. Then make it real.","Really get in there good!","Make messages move with intent.","Make it belong in the shot.","Bring in the render-enforcements!"]);
+        assert.deepEqual(content.headings,["Imaging anything you can imagine.","Get in the good!","Moving messages make moving messages.","Wait what did you change?","Bring in the render-enforcements!"]);
         assert(content.buttons.every(b=>b.uppercase==="uppercase"&&b.size>=20&&b.weight>=750&&b.overflow<=1&&!b.arrow));
         assert.equal(content.motion,"Use design in motion to draw attention and make a message stick. From short brand moments to fleshed-out explainer sequences, RVA3D animates type, graphics and 3D elements to tell compelling visual stories.");
         assert.equal(content.composite[1],"Bring the footage or production question; we’ll work out the rest!");assert.equal(content.bare,0);
@@ -188,6 +197,18 @@ try {
         if(width>=1440)assert(Math.abs(media.links[0].top-media.links[1].top)<2,"Story actions should pair where comfortable");
         shot("desmi_technical_"+width);
         report.capabilities.push({width,content,media});
+      } else if(route==="about") {
+        const content=run(()=>{const process=document.querySelector("#how-we-work"),faq=document.querySelector("#faq"),details=[...faq.querySelectorAll("details")],summaries=details.map(item=>item.querySelector("summary")),collaborate=document.querySelector("#collaborate"),footerLinks=[...document.querySelectorAll(".v-footer-links a")];return{steps:[...process.querySelectorAll(".process-list h3")].map(item=>item.textContent.trim()),faqCount:details.length,openCount:details.filter(item=>item.open).length,summaryMinimum:Math.min(...summaries.map(item=>item.getBoundingClientRect().height)),summaryOverflow:summaries.some(item=>item.scrollWidth>item.clientWidth+1),lowPressure:faq.textContent.includes("first conversation is low-pressure"),rounds:faq.textContent.includes("two consolidated rounds"),estimate:faq.textContent.includes("30 calendar days"),rushMultiplier:/1\.5[×x]/.test(faq.textContent),collaboratorHeading:!!collaborate.querySelector("#collaborate-title .inline-brand"),collaboratorMail:collaborate.querySelector("a[href^='mailto:']")?.getAttribute("href"),footer:footerLinks.map(link=>({href:link.getAttribute("href"),height:link.getBoundingClientRect().height,overflow:link.scrollWidth>link.clientWidth+1}))};});
+        assert.deepEqual(content.steps,["Talk","Define","Make","Refine","Deliver"]);assert.equal(content.faqCount,12);assert.equal(content.openCount,0);assert(content.summaryMinimum>=44&&!content.summaryOverflow);assert(content.lowPressure&&content.rounds&&content.estimate&&!content.rushMultiplier);assert(content.collaboratorHeading&&content.collaboratorMail.endsWith("subject=Freelance%20collaborator"));assert.equal(content.footer.length,3);assert(content.footer.every(link=>link.height>=44&&!link.overflow));
+        evaluate("document.querySelector('#how-we-work').scrollIntoView({block:'start',behavior:'instant'});true");shot("about_how_we_work_"+width);
+        evaluate("document.querySelector('#faq').scrollIntoView({block:'start',behavior:'instant'});true");shot("about_faq_collapsed_"+width);
+        if(width>=1024){await testControl("#faq details:first-child summary","faq_summary",width);await testControl(".collaborate-email","collaborator_email",width);await testControl(".about-collaborator-link","collaborator_discovery",width);await testControl(".v-footer-links a:last-child","footer_collaborator",width);}
+        ab(["focus","#faq details:first-child summary"]);ab(["press","Enter"]);await pause(200);
+        const disclosure=run(()=>{const details=document.querySelector("#faq details:first-child"),summary=details.querySelector("summary"),answer=details.querySelector(".faq-answer"),next=details.nextElementSibling,r=summary.getBoundingClientRect(),a=answer.getBoundingClientRect(),n=next.getBoundingClientRect(),style=getComputedStyle(summary);return{open:details.open,focus:summary.matches(":focus-visible"),outline:parseFloat(style.outlineWidth),answerHeight:a.height,separate:n.top>=a.bottom-1,summaryHeight:r.height};});
+        assert(disclosure.open&&disclosure.focus&&disclosure.outline>=3&&disclosure.answerHeight>0&&disclosure.separate&&disclosure.summaryHeight>=44,"FAQ disclosure must expand from keyboard focus without overlap");
+        evaluate("document.querySelector('#faq').scrollIntoView({block:'start',behavior:'instant'});true");shot("about_faq_expanded_"+width);
+        const anchors={};for(const anchor of ["how-we-work","faq","collaborate"]){ab(["open",base+"/review/site/about#"+anchor]);await pause(500);anchors[anchor]=run(()=>{const target=document.getElementById(location.hash.slice(1)),header=document.querySelector(".site-header"),t=target.getBoundingClientRect(),h=header.getBoundingClientRect(),style=getComputedStyle(target);return{top:t.top,headerBottom:h.bottom,scrollMarginTop:style.scrollMarginTop,stickyOffset:getComputedStyle(document.documentElement).getPropertyValue("--sticky-header-offset").trim(),visible:t.top>=h.bottom-2&&t.top<=h.bottom+64};});assert(anchors[anchor].visible,"Anchor target must land below sticky header: "+anchor+" at "+width+" "+JSON.stringify(anchors[anchor]));}
+        report.about.push({width,content,disclosure,anchors});
       } else {
         assert(evaluate("!!document.querySelector('h1')"),"Missing page heading");
         if(width>=1024){
@@ -199,6 +220,12 @@ try {
       const errors=ab(["errors"]);assert.deepEqual(errors.errors||[],[]);
     }
   }
+  // At 200% browser page zoom, a 1440-device-pixel window exposes a 720-CSS-pixel
+  // layout viewport. Re-run the critical text-heavy routes at that exact geometry.
+  ab(["set","viewport","720","1000"]);
+  const enlargedPages=[];
+  for(const route of ["","work","about"]){ab(["open",base+"/review/site"+(route?"/"+route:"" )]);await pause(350);const state=run(()=>({path:location.pathname,viewport:innerWidth,overflow:document.documentElement.scrollWidth-innerWidth,fitItems:document.querySelectorAll("#fit li").length,faqSummaries:document.querySelectorAll("#faq summary").length,workStatus:document.querySelector("[data-project-status]")?.textContent||null}));assert.equal(state.viewport,720);assert(state.overflow<=1,"200% zoom-equivalent layout overflow: "+state.path);if(!route)assert.equal(state.fitItems,6);if(route==="about")assert.equal(state.faqSummaries,12);if(route==="work")assert.equal(state.workStatus,"Showing 4 of 7 projects");enlargedPages.push(state);}
+  report.textEnlargement={factor:2,physicalReferenceWidth:1440,cssLayoutViewport:720,pages:enlargedPages};
   report.status="PASS";
   report.acceptance="Every button remains visually obvious during hover/focus and no control disappears against its background.";
   console.log(JSON.stringify({status:report.status,pages:report.pages.length,controls:report.controls.length,output}));

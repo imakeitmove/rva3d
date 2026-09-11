@@ -20,7 +20,7 @@
 .review-story{display:grid;grid-template-columns:.85fr 1.15fr;gap:100px;padding-block:105px}.review-intro>p:not(.label){max-width:35ch}.review-intro .review-intent{font-size:17px;border-left:2px solid var(--rva-purple);padding-left:20px;margin-top:30px}
 .communication-types{display:grid;gap:28px}.communication-types article{padding:30px 34px;background:#e8e6de;border-top:2px solid #080a09}.communication-types article+article{background:#e7def2;border-color:var(--rva-purple)}
 .communication-types h3{margin:12px 0 20px}.communication-types ul{padding:0;list-style:none;display:grid;gap:9px;font-size:18px}.communication-types li{padding-bottom:9px;border-bottom:1px solid #080a091c}.communication-types .communication-purpose{font-size:15px;margin:20px 0 0}
-.decision-process{background:#ece9e0;padding:85px 0 90px;scroll-margin-top:90px}.process-intro{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;margin-bottom:45px}.process-intro>p{max-width:46ch}
+.decision-process{background:#ece9e0;padding:85px 0 90px;scroll-margin-top:var(--sticky-header-offset)}.process-intro{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;margin-bottom:45px}.process-intro>p{max-width:46ch}
 .decision-list{padding:0;margin:0;list-style:none}.decision-list li{display:grid;grid-template-columns:45px 1.2fr 1fr;gap:30px;align-items:start;border-top:1px solid #080a0935;padding:27px 0}.decision-index{font:12px var(--font-geist-mono);padding-top:8px;color:#625a76}.decision-list h3{font-size:24px;margin:0 0 8px}.decision-list p{font-size:17px!important;line-height:1.5!important;max-width:42ch;margin:0}.decision-list strong{font-size:24px;line-height:1.3;font-weight:500;letter-spacing:-.025em;color:var(--rva-purple);max-width:20ch;padding-top:3px}
 .process-outro{display:flex;justify-content:space-between;align-items:center;gap:25px;border-top:1px solid #080a0935;padding-top:35px;margin-top:10px}.process-outro>p{font-size:22px!important;max-width:30ch}
 .capability-ambient-hero{position:relative;isolation:isolate;overflow:hidden;background:#1e2433;color:var(--rva-paper);padding:142px 0 82px}
@@ -79,6 +79,23 @@
 
 /* The closing thought stands apart from the experience paragraph. */
 .about-positioning .about-kicker{margin-top:1.25em}
+
+/* Buyer-confidence pass: practical process, native disclosures and a small collaborator path. */
+.process-intro>div:last-child p{max-width:47ch;margin:0}.process-intro>div:last-child p+p{margin-top:16px;font-size:16px;line-height:1.55}
+.process-path{display:grid;grid-template-columns:repeat(5,auto);justify-content:space-between;gap:14px;margin:0 0 18px;padding:17px 0;border-top:1px solid #080a0935;border-bottom:1px solid #080a0935;color:var(--rva-purple);font:700 13px/1.4 var(--font-geist-mono);letter-spacing:.045em;text-transform:uppercase}
+.process-path span{display:flex;align-items:center;gap:clamp(10px,2vw,30px)}.process-path i{font-style:normal;color:#625a76}
+.process-list li{grid-template-columns:45px minmax(0,1fr)}.process-list h3{text-transform:uppercase;letter-spacing:.025em}.process-list p{max-width:76ch}
+.buyer-faq{background:var(--rva-paper);padding:90px 0 104px;scroll-margin-top:var(--sticky-header-offset)}
+.faq-grid{display:grid;grid-template-columns:minmax(250px,.72fr) minmax(0,1.28fr);gap:clamp(44px,7vw,104px);align-items:start}
+.faq-intro{position:sticky;top:calc(var(--sticky-header-offset) + 24px)}.faq-intro h2{max-width:12ch}.faq-intro>p:not(.label){max-width:34ch;font-size:17px;line-height:1.6}
+.faq-list{border-bottom:1px solid #080a0938}.faq-list details{border-top:1px solid #080a0938}.faq-list summary{position:relative;display:flex;align-items:center;min-height:68px;padding:18px 48px 18px 0;cursor:pointer;list-style:none;font-size:clamp(18px,1.55vw,22px);font-weight:570;line-height:1.35;letter-spacing:-.02em}.faq-list summary::-webkit-details-marker{display:none}.faq-list summary::after{content:"+";position:absolute;right:10px;color:var(--rva-purple);font:400 28px/1 var(--font-geist-sans)}.faq-list details[open] summary::after{content:"−"}.faq-list summary:is(:hover,:active){color:var(--rva-purple);text-decoration:underline;text-underline-offset:5px}.faq-answer{padding:0 48px 24px 0}.about-editorial .faq-answer p{max-width:66ch;margin:0;font-size:16px;line-height:1.65}
+.about-collaborator-link{display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-top:18px;color:#d7deb9;font-size:14px;line-height:1.45;text-decoration:none}.about-collaborator-link span{color:var(--rva-signal)}.about-collaborator-link:is(:hover,:active){color:var(--rva-paper);text-decoration:underline;text-underline-offset:4px}
+.collaborate-section{background:#e6dfed;padding:82px 0 92px;scroll-margin-top:var(--sticky-header-offset)}.collaborate-grid{display:grid;grid-template-columns:minmax(240px,.82fr) minmax(0,1.18fr);gap:clamp(42px,7vw,100px);align-items:start}.collaborate-grid h2{max-width:11ch;margin-top:18px}.collaborate-copy>p{max-width:52ch;margin-top:0}.complete-site .collaborate-email{display:inline-flex;margin-top:14px;white-space:normal;background:var(--rva-purple);border-color:var(--rva-purple);color:#fff}.about-editorial .collaborate-note{max-width:55ch;margin-top:18px;font-size:14px;line-height:1.55;color:#514b58}
+/* Override the legacy V003 section offset so deep links clear the taller mobile header. */
+.about-editorial :is(#how-we-work,#faq,#collaborate){scroll-margin-top:var(--sticky-header-offset)}
+@media(max-width:820px){.faq-grid,.collaborate-grid{grid-template-columns:1fr;gap:28px}.faq-intro{position:static}.faq-intro h2,.collaborate-grid h2{max-width:18ch}.process-intro{grid-template-columns:1fr;gap:22px}}
+@media(max-width:700px){.process-path{grid-template-columns:1fr;justify-content:start;gap:7px;padding:14px 0}.process-path span{gap:10px}.process-path span:first-child i{display:none}.process-list li{grid-template-columns:25px minmax(0,1fr)}.buyer-faq{padding:58px 0 68px}.faq-list summary{min-height:62px;padding:17px 42px 17px 0;font-size:18px}.faq-list summary::after{right:6px}.faq-answer{padding:0 0 22px}.collaborate-section{padding:58px 0 68px}}
+@media(max-width:360px){.faq-list summary{overflow-wrap:anywhere}.complete-site .collaborate-email{width:100%;justify-content:center}}
 
 
 /* Follow-up category labels and paired stories; the shared action surface stays solid. */

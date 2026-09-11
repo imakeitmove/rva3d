@@ -1,7 +1,8 @@
 import type { CapabilitySlug } from "@/content/capabilities/types";
 export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy: string; uses: string[]; proof: string }> = {
   "3d-animation": {
-    "promise": "Imagine anything. Then make it real.",
+    // Previous: "Imagine anything. Then make it real."
+    "promise": "Imaging anything you can imagine.",
     "copy": "Build a product world with control over every camera move, material and moment. From supplied ingredients to finished animation, RVA3D develops the visual treatment, movement and lighting around the idea. Use it for a complete film or a few carefully made shots.",
     "uses": [
       "Product launches",
@@ -12,7 +13,8 @@ export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy
     "proof": "Five Below: a zig-zag retail display brought into motion, making its shape and arrangement easy to follow."
   },
   "product-technical-visualization": {
-    "promise": "Really get in there good!",
+    // Previous: "Really get in there good!"
+    "promise": "Get in the good!",
     "copy": "Show the inside of a mechanism while it’s running, explain a product, or visualize a space that’s still just an idea. Starting with CAD and physical references, RVA3D turns technical information into clear stills, cutaways and sequences. Keep the useful detail. Find the view that makes the explanation click.",
     "uses": [
       "Technical explainers",
@@ -22,8 +24,8 @@ export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy
     "proof": "DESMI ROTAN CHD: cutaways, exploded views and rotor movement bring the pump’s inner workings into view."
   },
   "motion-design": {
-    // Previous: "Make the message move with intent."
-    "promise": "Make messages move with intent.",
+    // Previous: "Make messages move with intent."
+    "promise": "Moving messages make moving messages.",
     "copy": "Use design in motion to draw attention and make a message stick. From short brand moments to fleshed-out explainer sequences, RVA3D animates type, graphics and 3D elements to tell compelling visual stories.",
     "uses": [
       "Brand moments",
@@ -34,7 +36,8 @@ export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy
     "proof": ""
   },
   "vfx-compositing": {
-    "promise": "Make it belong in the shot.",
+    // Previous: "Make it belong in the shot."
+    "promise": "Wait what did you change?",
     "copy": "Replace a branded surface, integrate a new element into an existing shot or make an unwanted detail disappear. RVA3D handles compositing and shot work that keeps the finished image believable.\n\nBring the footage or production question; we’ll work out the rest!",
     "uses": [
       "Surface replacement",

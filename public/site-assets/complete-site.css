@@ -462,3 +462,46 @@
  .complete-site .v-about-editorial h2 { overflow-wrap:anywhere; }
  .complete-site .v-contact .button { white-space:normal;max-width:100%; }
 }
+
+/* Buyer-confidence pass: concise problem-fit guidance between proof and studio context. */
+.complete-site .v-fit{
+ background:var(--rva-paper);color:var(--rva-void);padding:clamp(72px,8vw,118px) 0;
+ border-bottom:1px solid #080a0924;scroll-margin-top:var(--sticky-header-offset);
+}
+.complete-site .v-fit-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(26px,4vw,64px)}
+.complete-site .v-fit-intro{grid-column:1/6;align-self:start}
+.complete-site .v-fit-intro h2{max-width:9ch;margin:18px 0 24px;font-size:clamp(42px,4.5vw,68px);font-weight:520;letter-spacing:-.052em;line-height:1.04}
+.complete-site .v-fit-intro>p:not(.label){max-width:39ch;margin:0;font-size:18px;line-height:1.6}
+.complete-site .v-fit-list{grid-column:6/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(24px,3vw,46px);margin:0;padding:0;list-style:none;counter-reset:buyer-fit}
+.complete-site .v-fit-list li{counter-increment:buyer-fit;position:relative;min-width:0;padding:22px 0 24px 38px;border-top:1px solid #080a0930;font-size:18px;line-height:1.5}
+.complete-site .v-fit-list li::before{content:"0" counter(buyer-fit);position:absolute;left:0;top:27px;color:var(--rva-purple);font:11px/1 var(--font-geist-mono)}
+
+/* Keep the collection action centered on the full Work canvas, independent of status width. */
+.complete-site [data-project-mode="inventory"] [data-project-controls]{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);justify-content:stretch}
+.complete-site [data-project-mode="inventory"] [data-project-status]{grid-column:1;justify-self:start}
+.complete-site [data-project-mode="inventory"] [data-project-load-more]{grid-column:2;justify-self:center}
+.complete-site [data-project-mode="inventory"] [data-project-controls]:has([data-project-load-more][hidden]) [data-project-status]{grid-column:1/-1;justify-self:center}
+
+/* Shared footer information stays useful but secondary to the primary site navigation. */
+.complete-site .v-footer{grid-template-columns:minmax(0,1fr) minmax(0,auto)!important;align-items:start}
+.complete-site .v-footer-links{grid-column:2;grid-row:1;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:2px 22px;max-width:520px}
+.complete-site .v-footer-links a{display:inline-flex;align-items:center;min-height:44px;color:var(--rva-stone);font-size:12px;line-height:1.4;text-decoration:none}
+.complete-site .v-footer-links a:is(:hover,:active,:focus-visible){color:var(--rva-paper);opacity:1;text-decoration:underline;text-underline-offset:4px}
+.complete-site .v-footer>small{grid-column:1/-1;grid-row:2;text-align:left}
+
+@media(max-width:820px){
+ .complete-site .v-fit-grid{grid-template-columns:1fr;gap:42px}
+ .complete-site .v-fit-intro,.complete-site .v-fit-list{grid-column:1}
+ .complete-site .v-fit-intro h2{max-width:13ch}
+}
+@media(max-width:640px){
+ .complete-site .v-fit{padding:58px 0 68px}
+ .complete-site .v-fit-list{grid-template-columns:1fr}
+ .complete-site .v-fit-list li{font-size:17px}
+ .complete-site [data-project-mode="inventory"] [data-project-controls]{grid-template-columns:1fr;gap:14px;margin-top:24px}
+ .complete-site [data-project-mode="inventory"] [data-project-status],
+ .complete-site [data-project-mode="inventory"] [data-project-load-more]{grid-column:1;justify-self:center}
+ .complete-site .v-footer{grid-template-columns:1fr!important;gap:10px}
+ .complete-site .v-footer-links{grid-column:1;grid-row:2;justify-content:flex-start;gap:0 20px;max-width:none}
+ .complete-site .v-footer>small{grid-column:1;grid-row:3}
+}

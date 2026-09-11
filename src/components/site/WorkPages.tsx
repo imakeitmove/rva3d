@@ -10,7 +10,10 @@ type Props = { params: Promise<{ slug: string }> };
 export function WorkIndex() {
   const initialCount = Math.min(4, studies.length);
   return <Shell>
-    <section className="editorial-opening" data-tone="paper"><div className="v-frame"><p className="label">Selected work / 01—{String(studies.length).padStart(2, "0")}</p><h1>The proof<br />is in the <em>pixels.</em></h1><p className="editorial-lead">Products to explore. Characters to believe. Ideas made visible. Find the work closest to what you have in mind.</p></div></section>
+    <section className="editorial-opening" data-tone="paper"><div className="v-frame">
+      {/* The unrequested top project counter was removed. Collection progress remains dynamic beside Load more. */}
+      <h1>The proof<br />is in the <em>pixels.</em></h1><p className="editorial-lead">Products to explore. Characters to believe. Ideas made visible. Find the work closest to what you have in mind.</p>
+    </div></section>
     <section className="project-catalogue v-broad" data-tone="paper" aria-label="Case studies" data-project-gallery data-project-mode="inventory" data-project-group-size="4">
       <div className="catalogue" data-project-cards>{studies.map((study, index) => <ProjectCard key={study.slug} study={study} hidden={index >= initialCount} />)}</div>
       <div data-project-controls hidden><p className="label" data-project-status role="status" aria-atomic="true">Showing {initialCount} of {studies.length} projects</p><button className="button" data-control-tone="purple" data-project-load-more type="button">Load more <span aria-hidden="true">↓</span></button></div>
