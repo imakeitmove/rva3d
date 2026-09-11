@@ -953,3 +953,50 @@ test("phrase cycling re-arms at the real document top on short responsive layout
   state.update({ progress: .4, top: 450, height: 1000, delta: 300, deliberate: true });
   assert.equal(state.value.index, 1);
 });
+
+
+test("homepage sampler loops complete ordered pairs across odd and even inventories", async () => {
+  const { featuredPairIndices, nextFeaturedStart } = await import("../public/site-assets/project-groups.js");
+  for (const total of [2,3,4,7,8,13]) {
+    let start = 0;
+    const seen = new Set();
+    for (let step = 0; step < total; step++) {
+      const pair = featuredPairIndices(total, start);
+      assert.equal(pair.length, 2); assert.notEqual(pair[0], pair[1]);
+      pair.forEach(index => { assert(index >= 0 && index < total); seen.add(index); });
+      const next = nextFeaturedStart(total, start);
+      assert.equal(nextFeaturedStart(total, next, -1), start);
+      start = next;
+    }
+    assert.equal(start, 0); assert.equal(seen.size, total);
+  }
+  assert.deepEqual(featuredPairIndices(7,6), [6,0]);
+});
+test("Work incrementally reveals inventory without replacing earlier projects", async () => {
+  const { nextInventoryCount } = await import("../public/site-assets/project-groups.js");
+  for (const total of [0,2,4,7,8,19]) {
+    let count = Math.min(total,4), previous = count;
+    while (count < total) {
+      count = nextInventoryCount(total,count,4);
+      assert(count > previous && count <= total); previous = count;
+    }
+    assert.equal(count,total); assert.equal(nextInventoryCount(total,count,4),total);
+  }
+});
+test("follow-up copy and distinct project interaction contracts stay scoped", async () => {
+  const [home,work,cap,editorial,header,css] = await Promise.all([
+    "src/lib/site/home-template.mjs","src/components/site/WorkPages.tsx",
+    "src/content/site/capability-editorial.ts","src/components/site/CapabilityEditorial.tsx",
+    "src/components/site/Header.tsx","public/site-assets/complete-site.css",
+  ].map(file => readFile(resolve(projectRoot,file),"utf8")));
+  const activeHome = home.split("\n").filter(line => !line.trim().startsWith("//")).join("\n"), activeWork = work.split("// Superseded four-card")[0];
+  assert.match(activeHome,/data-project-mode="sampler"/); assert.doesNotMatch(activeHome,/case-count|data-project-status/);
+  assert.match(activeWork,/data-project-mode="inventory"/); assert.match(activeWork,/data-project-load-more/);
+  assert.doesNotMatch(activeWork,/data-project-direction/); assert.match(activeWork,/Showing \{initialCount\} of \{studies.length\} projects/);
+  for (const copy of ["Imagine anything. Then make it real.","Really get in there good!","Make messages move with intent.","Make it belong in the shot.","Bring in the render-enforcements!"]) assert(cap.includes(copy));
+  assert(cap.includes("Use design in motion to draw attention and make a message stick."));
+  assert(cap.includes("Bring the footage or production question; we’ll work out the rest!"));
+  assert.match(editorial,/capability-story-actions/); assert.match(header,/nav-client-login/);
+  assert.match(css,/--control-bg:var\(--rva-purple\);--control-fg:#fff/);
+  assert.match(css,/outline:3px solid #fff!important/);
+});

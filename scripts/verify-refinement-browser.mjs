@@ -83,35 +83,22 @@ try {
         const groups = run(() => {
           const root = document.querySelector("[data-project-gallery]");
           const all = [...root.querySelectorAll("[data-project-card]")];
-          const previous = root.querySelector('[data-project-direction="previous"]');
-          const next = root.querySelector('[data-project-direction="next"]');
-          const controls = root.querySelector("[data-project-controls]");
           const rows = [];
-          do {
-            const visible = all.filter(card => !card.hidden);
-            const bounds = controls.getBoundingClientRect();
-            rows.push({
-              ids: visible.map(card => card.id || card.dataset.case),
-              count: visible.length,
-              below: bounds.top >= Math.max(...visible.map(card => card.getBoundingClientRect().bottom)) - 1,
-              left: bounds.left, right: bounds.right,
-              contentLeft: root.querySelector("[data-project-cards]").getBoundingClientRect().left,
-              contentRight: root.querySelector("[data-project-cards]").getBoundingClientRect().right,
-              color: getComputedStyle(next).color, background: getComputedStyle(next).backgroundColor,
-            });
-            if (next.disabled) break;
-            next.click();
-          } while (rows.length < 10);
-          while (!previous.disabled) previous.click();
-          return { rows, total: all.length, first: all[0].id || all[0].dataset.case, initialRestored: all[0].hidden === false, previousDisabled: previous.disabled };
+          const sample = () => rows.push([...root.querySelectorAll("[data-project-card]:not([hidden])")].map(card => card.id || card.dataset.case));
+          sample();
+          if (root.dataset.projectMode === "sampler") {
+            for (let step=0;step<all.length;step++) { root.querySelector('[data-project-direction="next"]').click(); sample(); }
+          } else {
+            const more=root.querySelector("[data-project-load-more]");
+            for(let step=0;step<all.length&&!more.hidden;step++) { more.click(); sample(); }
+          }
+          return { rows,total:all.length,mode:root.dataset.projectMode,status:root.querySelector("[data-project-status]")?.textContent,first:rows[0][0] };
         });
-        report.groups.push({ route, width, ...groups });
-        assert.equal(groups.first, "geico-geckos-cereal-box");
-        assert.equal(new Set(groups.rows.flatMap(row => row.ids)).size, groups.total, "Lost project");
-        assert(groups.rows.every(row => row.below && Math.abs(row.left - row.contentLeft) < 2 && Math.abs(row.right - row.contentRight) < 2), "Controls overlap/misalign");
-        assert(groups.rows.every(row => row.background === "rgb(217, 255, 67)" || row.background === "rgb(215, 255, 67)"), "Project controls must be green");
-        assert(groups.initialRestored && groups.previousDisabled);
-        if (route === "work") assert(groups.rows.slice(0, -1).every(row => row.count === 4), "Work group size changed");
+        report.groups.push({route,width,...groups});
+        assert.equal(groups.first,"geico-geckos-cereal-box");
+        assert.equal(new Set(groups.rows.flat()).size,groups.total,"Lost project");
+        if(route==="") { assert(groups.rows.every(row=>row.length===2));assert.deepEqual(groups.rows[0],groups.rows.at(-1)); }
+        else { assert.equal(groups.rows[0].length,Math.min(4,groups.total));assert.equal(groups.rows.at(-1).length,groups.total);assert.equal(groups.status,"Showing "+groups.total+" of "+groups.total+" projects"); }
       }
       if (route === "capabilities") {
         const media = run(async () => {
@@ -196,3 +183,41 @@ try {
   await fs.writeFile(path.join(output, "focused_refinement_results.json"), JSON.stringify(report, null, 2));
   ab(["close"]);
 }
+
+
+/* Former finite-group browser assertions; replaced by sampler/inventory checks.
+      if (route === "" || route === "work") {
+        const groups = run(() => {
+          const root = document.querySelector("[data-project-gallery]");
+          const all = [...root.querySelectorAll("[data-project-card]")];
+          const previous = root.querySelector('[data-project-direction="previous"]');
+          const next = root.querySelector('[data-project-direction="next"]');
+          const controls = root.querySelector("[data-project-controls]");
+          const rows = [];
+          do {
+            const visible = all.filter(card => !card.hidden);
+            const bounds = controls.getBoundingClientRect();
+            rows.push({
+              ids: visible.map(card => card.id || card.dataset.case),
+              count: visible.length,
+              below: bounds.top >= Math.max(...visible.map(card => card.getBoundingClientRect().bottom)) - 1,
+              left: bounds.left, right: bounds.right,
+              contentLeft: root.querySelector("[data-project-cards]").getBoundingClientRect().left,
+              contentRight: root.querySelector("[data-project-cards]").getBoundingClientRect().right,
+              color: getComputedStyle(next).color, background: getComputedStyle(next).backgroundColor,
+            });
+            if (next.disabled) break;
+            next.click();
+          } while (rows.length < 10);
+          while (!previous.disabled) previous.click();
+          return { rows, total: all.length, first: all[0].id || all[0].dataset.case, initialRestored: all[0].hidden === false, previousDisabled: previous.disabled };
+        });
+        report.groups.push({ route, width, ...groups });
+        assert.equal(groups.first, "geico-geckos-cereal-box");
+        assert.equal(new Set(groups.rows.flatMap(row => row.ids)).size, groups.total, "Lost project");
+        assert(groups.rows.every(row => row.below && Math.abs(row.left - row.contentLeft) < 2 && Math.abs(row.right - row.contentRight) < 2), "Controls overlap/misalign");
+        assert(groups.rows.every(row => row.background === "rgb(217, 255, 67)" || row.background === "rgb(215, 255, 67)"), "Project controls must be green");
+        assert(groups.initialRestored && groups.previousDisabled);
+        if (route === "work") assert(groups.rows.slice(0, -1).every(row => row.count === 4), "Work group size changed");
+      }
+*/

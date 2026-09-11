@@ -1,3 +1,100 @@
+// Distinct models share card discovery and accessible arrival, not pagination state.
+export function featuredPairIndices(total, start) {
+  if (total < 2) return total ? [0] : [];
+  const first = ((start % total) + total) % total;
+  return [first, (first + 1) % total];
+}
+export function nextFeaturedStart(total, start, direction = 1) {
+  return total ? ((start + direction * 2) % total + total) % total : 0;
+}
+export function nextInventoryCount(total, current, batch = 4) {
+  return Math.min(total, current + Math.max(1, batch));
+}
+function revealProject(card) {
+  if (!card) return;
+  const header = document.querySelector(".site-header");
+  const top = card.getBoundingClientRect().top + scrollY - (header?.getBoundingClientRect().height || 0) - 24;
+  // Focus a real heading link, not the decorative/duplicate image link.
+  card.querySelector("h2 a,h3 a")?.focus({ preventScroll: true });
+  scrollTo({ top: Math.max(0, top), behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
+}
+export function initProjectGroups() {
+  document.querySelectorAll("[data-project-gallery]").forEach(root => {
+    if (root.dataset.galleryReady) return;
+    root.dataset.galleryReady = "true";
+    const container = root.querySelector("[data-project-cards]");
+    const cards = [...container.querySelectorAll("[data-project-card]")];
+    const controls = root.querySelector("[data-project-controls]");
+    controls.hidden = false;
+    if (root.dataset.projectMode === "sampler") {
+      let start = 0;
+      const stacked = () => getComputedStyle(container).gridTemplateColumns.split(" ").length === 1;
+      const positionControls = () => {
+        const image = container.querySelector("[data-project-card]:not([hidden]) .v-case-image");
+        if (image) root.style.setProperty("--case-controls-top", (image.getBoundingClientRect().top + image.getBoundingClientRect().height / 2 - root.querySelector(".v-frame").getBoundingClientRect().top) + "px");
+      };
+      const render = (announce = false) => {
+        const indices = featuredPairIndices(cards.length, start);
+        const visible = indices.map(index => cards[index]);
+        // DOM order follows the looping pair, including last + first for an odd inventory.
+        container.append(...visible, ...cards.filter(card => !visible.includes(card)));
+        cards.forEach(card => { card.hidden = !visible.includes(card); });
+        root.dataset.projectStart = String(start);
+        controls.hidden = cards.length < 2;
+        if (announce) root.querySelector("[data-project-announcement]").textContent = "Featured work: " + visible.map(card => card.querySelector("h3").textContent.trim()).join("; ");
+        positionControls();
+        return visible[0];
+      };
+      const advance = direction => {
+        start = nextFeaturedStart(cards.length, start, direction);
+        const first = render(true);
+        if (stacked()) requestAnimationFrame(() => revealProject(first));
+      };
+      controls.querySelectorAll("[data-project-direction]").forEach(button => {
+        button.addEventListener("click", () => advance(button.dataset.projectDirection === "previous" ? -1 : 1));
+      });
+      controls.addEventListener("keydown", event => {
+        if (!["ArrowLeft", "ArrowRight", "ArrowDown"].includes(event.key)) return;
+        event.preventDefault();
+        advance(event.key === "ArrowLeft" ? -1 : 1);
+      });
+      new ResizeObserver(positionControls).observe(container);
+      container.addEventListener("load", positionControls, true);
+      document.fonts.ready.then(positionControls);
+      render();
+    } else {
+      const size = Number(root.dataset.projectGroupSize) || 4;
+      const loadMore = controls.querySelector("[data-project-load-more]");
+      const status = controls.querySelector("[data-project-status]");
+      let count = Math.min(size, cards.length);
+      const render = () => {
+        cards.forEach((card, index) => { card.hidden = index >= count; });
+        status.textContent = `Showing ${count} of ${cards.length} projects`;
+        loadMore.hidden = count >= cards.length;
+        root.dataset.projectVisible = String(count);
+      };
+      const restoreAnchor = () => {
+        const index = cards.findIndex(card => "#" + card.id === location.hash);
+        if (index < 0) return;
+        count = Math.min(cards.length, Math.max(count, Math.ceil((index + 1) / size) * size));
+        render();
+        requestAnimationFrame(() => revealProject(cards[index]));
+      };
+      loadMore.addEventListener("click", () => {
+        const firstNew = cards[count];
+        count = nextInventoryCount(cards.length, count, size);
+        render();
+        requestAnimationFrame(() => revealProject(firstNew));
+      });
+      addEventListener("hashchange", restoreAnchor);
+      render();
+      restoreAnchor();
+    }
+  });
+}
+
+/* Previous finite replacement pagination retained for restoration. The September 11
+   follow-up explicitly separates Home's looping sampler from Work's append-only inventory.
 // Shared finite project groups for the approved homepage and Work catalogue.
 // Reuses the existing controllers' hidden-card approach, without clone slides or a library.
 export function initProjectGroups() {
@@ -57,3 +154,4 @@ export function initProjectGroups() {
     render(); restoreAnchor();
   });
 }
+*/

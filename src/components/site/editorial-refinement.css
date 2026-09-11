@@ -80,6 +80,27 @@
 /* The closing thought stands apart from the experience paragraph. */
 .about-positioning .about-kicker{margin-top:1.25em}
 
+
+/* Follow-up category labels and paired stories; the shared action surface stays solid. */
+.complete-site .capabilities-v2 .capability-wayfinding nav { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.complete-site .capabilities-v2 .capability-wayfinding nav a {
+ min-height:112px;padding:24px 20px;font-size:clamp(20px,1.65vw,24px);font-weight:800;
+ text-transform:uppercase;letter-spacing:.015em;line-height:1.3;overflow-wrap:normal;
+ background:var(--rva-purple);border-color:var(--rva-purple);color:#fff;opacity:1;
+}
+.complete-site .capabilities-v2 .capability-wayfinding nav a:is(:hover,:active,:focus-visible) {
+ background:var(--rva-purple);border-color:var(--rva-purple);color:#fff;opacity:1;
+ box-shadow:inset 0 0 0 2px #fff;text-decoration:none;
+}
+.capability-story-actions { display:flex;flex-wrap:wrap;gap:4px 24px;align-items:center; }
+.capability-story-actions .proof-link { flex:0 0 auto;max-width:100%; }
+@media(max-width:1050px) {
+ .complete-site .capabilities-v2 .capability-wayfinding nav { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:520px) {
+ .complete-site .capabilities-v2 .capability-wayfinding nav { grid-template-columns:minmax(0,1fr); }
+ .complete-site .capabilities-v2 .capability-wayfinding nav a { min-height:96px;padding:22px 18px;font-size:21px; }
+}
 /* Local recovered-release refinement. Earlier compositions remain above for restoration. */
 .capabilities-v2 .capability-wayfinding nav a { min-height:96px;padding:24px;background:var(--rva-purple);border-color:var(--rva-purple);color:#fff;font-weight:750;text-align:center;justify-content:center; }
 .capabilities-v2 .capability-wayfinding nav a:hover { background:#4e249d;border-color:#4e249d; }

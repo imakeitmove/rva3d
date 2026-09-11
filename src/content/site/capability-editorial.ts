@@ -1,7 +1,7 @@
 import type { CapabilitySlug } from "@/content/capabilities/types";
 export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy: string; uses: string[]; proof: string }> = {
   "3d-animation": {
-    "promise": "Give the impossible a convincing performance.",
+    "promise": "Imagine anything. Then make it real.",
     "copy": "Build a product world with control over every camera move, material and moment. From supplied ingredients to finished animation, RVA3D develops the visual treatment, movement and lighting around the idea. Use it for a complete film or a few carefully made shots.",
     "uses": [
       "Product launches",
@@ -12,8 +12,8 @@ export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy
     "proof": "Five Below: a zig-zag retail display brought into motion, making its shape and arrangement easy to follow."
   },
   "product-technical-visualization": {
-    "promise": "Make the hard-to-see easy to understand.",
-    "copy": "Get inside a mechanism, explain a product’s behavior or show a space before it is built. Starting with CAD and physical references, RVA3D turns technical information into clear stills, cutaways and sequences. Keep the useful detail. Find the view that makes the explanation click.",
+    "promise": "Really get in there good!",
+    "copy": "Show the inside of a mechanism while it’s running, explain a product, or visualize a space that’s still just an idea. Starting with CAD and physical references, RVA3D turns technical information into clear stills, cutaways and sequences. Keep the useful detail. Find the view that makes the explanation click.",
     "uses": [
       "Technical explainers",
       "Product cutaways",
@@ -24,7 +24,7 @@ export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy
   "motion-design": {
     // Previous: "Make the message move with intent."
     "promise": "Make messages move with intent.",
-    "copy": "Use design, movement and timing to guide attention and make a message stick. RVA3D brings type, graphics and dimensional elements into a coherent visual rhythm, from a short brand moment to an explainer sequence. The reel shows the range; the brief gives it direction.",
+    "copy": "Use design in motion to draw attention and make a message stick. From short brand moments to fleshed-out explainer sequences, RVA3D animates type, graphics and 3D elements to tell compelling visual stories.",
     "uses": [
       "Brand moments",
       "Explainer sequences",
@@ -34,8 +34,8 @@ export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy
     "proof": ""
   },
   "vfx-compositing": {
-    "promise": "Make everything belong in the same shot.",
-    "copy": "Replace a branded surface, integrate a new element or make an unwanted detail disappear. RVA3D handles compositing and shot work that keeps the finished image believable. Bring the footage or the production question; we’ll work out what the shot needs and how to get there.",
+    "promise": "Make it belong in the shot.",
+    "copy": "Replace a branded surface, integrate a new element into an existing shot or make an unwanted detail disappear. RVA3D handles compositing and shot work that keeps the finished image believable.\n\nBring the footage or production question; we’ll work out the rest!",
     "uses": [
       "Surface replacement",
       "CG in live action",
@@ -50,7 +50,7 @@ export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy
     "proof": "The interactive gallery on this site is a current, self-initiated RVA3D example."
   },
   "creative-production-support": {
-    "promise": "Bring in someone who can own the problem.",
+    "promise": "Bring in the render-enforcements!",
     "copy": "An established team may need help moving a difficult asset, shot or sequence forward. RVA3D brings creative and technical support across the making process: interpreting rough inputs, working through the missing pieces and finishing the agreed contribution. A focused addition to the team when the work needs it.",
     "uses": [
       "Production gaps",
@@ -102,3 +102,13 @@ export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy
 //   },
 // };
 //
+
+
+// Superseded approved copy preserved for restoration; the follow-up brief supplies exact replacements.
+// Give the impossible a convincing performance.
+// Make the hard-to-see easy to understand.
+// Get inside a mechanism, explain a product’s behavior or show a space before it is built.
+// Use design, movement and timing to guide attention and make a message stick. RVA3D brings type, graphics and dimensional elements into a coherent visual rhythm, from a short brand moment to an explainer sequence. The reel shows the range; the brief gives it direction.
+// Make everything belong in the same shot.
+// Replace a branded surface, integrate a new element or make an unwanted detail disappear. RVA3D handles compositing and shot work that keeps the finished image believable. Bring the footage or the production question; we’ll work out what the shot needs and how to get there.
+// Bring in someone who can own the problem.

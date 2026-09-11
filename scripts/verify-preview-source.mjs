@@ -224,8 +224,8 @@ export async function verifyPreviewSource(root=process.cwd()) {
   assert(login.includes('data-brand-artwork="client-access"') && login.includes("Forgot username or password?"), "Client access image or recovery link missing");
   assert(!login.includes("https://www.rva3d.com/login") && login.includes("No email will be sent."), "Recovery must remain honest and local until integrated");
   assert(!html.includes('id="sampler-motion"'), "Removed global pause control returned");
-  assert((await read("src/components/site/WorkPages.tsx")).includes('data-project-group-size="4"'), "Work must use four-project groups");
-  assert((await read("public/site-assets/project-groups.js")).includes("previous.disabled = page === 0"), "Project group end state missing");
+  assert((await read("src/components/site/WorkPages.tsx")).split("// Superseded four-card")[0].includes('data-project-mode="inventory"'), "Work must use append-only inventory");
+  assert((await read("public/site-assets/project-groups.js")).split("/* Previous finite")[0].includes("nextFeaturedStart") && html.includes('data-project-mode="sampler"'), "Looping homepage sampler missing");
   // Previous aggregate: 26; add ten brand, login, and project-group regression contracts.
   return {status:"PASS",implementation:"ApprovedHome + capability refinement + Interactive route",checks:37,dependencyClosure};
 }

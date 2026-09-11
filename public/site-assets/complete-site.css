@@ -320,10 +320,11 @@
  display:flex;
  width:max-content;
  margin:32px 0 0 auto;
- color:var(--rva-paper);
+ /* Former Paper ink was only 2.9:1 against this slate surface. */
+ color:var(--rva-void);
  text-align:right;
 }
-.complete-site .work-closing-copy .editorial-link>span{color:var(--rva-signal)}
+.complete-site .work-closing-copy .editorial-link>span{color:inherit}
 @media(max-width:900px){
  .complete-site .work-closing h2{max-width:20ch}
  .complete-site .work-closing-copy{grid-column:4/-1}
@@ -338,6 +339,84 @@
  .complete-site .work-closing-copy .editorial-link{margin-left:0;text-align:left}
 }
 
+
+/* Follow-up: Home is a looping pair sampler; Work is an append-only inventory.
+   Earlier finite-pagination declarations remain above for restoration. */
+.complete-site [data-project-controls][hidden],
+.complete-site [data-project-controls] button[hidden] { display:none!important; }
+.complete-site [data-project-mode="sampler"] .v-cases { min-height:0; }
+.complete-site [data-project-mode="sampler"] [data-project-controls] {
+ position:absolute;top:var(--case-controls-top,300px);left:-76px;right:-76px;
+ width:auto;margin:0;padding:0;transform:translateY(-50%);pointer-events:none;
+}
+.complete-site [data-project-mode="sampler"] [data-project-controls] button {
+ /* Anchor the inherited enlarged ::before hit area to this circle, not the entire row. */
+ position:relative;inset:auto;
+ box-sizing:border-box;flex:none;width:48px;height:48px;min-width:48px;min-height:48px;
+ max-width:48px;max-height:48px;aspect-ratio:1;padding:0;border-radius:50%;line-height:1;pointer-events:auto;
+}
+.complete-site [data-project-mode="sampler"] #case-down { display:none; }
+.complete-site [data-project-mode="inventory"] [data-project-controls] { justify-content:center;flex-wrap:wrap;gap:22px 32px; }
+.complete-site [data-project-mode="inventory"] [data-project-status] { margin:0; }
+.complete-site [data-project-mode="inventory"] [data-project-load-more] {
+ display:inline-flex;flex:none;width:auto;height:auto;max-width:100%;min-height:50px;
+ padding:14px 24px;border-radius:0;font:650 16px/1.4 var(--font-geist-sans);gap:22px;
+}
+.complete-site .work-closing-copy { grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:26px 60px; }
+.complete-site .work-closing-copy p { flex:1 1 32ch;max-width:52ch;text-align:left; }
+.complete-site .work-closing-copy .editorial-link { flex:0 0 auto;margin:0;text-align:left; }
+/* The inherited uppercase navigation uses .11em; add only .025em to this label. */
+.complete-site .site-header .nav-client-login { letter-spacing:.135em; }
+
+/* Shared surface contract: hover/active never swap the surface independently of its ink.
+   Focus uses a two-tone ring so it remains identifiable on Paper, Void and brand fills. */
+.complete-site .button,
+.complete-site [data-project-controls] button {
+ --control-bg:var(--rva-signal);--control-fg:#080a09;
+ background:var(--control-bg);color:var(--control-fg);opacity:1;
+ transition:box-shadow .15s,border-color .15s;
+}
+.complete-site .button[data-control-tone="purple"] { --control-bg:var(--rva-purple);--control-fg:#fff;background:var(--control-bg);color:var(--control-fg); }
+.complete-site :is(.button,[data-project-controls] button):is(:hover,:active,:focus-visible) {
+ background:var(--control-bg);color:var(--control-fg);opacity:1;
+ border-color:currentColor;box-shadow:inset 0 0 0 2px currentColor;text-decoration:none;
+}
+.complete-site :is(.button,[data-project-controls] button)>span { color:inherit; }
+.complete-site :is(a,button,summary,input,select,textarea):focus-visible {
+ outline:3px solid #fff!important;outline-offset:3px;box-shadow:0 0 0 6px #151719!important;
+}
+.complete-site :is(button,[role="button"]):disabled { opacity:1;cursor:not-allowed; }
+.complete-site :is(.proof-link,.editorial-link,.header-inquiry,.v-link,.v-case-study-link):is(:hover,:active) {
+ opacity:1;text-decoration:underline;text-underline-offset:.25em;
+}
+.complete-site .site-header .header-inquiry:is(:hover,:active) { color:inherit; }
+.complete-site .v-viewer-stage>:is(#viewer-prev,#viewer-next):is(:hover,:active,:focus-visible) {
+ background:#080a09;color:#fff;opacity:1;border-color:#fff;
+}
+/* Keep utility controls readable over both dark and bright media. Native-fallback
+   display/hidden rules remain authoritative; this only supersedes opacity fades. */
+.complete-site :is(.v-player,.v-sample-media) button.custom-control {
+ background:#151719!important;color:#fff;opacity:1!important;border:1px solid #fff;border-radius:50%;
+}
+.complete-site :is(.custom-control,.capability-fullscreen,.site-fullscreen,.v-viewer-fullscreen,.v-viewer-close) {
+ background:#151719!important;color:#fff;opacity:1!important;pointer-events:auto;
+ border:1px solid #fff;border-radius:50%;
+}
+.complete-site :is(.custom-control,.capability-fullscreen,.site-fullscreen,.v-viewer-fullscreen,.v-viewer-close):is(:hover,:active) {
+ background:#080a09!important;color:#fff;opacity:1!important;box-shadow:inset 0 0 0 2px #fff;
+}
+@media(max-width:1100px) and (min-width:641px) {
+ .complete-site [data-project-mode="sampler"]>.v-frame { width:calc(100% - 152px); }
+ .complete-site [data-project-mode="sampler"] [data-project-controls] { left:-60px;right:-60px; }
+}
+@media(max-width:640px) {
+ .complete-site [data-project-mode="sampler"] [data-project-controls] { position:static;inset:auto;width:100%;transform:none;justify-content:center;margin-top:26px; }
+ .complete-site [data-project-mode="sampler"] :is(#case-prev,#case-next) { display:none; }
+ .complete-site [data-project-mode="sampler"] #case-down { display:grid; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .complete-site :is(.button,[data-project-controls] button) { transition:none; }
+}
 /* 2026-09-11 canonical text-logo reference. Previous V003/V007/V008 metrics remain above.
    Monochrome uses Semibold; full-color uses Black. Tune R/V separately from V/A. */
 .complete-site .inline-brand { font-family:var(--font-geist-sans),sans-serif; }
