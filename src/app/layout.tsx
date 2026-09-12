@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import localFont from "next/font/local";
+import { publicRobotsPolicy } from "@/lib/site/runtime-environment";
 
 import "./globals.css";
 // Complete-site styles load once through /site-assets/complete-site.css below.
@@ -19,7 +20,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.rva3d.com"),
-  robots: { index: false, follow: false, noarchive: true },
+  robots: publicRobotsPolicy(),
   referrer: "no-referrer",
   title: "RVA3D | 3D Visualization, Animation and Motion Design",
   description:

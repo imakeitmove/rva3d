@@ -13,14 +13,14 @@ export function WorkIndex() {
     <section className="editorial-opening" data-tone="paper"><div className="v-frame">
       {/* The unrequested top project counter was removed. Collection progress remains dynamic beside Load more. */}
       {/* Previous intro: Products to explore. Characters to believe. Ideas made visible. Find the work closest to what you have in mind. */}
-      <h1>The proof<br />is in the <em>pixels.</em></h1><p className="editorial-lead">We’ve brought characters to life. Made ideas memorable. And advertised the hell out of things! We’d love to elevate your idea, too.</p>
+      <h1>The proof<br />is in the <em>pixels.</em></h1><p className="editorial-lead work-intro-copy"><span>We’ve brought characters to life. Made ideas memorable.</span><span>And advertised the hell out of things! We’d love to elevate your idea, too.</span></p>
     </div></section>
     <section className="project-catalogue v-broad" data-tone="paper" aria-label="Case studies" data-project-gallery data-project-mode="inventory" data-project-group-size="4">
       <div className="catalogue" data-project-cards>{studies.map((study, index) => <ProjectCard key={study.slug} study={study} hidden={index >= initialCount} />)}</div>
       <div data-project-controls hidden><p className="label" data-project-status role="status" aria-atomic="true">Showing {initialCount} of {studies.length} projects</p><button className="button" data-control-tone="purple" data-project-load-more type="button">Load more <span aria-hidden="true">↓</span></button></div>
       <noscript><style>{'[data-project-mode="inventory"] [data-project-card][hidden]{display:block!important}'}</style><p>All projects are shown when JavaScript is unavailable.</p></noscript>
     </section>
-    <section className="work-closing" data-tone="paper"><div className="v-frame"><h2><span className="work-closing-highlight">Your project</span> doesn’t have to look like any of these.</h2><div className="work-closing-copy"><p>The work changes with the brief. A product to explain, a story to tell, a shot that needs something you can’t film... bring us the challenge. We’ll help figure out what to make and the best way to make it.</p><a className="editorial-link" href={siteHref("/about#how-we-work")}>How we work <span aria-hidden="true">↗</span></a></div></div></section>
+    <section className="work-closing" data-tone="paper"><div className="v-frame"><h2><span className="work-closing-highlight">Your project</span> doesn’t have to look like any of these.</h2><div className="work-closing-copy"><p>The work changes with the brief. A product to explain, a story to tell, a shot that needs something you can’t film... bring us the challenge. We’ll help figure out what to make and the best way to make it.</p><a className="editorial-link" href={siteHref("/how-we-work")}>How we work <span aria-hidden="true">↗</span></a></div></div></section>
   </Shell>;
 }
 // Superseded four-card replacement/long closing treatment retained as source-only comments.

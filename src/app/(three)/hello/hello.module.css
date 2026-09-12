@@ -77,18 +77,11 @@
   line-height: 1;
 }
 
-.logo :global(.brand-rva) {
-  color: var(--rva-paper);
-}
-
-.logo :global(.brand-three-d) {
-  width: 1.16em;
-  height: 0.9em;
-  margin-left: 0.05em;
-  overflow: visible;
-  color: var(--rva-signal);
-  fill: currentColor;
-}
+/* Previous hybrid RVA/suffix overrides retained for restoration. The accent
+   color and geometry now come from the canonical complete wordmark.
+.logo :global(.brand-rva) { color: var(--rva-paper); }
+.logo :global(.brand-three-d) { width:1.16em;height:.9em;margin-left:.05em;overflow:visible;color:var(--rva-signal);fill:currentColor; }
+*/
 
 .hero {
   display: grid;
@@ -253,13 +246,9 @@
   white-space: nowrap;
 }
 
-.introduction :global(.brand-three-d) {
-  width: 1.1em;
-  height: 0.84em;
-  margin-left: 0.04em;
-  overflow: visible;
-  fill: currentColor;
-}
+/* Previous body-copy suffix sizing retained for restoration.
+.introduction :global(.brand-three-d) { width:1.1em;height:.84em;margin-left:.04em;overflow:visible;fill:currentColor; }
+*/
 
 .actions {
   display: grid;

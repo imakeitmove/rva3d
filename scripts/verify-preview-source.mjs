@@ -16,6 +16,7 @@ const candidateEntryFiles = [
   "src/app/(three)/page.tsx",
   "src/app/(three)/hello/page.tsx",
   "src/app/(three)/about/page.tsx",
+  "src/app/(three)/how-we-work/page.tsx",
   "src/app/(three)/capabilities/page.tsx",
   "src/app/(three)/capabilities/[slug]/page.tsx",
   "src/app/(three)/contact/page.tsx",
@@ -196,10 +197,18 @@ export async function verifyPreviewSource(root=process.cwd()) {
   const about=await read("src/components/site/AboutEditorial.tsx");
   assert(about.includes("Got a graphics challenge? We\u2019ll figure it out!"));
   assert(!about.includes("Take an idea that is still a little fuzzy"));
+  assert(about.includes('<EditorialPageNav current="about" />'),"About page navigation is missing");
+  const howWeWork=await read("src/components/site/HowWeWork.tsx");
+  const howWeWorkContent=await read("src/content/site/how-we-work.ts");
+  const howWeWorkPage=await read("src/app/(three)/how-we-work/page.tsx");
+  assert(howWeWork.includes('id="process"')&&howWeWork.includes('id="communication"')&&howWeWork.includes('id="faq"'),"How We Work sections are incomplete");
+  assert(howWeWorkContent.includes('"Does RVA3D use AI?"'),"Approved AI FAQ is missing");
+  assert(howWeWorkPage.includes('canonical: "https://www.rva3d.com/how-we-work"'),"How We Work canonical URL is missing");
   const page=await read("src/app/(three)/page.tsx");
   assert(page.split("/*")[0].includes("ApprovedHome"),"Deploy route does not use approved complete site");
   const proxy=await read("src/proxy.ts");
   assert(proxy.includes("verifyPrivateReviewToken")&&proxy.includes("noindex, nofollow, noarchive"));
+  assert(/publicRoutePattern[^\n]+how-we-work/.test(proxy),"How We Work route is absent from the public allowlist");
   assert(proxy.indexOf("publicRoutePattern.test(pathname)") < proxy.indexOf("const token = request.cookies"), "Public pages must resolve before review authentication");
   assert(proxy.includes('pathname.startsWith("/review/site")') && proxy.includes('pathname.startsWith("/review/assets/")'), "Private review routes must remain protected");
   assert((await read("src/app/media/[key]/route.ts")).includes("isPublicMediaEntry(entry)"), "Public media route must require explicit approval");
@@ -229,6 +238,8 @@ export async function verifyPreviewSource(root=process.cwd()) {
   assert(privateContent.includes('slug: "desmi-rotan-pump"') && privateContent.includes('status: "public-approved"'), "DESMI direct-owner approval is missing");
   assert(!(await read("src/content/work/records.ts")).includes("desmi"), "DESMI must not enter the public registry");
   assert(capability.includes('siteHref("/work/desmi-rotan-pump")'), "DESMI capability story link missing");
+  const sitemap=await read("src/app/sitemap.ts");
+  assert(sitemap.includes("/how-we-work"),"How We Work is missing from the sitemap");
   // Brand-copy and distinct image-artwork contracts are also exercised in browser QA.
   const brand = await read("src/components/site/Brand.tsx");
   assert(brand.includes("export function BrandCopy") && brand.includes("export function BrandText"), "Structured brand-copy helpers missing");
@@ -241,8 +252,8 @@ export async function verifyPreviewSource(root=process.cwd()) {
   assert(!html.includes('id="sampler-motion"'), "Removed global pause control returned");
   assert((await read("src/components/site/WorkPages.tsx")).split("// Superseded four-card")[0].includes('data-project-mode="inventory"'), "Work must use append-only inventory");
   assert((await read("public/site-assets/project-groups.js")).split("/* Previous finite")[0].includes("nextFeaturedStart") && html.includes('data-project-mode="sampler"'), "Looping homepage sampler missing");
-  // Previous aggregate: 26; add ten brand, login, and project-group regression contracts.
-  return {status:"PASS",implementation:"ApprovedHome + capability refinement + Interactive route + public Hello route",checks:43,dependencyClosure};
+  // Previous aggregate: 43; add dedicated How We Work, AI FAQ, sitemap, and navigation contracts.
+  return {status:"PASS",implementation:"ApprovedHome + dedicated How We Work + capability refinement + Interactive route + public Hello route",checks:49,dependencyClosure};
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)console.log(await verifyPreviewSource(process.argv[2]));
 

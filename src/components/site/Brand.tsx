@@ -1,12 +1,13 @@
 import { Children, Fragment, cloneElement, isValidElement } from "react";
-import suffix from "@/content/site/brand-suffix.json";
+import wordmark from "@/content/site/brand-wordmark.json";
 export function Brand({ accent = false }: { accent?: boolean }) {
-  return <span className={`inline-brand${accent ? " brand-accent" : ""}`}><span className="sr-only">RVA3D</span><span className="brand-rva" aria-hidden="true"><span className="brand-r">R</span>VA</span><svg className="brand-three-d" viewBox={suffix.viewBox} aria-hidden="true" focusable="false"><path className="brand-three-glyph" d={suffix.threePath} /><path className="brand-d-glyph" d={suffix.dPath} transform={`translate(${suffix.dShift} 0)`} /></svg></span>;
+  return <span className={`inline-brand${accent ? " brand-accent" : ""}`}><span className="sr-only">RVA3D</span><svg className="brand-wordmark" viewBox={wordmark.viewBox} preserveAspectRatio="xMinYMid meet" aria-hidden="true" focusable="false"><g className="brand-rva"><path d={wordmark.rvaPath} /></g><g className="brand-three-d"><path className="brand-three-glyph" d={wordmark.threePath} /><path className="brand-d-glyph" d={wordmark.dPath} /></g></svg></span>;
 }
 
-// Previously RVA was a single text run; the R span allows variant-specific optical spacing.
-// The original combined suffix path remains in brand-suffix.json for restoration; split
-// glyph paths let reference 003's slightly more open 3/D spacing scale at every use size.
+/* Previous hybrid markup retained for restoration. It mixed live Geist text with a
+   separate suffix SVG, so browser font metrics could shift the approved relationship.
+   return <span className={`inline-brand${accent ? " brand-accent" : ""}`}><span className="sr-only">RVA3D</span><span className="brand-rva" aria-hidden="true"><span className="brand-r">R</span>VA</span><svg className="brand-three-d" viewBox={suffix.viewBox} aria-hidden="true" focusable="false"><path className="brand-three-glyph" d={suffix.threePath} /><path className="brand-d-glyph" d={suffix.dPath} transform={`translate(${suffix.dShift} 0)`} /></svg></span>;
+*/
 
 /** Only authored React copy is transformed: never attributes, HTML, URLs or DOM. */
 export function BrandText({ text }: { text: string }) {

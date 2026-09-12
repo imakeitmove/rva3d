@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
@@ -18,8 +19,37 @@ import {
   RVA3D_AUTHORED_BOUNDS,
 } from "../src/components/why-rva3d/logoComposition.ts";
 import { WHY_RVA3D_TIMELINE } from "../src/components/why-rva3d/whyRva3dTimeline.ts";
+import { buyerFaqs } from "../src/content/site/how-we-work.ts";
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+
+test("How We Work preserves the original FAQ set and adds the approved AI answer once", () => {
+  const questions = buyerFaqs.map(([question]) => question);
+  assert.deepEqual(questions, [
+    "Who does RVA3D work with?",
+    "What happens after I get in touch?",
+    "How are projects priced?",
+    "How long is an estimate valid?",
+    "When does a project get scheduled?",
+    "How are payments handled?",
+    "How do revisions work?",
+    "Can I get the working or source files?",
+    "Can RVA3D plug into an existing production or agency workflow?",
+    "Do you take rush projects?",
+    "Can RVA3D work under confidentiality or an NDA?",
+    "Does RVA3D use AI?",
+    "What happens if a project needs more hands?",
+  ]);
+  assert.equal(buyerFaqs.length, 13);
+  assert.equal(questions.filter((question) => question === "Does RVA3D use AI?").length, 1);
+  const aiAnswer = buyerFaqs[11][1];
+  assert.equal(aiAnswer.split(/\n\s*\n/).length, 6);
+  assert.equal(
+    createHash("sha256").update(aiAnswer).digest("hex"),
+    "fc93d8a4b2c420d7e1c18ff8b2ab037f06b15602d34ea741103a069d03424056",
+  );
+  assert.doesNotMatch(aiAnswer, /model training|copyright ownership|dataset provenance|AI vendor|AI-free|contractual AI/i);
+});
 
 function syntheticStudy() {
   const poster = {
@@ -986,12 +1016,14 @@ test("Work incrementally reveals inventory without replacing earlier projects", 
   }
 });
 test("buyer-confidence copy and distinct project interaction contracts stay scoped", async () => {
-  const [home,work,cap,editorial,header,css,about,contact,aboutCss,brand] = await Promise.all([
+  const [home,work,cap,editorial,header,css,about,howWeWork,howWeWorkContent,contact,aboutCss,brand,fragments,proxy,sitemap] = await Promise.all([
     "src/lib/site/home-template.mjs","src/components/site/WorkPages.tsx",
     "src/content/site/capability-editorial.ts","src/components/site/CapabilityEditorial.tsx",
     "src/components/site/Header.tsx","public/site-assets/complete-site.css",
-    "src/components/site/AboutEditorial.tsx","src/components/site/Contact.tsx",
+    "src/components/site/AboutEditorial.tsx","src/components/site/HowWeWork.tsx",
+    "src/content/site/how-we-work.ts","src/components/site/Contact.tsx",
     "src/components/site/editorial-refinement.css","src/components/site/Brand.tsx",
+    "src/components/site/MovedAboutFragments.tsx","src/proxy.ts","src/app/sitemap.ts",
   ].map(file => readFile(resolve(projectRoot,file),"utf8")));
   const activeHome = home.split("\n").filter(line => !line.trim().startsWith("//")).join("\n");
   const activeWork = work.split("// Superseded four-card")[0].replace(/\{\/\*[\s\S]*?\*\/\}/g, "");
@@ -1003,21 +1035,31 @@ test("buyer-confidence copy and distinct project interaction contracts stay scop
   assert.match(activeWork,/data-project-mode="inventory"/); assert.match(activeWork,/data-project-load-more/);
   assert.doesNotMatch(activeWork,/data-project-direction/); assert.match(activeWork,/Showing \{initialCount\} of \{studies.length\} projects/);
   assert.doesNotMatch(activeWork,/Selected work \/ 01/);
-  assert(activeWork.includes("We’ve brought characters to life. Made ideas memorable. And advertised the hell out of things! We’d love to elevate your idea, too."));
+  assert(activeWork.includes("We’ve brought characters to life. Made ideas memorable."));
+  assert(activeWork.includes("And advertised the hell out of things! We’d love to elevate your idea, too."));
   for (const copy of ["Imaging anything you can imagine.","No detail is too small.","Moving messages make moving messages.","Wait what did you change?","Bring in the render-enforcements!"]) assert(activeCap.includes(copy));
   assert(activeCap.includes("Use design in motion to draw attention and make a message stick."));
   assert(activeCap.includes("Bring the footage or production question; we’ll work out the rest!"));
   assert.match(editorial,/WE ARE ON YOUR TEAM/); assert.match(editorial,/We&#8217;ll help you/);
   assert.match(editorial,/capability-story-actions/); assert.match(header,/nav-client-login/);
   assert.match(css,/--control-bg:var\(--rva-purple\);--control-fg:#fff/);
-  assert.match(css,/data-project-mode="inventory".*grid-template-columns:minmax\(0,1fr\) auto minmax\(0,1fr\)/);
-  for (const id of ["how-we-work","faq","collaborate"]) assert(about.includes(`id="${id}"`));
-  for (const step of ["Talk","Define","Make","Refine","Deliver"]) assert(about.includes(`["${step}"`));
-  for (const question of ["Who does RVA3D work with?","How are projects priced?","How do revisions work?","Do you take rush projects?","What happens if a project needs more hands?"]) assert(about.includes(question));
-  assert.match(about,/<details key=\{question\}><summary data-brand-copy="plain">/); assert.doesNotMatch(about,/1\.5×|1\.5x/);
+  assert.match(css,/data-project-mode="inventory".*flex-direction:column/);
+  assert.match(about,/export function AboutEditorial\(\)/);
+  assert(about.includes('id="collaborate"'));
+  for (const id of ["working-together","process","communication","faq"]) assert(howWeWork.includes(`id="${id}"`));
+  for (const step of ["Talk","Define","Make","Refine","Deliver"]) assert(howWeWorkContent.includes(`["${step}"`));
+  for (const question of ["Who does RVA3D work with?","How are projects priced?","How do revisions work?","Does RVA3D use AI?","What happens if a project needs more hands?"]) assert(howWeWorkContent.includes(question));
+  assert.match(howWeWork,/<summary data-brand-copy="plain">\{question\}<\/summary>/); assert.doesNotMatch(howWeWorkContent,/1\.5×|1\.5x/);
   assert.match(brand,/child\.type === "summary" && child\.props\["data-brand-copy"\] === "plain"/);
   assert.match(aboutCss,/\.faq-list summary\{[^}]*min-height:68px/);
-  for (const anchor of ["how-we-work","faq","collaborate"]) assert(contact.includes(`siteHref("/about#${anchor}")`));
+  assert(contact.includes('siteHref("/how-we-work")'));
+  assert(contact.includes('siteHref("/how-we-work#faq")'));
+  assert(contact.includes('siteHref("/about#collaborate")'));
+  assert.match(fragments,/\["#how-we-work", "\.\/how-we-work#process"\]/);
+  assert.match(fragments,/\["#faq", "\.\/how-we-work#faq"\]/);
+  assert.match(fragments,/window\.location\.replace/);
+  assert.match(proxy,/how-we-work\\\/\?\$/);
+  assert.match(sitemap,/\$\{SITE_URL\}\/how-we-work/);
   assert.match(css,/outline:3px solid #fff!important/);
 });
 

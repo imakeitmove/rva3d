@@ -1,10 +1,13 @@
 /* V008 overrides only. Archived V007 retains every superseded declaration. */
+.v008 .site-header .brand{font-size:20px;line-height:1;display:inline-flex;align-items:center;width:64px;height:24px;color:inherit;}
+.v008 .site-header[data-tone="paper"] .brand-three-d{color:var(--rva-purple);}
+/* Previous hybrid optical calibration retained for restoration. The canonical
+   SVG now bakes these relationships into one coordinate system.
 .v008{--v-brand-optical-rise:-.055em;}
 .v008 .brand-three-d{transform:translateY(var(--v-brand-optical-rise));}
-.v008 .site-header .brand{font-size:20px;line-height:1;display:inline-flex;align-items:center;width:64px;height:24px;color:inherit;}
 .v008 .site-header .brand-rva{font-weight:900;letter-spacing:-.075em;}
 .v008 .site-header .brand-three-d{margin-left:.035em;color:var(--rva-signal);}
-.v008 .site-header[data-tone="paper"] .brand-three-d{color:var(--rva-purple);}
+*/
 .v008 #hero-case-link{color:var(--rva-signal);font-weight:650;}
 .v008 #hero-case-link:hover{text-decoration:underline;text-underline-offset:4px;}
 .v008 .v-intro{display:block;padding-top:30px;padding-bottom:64px;}

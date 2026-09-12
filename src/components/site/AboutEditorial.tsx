@@ -5,6 +5,8 @@ import { Brand } from "./Brand";
 import { siteHref } from "@/lib/site/paths";
 import home from "@/content/site/home.generated.json";
 import editorial from "@/content/site/editorial.generated.json";
+import { EditorialPageNav } from "./EditorialPageNav";
+import { MovedAboutFragments } from "./MovedAboutFragments";
 
 const processSteps = [
   ["Talk", "Start with the problem, audience, deliverables, timing, existing materials, constraints, and what success needs to look like."],
@@ -75,7 +77,9 @@ const buyerFaqs = [
   ],
 ];
 
-export function AboutEditorial() {
+// Retained as an exported legacy composition for restoration. The active About
+// page below moves project-process content to the dedicated How We Work route.
+export function AboutEditorialLegacy() {
   return <Shell><div className="about-editorial">
     <section className="about-ground editorial-width" data-tone="paper">
       <div className="about-positioning"><p className="label">Richmond, Virginia / RVA3D</p><h1>Rendered with<br /><em>confidence.</em></h1><p className="editorial-lead"><Brand /> is led by Deven Langston, a Richmond, Virginia-based animator with nearly 20 years of experience across motion design, 3D animation, visual effects, and production.</p><p className="editorial-lead about-kicker">Got a graphics challenge? We’ll figure it out!</p></div>
@@ -103,6 +107,117 @@ export function AboutEditorial() {
     <section className="review-story-dark" data-tone="void" aria-labelledby="review-story-title"><div className="editorial-width review-dark-grid"><div className="review-intro"><p className="label">Communication with a purpose</p><h2 id="review-story-title">No mystery<br />in the middle.</h2><p>You’ll get meaningful updates while work is underway and a clear review when something needs your decision.</p><p className="review-intent">Reviews are designed to stay organized in one place instead of disappearing into scattered email threads.</p><a className="about-collaborator-link" href={siteHref("/about#collaborate")}>Freelance collaborator? See how to work together <span aria-hidden="true">↘</span></a></div><div className="communication-compact"><article><p className="label">Update</p><h3>Where we are.</h3><p>What changed, what happens next and whether you need to do anything.</p></article><article><p className="label">Review</p><h3>What to look at.</h3><p>The version, the question and the feedback or approval needed to move forward.</p></article></div></div></section>
     <section className="collaborate-section" id="collaborate" data-tone="paper" aria-labelledby="collaborate-title"><div className="editorial-width collaborate-grid"><div><p className="label">Freelance collaborators</p><h2 id="collaborate-title">Collaborate with <Brand /></h2></div><div className="collaborate-copy"><p><Brand /> occasionally brings in freelance artists, animators, designers, compositors, technical specialists and other production partners when a project needs extra hands or a specific skill set.</p><p>If you make excellent work and think we might be useful to each other, say hello.</p><a className="button collaborate-email" href="mailto:hello@rva3d.com?subject=Freelance%20collaborator">Email <Brand /> <span aria-hidden="true">↗</span></a><p className="collaborate-note">Portfolio, specialty, location or time zone, primary tools and a rough rate range are useful.</p></div></div></section>
   </div></Shell>;
+}
+
+export function AboutEditorial() {
+  return (
+    <Shell>
+      <div className="about-editorial">
+        <MovedAboutFragments />
+        <section className="about-ground editorial-width" data-tone="paper">
+          <div className="about-positioning">
+            <EditorialPageNav current="about" />
+            <p className="label">Richmond, Virginia / RVA3D</p>
+            <h1>
+              Rendered with
+              <br />
+              <em>confidence.</em>
+            </h1>
+            <p className="editorial-lead">
+              <Brand /> is a Richmond-based creative studio led by Deven Langston.
+              His experience across motion design, 3D animation, visual effects and
+              production predates the studio name and spans nearly 20 years.
+            </p>
+            <p className="editorial-lead about-kicker">
+              Got a graphics challenge? We’ll figure it out!
+            </p>
+          </div>
+          <Image
+            className="grounded-portrait"
+            src={home.portrait}
+            width={955}
+            height={1000}
+            alt="Deven Langston, RVA3D founder"
+            unoptimized
+            priority
+          />
+        </section>
+
+        <section
+          className="direct-relationship editorial-width"
+          data-tone="paper"
+          aria-labelledby="direct-title"
+        >
+          <figure>
+            <Image
+              src={editorial.relationshipPhoto}
+              width={8192}
+              height={5464}
+              alt="Deven in profile beside a colorful arrangement of cameras and creative objects"
+              unoptimized
+            />
+            <figcaption>
+              A different perspective. Deven, among the tools of the trade.
+            </figcaption>
+          </figure>
+          <div>
+            <p className="label">A direct creative relationship</p>
+            <h2 id="direct-title">Work directly with the person making the work.</h2>
+            <p>
+              RVA3D is senior-led by design. You work directly with Deven from the
+              first conversation through final delivery. Bring the rough idea,
+              references, CAD, script or footage. Together, we find the clearest way
+              to show it.
+            </p>
+            <p>
+              Then Deven takes responsibility for making it happen: sharing meaningful
+              progress while decisions are easy to change, keeping the next step clear
+              and raising problems while there are still good options.
+            </p>
+          </div>
+        </section>
+
+        {/* Process, communication, and FAQ remain preserved in the legacy export
+            above and are now presented on the dedicated How We Work page. */}
+        <section
+          className="collaborate-section"
+          id="collaborate"
+          data-tone="paper"
+          aria-labelledby="collaborate-title"
+        >
+          <div className="editorial-width collaborate-grid">
+            <div>
+              <p className="label">Freelance collaborators</p>
+              <h2 id="collaborate-title">
+                Collaborate with <Brand />
+              </h2>
+            </div>
+            <div className="collaborate-copy">
+              <p>
+                <Brand /> occasionally brings in freelance artists, animators,
+                designers, compositors, technical specialists and other production
+                partners when a project needs extra hands or a specific skill set.
+              </p>
+              <p>
+                If you make excellent work and think we might be useful to each other,
+                say hello.
+              </p>
+              <a
+                className="button collaborate-email"
+                href="mailto:hello@rva3d.com?subject=Freelance%20collaborator"
+              >
+                Give us a shout <span aria-hidden="true">↗</span>
+              </a>
+              <p className="collaborate-note">
+                Portfolio, specialty, location or time zone, primary tools and a rough
+                rate range are useful.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </Shell>
+  );
 }
 
 // Previous V1 communication section retained for restoration; V2 moves it after process.

@@ -3,10 +3,16 @@
 .v003 [hidden] { display:none !important; }
 .sr-only { position:absolute!important; width:1px!important; height:1px!important; padding:0!important; margin:-1px!important; overflow:hidden!important; clip:rect(0,0,0,0)!important; white-space:nowrap!important; border:0!important; }
 .inline-brand { white-space:nowrap; display:inline; }
-.brand-rva { font-weight:750; }
-/* Exact glyph outlines with the accepted header's optical stroke (not an invented bold face). */
-.brand-three-d { fill:currentColor; stroke:currentColor; stroke-width:3.6; paint-order:stroke fill; width:1.14em; height:.76em; display:inline-block; vertical-align:-.016em; overflow:visible; margin-left:.035em; }
+/* One SVG owns the approved Geist-derived RVA and purchased 3D outlines. Its
+   .71em box equals the Geist cap height and the whole mark shares one baseline. */
+.brand-wordmark { width:3.033717em; height:.71em; display:inline-block; vertical-align:baseline; overflow:visible; shape-rendering:geometricPrecision; }
+.brand-rva { color:inherit; fill:currentColor; }
+.brand-three-d { color:inherit; fill:currentColor; stroke:currentColor; stroke-width:44.6; paint-order:stroke fill; }
 .brand-accent .brand-three-d { color:var(--rva-signal); }
+/* Previous hybrid-layout rules retained for restoration.
+.brand-rva { font-weight:750; }
+.brand-three-d { fill:currentColor; stroke:currentColor; stroke-width:3.6; paint-order:stroke fill; width:1.14em; height:.76em; display:inline-block; vertical-align:-.016em; overflow:visible; margin-left:.035em; }
+*/
 .v003 .site-header { position:sticky; top:0; z-index:100; background:var(--header-bg,var(--rva-void)); color:var(--header-ink,var(--rva-paper)); border-color:transparent; backdrop-filter:none; transition:background-color .32s,color .32s; }
 .v003 .site-header.cross-tone { transition:none; }
 .v003 .header-inner { height:76px; min-height:76px; width:min(1920px,calc(100% - 80px)); border-bottom:0; }

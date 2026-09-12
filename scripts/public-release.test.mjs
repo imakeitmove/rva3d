@@ -12,18 +12,63 @@ import {
   validatePublicApprovedCaseStudy,
 } from "../src/content/work/index.ts";
 import { isPublicMediaEntry } from "../src/lib/site/publication.ts";
-import { publicInquiryDeliveryEnabled } from "../src/lib/site/runtime-environment.ts";
+import {
+  publicInquiryDeliveryEnabled,
+  publicRobotsPolicy,
+} from "../src/lib/site/runtime-environment.ts";
 import { verifyPublicApprovedRelease } from "./verify-public-release.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
-test("public inquiry delivery is limited to an actual Vercel Production target", () => {
+test("public robots and inquiry delivery are limited to an actual Vercel Production target", () => {
+  const indexable = { index: true, follow: true };
+  const privateRobots = { index: false, follow: false, noarchive: true };
+  assert.deepEqual(publicRobotsPolicy({ VERCEL_ENV: "production" }), indexable);
+  assert.deepEqual(
+    publicRobotsPolicy({ VERCEL_ENV: "production", VERCEL_TARGET_ENV: "production" }),
+    indexable,
+  );
+  assert.deepEqual(
+    publicRobotsPolicy({ VERCEL_ENV: "preview", VERCEL_TARGET_ENV: "preview" }),
+    privateRobots,
+  );
+  assert.deepEqual(
+    publicRobotsPolicy({ VERCEL_ENV: "production", VERCEL_TARGET_ENV: "preview" }),
+    privateRobots,
+  );
   assert.equal(publicInquiryDeliveryEnabled({ VERCEL_ENV: "production" }), true);
   assert.equal(publicInquiryDeliveryEnabled({ VERCEL_ENV: "production", VERCEL_TARGET_ENV: "production" }), true);
   assert.equal(publicInquiryDeliveryEnabled({ VERCEL_ENV: "preview", VERCEL_TARGET_ENV: "preview" }), false);
   assert.equal(publicInquiryDeliveryEnabled({ VERCEL_ENV: "production", VERCEL_TARGET_ENV: "preview" }), false);
   assert.equal(publicInquiryDeliveryEnabled({ VERCEL_ENV: "preview", VERCEL_TARGET_ENV: "production" }), false);
   assert.equal(publicInquiryDeliveryEnabled({ NODE_ENV: "production" }), false);
+});
+
+test("all rendered wordmarks share the approved immutable SVG geometry", async () => {
+  const [wordmark, component, template, completeCss, baseCss, workCss, helloCss] = await Promise.all([
+    fs.readFile(path.join(root, "src/content/site/brand-wordmark.json"), "utf8").then(JSON.parse),
+    fs.readFile(path.join(root, "src/components/site/Brand.tsx"), "utf8"),
+    fs.readFile(path.join(root, "src/lib/site/brand.mjs"), "utf8"),
+    fs.readFile(path.join(root, "public/site-assets/complete-site.css"), "utf8"),
+    fs.readFile(path.join(root, "public/site-assets/v003.css"), "utf8"),
+    fs.readFile(path.join(root, "public/site-assets/v008.css"), "utf8"),
+    fs.readFile(path.join(root, "src/app/(three)/hello/hello.module.css"), "utf8"),
+  ]);
+
+  assert.equal(wordmark.viewBox, "0 0 3033.717 710");
+  assert.equal(wordmark.ratio, 4.272841);
+  assert.equal(wordmark.capHeightEm, 0.71);
+  for (const key of ["rvaPath", "threePath", "dPath"]) {
+    assert.match(wordmark[key], /^M/);
+  }
+  assert.match(component, /import wordmark from "@\/content\/site\/brand-wordmark\.json"/);
+  assert.match(component, /<g className="brand-rva"><path d=\{wordmark\.rvaPath\}/);
+  assert(template.includes("import wordmark") && template.includes("brand-wordmark.json"));
+  assert.match(template, /class='brand-wordmark'/);
+  assert.match(baseCss, /\.brand-wordmark \{ width:3\.033717em; height:\.71em;/);
+  assert.match(completeCss, /\.inline-brand \.brand-wordmark \{ width:3\.033717em;height:\.71em;/);
+  assert.match(workCss, /Previous hybrid optical calibration retained for restoration/);
+  assert.match(helloCss, /Previous hybrid RVA\/suffix overrides retained for restoration/);
 });
 
 test("contact delivery records the Resend provider ID and ignores the retired manual launch flag", async () => {
