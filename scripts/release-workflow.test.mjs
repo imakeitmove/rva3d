@@ -83,6 +83,7 @@ test("raw Vercel Production builds must also pass the staged-package guard", asy
   assert(guard.includes("remoteProject.projectId"));
   assert(guard.includes("remoteProject.orgId"));
   assert(guard.includes("remoteProject.projectName"));
+  assert(guard.includes("Vercel generated an unexpected remote project-file shape"));
 });
 
 test("the guide distinguishes pushing main from releasing Production", async () => {

@@ -52,7 +52,8 @@ protected-preview behavior are fixed when that artifact is built.
    regression-tested normalized byte sequence and rejects any other rewrite.
    Vercel also regenerates `.vercel/project.json` inside the build container,
    so the local link file is hash-checked before upload while the remote gate
-   verifies its project/team/name fields and Vercel's authoritative project ID.
+   verifies its project/team IDs, pins the observed omission of the cosmetic
+   project-name field, and verifies Vercel's authoritative project ID.
 7. Verify the deployment-specific URL, then confirm `rva3d.com`,
    `www.rva3d.com`, and the expected Vercel Production alias point to that same
    verified deployment. Recheck public routes, private review boundaries, and

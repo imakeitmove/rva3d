@@ -70,7 +70,11 @@ export async function verifyPreparedSource(root = process.cwd(), expectedTarget)
         );
         assert.equal(remoteProject.projectId, release.destination.projectId);
         assert.equal(remoteProject.orgId, release.destination.orgId);
-        assert.equal(remoteProject.projectName, release.destination.projectName);
+        assert.equal(
+          remoteProject.projectName,
+          undefined,
+          "Vercel generated an unexpected remote project-file shape",
+        );
         if (process.env.VERCEL_ORG_ID) {
           assert.equal(process.env.VERCEL_ORG_ID, release.destination.orgId);
         }
