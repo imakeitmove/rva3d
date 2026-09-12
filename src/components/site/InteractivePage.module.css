@@ -1,0 +1,158 @@
+.page {
+  overflow: clip;
+  background: var(--rva-paper);
+  color: var(--rva-void);
+  font-family: var(--font-geist-sans), sans-serif;
+}
+
+.hero {
+  padding: 132px 0 86px;
+  background: #171b25;
+  color: var(--rva-paper);
+}
+
+.width {
+  width: min(1280px, calc(100% - 96px));
+  margin-inline: auto;
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(340px, 1.55fr);
+  gap: 58px;
+  align-items: end;
+}
+
+.label {
+  margin: 0 0 20px;
+  color: #cdb9f1;
+  font: 11px/1.5 var(--font-geist-mono), monospace;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+}
+
+.intro h1 {
+  margin: 0;
+  font-size: clamp(58px, 8vw, 124px);
+  font-weight: 520;
+  letter-spacing: -0.065em;
+  line-height: 0.9;
+}
+
+.introCopy {
+  max-width: 34ch;
+  margin: 0 0 4px;
+  color: #dddbe3;
+  font-size: clamp(19px, 1.6vw, 24px);
+  line-height: 1.5;
+}
+
+.doodad {
+  margin-top: 54px;
+}
+
+.future {
+  padding: 86px 0 100px;
+  background: var(--rva-paper);
+}
+
+.futureGrid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 70px;
+  align-items: start;
+}
+
+.future .label {
+  color: var(--rva-purple);
+}
+
+.future h2 {
+  max-width: 15ch;
+  margin: 0;
+  font-size: clamp(38px, 4.4vw, 66px);
+  font-weight: 510;
+  letter-spacing: -0.05em;
+  line-height: 1.04;
+}
+
+.futureCopy {
+  max-width: 48ch;
+  margin: 0 0 28px;
+  font-size: 19px;
+  line-height: 1.65;
+}
+
+.directions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.directions li {
+  padding: 8px 12px;
+  border: 1px solid rgba(8, 10, 9, 0.24);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+@media (max-width: 900px) {
+  .width {
+    width: calc(100% - 64px);
+  }
+
+  .intro {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .doodad {
+    margin-top: 38px;
+  }
+
+  .futureGrid {
+    gap: 38px;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero {
+    padding: 108px 0 52px;
+  }
+
+  .width {
+    width: calc(100% - 40px);
+  }
+
+  .intro h1 {
+    font-size: clamp(54px, 18vw, 82px);
+  }
+
+  .introCopy {
+    font-size: 18px;
+  }
+
+  .doodad {
+    margin-top: 30px;
+  }
+
+  .future {
+    padding: 58px 0 68px;
+  }
+
+  .futureGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .future h2 {
+    font-size: 42px;
+  }
+
+  .futureCopy {
+    font-size: 18px;
+  }
+}

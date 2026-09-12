@@ -1,0 +1,23 @@
+/* V006 requested micro-polish only; V005 remains the approved composition. */
+.v006{--v-purple-height:112px;}
+.v006 .v-purple-info{padding:12px 0;gap:20px;}
+.v006 #viewer-title{font-size:clamp(1.3rem,1.7vw,1.85rem);}
+.v006 #viewer-meta{margin-top:8px;}
+/* Preserve V005 actual viewer height while slimming the information band below it. */
+.v006 .v-viewer-stage{height:clamp(260px,calc(100svh - var(--v-header-height) - var(--v-ribbon-height) - 190px - 16px),760px);}
+.v006 .v-viewer-stage:fullscreen{height:100%;}
+.v006 .v-fullscreen>span,.v006 .v-viewer-fullscreen>span{font:30px/1 Arial,sans-serif;color:var(--rva-signal);}
+.v006 .v-viewer-fullscreen{background:transparent;filter:drop-shadow(0 1px 3px #000);}
+.v006 .v-loop-toggle{background:transparent;border:0;box-shadow:none;opacity:1;filter:drop-shadow(0 1px 2px #000);}
+.v006 .v-case-study-link{color:var(--rva-signal);}
+.v006 .v-contact-form{padding-top:0;}
+.v006 .v-footer{grid-template-columns:1fr;gap:12px;}
+@media(max-width:640px){
+ .v006{--v-purple-height:144px;}
+ .v006 .v-purple-info{padding:10px 0;gap:2px;}
+ .v006 #viewer-title{font-size:20px;}
+ .v006 #viewer-meta{margin-top:6px;}
+ .v006 #viewer-case{min-height:36px;}
+ .v006 .v-viewer-stage{height:clamp(220px,calc(100svh - var(--v-header-height) - var(--v-ribbon-height) - 244px - 16px),420px);}
+ .v006 .v-viewer-stage:fullscreen{height:100%;}
+}

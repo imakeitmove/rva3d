@@ -1,0 +1,646 @@
+.feature {
+  position: relative;
+  min-height: 400vh;
+  min-height: 400svh;
+  border-block: 1px solid rgba(17, 20, 17, 0.2);
+  /* The former two linear-gradient layers drew the subtle background grid.
+     The scroll scene now uses only full-bleed color fields. */
+  background: var(--rva-paper);
+}
+
+.frame {
+  --feature-ink: var(--rva-paper);
+  --feature-lime-opacity: 0;
+  --feature-purple-opacity: 1;
+  --feature-sticky-top: 0px;
+  position: sticky;
+  top: var(--feature-sticky-top);
+  height: calc(100vh - var(--feature-sticky-top));
+  height: calc(100svh - var(--feature-sticky-top));
+  overflow: hidden;
+  padding-inline:
+    max(2rem, calc((100vw - 96rem) / 2));
+  background: var(--rva-paper);
+  color: var(--feature-ink);
+  isolation: isolate;
+}
+
+.frame::before,
+.frame::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  transition: opacity 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity;
+}
+
+.frame::before {
+  background:
+    radial-gradient(
+      circle at 17% 16%,
+      rgba(180, 119, 255, 0.98) 0%,
+      rgba(126, 63, 226, 0.72) 25%,
+      transparent 53%
+    ),
+    radial-gradient(
+      circle at 82% 76%,
+      rgba(103, 44, 211, 0.92) 0%,
+      transparent 49%
+    ),
+    linear-gradient(135deg, #251044 0%, #5121a9 47%, #32105f 100%);
+  opacity: var(--feature-purple-opacity);
+}
+
+.frame::after {
+  background:
+    radial-gradient(
+      circle at 20% 12%,
+      rgba(255, 255, 255, 0.25),
+      transparent 37%
+    ),
+    radial-gradient(
+      circle at 84% 88%,
+      rgba(8, 122, 20, 0.42),
+      transparent 46%
+    ),
+    linear-gradient(
+      135deg,
+      var(--rva-signal) 0%,
+      #cdfc35 58%,
+      #aee32a 100%
+    );
+  opacity: var(--feature-lime-opacity);
+}
+
+.frame[data-feature-state="0"],
+.frame[data-feature-state="1"] {
+  --feature-ink: var(--rva-paper);
+  --feature-lime-opacity: 0;
+  --feature-purple-opacity: 1;
+}
+
+.frame[data-feature-state="2"] {
+  --feature-ink: var(--rva-void);
+  --feature-lime-opacity: 0;
+  --feature-purple-opacity: 0;
+}
+
+.frame[data-feature-state="3"] {
+  --feature-ink: var(--rva-void);
+  --feature-lime-opacity: 1;
+  --feature-purple-opacity: 0;
+}
+
+.frame.framePreviewing {
+  --feature-ink: var(--rva-paper);
+}
+
+/* The former .topLine block styled the removed "Why RVA3D" kicker. */
+
+.previewBackground {
+  position: absolute;
+  z-index: 0;
+  inset:
+    var(--portfolio-ribbon-block-height, 0px)
+    0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity;
+}
+
+.previewBackground::after {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(8, 10, 9, 0.5) 0%,
+      rgba(8, 10, 9, 0.24) 48%,
+      rgba(8, 10, 9, 0.5) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(8, 10, 9, 0.14),
+      rgba(8, 10, 9, 0.32)
+    );
+  content: "";
+}
+
+.previewBackgroundActive {
+  opacity: 1;
+}
+
+.previewImage {
+  object-fit: cover;
+  transform: scale(1.012);
+  animation: preview-image-in 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.composition {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns:
+    minmax(19rem, 0.88fr)
+    minmax(30rem, 1.12fr);
+  gap: clamp(3rem, 7vw, 8rem);
+  align-items: center;
+  height: calc(
+    100% -
+    var(--portfolio-ribbon-block-height, 0px) -
+    var(--portfolio-ribbon-block-height, 0px)
+  );
+  min-height: 0;
+  margin-block: var(--portfolio-ribbon-block-height, 0px);
+  padding-block: clamp(0.75rem, 2vw, 2rem);
+}
+
+.visualColumn {
+  display: grid;
+  align-self: stretch;
+  align-content: center;
+  justify-items: center;
+  min-width: 0;
+}
+
+.supportingCopy {
+  max-width: 31rem;
+  margin: clamp(0.75rem, 1.8vw, 1.5rem) 0 0;
+  color: inherit;
+  font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+  line-height: 1.58;
+  opacity: 0.78;
+}
+
+.headlineStage {
+  align-self: center;
+  min-width: 0;
+  perspective: 900px;
+  perspective-origin: 48% 42%;
+}
+
+.headlineStage h2 {
+  display: grid;
+  min-height: clamp(16rem, 28vw, 28rem);
+  align-content: center;
+  margin: 0;
+  color: inherit;
+  font-weight: 690;
+  letter-spacing: -0.075em;
+  line-height: 0.82;
+  transform-style: preserve-3d;
+}
+
+.headlineWord {
+  --slam-rotate-x: -17deg;
+  --slam-rotate-y: 4deg;
+  --slam-x: -1.6rem;
+  --slam-y: -0.9em;
+  --slam-z: 520px;
+  display: block;
+  min-width: 0;
+  opacity: 0;
+  backface-visibility: hidden;
+  filter: blur(9px);
+  text-wrap: balance;
+  transform:
+    translate3d(var(--slam-x), var(--slam-y), var(--slam-z))
+    rotateX(var(--slam-rotate-x))
+    rotateY(var(--slam-rotate-y));
+  transform-origin: 50% 70%;
+  transform-style: preserve-3d;
+  will-change: filter, opacity, transform;
+}
+
+.addWord,
+.dimensionWord {
+  font-size: clamp(3.8rem, 7.2vw, 8.2rem);
+}
+
+.dimensionWord {
+  --slam-rotate-y: -3deg;
+  --slam-x: 1.35rem;
+}
+
+.completionWord {
+  --slam-rotate-x: -13deg;
+  --slam-rotate-y: 2deg;
+  --slam-x: -0.9rem;
+  margin-top: 0.18em;
+  font-size: clamp(2.25rem, 4.4vw, 4.8rem);
+  letter-spacing: -0.065em;
+  line-height: 0.92;
+  white-space: nowrap;
+}
+
+.wordLanded {
+  animation: headline-slam 560ms cubic-bezier(0.16, 0.84, 0.2, 1) both;
+}
+
+.brandLockup {
+  display: grid;
+  align-self: stretch;
+  align-content: center;
+  justify-items: center;
+  min-width: 0;
+}
+
+.setupPhrase {
+  z-index: 2;
+  margin: 0 0 0.15rem;
+  color: inherit;
+  font-size: clamp(0.82rem, 1vw, 1rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  opacity: 0.76;
+  white-space: nowrap;
+}
+
+.modelStage {
+  position: relative;
+  width: min(100%, 31rem);
+  min-width: 0;
+  aspect-ratio: 1.46;
+  cursor: grab;
+  isolation: isolate;
+  touch-action: pan-y;
+}
+
+/* The previous :active cursor could outlive an interrupted pointer session.
+   The explicit canvas drag marker below now mirrors the real drag lifecycle.
+.modelStage:active {
+  cursor: grabbing;
+}
+*/
+
+.modelStage:has(canvas[data-model-dragging]) {
+  cursor: grabbing;
+}
+
+/* Pointer focus on the canvas previously triggered focus-within and drew the
+   purple rectangle during every drag. Keep the same accessible treatment,
+   but expose it only for keyboard-visible focus. */
+.modelStage:has(> [role="group"]:focus-visible) {
+  outline: 2px solid currentColor;
+  outline-offset: 0.35rem;
+}
+
+.modelStage::after {
+  position: absolute;
+  z-index: 0;
+  right: 5%;
+  bottom: 7%;
+  left: 7%;
+  height: 21%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(12, 27, 10, 0.42) 0%,
+    rgba(20, 42, 14, 0.23) 38%,
+    rgba(31, 42, 26, 0.08) 62%,
+    transparent 76%
+  );
+  content: "";
+  filter: blur(18px);
+  pointer-events: none;
+  transform: translateY(24%) scaleX(1.06);
+}
+
+.modelStage canvas {
+  position: relative;
+  z-index: 1;
+  display: block;
+  filter: saturate(1.3) contrast(1.16);
+  touch-action: pan-y;
+}
+
+.modelFallback {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  font-size: clamp(5rem, 10vw, 8rem);
+  font-weight: 750;
+  letter-spacing: -0.12em;
+  text-shadow:
+    -2px -2px 0 #080a09,
+    2px -2px 0 #080a09,
+    -2px 2px 0 #080a09,
+    2px 2px 0 #080a09;
+  -webkit-text-stroke: 1px #080a09;
+}
+
+.frame[data-feature-state="2"] .modelFallback {
+  color: var(--rva-purple);
+}
+
+.frame[data-feature-state="3"] .modelFallback {
+  color: var(--rva-void);
+  text-shadow:
+    -2px -2px 0 var(--rva-depth-green),
+    2px -2px 0 var(--rva-depth-green),
+    -2px 2px 0 var(--rva-depth-green),
+    2px 2px 0 var(--rva-depth-green);
+  -webkit-text-stroke-color: var(--rva-depth-green);
+}
+
+.framePreviewing .modelFallback {
+  color: var(--rva-paper);
+  text-shadow:
+    -2px -2px 0 var(--rva-void),
+    2px -2px 0 var(--rva-void),
+    -2px 2px 0 var(--rva-void),
+    2px 2px 0 var(--rva-void);
+  -webkit-text-stroke-color: var(--rva-void);
+}
+
+.brandSignature {
+  display: grid;
+  width: clamp(7.5rem, 10vw, 9.5rem);
+  margin-top: -0.4rem;
+}
+
+.brandSignatureImage {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: auto;
+}
+
+.brandSignatureDark {
+  opacity: var(--feature-purple-opacity);
+}
+
+.brandSignatureLight {
+  opacity: calc(1 - var(--feature-purple-opacity));
+}
+
+.reasonStage {
+  display: grid;
+  min-width: 0;
+}
+
+.reason {
+  grid-area: 1 / 1;
+  align-self: center;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0.75rem);
+  transition:
+    opacity 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 420ms;
+}
+
+.reasonActive {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+
+.reason h3 {
+  max-width: 40rem;
+  margin: 0;
+  font-size: clamp(2.75rem, 4.4vw, 4.85rem);
+  font-weight: 520;
+  letter-spacing: -0.065em;
+  line-height: 0.96;
+}
+
+.reasonCopy {
+  max-width: 39rem;
+  margin: clamp(1.5rem, 2.5vw, 2.4rem) 0 0;
+  color: inherit;
+  font-size: clamp(1rem, 1.35vw, 1.22rem);
+  line-height: 1.65;
+  opacity: 0.76;
+}
+
+@media (max-width: 1100px) {
+  .composition {
+    grid-template-columns:
+      minmax(17rem, 0.82fr)
+      minmax(26rem, 1.18fr);
+    gap: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .reason h3 {
+    font-size: clamp(2.55rem, 4.9vw, 4rem);
+  }
+}
+
+@media (max-width: 760px) {
+  .frame {
+    padding-inline: 1.25rem;
+  }
+
+  .composition {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: clamp(0.4rem, 1.5svh, 0.8rem);
+    align-content: center;
+    padding-block: clamp(0.75rem, 2.4svh, 1.5rem);
+  }
+
+  .visualColumn {
+    grid-template-columns: minmax(8rem, 42vw) minmax(0, 1fr);
+    gap: 0.9rem;
+    align-self: auto;
+    align-items: center;
+    align-content: center;
+    justify-items: stretch;
+  }
+
+  .setupPhrase {
+    margin-bottom: 0;
+    font-size: clamp(0.75rem, 3.3vw, 0.86rem);
+  }
+
+  .modelStage {
+    width: 100%;
+  }
+
+  .supportingCopy {
+    margin: 0;
+    font-size: clamp(0.72rem, 2.5vw, 0.86rem);
+    line-height: 1.42;
+  }
+
+  .headlineStage {
+    width: 100%;
+    perspective: 620px;
+  }
+
+  .headlineStage h2 {
+    min-height: clamp(9.75rem, 34svh, 15rem);
+    align-content: center;
+  }
+
+  .headlineWord {
+    --slam-x: -0.65rem;
+    --slam-y: -0.55em;
+    --slam-z: 260px;
+    transform:
+      translate3d(var(--slam-x), var(--slam-y), var(--slam-z))
+      rotateX(-11deg)
+      rotateY(var(--slam-rotate-y));
+  }
+
+  .addWord,
+  .dimensionWord {
+    font-size: clamp(3rem, 13vw, 5.75rem);
+  }
+
+  .dimensionWord {
+    --slam-x: 0.55rem;
+  }
+
+  .completionWord {
+    --slam-x: -0.35rem;
+    font-size: clamp(2rem, 8.5vw, 3.8rem);
+  }
+
+  .brandSignature {
+    width: 6.25rem;
+    margin-top: -0.35rem;
+  }
+
+  .reasonStage {
+    min-height: 0;
+  }
+
+  .reason {
+    align-self: start;
+    transform: translateY(0.65rem);
+  }
+
+  .reasonActive {
+    transform: translateY(0);
+  }
+
+  .reason h3 {
+    font-size: clamp(2.1rem, 9vw, 3rem);
+  }
+
+  .reasonCopy {
+    margin-top: 1.15rem;
+    font-size: clamp(0.95rem, 4vw, 1.05rem);
+    line-height: 1.58;
+  }
+}
+
+@media (max-width: 360px) {
+  .frame {
+    padding-inline: 1rem;
+  }
+
+  .modelStage {
+    width: 100%;
+  }
+
+  .brandSignature {
+    width: 5.75rem;
+  }
+
+  .reason h3 {
+    font-size: 2rem;
+  }
+
+}
+
+@keyframes headline-slam {
+  0% {
+    opacity: 0;
+    filter: blur(9px);
+    text-shadow: 0 1.4rem 2.8rem rgba(8, 10, 9, 0.34);
+    transform:
+      translate3d(var(--slam-x), var(--slam-y), var(--slam-z))
+      rotateX(var(--slam-rotate-x))
+      rotateY(var(--slam-rotate-y));
+  }
+
+  68% {
+    opacity: 1;
+    filter: blur(0);
+    text-shadow: 0 0.2rem 0.5rem rgba(8, 10, 9, 0.2);
+    transform: translate3d(0, 0.035em, -13px) rotateX(1deg) rotateY(0);
+  }
+
+  84% {
+    opacity: 1;
+    filter: blur(0);
+    text-shadow: 0 0.08rem 0.18rem rgba(8, 10, 9, 0.14);
+    transform: translate3d(0, -0.01em, 5px) rotateX(-0.25deg) rotateY(0);
+  }
+
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    text-shadow: none;
+    transform: translate3d(0, 0, 0) rotateX(0) rotateY(0);
+  }
+}
+
+@keyframes preview-image-in {
+  from {
+    opacity: 0.45;
+    transform: scale(1.025);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1.012);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frame::before,
+  .frame::after {
+    will-change: auto;
+  }
+
+  .reason {
+    transition: none;
+  }
+
+  .previewBackground {
+    transition: opacity 80ms linear;
+    will-change: auto;
+  }
+
+  .previewImage {
+    animation: none;
+    transform: none;
+  }
+
+  .headlineWord {
+    filter: none;
+    transform: translateY(-0.35rem);
+    will-change: auto;
+  }
+
+  .wordLanded {
+    animation: headline-reveal-reduced 160ms ease-out both;
+  }
+}
+
+@keyframes headline-reveal-reduced {
+  from {
+    opacity: 0;
+    transform: translateY(-0.35rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

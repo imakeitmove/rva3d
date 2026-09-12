@@ -1,0 +1,25 @@
+import fs from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import {localBrowser,pause} from './candidate-browser.mjs';
+const b=await localBrowser(),checks=[];let requests=0;
+const check=async(name,fn)=>{try{checks.push({name,status:'PASS',evidence:await fn()});}catch(e){checks.push({name,status:'FAIL',evidence:e.message});}console.log(JSON.stringify(checks.at(-1)));};
+const go=async path=>{await b.send('Page.navigate',{url:'http://127.0.0.1:4321'+path});await pause(1100);};
+const field=async(name,text)=>{await b.evaluate(`document.querySelector('[name=${name}]').focus()`);await b.send('Input.insertText',{text});};
+const shot=async name=>{const r=await b.send('Page.captureScreenshot',{format:'png'});await fs.writeFile('docs/release-candidate/captures/final/'+name+'.png',Buffer.from(r.data,'base64'));};
+try{
+ await b.send('Network.enable');await b.send('Network.clearBrowserCookies');await b.send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+ await go('/review/login');await field('password','candidate-local-fixture-only');await b.evaluate("document.querySelector('form').requestSubmit()");await pause(1000);
+ await check('one labeled controlled submission; duplicate-click lock; provider acceptance',async()=>{
+ await go('/review/site/contact-test');assert.ok(await b.evaluate("!!document.querySelector('[name=controlledTest]')"));
+ await field('name','RVA3D Release Candidate Test');await field('email','hello@rva3d.com');await field('message','CONTROLLED RVA3D RELEASE CANDIDATE TEST, September 9, 2026. Verification of the actual inquiry form and existing delivery service. No prospect or collaborator is being contacted. No response is required.');
+ await b.evaluate("const s=document.querySelector('[name=inquiryType]');s.value='other';s.dispatchEvent(new Event('change',{bubbles:true}));document.querySelector('#inquiry').scrollIntoView({block:'center',behavior:'instant'})");await pause(200);
+ b.onEvent(m=>{if(m.method==='Network.requestWillBeSent'&&m.params.request.method==='POST'&&m.params.request.url.includes('/contact-test'))requests++;});
+ const pending=await b.evaluate("(()=>{const f=document.querySelector('#inquiry');f.requestSubmit();f.requestSubmit();return document.querySelector('#inquiry button').textContent})()");await shot('contact-pending');
+ for(let i=0;i<80;i++){if(await b.evaluate("document.querySelector('.form-result').textContent.length>20"))break;await pause(250);}
+ const message=await b.evaluate("document.querySelector('.form-result').textContent");await shot('contact-result');assert.equal(requests,1);assert.match(message,/accepted by our email provider/);assert.equal(await b.evaluate("document.querySelector('[name=name]').value"),'');return{requests,message,valuesCleared:true,pendingText:pending,inboxDelivery:'NOT VERIFIED'};
+ });
+ await check('AMSOIL optional development image decodes when its disclosure opens',async()=>{await go('/review/site/work/amsoil-xpd-wind-grease');await b.evaluate("document.querySelector('details').open=true;document.querySelector('details').scrollIntoView({block:'center',behavior:'instant'})");await pause(500);const ok=await b.evaluate("Promise.all([...document.querySelectorAll('details img')].map(i=>i.decode().then(()=>i.naturalWidth>0)))");assert.ok(ok.every(Boolean));await shot('amsoil-optional-development');return{images:ok.length};});
+ await check('phrase band remains legible when reached in ordinary page flow',async()=>{await go('/review/site/');await b.evaluate("document.querySelector('#statement').scrollIntoView({block:'center',behavior:'instant'})");await pause(600);const state=await b.evaluate("({text:document.querySelector('#band-phrase').textContent,progress:document.querySelector('#statement').dataset.progress})");assert.ok(Number(state.progress)>.5);await shot('phrase-in-view');return state;});
+ await check('inner media fullscreen and exit uses the shared directional control',async()=>{await go('/review/site/work/wawa-coffee-island');await b.evaluate("document.querySelector('.site-fullscreen').scrollIntoView({block:'center',behavior:'instant'})");await pause(300);const click=async()=>{const r=await b.evaluate("(()=>{const r=document.querySelector('.site-fullscreen').getBoundingClientRect();return{x:r.x+r.width/2,y:r.y+r.height/2}})()");await b.send('Input.dispatchMouseEvent',{type:'mousePressed',button:'left',clickCount:1,...r});await b.send('Input.dispatchMouseEvent',{type:'mouseReleased',button:'left',clickCount:1,...r});await pause(250);};await click();assert.ok(await b.evaluate('!!document.fullscreenElement'));await shot('case-fullscreen');await click();assert.ok(await b.evaluate('!document.fullscreenElement'));return true;});
+}finally{await fs.writeFile('docs/release-candidate/contact-and-extra-verification.json',JSON.stringify({checks,requests,scope:'Local actual production build, existing preview mail configuration; browser emulated'},null,2));await b.close();}
+if(checks.some(c=>c.status==='FAIL'))process.exitCode=1;

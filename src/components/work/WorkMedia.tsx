@@ -1,39 +1,54 @@
+import { BrandText } from "@/components/site/Brand";
 import Image from "next/image";
 
 import type { WorkMedia as WorkMediaRecord } from "@/content/work";
 
+import styles from "./WorkMedia.module.css";
+import { WorkVideo } from "./WorkVideo";
+
 type WorkMediaProps = {
   media: WorkMediaRecord;
   priority?: boolean;
+  privateDelivery?: boolean;
+  sizes?: string;
 };
 
-export function WorkMedia({ media, priority = false }: WorkMediaProps) {
+export function WorkMedia({
+  media,
+  priority = false,
+  privateDelivery = false,
+  sizes,
+}: WorkMediaProps) {
   if (media.kind === "video") {
     return (
-      <video
-        aria-label={media.alt}
-        controls
-        muted
-        playsInline
-        poster={media.poster.src}
-        preload="metadata"
-        width={media.width}
-        height={media.height}
-      >
-        <source src={media.src} type={media.mimeType} />
-        Your browser does not support embedded video.
-      </video>
+      <figure className={styles.figure}>
+        <WorkVideo
+          media={media}
+          priority={priority}
+          privateDelivery={privateDelivery}
+          sizes={sizes}
+        />
+        {media.caption ? (
+          <figcaption className={styles.caption}>{privateDelivery ? <BrandText text={media.caption} /> : media.caption}</figcaption>
+        ) : null}
+      </figure>
     );
   }
 
   return (
-    <Image
-      src={media.src}
-      alt={media.alt}
-      width={media.width}
-      height={media.height}
-      sizes="(max-width: 900px) 100vw, 80vw"
-      priority={priority}
-    />
+    <figure className={styles.figure}>
+      <Image
+        src={media.src}
+        alt={media.alt}
+        width={media.width}
+        height={media.height}
+        sizes={sizes ?? "(max-width: 900px) 100vw, 80vw"}
+        priority={priority}
+        unoptimized={privateDelivery}
+      />
+      {media.caption ? (
+        <figcaption className={styles.caption}>{privateDelivery ? <BrandText text={media.caption} /> : media.caption}</figcaption>
+      ) : null}
+    </figure>
   );
 }

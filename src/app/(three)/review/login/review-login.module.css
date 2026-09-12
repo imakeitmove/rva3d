@@ -1,0 +1,108 @@
+.page {
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  padding: 1.5rem;
+  background:
+    radial-gradient(circle at 82% 12%, rgba(215, 255, 67, 0.12), transparent 30rem),
+    #080a09;
+  color: #f3f1e9;
+}
+
+.panel {
+  box-sizing: border-box;
+  display: grid;
+  gap: clamp(2.5rem, 7vw, 5rem);
+  min-width: 0;
+  width: min(100%, 44rem);
+  padding: clamp(1.5rem, 5vw, 4rem);
+  border: 1px solid rgba(243, 241, 233, 0.18);
+  background: rgba(17, 20, 18, 0.88);
+}
+
+.brand {
+  width: max-content;
+  color: inherit;
+  font-size: 1.25rem;
+  font-weight: 760;
+  letter-spacing: -0.06em;
+  text-decoration: none;
+}
+
+.brand span,
+.eyebrow {
+  color: #d7ff43;
+}
+
+.eyebrow {
+  margin: 0 0 1rem;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.panel h1 {
+  margin: 0;
+  font-size: clamp(3rem, 10vw, 6.4rem);
+  font-weight: 470;
+  letter-spacing: -0.07em;
+  line-height: 0.92;
+}
+
+.introduction {
+  max-width: 34rem;
+  margin: 1.5rem 0 0;
+  color: #bfc2bc;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  line-height: 1.6;
+}
+
+.message {
+  margin: -1rem 0;
+  padding: 0.9rem 1rem;
+  border-left: 3px solid #d7ff43;
+  background: rgba(215, 255, 67, 0.07);
+  color: #e6e8e2;
+  line-height: 1.5;
+}
+
+.form {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.form label {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.form input[type="password"] {
+  min-height: 3.25rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid rgba(243, 241, 233, 0.38);
+  border-radius: 0;
+  background: #080a09;
+  color: #f3f1e9;
+  font: inherit;
+}
+
+.form button {
+  min-height: 3.25rem;
+  margin-top: 0.4rem;
+  border: 0;
+  background: #d7ff43;
+  color: #080a09;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 720;
+}
+
+.form input:focus-visible,
+.form button:focus-visible,
+.brand:focus-visible {
+  outline: 2px solid #d7ff43;
+  outline-offset: 4px;
+}

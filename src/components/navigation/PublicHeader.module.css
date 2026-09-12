@@ -1,0 +1,225 @@
+/* Local visual evaluation only. The ignored source file is CC BY-NC-ND and
+   must be replaced by a licensed webfont before any production deployment. */
+@font-face {
+  font-family: "Not Just Groovy Evaluation";
+  src:
+    local("Not Just Groovy"),
+    url("/fonts/local-evaluation/NotJustGroovy-enmp.ttf") format("truetype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.header {
+  --header-surface: #080a09;
+  --header-ink: #f3f1e9;
+  --header-link: #d1d1cb;
+  --header-line: rgba(243, 241, 233, 0.16);
+  --header-accent: #d7ff43;
+  --header-focus: #d7ff43;
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  width: 100%;
+  padding-top: env(safe-area-inset-top);
+  border-bottom: 1px solid var(--header-line);
+  background-color: var(--header-surface);
+  color: var(--header-ink);
+  isolation: isolate;
+  transition: background-color 320ms ease-in-out;
+}
+
+.header[data-nav-tone="light"] {
+  --header-ink: #0b0d0c;
+  --header-link: #252a25;
+  --header-line: rgba(11, 13, 12, 0.2);
+  --header-accent: #3f5600;
+  --header-focus: #263600;
+}
+
+.header[data-nav-transition="instant"],
+.header[data-nav-transition="instant"] .nav a,
+.header[data-nav-transition="instant"] .projectLink {
+  transition: none;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 2rem;
+  width: min(100% - 4rem, 96rem);
+  margin-inline: auto;
+  padding-block: 1.5rem;
+}
+
+/* The former .overlay rule positioned the header absolutely over the hero.
+   PublicHeader now stays in document flow so its solid sticky surface does
+   not cover the opening content. The prop remains as data for compatibility. */
+
+.brand {
+  display: inline-flex;
+  width: max-content;
+  color: var(--header-ink);
+  font-size: 1.25rem;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.brandVisual {
+  display: inline-flex;
+  align-items: baseline;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.brandRva {
+  color: var(--header-ink);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  font-weight: 900;
+  letter-spacing: -0.075em;
+  line-height: 1;
+}
+
+.brandGroovy {
+  display: inline-flex;
+  column-gap: 0.055em;
+  margin-inline-start: 0.11em;
+  color: var(--header-accent);
+  font-family:
+    "Not Just Groovy Evaluation",
+    var(--font-geist-sans),
+    Arial,
+    Helvetica,
+    sans-serif;
+  font-size: 0.92em;
+  font-style: normal;
+  font-synthesis: none;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1;
+  paint-order: stroke fill;
+  transform: translateY(0.015em);
+  -webkit-text-stroke: 0.75px currentColor;
+}
+
+.brandThree,
+.brandD {
+  color: inherit;
+  font: inherit;
+}
+
+/* First-pass live-type values retained for visual rollback context:
+   .brandGroovy had font-size: 1em, letter-spacing: -0.055em,
+   margin-inline-start: 0.1em, and a 0.65px optical stroke. The final
+   mockup-matching pass reduces cap-height without sacrificing weight and
+   uses an explicit inter-character gap for predictable 3/D spacing. */
+
+/* Previous combined treatment retained for rollback context:
+   .brand { font-weight: 760; letter-spacing: -0.06em; }
+   .brand span { color: var(--header-accent); } */
+.projectLink span {
+  color: var(--header-accent);
+}
+
+.nav {
+  display: flex;
+  gap: clamp(1.1rem, 2.5vw, 2.5rem);
+}
+
+.nav a,
+.projectLink {
+  position: relative;
+  color: var(--header-link);
+  font-size: 0.72rem;
+  font-weight: 580;
+  letter-spacing: 0.11em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 160ms ease;
+}
+
+.nav a::after {
+  position: absolute;
+  right: 0;
+  bottom: -0.55rem;
+  left: 0;
+  height: 1px;
+  background: var(--header-accent);
+  content: "";
+  opacity: 0;
+  transform: scaleX(0.5);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.nav a:hover,
+.nav a.active,
+.projectLink:hover {
+  color: var(--header-accent);
+}
+
+.nav a.active::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.projectLink {
+  display: inline-flex;
+  justify-self: end;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.projectLink span {
+  font-size: 1rem;
+}
+
+.header :focus-visible {
+  outline-color: var(--header-focus);
+}
+
+@media (max-width: 820px) {
+  .inner {
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+  }
+
+  .nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 0.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .inner {
+    width: min(100% - 2.5rem, 96rem);
+    padding-block: 1.15rem;
+  }
+
+  .nav {
+    gap: 0.75rem;
+  }
+
+  .nav a,
+  .projectLink {
+    font-size: 0.61rem;
+    letter-spacing: 0.075em;
+  }
+
+  .projectLink {
+    gap: 0.3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .nav a,
+  .nav a::after,
+  .projectLink {
+    transition: none;
+  }
+}

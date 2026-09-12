@@ -188,6 +188,24 @@ these server-side environment variables locally and in the deployment:
 The form returns an explicit error and keeps email/phone contact links visible if
 delivery configuration is missing or Resend rejects the message.
 
+### Private review room
+
+The authenticated `/review` routes require these server-side values in every
+deployment environment that should serve the room:
+
+- `RVA3D_PRIVATE_REVIEW_PASSWORD` — the shared reviewer password. Replace any
+  clearly labeled temporary value before deployment.
+- `RVA3D_PRIVATE_REVIEW_COOKIE_SECRET` — an independent, cryptographically
+  random signing secret of at least 32 bytes.
+- `BLOB_READ_WRITE_TOKEN` — the token provisioned by the private Vercel Blob
+  store that contains the allowlisted review media.
+
+Keep Production, Preview, and Development values separate when their access
+needs differ, and never commit them. Missing review secrets fail closed. Review
+sessions last seven days; rotating either the password or cookie secret revokes
+cookies issued with the previous value. `RVA3D_PRIVATE_REVIEW_MEDIA_ROOT` is an
+optional local-development source only and is ignored by production builds.
+
 ## Scripts
 - `npm run dev` – start Next.js in development.
 - `npm run lint` – lint with Next.js `core-web-vitals` rules.

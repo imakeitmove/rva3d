@@ -92,7 +92,7 @@
 .hero {
   position: relative;
   min-height: 100svh;
-  padding: clamp(8rem, 14vh, 10rem) max(2rem, calc((100vw - 96rem) / 2)) 2rem;
+  padding: clamp(2.25rem, 4vh, 3.5rem) 0 2rem;
   overflow: hidden;
   isolation: isolate;
 }
@@ -122,7 +122,7 @@
 .heroIntro {
   position: relative;
   z-index: 2;
-  width: min(100%, 96rem);
+  width: min(calc(100% - 4rem), 96rem);
   margin-inline: auto;
   animation: reveal 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -150,40 +150,49 @@
   box-shadow: 0 0 1rem rgba(215, 255, 67, 0.6);
 }
 
+.heroIntro .eyebrow {
+  margin-bottom: 0;
+}
+
 .hero h1 {
-  max-width: 40rem;
+  /* Previous size: clamp(2.25rem, 4.2vw, 4.5rem). This scale aligns the
+     visible line width with the payoff without transform scaling. */
+  max-width: 96rem;
   margin: 0;
   color: #d1d1cb;
-  font-size: clamp(1.05rem, 1.8vw, 1.45rem);
-  font-weight: 430;
-  letter-spacing: -0.025em;
-  line-height: 1.25;
+  font-size: clamp(2.25rem, 5.35vw, 5.5rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.94;
 }
 
 .heroMedia {
   position: relative;
   z-index: 1;
-  width: min(100%, 96rem);
-  max-width: calc(70svh * 1.7778);
-  margin: clamp(1.5rem, 3vw, 2.5rem) auto 0;
+  width: 100%;
+  margin: clamp(1.25rem, 2vw, 2rem) auto 0;
   animation: reveal 900ms 80ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .heroPayoffBlock {
   position: relative;
   z-index: 2;
-  width: min(100%, 96rem);
-  margin: clamp(2.5rem, 5vw, 5rem) auto 0;
+  width: min(calc(100% - 4rem), 96rem);
+  margin: clamp(1.5rem, 2.5vw, 2.5rem) auto 0;
   animation: reveal 900ms 160ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .heroPayoff {
-  max-width: 88rem;
-  margin: 0;
-  font-size: clamp(3.4rem, 7.8vw, 8.4rem);
+  max-width: 96rem;
+  margin: clamp(0.25rem, 0.55vw, 0.55rem) 0 0;
+  font-size: clamp(3rem, 5.5vw, 5.75rem);
   font-weight: 680;
-  letter-spacing: -0.078em;
+  letter-spacing: -0.06em;
   line-height: 0.9;
+}
+
+.heroPayoffAccent {
+  color: var(--accent);
 }
 
 .heroLead {
@@ -241,7 +250,7 @@
   display: flex;
   gap: 1.4rem;
   align-items: center;
-  width: min(100%, 96rem);
+  width: min(calc(100% - 4rem), 96rem);
   margin: clamp(4rem, 8vw, 7rem) auto 0;
   padding-top: 1.4rem;
   border-top: 1px solid var(--line);
@@ -345,6 +354,35 @@
   line-height: 1.65;
 }
 
+.workProof {
+  display: grid;
+  gap: 1rem;
+  margin: 1.8rem 0 2rem;
+}
+
+.workProof div {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+}
+
+.workProof dt {
+  color: #7f817b;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.workProof dd {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
 .problems {
   display: grid;
   grid-template-columns: minmax(16rem, 0.72fr) minmax(0, 1.28fr);
@@ -415,15 +453,41 @@
 }
 
 .capabilities {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.75fr);
-  gap: clamp(3rem, 10vw, 11rem);
-  padding-block: clamp(6rem, 10vw, 10rem);
+  height: clamp(44rem, 67vw, 56rem);
+  padding-block: clamp(4.5rem, 7vw, 7rem);
   border-top: 1px solid var(--line);
+}
+
+.capabilityHeader {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.65fr);
+  grid-column: 1 / -1;
+  gap: 1.5rem clamp(3rem, 10vw, 11rem);
+  align-items: end;
+}
+
+.capabilityHeader .sectionLabel {
+  grid-column: 1 / -1;
+  margin-bottom: 0;
 }
 
 .capabilityHeader h2 {
   max-width: 50rem;
+}
+
+.capabilityLead {
+  max-width: 32rem;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.capabilityOverviewLink {
+  display: inline-flex;
+  gap: 0.7rem;
+  width: max-content;
+  color: var(--accent);
+  text-underline-offset: 0.35rem;
 }
 
 .capabilityList {
@@ -603,7 +667,8 @@
 
 .footer p {
   margin: 0;
-  color: #747670;
+  /* Previous quiet gray (#747670) missed WCAG AA for this small text. */
+  color: #7c7e78;
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.6rem;
   letter-spacing: 0.09em;
@@ -634,6 +699,20 @@
   }
 }
 
+@media (min-width: 100rem) {
+  .heroPayoff {
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 120rem) {
+  .heroMedia {
+    /* The reel remains full-width through moderate desktop sizes, then gets
+       deliberate breathing room on very large displays. */
+    width: min(calc(100% - 8rem), 112rem);
+  }
+}
+
 @media (max-width: 900px) {
   .header {
     grid-template-columns: 1fr auto;
@@ -644,13 +723,16 @@
   }
 
   .hero {
-    padding-top: 9rem;
+    padding-top: 2.25rem;
   }
 
   .problems,
-  .workCard,
-  .capabilities {
+  .workCard {
     grid-template-columns: 1fr;
+  }
+
+  .capabilities {
+    height: auto;
   }
 
   .sectionIntro {
@@ -698,25 +780,34 @@
 
   .hero {
     min-height: auto;
-    padding: 8rem 1.25rem 1.25rem;
+    padding: 2rem 0 1.25rem;
+  }
+
+  .heroIntro,
+  .heroPayoffBlock,
+  .heroFoot {
+    width: min(calc(100% - 2.5rem), 96rem);
   }
 
   .hero h1 {
+    /* Previous size: clamp(1.25rem, 4.8vw, 1.35rem). */
     max-width: 100%;
-    font-size: 1.05rem;
+    font-size: clamp(2.18rem, 9vw, 2.3rem);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
   }
 
   .heroMedia {
-    max-width: none;
     margin-top: 1.4rem;
   }
 
   .heroPayoffBlock {
-    margin-top: 2.5rem;
+    margin-top: 1.75rem;
   }
 
   .heroPayoff {
-    font-size: clamp(3.25rem, 15vw, 4.75rem);
+    font-size: clamp(2.9rem, 12vw, 3rem);
   }
 
   .heroLead {
@@ -752,6 +843,11 @@
   .workHeader {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .workProof div {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
   }
 
   .problem {
@@ -826,7 +922,27 @@
 
 .contactIntro h2 {
   max-width: 42rem;
-  font-size: clamp(3rem, 5.6vw, 6.3rem);
+  font-size: clamp(3rem, 5.5vw, 5.75rem);
+  font-weight: 680;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+}
+
+.contactTitleAdd,
+.contactTitleAccent,
+.contactTitlePayoff {
+  display: block;
+}
+
+.contactTitleAdd,
+.contactTitlePayoff {
+  color: var(--ink);
+  font-weight: 400;
+}
+
+.contactTitleAccent {
+  color: var(--accent);
+  font-weight: 680;
 }
 
 .contactIntro > p:not(.sectionLabel, .businessDetails) {
@@ -875,8 +991,29 @@
   margin: 1.3rem 0 0;
 }
 
+.contactFormColumn {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.contactFormLogo {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: clamp(15rem, 60%, 30rem);
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto clamp(-1.25rem, -1.4vw, -0.75rem);
+  filter: none;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
 .contactForm {
   position: relative;
+  z-index: 1;
   padding: clamp(1.5rem, 4vw, 3rem);
   border: 1px solid var(--line);
   background: rgba(14, 17, 15, 0.88);
@@ -905,7 +1042,8 @@
 }
 
 .field label span {
-  color: #747670;
+  /* Previous quiet gray (#747670) missed WCAG AA for this small text. */
+  color: #7c7e78;
   font-size: 0.58rem;
 }
 
@@ -1026,6 +1164,17 @@
   .contactIntro {
     max-width: 46rem;
   }
+
+  .contactFormLogo {
+    width: clamp(13rem, 50vw, 24rem);
+  }
+}
+
+@media (max-width: 75rem) {
+  .contactTitleAdd,
+  .contactTitleAccent {
+    display: inline;
+  }
 }
 
 @media (max-width: 640px) {
@@ -1039,7 +1188,7 @@
   }
 
   .contactIntro h2 {
-    font-size: clamp(3rem, 13vw, 4.5rem);
+    font-size: clamp(3rem, 12vw, 4rem);
   }
 
   .contactMethods a {
@@ -1049,6 +1198,11 @@
 
   .contactForm {
     padding: 1.25rem;
+  }
+
+  .contactFormLogo {
+    width: clamp(10rem, 56vw, 14rem);
+    margin-bottom: -0.55rem;
   }
 
   .formRow {
@@ -1063,5 +1217,11 @@
 
   .submitButton {
     width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .contactFormLogo {
+    margin-bottom: 0;
   }
 }

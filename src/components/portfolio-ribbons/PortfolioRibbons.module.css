@@ -1,10 +1,104 @@
 .showcase {
+  --feature-sticky-top: 0px;
+  --portfolio-ribbon-height: min(clamp(9.5rem, 14vw, 12rem), 17svh);
+  --portfolio-ribbon-padding: 0.65rem;
+  --portfolio-ribbon-block-height: calc(
+    var(--portfolio-ribbon-height) +
+    var(--portfolio-ribbon-padding) +
+    var(--portfolio-ribbon-padding) +
+    2px
+  );
   position: relative;
 }
 
+.stickyRibbonFrame {
+  position: sticky;
+  top: var(--feature-sticky-top);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100vh - var(--feature-sticky-top));
+  height: calc(100svh - var(--feature-sticky-top));
+  pointer-events: none;
+}
+
+.showcaseContent {
+  margin-top: calc(var(--feature-sticky-top) - 100vh);
+  margin-top: calc(var(--feature-sticky-top) - 100svh);
+}
+
+/* Viewer mode is one normal-flow composite section. The ribbons are scoped to
+   that section instead of retaining their viewport pin, and the content no
+   longer carries the branded sequence's negative sticky offset. */
+.showcase[data-portfolio-viewer="active"] .stickyRibbonFrame {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: auto;
+}
+
+.showcase[data-portfolio-viewer="active"] .showcaseContent {
+  margin-top: 0;
+}
+
+/* The showcase owns the viewer state, so it also owns the layout switch.
+   Keeping these geometry rules beside the ribbon offset change makes the
+   section-height transaction atomic even when a context consumer commits a
+   frame later (most visible with reduced motion). The WhyRva3dSequence rules
+   remain in place as a component-local fallback. */
+.showcase[data-portfolio-viewer="active"] .showcaseContent > section {
+  min-height: max(
+    32rem,
+    calc(100svh - var(--feature-sticky-top, 0px))
+  );
+}
+
+.showcase[data-portfolio-viewer="active"]
+  .showcaseContent
+  [data-viewer-mode] {
+  position: relative;
+  top: auto;
+  height: max(
+    32rem,
+    calc(100svh - var(--feature-sticky-top, 0px))
+  );
+}
+
+.showcase[data-portfolio-viewer="idle"] .showcaseContent > section {
+  /* The previous 260svh runway included the retired standalone 3D/logo beat. */
+  min-height: 220vh;
+  min-height: 220svh;
+}
+
+.showcase[data-portfolio-viewer="idle"]
+  .showcaseContent
+  [data-viewer-mode] {
+  position: sticky;
+  top: var(--feature-sticky-top);
+  height: calc(100vh - var(--feature-sticky-top));
+  height: calc(100svh - var(--feature-sticky-top));
+}
+
+.stickyRibbonFrame .ribbonSection {
+  pointer-events: auto;
+}
+
+.stickyRibbonFrame .upperRibbon,
+.stickyRibbonFrame .lowerRibbon {
+  margin: 0;
+}
+
 .ribbonSection {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
+  /* The showcase is already a full-width page child. The previous 100vw
+     breakout included the desktop scrollbar gutter and produced 8px of
+     measurable horizontal overflow. */
+  /* width: 100vw; */
+  /* margin-left: calc(50% - 50vw); */
+  width: 100%;
+  margin-left: 0;
   overflow: hidden;
   border-block: 1px solid rgba(255, 255, 255, 0.09);
   background: #080a09;
@@ -19,9 +113,9 @@
 }
 
 .viewport {
-  --ribbon-height: clamp(9.5rem, 14vw, 12rem);
+  --ribbon-height: var(--portfolio-ribbon-height);
   overflow: hidden;
-  padding-block: 0.65rem;
+  padding-block: var(--portfolio-ribbon-padding);
   cursor: grab;
   touch-action: pan-y;
   user-select: none;
@@ -79,6 +173,8 @@ button.thumbnail:focus-visible {
 }
 
 .lightbox {
+  --lightbox-swipe-progress: 0;
+  --lightbox-swipe-y: 0px;
   width: 100vw;
   height: 100svh;
   max-width: none;
@@ -87,12 +183,22 @@ button.thumbnail:focus-visible {
   padding: 0;
   overflow: hidden;
   border: 0;
-  background: rgba(4, 5, 4, 0.97);
+  background: rgba(
+    4,
+    5,
+    4,
+    calc(0.97 - var(--lightbox-swipe-progress) * 0.42)
+  );
   color: #f4f5ef;
 }
 
 .lightbox::backdrop {
-  background: rgba(0, 0, 0, 0.88);
+  background: rgba(
+    0,
+    0,
+    0,
+    calc(0.88 - var(--lightbox-swipe-progress) * 0.48)
+  );
 }
 
 .lightboxPanel {
@@ -125,13 +231,30 @@ button.thumbnail:focus-visible {
 
 .lightboxMedia {
   position: relative;
+  display: block;
+  width: 100%;
   min-width: 0;
   min-height: 0;
   margin-block: 0.75rem;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: zoom-out;
+  touch-action: pan-x;
+  transform: translate3d(0, var(--lightbox-swipe-y), 0);
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lightbox[data-swipe-active] .lightboxMedia {
+  transition: none;
 }
 
 .lightboxImage {
   object-fit: contain;
+  pointer-events: none;
+  user-select: none;
 }
 
 .lightboxFooter {
@@ -182,7 +305,19 @@ button.thumbnail:focus-visible {
   }
 }
 
+@media (max-height: 760px) and (min-width: 761px) {
+  .showcase {
+    --portfolio-ribbon-height: min(7rem, 13svh);
+    --portfolio-ribbon-padding: 0.45rem;
+  }
+}
+
 @media (max-width: 640px) {
+  .showcase {
+    --portfolio-ribbon-height: min(8rem, 14svh);
+    --portfolio-ribbon-padding: 0.5rem;
+  }
+
   .upperRibbon {
     margin-top: 1.75rem;
   }
@@ -207,7 +342,16 @@ button.thumbnail:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .showcase[data-portfolio-viewer="idle"] .showcaseContent > section {
+    min-height: 150vh;
+    min-height: 150svh;
+  }
+
   .thumbnailImage {
+    transition: none;
+  }
+
+  .lightboxMedia {
     transition: none;
   }
 }

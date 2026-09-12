@@ -1,0 +1,71 @@
+{
+  "hero": {
+    "kind": "video",
+    "src": "/media/work/geico-geckos-cereal-box/geico-final.mp4",
+    "mimeType": "video/mp4",
+    "width": 1280,
+    "height": 720,
+    "alt": "GEICO GeckO’s Cereal Box finished commercial",
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/geico-geckos-cereal-box/geico-final-poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "The animated GeckO’s cereal box in the photographed kitchen"
+    },
+    "presentation": "controls",
+    "hasAudio": true
+  },
+  "blocking": {
+    "kind": "video",
+    "src": "/media/work/geico-geckos-cereal-box/geico-blocking.mp4",
+    "mimeType": "video/mp4",
+    "width": 1280,
+    "height": 720,
+    "alt": "One cereal-box movement option during blocking development",
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/geico-geckos-cereal-box/geico-blocking-poster.jpg",
+      "width": 1280,
+      "height": 720,
+      "alt": "Cereal-box blocking animation, one movement option"
+    },
+    "presentation": "controls",
+    "hasAudio": false
+  },
+  "set": {
+    "kind": "image",
+    "src": "/media/work/geico-geckos-cereal-box/geico-on-set.jpg",
+    "width": 1920,
+    "height": 1280,
+    "alt": "On-set reference: cereal box and breakfast objects arranged in the kitchen"
+  },
+  "hdri": {
+    "kind": "image",
+    "src": "/media/work/geico-geckos-cereal-box/geico-hdri.jpg",
+    "width": 8000,
+    "height": 4000,
+    "alt": "Panoramic lighting reference captured in the photographed kitchen"
+  },
+  "timeline": {
+    "kind": "image",
+    "src": "/media/work/geico-geckos-cereal-box/geico-animation-timeline.png",
+    "width": 3033,
+    "height": 1784,
+    "alt": "Cereal-box animation scene with keyframed timing visible"
+  },
+  "doubles": {
+    "kind": "image",
+    "src": "/media/work/geico-geckos-cereal-box/geico-digital-stand-ins.png",
+    "width": 1381,
+    "height": 781,
+    "alt": "Wireframe cereal box and digital stand-ins for the photographed tabletop objects"
+  },
+  "final": {
+    "kind": "image",
+    "src": "/media/work/geico-geckos-cereal-box/geico-finished-still.jpg",
+    "width": 3838,
+    "height": 2156,
+    "alt": "Finished GEICO cereal-box shot with breakfast objects and matched lighting"
+  }
+}

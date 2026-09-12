@@ -4,6 +4,7 @@ export type WorkImageMedia = {
   width: number;
   height: number;
   alt: string;
+  caption?: string;
 };
 
 export type WorkVideoMedia = {
@@ -14,11 +15,15 @@ export type WorkVideoMedia = {
   height: number;
   alt: string;
   poster: WorkImageMedia;
+  presentation: "loop" | "controls";
+  hasAudio?: boolean;
+  caption?: string;
 };
 
 export type WorkMedia = WorkImageMedia | WorkVideoMedia;
 
 export type WorkProcessChapter = {
+  label?: string;
   title: string;
   summary: string;
   media: readonly WorkMedia[];
@@ -49,20 +54,41 @@ export type ApprovedPublication = {
   approvedAt: string;
 };
 
-export type WorkPublication = DraftPublication | ApprovedPublication;
+export type PublicApprovedPublication = {
+  status: "public-approved";
+  approvedAt: string;
+  approvedBy: "Deven Langston";
+  approvalAuthority: "RVA3D owner";
+  approvalSource: "direct-owner-approval";
+};
+
+export type PreviewPublication = {
+  status: "preview";
+};
+
+export type WorkPublication =
+  | DraftPublication
+  | PreviewPublication
+  | ApprovedPublication
+  | PublicApprovedPublication;
 
 export type WorkCaseStudy = {
   slug: string;
   title: string;
   client: string;
   productionPartner?: string;
-  year: number | string;
+  year?: number | string;
+  eyebrow: string;
+  indexSummary: string;
   summary: string;
   problem: string;
   approach: string;
   result: string;
+  value: string;
+  authorship?: string;
   role: readonly string[];
   capabilities: readonly string[];
+  indexMedia: WorkMedia;
   heroMedia: WorkMedia;
   galleryMedia: readonly WorkMedia[];
   processChapters: readonly WorkProcessChapter[];
@@ -73,4 +99,12 @@ export type WorkCaseStudy = {
 
 export type ApprovedWorkCaseStudy = Omit<WorkCaseStudy, "publication"> & {
   publication: ApprovedPublication;
+};
+
+export type PublicApprovedWorkCaseStudy = Omit<WorkCaseStudy, "publication"> & {
+  publication: PublicApprovedPublication;
+};
+
+export type PreviewWorkCaseStudy = Omit<WorkCaseStudy, "publication"> & {
+  publication: PreviewPublication;
 };

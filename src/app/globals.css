@@ -1,8 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  --background: #080a09;
-  --foreground: #f3f1e9;
+  --rva-void: #080a09;
+  --rva-paper: #f3f1e9;
+  --rva-signal: #d7ff43;
+  --rva-depth-green: #087a14;
+  --rva-purple: #6230c0;
+  /* Cool Guy Gray: editorial pause surfaces and secondary brand fields. */
+  --rva-cool-guy-gray: #81909a;
+  --rva-stone: #a4a59f;
+  --rva-rule: rgba(243, 241, 233, 0.16);
+  --rva-media-dark: #111411;
+  --rva-info: #3a96dd;
+  --rva-process: #f29a2e;
+  --background: var(--rva-void);
+  --foreground: var(--rva-paper);
+  --sticky-header-offset: 6rem;
 }
 
 @theme inline {
@@ -20,6 +33,14 @@ html {
   scroll-behavior: smooth;
 }
 
+main[id],
+main section[id],
+main article[id],
+main h1[id],
+main h2[id] {
+  scroll-margin-top: var(--sticky-header-offset);
+}
+
 body {
   margin: 0;
   background: var(--background);
@@ -33,12 +54,12 @@ a {
 }
 
 ::selection {
-  background: #d7ff43;
-  color: #080a09;
+  background: var(--rva-signal);
+  color: var(--rva-void);
 }
 
 :focus-visible {
-  outline: 2px solid #d7ff43;
+  outline: 2px solid var(--rva-signal);
   outline-offset: 5px;
 }
 
@@ -54,5 +75,11 @@ a {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 820px) {
+  :root {
+    --sticky-header-offset: 7.5rem;
   }
 }

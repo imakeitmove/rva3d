@@ -62,6 +62,7 @@ export function usePortfolioRibbonMotion({
   const visibleRef = useRef(true);
   const documentVisibleRef = useRef(true);
   const focusedRef = useRef(false);
+  const mediaReadyRef = useRef(false);
   const pausedRef = useRef(paused);
 
   const renderPosition = useCallback(() => {
@@ -81,6 +82,7 @@ export function usePortfolioRibbonMotion({
       visibleRef.current &&
       documentVisibleRef.current &&
       !focusedRef.current &&
+      mediaReadyRef.current &&
       pointerRef.current === null,
     [],
   );
@@ -140,7 +142,7 @@ export function usePortfolioRibbonMotion({
 
       sequenceWidthRef.current = nextWidth;
       if (previousWidth === 0) {
-        positionRef.current = position === 0 ? 0 : nextWidth;
+        positionRef.current = position === 0 ? 0 : nextWidth * 0.5;
       } else {
         positionRef.current =
           (positionRef.current / previousWidth) * nextWidth;
@@ -155,6 +157,31 @@ export function usePortfolioRibbonMotion({
 
     return () => resizeObserver.disconnect();
   }, [itemCount, position, renderPosition, wake]);
+
+  useEffect(() => {
+    const sequence = sequenceRef.current;
+    if (!sequence) return;
+
+    let cancelled = false;
+    mediaReadyRef.current = false;
+    const images = [...sequence.querySelectorAll("img")];
+    const decodeTasks = images.map((image) =>
+      typeof image.decode === "function"
+        ? image.decode()
+        : Promise.resolve(),
+    );
+
+    void Promise.allSettled(decodeTasks).then(() => {
+      if (cancelled) return;
+      mediaReadyRef.current = true;
+      wake();
+    });
+
+    return () => {
+      cancelled = true;
+      mediaReadyRef.current = false;
+    };
+  }, [itemCount, wake]);
 
   useEffect(() => {
     const viewport = viewportRef.current;
@@ -234,7 +261,13 @@ export function usePortfolioRibbonMotion({
       };
       velocityRef.current = 0;
       resumeAtRef.current = Number.POSITIVE_INFINITY;
-      event.currentTarget.setPointerCapture(event.pointerId);
+      try {
+        event.currentTarget.setPointerCapture(event.pointerId);
+      } catch {
+        // Some automation and interrupted touch streams report pointerdown
+        // after the browser has already retired the native pointer. The
+        // window-level end handlers still provide safe cleanup in that case.
+      }
       stop();
     },
     [stop],
@@ -258,7 +291,10 @@ export function usePortfolioRibbonMotion({
       }
       if (!pointer.moved) return;
 
-      const elapsed = Math.max((event.timeStamp - pointer.lastTime) / 1000, 0.001);
+      const elapsed = Math.max(
+        (event.timeStamp - pointer.lastTime) / 1000,
+        0.001,
+      );
       const deltaX = event.clientX - pointer.lastX;
       positionRef.current -= deltaX;
       pointer.velocity = Math.max(
@@ -285,7 +321,11 @@ export function usePortfolioRibbonMotion({
       const target = pointer.target;
 
       if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-        event.currentTarget.releasePointerCapture(event.pointerId);
+        try {
+          event.currentTarget.releasePointerCapture(event.pointerId);
+        } catch {
+          // A responsive reflow can detach a captured target before pointerup.
+        }
       }
       pointerRef.current = null;
 
@@ -307,14 +347,14 @@ export function usePortfolioRibbonMotion({
 
   const handleFocusCapture = useCallback(
     (event: FocusEvent<HTMLDivElement>) => {
-      focusedRef.current = true;
-      stop();
-
       const target = (event.target as HTMLElement).closest<HTMLElement>(
         "[data-gallery-index]",
       );
       const viewport = viewportRef.current;
-      if (!target || !viewport) return;
+      if (!target || !viewport || !target.matches(":focus-visible")) return;
+
+      focusedRef.current = true;
+      stop();
 
       const targetRect = target.getBoundingClientRect();
       const viewportRect = viewport.getBoundingClientRect();
@@ -329,6 +369,7 @@ export function usePortfolioRibbonMotion({
   const handleBlurCapture = useCallback(
     (event: FocusEvent<HTMLDivElement>) => {
       if (event.currentTarget.contains(event.relatedTarget as Node | null)) return;
+      if (!focusedRef.current) return;
       focusedRef.current = false;
       resumeAtRef.current = performance.now() + 350;
       wake();
@@ -369,3 +410,10 @@ export function usePortfolioRibbonMotion({
     },
   };
 }
+
+/*
+ * Retired window-normalization path:
+ * WINDOW_BUFFER_ITEMS, normalizePosition(), onShiftWindow(), and flushSync()
+ * updated React state during animation. Keeping this note documents the
+ * reversible boundary while the stable duplicated track is active.
+ */

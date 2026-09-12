@@ -13,7 +13,7 @@ const { props: desktopImage } = getImageProps({
   src: desktopPoster,
   width: 1600,
   height: 900,
-  sizes: "(max-width: 640px) 100vw, 90vw",
+  sizes: "100vw",
   priority: true,
 });
 const { props: mobileImage } = getImageProps({

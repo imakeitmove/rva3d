@@ -1,0 +1,388 @@
+.preview {
+  --ink: #101310;
+  --muted: #5d625c;
+  --accent: #668500;
+  display: grid;
+  gap: 2rem;
+  justify-content: center;
+  min-height: 100svh;
+  padding: 2rem;
+  background: #20231f;
+  color: var(--ink);
+}
+
+.sheet {
+  display: flex;
+  flex-direction: column;
+  width: 8.5in;
+  min-height: 11in;
+  padding: 0.5in;
+  background: #f5f3eb;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.3);
+}
+
+.header,
+.footer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.25in;
+}
+
+.header {
+  padding-bottom: 0.18in;
+  border-bottom: 1px solid #b9b9af;
+}
+
+.header > p,
+.footer > p {
+  max-width: 3.5in;
+  margin: 0;
+  color: var(--muted);
+  font-size: 8pt;
+  line-height: 1.4;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.brand {
+  font-size: 19pt;
+  font-weight: 780;
+  letter-spacing: -0.07em;
+}
+
+.brand span {
+  color: var(--accent);
+}
+
+.promise {
+  padding: 0.55in 0 0.38in;
+}
+
+.kicker {
+  margin: 0;
+  color: var(--accent);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 7.5pt;
+  letter-spacing: 0.09em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.promise h1 {
+  max-width: 7in;
+  margin: 0.2in 0 0;
+  font-size: 39pt;
+  font-weight: 540;
+  letter-spacing: -0.06em;
+  line-height: 0.97;
+}
+
+.promise > p:last-child {
+  max-width: 5.7in;
+  margin: 0.25in 0 0;
+  color: var(--muted);
+  font-size: 12pt;
+  line-height: 1.5;
+}
+
+.reasons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid #b9b9af;
+  border-bottom: 1px solid #b9b9af;
+}
+
+.reasons article {
+  padding: 0.25in;
+  border-right: 1px solid #b9b9af;
+}
+
+.reasons article:first-child {
+  padding-left: 0;
+}
+
+.reasons article:last-child {
+  padding-right: 0;
+  border-right: 0;
+}
+
+.reasons span {
+  color: var(--accent);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 7pt;
+}
+
+.reasons h2 {
+  margin: 0.12in 0 0;
+  font-size: 15pt;
+  font-weight: 590;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.reasons p {
+  margin: 0.16in 0 0;
+  color: var(--muted);
+  font-size: 8.5pt;
+  line-height: 1.55;
+}
+
+.footer {
+  align-items: flex-end;
+  margin-top: auto;
+  padding-top: 0.18in;
+  border-top: 1px solid #b9b9af;
+}
+
+.footer div {
+  display: grid;
+  gap: 0.03in;
+  font-size: 9pt;
+  text-align: right;
+}
+
+.footer a {
+  color: var(--accent);
+  font-weight: 650;
+}
+
+.pageTitle {
+  margin: 0.08in 0 0;
+  font-size: 26pt;
+  font-weight: 540;
+  letter-spacing: -0.055em;
+}
+
+.projects {
+  display: grid;
+  gap: 0.18in;
+  margin: 0.25in 0;
+}
+
+.project {
+  display: grid;
+  grid-template-columns: 2.55in minmax(0, 1fr);
+  gap: 0.24in;
+  padding-bottom: 0.18in;
+  border-bottom: 1px solid #c7c6bd;
+}
+
+.project:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.featuredProject {
+  grid-template-columns: 3.65in minmax(0, 1fr);
+  padding-bottom: 0.24in;
+}
+
+.projectMedia {
+  overflow: hidden;
+}
+
+.projectMedia figure {
+  margin: 0;
+}
+
+.projectMedia img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.projectMedia [role="img"] {
+  min-height: 0;
+  padding: 0.12in;
+  aspect-ratio: 16 / 9;
+}
+
+.projectMedia [role="img"] p:last-child {
+  display: none;
+}
+
+.projectCopy h3 {
+  margin: 0.06in 0 0;
+  font-size: 18pt;
+  font-weight: 590;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.featuredProject .projectCopy h3 {
+  margin-top: 0.1in;
+  font-size: 24pt;
+  line-height: 0.98;
+}
+
+.projectCopy > p:not(.kicker) {
+  margin: 0.09in 0 0;
+  color: var(--muted);
+  font-size: 8.5pt;
+  line-height: 1.45;
+}
+
+.projectCopy dl {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.12in;
+  margin: 0.12in 0 0;
+}
+
+.projectCopy dt {
+  color: var(--accent);
+  font-size: 6.5pt;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.projectCopy dd {
+  margin: 0.04in 0 0;
+  color: var(--muted);
+  font-size: 7.25pt;
+  line-height: 1.35;
+}
+
+.projectFacts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0.18in 0;
+  border-bottom: 1px solid #c7c6bd;
+}
+
+.projectFacts div {
+  padding: 0 0.14in;
+  border-right: 1px solid #c7c6bd;
+}
+
+.projectFacts div:first-child {
+  padding-left: 0;
+}
+
+.projectFacts div:last-child {
+  padding-right: 0;
+  border-right: 0;
+}
+
+.projectFacts dt {
+  color: var(--accent);
+  font-size: 6.5pt;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.projectFacts dd {
+  margin: 0.05in 0 0;
+  color: var(--muted);
+  font-size: 7.5pt;
+  line-height: 1.35;
+}
+
+.projectStory {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-bottom: 1px solid #c7c6bd;
+}
+
+.projectStory section {
+  padding: 0.2in;
+  border-right: 1px solid #c7c6bd;
+}
+
+.projectStory section:first-child {
+  padding-left: 0;
+}
+
+.projectStory section:last-child {
+  padding-right: 0;
+  border-right: 0;
+}
+
+.projectStory h3 {
+  margin: 0.08in 0 0;
+  font-size: 13pt;
+  font-weight: 590;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+.projectStory section > p:last-child {
+  margin: 0.1in 0 0;
+  color: var(--muted);
+  font-size: 7.5pt;
+  line-height: 1.45;
+}
+
+@page {
+  size: Letter portrait;
+  margin: 0;
+}
+
+@media print {
+  .preview {
+    display: block;
+    padding: 0;
+    background: white;
+  }
+
+  .sheet {
+    height: 11in;
+    min-height: 11in;
+    overflow: hidden;
+    box-shadow: none;
+    break-after: page;
+    print-color-adjust: exact;
+  }
+
+  .sheet:last-child {
+    break-after: auto;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .preview {
+    display: block;
+    padding: 0;
+  }
+
+  .sheet {
+    width: 100%;
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+    padding: 1.25rem;
+    box-shadow: none;
+  }
+
+  .reasons,
+  .project,
+  .projectFacts,
+  .projectStory {
+    grid-template-columns: 1fr;
+  }
+
+  .projectFacts div,
+  .projectFacts div:first-child,
+  .projectFacts div:last-child,
+  .projectStory section,
+  .projectStory section:first-child,
+  .projectStory section:last-child {
+    padding: 1rem 0;
+    border-right: 0;
+    border-bottom: 1px solid #b9b9af;
+  }
+
+  .reasons article,
+  .reasons article:first-child,
+  .reasons article:last-child {
+    padding: 1.25rem 0;
+    border-right: 0;
+    border-bottom: 1px solid #b9b9af;
+  }
+
+  .reasons article:last-child {
+    border-bottom: 0;
+  }
+}
