@@ -36,5 +36,8 @@ export const PRODUCTION_DEPLOY_ARGUMENTS = [
   "deploy",
   "--prod",
   "--yes",
-  "--archive=tgz",
 ];
+
+// Keep Production uploads content-addressed file by file. Vercel's archive
+// transport extracts a rewritten vercel.json in the remote build, which must
+// never be allowed to drift from the sealed control-file hash.

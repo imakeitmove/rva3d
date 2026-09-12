@@ -49,6 +49,7 @@ test("the staged Production path is an explicit deploy, never a promotion", () =
   assert(PRODUCTION_DEPLOY_ARGUMENTS.includes("deploy"));
   assert(PRODUCTION_DEPLOY_ARGUMENTS.includes("--prod"));
   assert(!PRODUCTION_DEPLOY_ARGUMENTS.includes("promote"));
+  assert(!PRODUCTION_DEPLOY_ARGUMENTS.some(argument => argument.startsWith("--archive")));
   assert.equal(
     createStagedVercelConfig("production").buildCommand,
     "npm run build:production",
@@ -62,6 +63,8 @@ test("raw Vercel Production builds must also pass the staged-package guard", asy
   );
   assert(guard.includes('["preview", "production"].includes('));
   assert(guard.includes("expectedTarget ?? environmentTarget"));
+  assert(guard.includes('file === ".vercel/project.json"'));
+  assert(guard.includes("process.env.VERCEL_PROJECT_ID"));
 });
 
 test("the guide distinguishes pushing main from releasing Production", async () => {

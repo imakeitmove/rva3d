@@ -54,8 +54,25 @@ export async function verifyPreparedSource(root = process.cwd(), expectedTarget)
       "vercel.json",
     ]);
     for (const [file, hash] of Object.entries(release.controlFiles)) {
+      const bytes = await fs.readFile(path.join(root, file)).catch(error => {
+        // Vercel uses .vercel/project.json to target the upload, then excludes
+        // the local link file from normal file-by-file deployment payloads.
+        // The remote build must prove the platform-assigned project instead.
+        if (file === ".vercel/project.json" && process.env.VERCEL === "1") {
+          return null;
+        }
+        throw error;
+      });
+      if (bytes === null) {
+        assert.equal(
+          process.env.VERCEL_PROJECT_ID,
+          release.destination.projectId,
+          "Vercel build is running against the wrong project",
+        );
+        continue;
+      }
       assert.equal(
-        digest(await fs.readFile(path.join(root, file))),
+        digest(bytes),
         hash,
         "Production control file changed after staging: " + file,
       );

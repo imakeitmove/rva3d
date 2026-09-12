@@ -44,8 +44,11 @@ protected-preview behavior are fixed when that artifact is built.
    staged package.
 6. Inspect the new build log before accepting the release. It must show
    `npm run build:production`,
-   `VERCEL_ENV=production` through the successful environment gate, and all
-   protected-release validators passing.
+   `VERCEL_ENV=production` through the successful environment gate, the
+   platform-supplied project ID matching the sealed target, and all
+   protected-release validators passing. The wrapper intentionally uses
+   content-addressed file uploads; archive transport is forbidden because it
+   can rewrite a sealed control file during extraction.
 7. Verify the deployment-specific URL, then confirm `rva3d.com`,
    `www.rva3d.com`, and the expected Vercel Production alias point to that same
    verified deployment. Recheck public routes, private review boundaries, and
