@@ -57,21 +57,23 @@ export async function verifyPreparedSource(root = process.cwd(), expectedTarget)
     ]);
     let vercelConfigNormalized = false;
     for (const [file, hash] of Object.entries(release.controlFiles)) {
-      const bytes = await fs.readFile(path.join(root, file)).catch(error => {
-        // Vercel uses .vercel/project.json to target the upload, then excludes
-        // the local link file from normal file-by-file deployment payloads.
-        // The remote build must prove the platform-assigned project instead.
-        if (file === ".vercel/project.json" && process.env.VERCEL === "1") {
-          return null;
-        }
-        throw error;
-      });
-      if (bytes === null) {
+      const bytes = await fs.readFile(path.join(root, file));
+      if (file === ".vercel/project.json" && process.env.VERCEL_PROJECT_ID) {
+        // Vercel excludes the uploaded link file and creates a build-container
+        // project file. Validate its target identity plus the authoritative
+        // platform environment instead of comparing unrelated byte layouts.
+        const remoteProject = JSON.parse(bytes.toString("utf8"));
         assert.equal(
           process.env.VERCEL_PROJECT_ID,
           release.destination.projectId,
           "Vercel build is running against the wrong project",
         );
+        assert.equal(remoteProject.projectId, release.destination.projectId);
+        assert.equal(remoteProject.orgId, release.destination.orgId);
+        assert.equal(remoteProject.projectName, release.destination.projectName);
+        if (process.env.VERCEL_ORG_ID) {
+          assert.equal(process.env.VERCEL_ORG_ID, release.destination.orgId);
+        }
         continue;
       }
       const actualHash = digest(bytes);

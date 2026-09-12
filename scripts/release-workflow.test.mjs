@@ -80,6 +80,9 @@ test("raw Vercel Production builds must also pass the staged-package guard", asy
   assert(guard.includes("serializeVercelBuildConfig"));
   assert(guard.includes('file === ".vercel/project.json"'));
   assert(guard.includes("process.env.VERCEL_PROJECT_ID"));
+  assert(guard.includes("remoteProject.projectId"));
+  assert(guard.includes("remoteProject.orgId"));
+  assert(guard.includes("remoteProject.projectName"));
 });
 
 test("the guide distinguishes pushing main from releasing Production", async () => {
