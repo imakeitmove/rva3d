@@ -21,6 +21,18 @@ export function createStagedVercelConfig(target) {
   };
 }
 
+export function createVercelBuildConfig(target) {
+  return {
+    ...createStagedVercelConfig(target),
+    name: "rva3d",
+    version: 2,
+  };
+}
+
+export function serializeVercelBuildConfig(target) {
+  return JSON.stringify(createVercelBuildConfig(target)) + "\n";
+}
+
 // This models the documented default used by our exact branch rule: named
 // branches use their boolean value and every unspecified branch remains on.
 export function gitDeploymentEnabledForBranch(config, branch) {
@@ -38,6 +50,6 @@ export const PRODUCTION_DEPLOY_ARGUMENTS = [
   "--yes",
 ];
 
-// Keep Production uploads content-addressed file by file. Vercel's archive
-// transport extracts a rewritten vercel.json in the remote build, which must
-// never be allowed to drift from the sealed control-file hash.
+// Keep Production uploads content-addressed file by file so every deployment
+// source file remains individually inspectable. Vercel subsequently normalizes
+// vercel.json for its build; the remote guard accepts only that exact form.

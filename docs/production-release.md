@@ -47,8 +47,9 @@ protected-preview behavior are fixed when that artifact is built.
    `VERCEL_ENV=production` through the successful environment gate, the
    platform-supplied project ID matching the sealed target, and all
    protected-release validators passing. The wrapper intentionally uses
-   content-addressed file uploads; archive transport is forbidden because it
-   can rewrite a sealed control file during extraction.
+   content-addressed file uploads. Vercel deterministically normalizes
+   `vercel.json` for the remote build; the gate accepts only the one pinned,
+   regression-tested normalized byte sequence and rejects any other rewrite.
 7. Verify the deployment-specific URL, then confirm `rva3d.com`,
    `www.rva3d.com`, and the expected Vercel Production alias point to that same
    verified deployment. Recheck public routes, private review boundaries, and

@@ -7,7 +7,9 @@ import { digest, verifyPreviewAssets } from "./verify-preview-assets.mjs";
 import {
   CANONICAL_BRANCH,
   CANONICAL_REPOSITORY_URL,
+  createVercelBuildConfig,
   createStagedVercelConfig,
+  serializeVercelBuildConfig,
 } from "./release-config.mjs";
 
 export async function verifyPreparedSource(root = process.cwd(), expectedTarget) {
@@ -53,6 +55,7 @@ export async function verifyPreparedSource(root = process.cwd(), expectedTarget)
       ".vercelignore",
       "vercel.json",
     ]);
+    let vercelConfigNormalized = false;
     for (const [file, hash] of Object.entries(release.controlFiles)) {
       const bytes = await fs.readFile(path.join(root, file)).catch(error => {
         // Vercel uses .vercel/project.json to target the upload, then excludes
@@ -71,15 +74,27 @@ export async function verifyPreparedSource(root = process.cwd(), expectedTarget)
         );
         continue;
       }
-      assert.equal(
-        digest(bytes),
-        hash,
-        "Production control file changed after staging: " + file,
-      );
+      const actualHash = digest(bytes);
+      if (
+        file === "vercel.json" &&
+        process.env.VERCEL === "1" &&
+        actualHash !== hash
+      ) {
+        assert.equal(
+          bytes.toString("utf8"),
+          serializeVercelBuildConfig("production"),
+          "Vercel build config differs from the one exact normalized form",
+        );
+        vercelConfigNormalized = true;
+        continue;
+      }
+      assert.equal(actualHash, hash, "Production control file changed after staging: " + file);
     }
     assert.deepEqual(
       JSON.parse(await fs.readFile(path.join(root, "vercel.json"), "utf8")),
-      createStagedVercelConfig("production"),
+      vercelConfigNormalized
+        ? createVercelBuildConfig("production")
+        : createStagedVercelConfig("production"),
       "Production package must use the guarded Production build command",
     );
   }

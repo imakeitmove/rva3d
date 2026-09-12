@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
@@ -8,6 +9,7 @@ import {
   CANONICAL_BRANCH,
   PRODUCTION_DEPLOY_ARGUMENTS,
   createStagedVercelConfig,
+  serializeVercelBuildConfig,
   gitDeploymentEnabledForBranch,
 } from "./release-config.mjs";
 
@@ -56,6 +58,18 @@ test("the staged Production path is an explicit deploy, never a promotion", () =
   );
 });
 
+test("the Vercel build config permits only the observed deterministic normalization", () => {
+  const normalized = serializeVercelBuildConfig("production");
+  assert.equal(
+    normalized,
+    '{"$schema":"https://openapi.vercel.sh/vercel.json","framework":"nextjs","buildCommand":"npm run build:production","installCommand":"npm ci","name":"rva3d","version":2}\n',
+  );
+  assert.equal(
+    createHash("sha256").update(normalized).digest("hex"),
+    "f693096db2c7b2387c98b34a5cd41be2421d8f083a2caac4a37af057538b0852",
+  );
+});
+
 test("raw Vercel Production builds must also pass the staged-package guard", async () => {
   const guard = await fs.readFile(
     path.join(root, "scripts/require-preview-assets.mjs"),
@@ -63,6 +77,7 @@ test("raw Vercel Production builds must also pass the staged-package guard", asy
   );
   assert(guard.includes('["preview", "production"].includes('));
   assert(guard.includes("expectedTarget ?? environmentTarget"));
+  assert(guard.includes("serializeVercelBuildConfig"));
   assert(guard.includes('file === ".vercel/project.json"'));
   assert(guard.includes("process.env.VERCEL_PROJECT_ID"));
 });
