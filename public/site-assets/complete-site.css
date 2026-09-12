@@ -437,7 +437,8 @@
 .complete-site .inline-brand {
  --brand-rva-weight:560;--brand-rva-tracking:-.043em;--brand-r-gap:.012em;
  --brand-three-width:1.04em;--brand-three-height:.695em;--brand-three-gap:.135em;
- --brand-three-stroke:4.6;--brand-three-rise:.026em;--brand-three-offset-y:.04em;
+ --brand-three-stroke:4.6;--brand-three-rise:.026em;--brand-three-scale:.985;
+ --brand-three-offset-y:0em;--brand-d-spacing:.02em;
  font-family:var(--font-geist-sans),sans-serif;
 }
 .complete-site .inline-brand.brand-accent {
@@ -447,21 +448,21 @@
 .complete-site .site-header .inline-brand.brand-accent {
  --brand-rva-weight:700;--brand-three-width:1.035em;--brand-three-height:.69em;
  --brand-three-gap:.14em;--brand-three-stroke:4.9;--brand-three-rise:.032em;
-}
-.complete-site .site-header .inline-brand.brand-accent .brand-three-d {
- transform:translateY(1px);
+ --brand-three-offset-y:0em;
 }
 .complete-site :is(h1,h2,h3,h4,h5,h6) .inline-brand {
- --brand-three-offset-y:0em;
+ --brand-three-offset-y:.01em;
 }
 /* Previous reference metrics: RVA 600/900; suffix 1.062em × .708em; stroke 3.6. */
 .complete-site .inline-brand .brand-rva { font-weight:var(--brand-rva-weight);letter-spacing:var(--brand-rva-tracking); }
 .complete-site .inline-brand .brand-r { margin-right:var(--brand-r-gap); }
 .complete-site .inline-brand .brand-three-d {
  width:var(--brand-three-width);height:var(--brand-three-height);
- vertical-align:var(--brand-three-rise);transform:translateY(var(--brand-three-offset-y));margin-left:var(--brand-three-gap);
+ vertical-align:var(--brand-three-rise);transform-origin:top left;
+ transform:translateY(var(--brand-three-offset-y)) scale(var(--brand-three-scale));margin-left:var(--brand-three-gap);
  color:inherit;stroke-width:var(--brand-three-stroke);
 }
+.complete-site .inline-brand .brand-d-glyph { translate:var(--brand-d-spacing) 0; }
 .complete-site .inline-brand.brand-accent .brand-three-d { color:var(--rva-signal); }
 .complete-site [data-tone="paper"] .inline-brand.brand-accent .brand-three-d { color:var(--rva-purple); }
 .complete-site .site-header .brand { width:auto;min-width:70px; }
