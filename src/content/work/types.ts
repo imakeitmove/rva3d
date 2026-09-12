@@ -54,6 +54,14 @@ export type ApprovedPublication = {
   approvedAt: string;
 };
 
+export type PublicApprovedPublication = {
+  status: "public-approved";
+  approvedAt: string;
+  approvedBy: "Deven Langston";
+  approvalAuthority: "RVA3D owner";
+  approvalSource: "direct-owner-approval";
+};
+
 export type PreviewPublication = {
   status: "preview";
 };
@@ -61,7 +69,8 @@ export type PreviewPublication = {
 export type WorkPublication =
   | DraftPublication
   | PreviewPublication
-  | ApprovedPublication;
+  | ApprovedPublication
+  | PublicApprovedPublication;
 
 export type WorkCaseStudy = {
   slug: string;
@@ -90,6 +99,10 @@ export type WorkCaseStudy = {
 
 export type ApprovedWorkCaseStudy = Omit<WorkCaseStudy, "publication"> & {
   publication: ApprovedPublication;
+};
+
+export type PublicApprovedWorkCaseStudy = Omit<WorkCaseStudy, "publication"> & {
+  publication: PublicApprovedPublication;
 };
 
 export type PreviewWorkCaseStudy = Omit<WorkCaseStudy, "publication"> & {

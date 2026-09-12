@@ -170,5 +170,5 @@ export const wawaCoffeeIsland = {
       alt: "Fully stocked Wawa Coffee Island retail visualization.",
     },
   },
-  publication: { status: "preview" },
+  publication: { status: "public-approved", approvedAt: "2026-09-12", approvedBy: "Deven Langston", approvalAuthority: "RVA3D owner", approvalSource: "direct-owner-approval" },
 } satisfies WorkCaseStudy;

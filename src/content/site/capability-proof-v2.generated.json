@@ -1,14 +1,14 @@
 {
   "bud": {
     "kind": "video",
-    "src": "/review/assets/c7d7a0c66eb5e2fe9dce.mp4",
+    "src": "/media/c7d7a0c66eb5e2fe9dce.mp4",
     "width": 1920,
     "height": 1080,
     "mimeType": "video/mp4",
     "alt": "Bud Light Seltzer truck wrap replacement: original shot and finished VFX comparison",
     "poster": {
       "kind": "image",
-      "src": "/review/assets/a55fa7e519579b4f6876.jpg",
+      "src": "/media/a55fa7e519579b4f6876.jpg",
       "width": 1920,
       "height": 1080,
       "alt": "Original shot and finished Bud Light truck wrap comparison"
@@ -17,21 +17,21 @@
   },
   "production": {
     "kind": "image",
-    "src": "/review/assets/3818c4ce2c5145fe30b6.jpg",
+    "src": "/media/3818c4ce2c5145fe30b6.jpg",
     "width": 1920,
     "height": 1080,
     "alt": "Fool Me Twice title animation: animation controls beside the finished paper-cut character"
   },
   "lotteryBefore": {
     "kind": "image",
-    "src": "/review/assets/0027ab84b1cd57952c8e.webp",
+    "src": "/media/0027ab84b1cd57952c8e.webp",
     "width": 1280,
     "height": 720,
     "alt": "Virginia Lottery original photographed sign"
   },
   "lotteryAfter": {
     "kind": "image",
-    "src": "/review/assets/607921fe0f23c98ef344.webp",
+    "src": "/media/607921fe0f23c98ef344.webp",
     "width": 1280,
     "height": 720,
     "alt": "Virginia Lottery finished sign replacement"

@@ -128,7 +128,9 @@ export function initGallery(data) {
     commitBackdrop(ambient);revealMedia(stage.firstElementChild,direction);stage.removeAttribute("aria-busy");
     document.querySelector("#viewer-title").textContent=item.galleryName||item.publicHeadline||item.title;
     document.querySelector("#viewer-meta").textContent=item.metadata||"";
-    const caseLink=document.querySelector("#viewer-case");caseLink.hidden=!item.caseSlug;if(item.caseSlug)caseLink.href=`/review/site/work/${item.caseSlug}`;
+    const caseLink=document.querySelector("#viewer-case");caseLink.hidden=!item.caseSlug;
+    // Previous private-candidate destination: /review/site/work/${item.caseSlug}
+    if(item.caseSlug)caseLink.href=`/work/${item.caseSlug}`;
     setMode("info");selectionState();if(!trigger)ensureSelected();refresh();
     if(awaitingOpen){
       awaitingOpen=false;panel.style.height="";

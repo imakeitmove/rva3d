@@ -144,5 +144,5 @@ export const axeWhaxeLilBaby = {
       alt: "Diamond-encrusted WHAXE pendant from the AXE campaign film.",
     },
   },
-  publication: { status: "preview" },
+  publication: { status: "public-approved", approvedAt: "2026-09-12", approvedBy: "Deven Langston", approvalAuthority: "RVA3D owner", approvalSource: "direct-owner-approval" },
 } satisfies WorkCaseStudy;

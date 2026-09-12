@@ -1,3 +1,4 @@
 // COMPLETE SITE CANDIDATE
 import { redirect } from "next/navigation";
-export default function ContactPage() { redirect("/review/site/#contact"); }
+// Previous private-candidate redirect: /review/site/#contact
+export default function ContactPage() { redirect("/#contact"); }

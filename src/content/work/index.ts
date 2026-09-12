@@ -1,9 +1,13 @@
 import type {
   ApprovedWorkCaseStudy,
+  PublicApprovedWorkCaseStudy,
   PreviewWorkCaseStudy,
   WorkCaseStudy,
   WorkMedia,
 } from "./types";
+import mediaManifest from "../site/media.generated.json" with { type: "json" };
+import mediaUrls from "../site/media-urls.generated.json" with { type: "json" };
+import { hasDirectOwnerApproval } from "../../lib/site/publication.ts";
 
 import { portfolioWorkSlugs, workRecords } from "./records.ts";
 
@@ -107,6 +111,12 @@ export function isApprovedCaseStudy(
   return study.publication.status === "approved";
 }
 
+export function isPublicApprovedCaseStudy(
+  study: WorkCaseStudy,
+): study is PublicApprovedWorkCaseStudy {
+  return study.publication.status === "public-approved";
+}
+
 export function isPreviewCaseStudy(
   study: WorkCaseStudy,
 ): study is PreviewWorkCaseStudy {
@@ -149,9 +159,47 @@ export function validateApprovedCaseStudy(
   }
 }
 
+export function validatePublicApprovedCaseStudy(
+  study: WorkCaseStudy,
+): asserts study is PublicApprovedWorkCaseStudy {
+  if (!isPublicApprovedCaseStudy(study)) {
+    throw new Error(`Work "${study.slug}" is not directly approved for public release.`);
+  }
+
+  validateCaseStudy(study);
+
+  const { publication } = study;
+  if (!hasDirectOwnerApproval({ publication: publication.status, ...publication })) {
+    throw new Error(`Public-approved work "${study.slug}" needs direct owner provenance.`);
+  }
+  study.credits.forEach((credit, index) => {
+    assertNonEmpty(credit.name, `${study.slug} credit ${index + 1} name`);
+    assertNonEmpty(credit.role, `${study.slug} credit ${index + 1} role`);
+  });
+
+  // The direct-owner path preserves the selected asset and its actual dimensions.
+  // The package verifier independently checks the referenced file bytes and hash.
+  const publicUrl = (mediaUrls as Record<string, string>)[study.seo.image.src];
+  if (!publicUrl?.startsWith("/media/")) {
+    throw new Error(`Public-approved work "${study.slug}" needs a registered public SEO asset.`);
+  }
+  const key = publicUrl.slice("/media/".length);
+  const entry = (mediaManifest as Record<string, { publication?: string }>)[key];
+  if (!entry || entry.publication !== "public-approved") {
+    throw new Error(`Public-approved work "${study.slug}" references unavailable SEO media.`);
+  }
+}
+
 export function getApprovedWork(): readonly ApprovedWorkCaseStudy[] {
   return workRecords.filter(isApprovedCaseStudy).map((study) => {
     validateApprovedCaseStudy(study);
+    return study;
+  });
+}
+
+export function getPublicApprovedWork(): readonly PublicApprovedWorkCaseStudy[] {
+  return workRecords.filter(isPublicApprovedCaseStudy).map((study) => {
+    validatePublicApprovedCaseStudy(study);
     return study;
   });
 }
@@ -193,6 +241,7 @@ export function isPortfolioPreviewBuild() {
 function isPortfolioVisible(study: WorkCaseStudy) {
   return (
     isApprovedCaseStudy(study) ||
+    isPublicApprovedCaseStudy(study) ||
     (isPreviewCaseStudy(study) && isPortfolioPreviewBuild())
   );
 }
@@ -233,6 +282,7 @@ export function getNextPortfolioWork(slug: string) {
 
 export type {
   ApprovedWorkCaseStudy,
+  PublicApprovedWorkCaseStudy,
   PreviewPublication,
   PreviewWorkCaseStudy,
   WorkCaseStudy,

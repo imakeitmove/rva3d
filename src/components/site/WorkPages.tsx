@@ -30,7 +30,10 @@ export function WorkIndex() {
 export async function caseMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params, study = studies.find(item => item.slug === slug);
   if (!study) notFound();
-  return { title: study.seo.title, description: study.seo.description, robots: { index: false, follow: false, noarchive: true } };
+  // Previous private-review metadata set robots to noindex/noarchive.
+  return { title: study.seo.title, description: study.seo.description,
+    alternates: { canonical: `https://www.rva3d.com/work/${study.slug}` },
+  };
 }
 export async function CasePage({ params }: Props) {
   const { slug } = await params, index = studies.findIndex(item => item.slug === slug), study = studies[index];

@@ -19,7 +19,10 @@ export function ApprovedHome() {
   // Previously v008Page and the controller consumed data directly.
   const document = v008Page(reviewData, { header: () => "", tokens: "" });
   let content = document.split('<main id="main">')[1].split('<section class="v-contact"')[0];
-  content = content.replaceAll("https://www.rva3d.com", "/review/site").replaceAll("/project/", "/review/site/work/")
+  // Previous private-candidate adapter rewrote these links into /review/site.
+  // Public pages keep the approved markup while using canonical buyer URLs.
+  content = content
+    .replaceAll("https://www.rva3d.com", "").replaceAll("/project/", "/work/")
     .replaceAll("/private/deven_portrait.webp", (data as typeof data & { portrait?: string }).portrait || "");
   return <><Header /><main id="main"><div dangerouslySetInnerHTML={{ __html: content }} /><Contact /></main>
     <script id="v008-data" type="application/json" dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewData).replaceAll("<", "\\u003c") }} />

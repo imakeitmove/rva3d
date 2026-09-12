@@ -189,5 +189,5 @@ export const cableSnake = {
       alt: "Cable Snake in a finished live-action campaign frame.",
     },
   },
-  publication: { status: "preview" },
+  publication: { status: "public-approved", approvedAt: "2026-09-12", approvedBy: "Deven Langston", approvalAuthority: "RVA3D owner", approvalSource: "direct-owner-approval" },
 } satisfies WorkCaseStudy;

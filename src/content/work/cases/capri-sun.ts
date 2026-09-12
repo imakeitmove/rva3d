@@ -125,5 +125,5 @@ export const capriSun = {
       alt: "Macro Capri Sun pouch rendering from the selected-work case study.",
     },
   },
-  publication: { status: "preview" },
+  publication: { status: "public-approved", approvedAt: "2026-09-12", approvedBy: "Deven Langston", approvalAuthority: "RVA3D owner", approvalSource: "direct-owner-approval" },
 } satisfies WorkCaseStudy;

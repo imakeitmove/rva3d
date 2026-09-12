@@ -36,13 +36,26 @@ export async function verifyPreviewAssets(root = process.cwd(), mediaRoot = path
   assert(keys.length > 0, "Empty private media manifest");
   for (const [logical, url] of Object.entries(urls)) {
     assert(logical.startsWith("/"), `Invalid logical URL: ${logical}`);
-    assert(url.startsWith("/review/assets/") && manifest[url.slice(15)], `Missing manifest entry for ${logical}`);
+    const match = /^\/(media|review\/assets)\/([a-f0-9]{20}\.[a-z0-9]+)$/.exec(url);
+    assert(match && manifest[match[2]], `Missing manifest entry for ${logical}`);
+    const entry = manifest[match[2]];
+    if (match[1] === "media") {
+      assert.equal(entry.publication, "public-approved", `Public URL lacks approval: ${logical}`);
+    } else {
+      assert.notEqual(entry.publication, "public-approved", `Approved asset still uses review URL: ${logical}`);
+    }
   }
-  // Validate direct protected URLs in generated page data, including ribbons and proof.
+  // Validate direct delivery URLs in generated page data, including ribbons and proof.
   function visit(value) {
     if (typeof value === "string") {
-      for (const match of value.matchAll(/\/review\/assets\/([a-f0-9]{20}\.[a-z0-9]+)/g)) {
-        assert(manifest[match[1]], `Unregistered page asset: ${match[1]}`);
+      for (const match of value.matchAll(/\/(media|review\/assets)\/([a-f0-9]{20}\.[a-z0-9]+)/g)) {
+        const entry = manifest[match[2]];
+        assert(entry, `Unregistered page asset: ${match[2]}`);
+        if (match[1] === "media") {
+          assert.equal(entry.publication, "public-approved", `Page exposes unapproved asset: ${match[2]}`);
+        } else {
+          assert.notEqual(entry.publication, "public-approved", `Approved page asset still uses review URL: ${match[2]}`);
+        }
       }
     } else if (value && typeof value === "object") Object.values(value).forEach(visit);
   }
@@ -54,7 +67,13 @@ export async function verifyPreviewAssets(root = process.cwd(), mediaRoot = path
     const entry = manifest[key];
     assert(/^[a-f0-9]{20}\.(webp|png|jpg|mp4|glb)$/.test(key), `Unsafe manifest key: ${key}`);
     assert.equal(entry.file, `private-media/${key}`);
-    assert.equal(entry.publication, "private-review-only");
+    assert(["private-review-only", "unapproved", "public-approved"].includes(entry.publication), `Invalid publication state: ${key}`);
+    if (entry.publication === "public-approved") {
+      assert(/^\d{4}-\d{2}-\d{2}$/.test(entry.approvedAt), `Public asset lacks approval date: ${key}`);
+      assert.equal(entry.approvedBy, "Deven Langston", `Public asset lacks approving owner: ${key}`);
+      assert.equal(entry.approvalAuthority, "RVA3D owner", `Public asset lacks approval authority: ${key}`);
+      assert.equal(entry.approvalSource, "direct-owner-approval", `Public asset lacks approval source: ${key}`);
+    }
     assert(key.startsWith(entry.sha256.slice(0, 20)), `Hash/key mismatch: ${key}`);
     let bytes;
     try {
@@ -69,21 +88,26 @@ export async function verifyPreviewAssets(root = process.cwd(), mediaRoot = path
     checkType(bytes, entry.type, key);
     totalBytes += bytes.length;
   }
-  return { status: "PASS", assets: keys.length, totalBytes, logicalUrls: Object.keys(urls).length, manifestSha256: digest(await fs.readFile(path.join(root, manifestPath))) };
+  return { status: "PASS", assets: keys.length, publicApprovedAssets: keys.filter(key => manifest[key].publication === "public-approved").length, totalBytes, logicalUrls: Object.keys(urls).length, manifestSha256: digest(await fs.readFile(path.join(root, manifestPath))) };
 }
 
 export async function verifyMediaTrace(root = process.cwd()) {
   const result = await verifyPreviewAssets(root);
   const { manifest } = await readRegistry(root);
-  const tracePath = path.join(root, ".next/server/app/review/assets/[key]/route.js.nft.json");
-  const trace = JSON.parse(await fs.readFile(tracePath, "utf8"));
-  const files = new Set(trace.files.map(file => path.resolve(path.dirname(tracePath), file)));
-  for (const entry of Object.values(manifest)) assert(files.has(path.resolve(root, entry.file)), `Media route trace omits ${entry.file}`);
-  // Assert every private asset traced by this route is explicitly selected.
-  for (const file of files) if (file.startsWith(path.resolve(root, "private-media") + path.sep)) {
-    assert(manifest[path.basename(file)], "Unselected private asset in function trace");
+  const traces = [
+    ".next/server/app/media/[key]/route.js.nft.json",
+    ".next/server/app/review/assets/[key]/route.js.nft.json",
+  ];
+  for (const relativeTrace of traces) {
+    const tracePath = path.join(root, relativeTrace);
+    const trace = JSON.parse(await fs.readFile(tracePath, "utf8"));
+    const files = new Set(trace.files.map(file => path.resolve(path.dirname(tracePath), file)));
+    for (const entry of Object.values(manifest)) assert(files.has(path.resolve(root, entry.file)), `${relativeTrace} omits ${entry.file}`);
+    for (const file of files) if (file.startsWith(path.resolve(root, "private-media") + path.sep)) {
+      assert(manifest[path.basename(file)], `Unselected private asset in ${relativeTrace}`);
+    }
   }
-  return { ...result, tracedAssets: Object.keys(manifest).length };
+  return { ...result, tracedAssets: Object.keys(manifest).length, tracedRoutes: traces.length };
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

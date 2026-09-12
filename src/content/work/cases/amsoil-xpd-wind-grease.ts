@@ -153,5 +153,5 @@ export const amsoilXpdWindGrease = {
       alt: "Wind-turbine drivetrain cutaway for AMSOIL XPD Wind Grease.",
     },
   },
-  publication: { status: "preview" },
+  publication: { status: "public-approved", approvedAt: "2026-09-12", approvedBy: "Deven Langston", approvalAuthority: "RVA3D owner", approvalSource: "direct-owner-approval" },
 } satisfies WorkCaseStudy;

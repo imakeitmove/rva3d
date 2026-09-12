@@ -13,9 +13,8 @@ export const mediaUrl = (src: string) => {
 const desmiCutaway = { kind: "image", src: "/media/portfolio-ribbons/top/desmi_pump_cutaway.webp", width: 1200, height: 676, alt: "A blue DESMI pump cutaway reveals the internal rotor and housing." } as const;
 const desmiPoster = { kind: "image", src: "/media/capabilities/desmi-chocolate-pump-poster.webp", width: 1280, height: 720, alt: "DESMI ROTAN chocolate pump technical visualization." } as const;
 const desmiFilm = { kind: "video", src: "/media/capabilities/desmi-chocolate-pump-loop.mp4", width: 1280, height: 720, mimeType: "video/mp4", alt: "DESMI ROTAN chocolate pump animation.", poster: desmiPoster, presentation: "controls", hasAudio: false } as const;
-// Private complete-site review only: deliberately NOT added to the public work registry.
-// Evidence: approved ribbon ingest (2026-09-02) and existing protected capability video/poster.
-// No additional masters, credits, year, engineering claims or publication approval are inferred.
+// Deven approved this exact selection for public display on 2026-09-12.
+// No additional masters, credits, year, or engineering claims are inferred.
 export const desmiReview: WorkCaseStudy = {
   slug: "desmi-rotan-pump",
   title: "DESMI / ROTAN pump",
@@ -37,10 +36,10 @@ export const desmiReview: WorkCaseStudy = {
   ],
   credits: [],
   seo: { title: "DESMI ROTAN pump | RVA3D private review", description: "DESMI pump cutaway and chocolate-pump animation, selected for private review.", image: desmiCutaway },
-  publication: { status: "preview" },
+  publication: { status: "public-approved", approvedAt: "2026-09-12", approvedBy: "Deven Langston", approvalAuthority: "RVA3D owner", approvalSource: "direct-owner-approval" },
 };
 
-// Previous list contained only portfolioWorkSlugs; the private review adds DESMI without changing public publication policy.
+// Previous list contained only portfolioWorkSlugs; the approved current selection also includes DESMI.
 // GEICO leads both review entry points; all existing studies remain reachable.
 export const studies: readonly WorkCaseStudy[] = [
   workRecords.find(item => item.slug === "geico-geckos-cereal-box")!,

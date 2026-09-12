@@ -26,6 +26,7 @@ const candidateEntryFiles = [
   "src/app/login/page.tsx",
   "src/app/login/recovery/page.tsx",
   "src/app/client-login/page.tsx",
+  "src/app/media/[key]/route.ts",
   "src/app/review/assets/[key]/route.ts",
   "src/app/(three)/review/layout.tsx",
   "src/app/(three)/review/login/page.tsx",
@@ -48,6 +49,8 @@ const candidateEntryFiles = [
   "scripts/verify-preview-assets.mjs",
   "scripts/verify-hello-browser.mjs",
   "scripts/require-preview-assets.mjs",
+  "scripts/verify-public-release.mjs",
+  "scripts/public-release.test.mjs",
   "scripts/prepare-preview-release.mjs",
   "scripts/build-preview-release.mjs",
   "scripts/package-preview-transfer.mjs",
@@ -196,6 +199,9 @@ export async function verifyPreviewSource(root=process.cwd()) {
   assert(page.split("/*")[0].includes("ApprovedHome"),"Deploy route does not use approved complete site");
   const proxy=await read("src/proxy.ts");
   assert(proxy.includes("verifyPrivateReviewToken")&&proxy.includes("noindex, nofollow, noarchive"));
+  assert(proxy.indexOf("publicRoutePattern.test(pathname)") < proxy.indexOf("const token = request.cookies"), "Public pages must resolve before review authentication");
+  assert(proxy.includes('pathname.startsWith("/review/site")') && proxy.includes('pathname.startsWith("/review/assets/")'), "Private review routes must remain protected");
+  assert((await read("src/app/media/[key]/route.ts")).includes("isPublicMediaEntry(entry)"), "Public media route must require explicit approval");
   const hello=await read("src/app/(three)/hello/page.tsx");
   assert(proxy.indexOf('pathname === "/hello"') < proxy.indexOf("const token = request.cookies"), "Public hello exception must run before review authentication");
   assert(hello.includes('href={`${publicSite}/work`}') || hello.includes('href: `${publicSite}/work`'), "Hello Work action must use the live public destination");
@@ -215,11 +221,11 @@ export async function verifyPreviewSource(root=process.cwd()) {
   const interactivePage=await read("src/components/site/InteractivePage.tsx");
   assert(interactivePage.includes("More ways to get into the work are coming soon."),"Interactive route support copy is missing");
   const urls=JSON.parse(await read("src/content/site/media-urls.generated.json"));
-  for(const logical of ["/media/capabilities/five-below-zig-zag-display-loop.mp4","/media/capabilities/desmi-rotan-chd-sizzle-loop.mp4","/models/RVA_Logo_010_intro_002.glb"])assert(urls[logical]?.startsWith("/review/assets/"),`Private media URL missing for ${logical}`);
+  for(const logical of ["/media/capabilities/five-below-zig-zag-display-loop.mp4","/media/capabilities/desmi-rotan-chd-sizzle-loop.mp4","/models/RVA_Logo_010_intro_002.glb"])assert(urls[logical]?.startsWith("/media/"),`Public-approved media URL missing for ${logical}`);
   const form=await read("src/components/site/InquiryForm.tsx");
   assert(form.includes('"Send message"')&&!form.includes('className="privacy-note"'));
   const privateContent = await read("src/lib/site/content.ts");
-  assert(privateContent.includes('slug: "desmi-rotan-pump"') && privateContent.includes('publication: { status: "preview" }'), "DESMI must remain private review content");
+  assert(privateContent.includes('slug: "desmi-rotan-pump"') && privateContent.includes('status: "public-approved"'), "DESMI direct-owner approval is missing");
   assert(!(await read("src/content/work/records.ts")).includes("desmi"), "DESMI must not enter the public registry");
   assert(capability.includes('siteHref("/work/desmi-rotan-pump")'), "DESMI capability story link missing");
   // Brand-copy and distinct image-artwork contracts are also exercised in browser QA.

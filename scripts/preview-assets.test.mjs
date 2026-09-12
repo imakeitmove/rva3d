@@ -13,9 +13,16 @@ async function fixture(t) {
   const sha256 = digest(data), key = sha256.slice(0, 20) + ".png";
   await fs.mkdir(path.join(root, "src/content/site"), { recursive: true });
   await fs.mkdir(path.join(root, "private-media"));
-  const manifest = { [key]: { file: "private-media/" + key, type: "image/png", bytes: data.length, sha256, publication: "private-review-only" } };
+  const manifest = { [key]: {
+    file: "private-media/" + key, type: "image/png", bytes: data.length, sha256,
+    publication: "public-approved",
+    approvedAt: "2026-09-12",
+    approvedBy: "Deven Langston",
+    approvalAuthority: "RVA3D owner",
+    approvalSource: "direct-owner-approval",
+  } };
   await fs.writeFile(path.join(root, "src/content/site/media.generated.json"), JSON.stringify(manifest));
-  await fs.writeFile(path.join(root, "src/content/site/media-urls.generated.json"), JSON.stringify({ "/private/test.png": "/review/assets/" + key }));
+  await fs.writeFile(path.join(root, "src/content/site/media-urls.generated.json"), JSON.stringify({ "/private/test.png": "/media/" + key }));
   for (const file of ["home.generated.json", "editorial.generated.json", "capability-proof-v2.generated.json"]) await fs.writeFile(path.join(root, "src/content/site", file), "{}");
   const file = path.join(root, "private-media", key);
   await fs.writeFile(file, data);
@@ -35,13 +42,29 @@ test("same-size corruption fails the hash check", async t => {
 });
 test("dangling logical mapping fails", async t => {
   const f = await fixture(t);
-  await fs.writeFile(path.join(f.root, "src/content/site/media-urls.generated.json"), JSON.stringify({ "/private/test.png": "/review/assets/missing.png" }));
+  await fs.writeFile(path.join(f.root, "src/content/site/media-urls.generated.json"), JSON.stringify({ "/private/test.png": "/media/missing.png" }));
   await assert.rejects(verifyPreviewAssets(f.root), /Missing manifest entry/);
 });
 test("wrong MIME declaration fails", async t => {
   const f = await fixture(t); f.manifest[f.key].type = "video/mp4";
   await fs.writeFile(path.join(f.root, "src/content/site/media.generated.json"), JSON.stringify(f.manifest));
   await assert.rejects(verifyPreviewAssets(f.root), /signature\/type/);
+});
+test("future private media cannot use the public route", async t => {
+  const f = await fixture(t);
+  f.manifest[f.key].publication = "private-review-only";
+  delete f.manifest[f.key].approvedAt;
+  delete f.manifest[f.key].approvedBy;
+  delete f.manifest[f.key].approvalAuthority;
+  delete f.manifest[f.key].approvalSource;
+  await fs.writeFile(path.join(f.root, "src/content/site/media.generated.json"), JSON.stringify(f.manifest));
+  await assert.rejects(verifyPreviewAssets(f.root), /Public URL lacks approval/);
+});
+test("public media requires complete owner provenance", async t => {
+  const f = await fixture(t);
+  delete f.manifest[f.key].approvalSource;
+  await fs.writeFile(path.join(f.root, "src/content/site/media.generated.json"), JSON.stringify(f.manifest));
+  await assert.rejects(verifyPreviewAssets(f.root), /approval source/);
 });
 test("source-only checkout cannot claim a prepared release", async t => {
   const f = await fixture(t);

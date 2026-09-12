@@ -378,14 +378,15 @@ test.skip("retired with the dormant React homepage: authored lockup geometry", a
   );
 });
 
-test("V008 gallery serializes only the curated, protected selection", async () => {
+test("V008 gallery serializes only the curated, public-approved selection", async () => {
   const data = JSON.parse(await readFile(resolve(projectRoot, "src/content/site/home.generated.json"), "utf8"));
   const manifest = JSON.parse(await readFile(resolve(projectRoot, "src/content/site/media.generated.json"), "utf8"));
   assert.ok(data.ribbon.length > 5);
   assert.equal(new Set(data.ribbon.map(item => item.id)).size, data.ribbon.length);
   for (const media of [...data.ribbon, ...data.hero]) {
-    assert.ok(media.src.startsWith("/review/assets/"));
-    assert.ok(manifest[media.src.split("/").at(-1)]);
+    assert.ok(media.src.startsWith("/media/"));
+    const entry = manifest[media.src.split("/").at(-1)];
+    assert.equal(entry.publication, "public-approved");
   }
 });
 
@@ -425,7 +426,7 @@ test("portfolio ribbons use the full discovered pool through a stable duplicated
 
 */
 
-test("the five-case portfolio is preview-only while private tools stay gated", async () => {
+test("the approved portfolio is public while private tools stay gated", async () => {
   const previewLoader = await readFile(
     resolve(projectRoot, "src/content/work/preview.ts"),
     "utf8",
@@ -897,7 +898,7 @@ test.skip("retired with the dormant React header: adaptive route regions", async
   }
 });
 
-test("complete-site capability refinements stay registered, protected, and interaction-safe", async () => {
+test("complete-site capability refinements stay registered, public-approved, and interaction-safe", async () => {
   const [capability, player, logo, page, proxy, css, urlsSource, mediaSource] = await Promise.all(
     [
       "src/components/site/CapabilityEditorial.tsx",
@@ -933,9 +934,10 @@ test("complete-site capability refinements stay registered, protected, and inter
     "/media/capabilities/desmi-rotan-chd-sizzle-loop.mp4",
     "/models/RVA_Logo_010_intro_002.glb",
   ]) {
-    assert.match(urls[logicalPath], /^\/review\/assets\/[a-f0-9]{20}\./);
-    const privateKey = urls[logicalPath].split("/").at(-1);
-    assert.ok(media[privateKey]);
+    assert.match(urls[logicalPath], /^\/media\/[a-f0-9]{20}\./);
+    const publicKey = urls[logicalPath].split("/").at(-1);
+    assert.ok(media[publicKey]);
+    assert.equal(media[publicKey].publication, "public-approved");
   }
 });
 

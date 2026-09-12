@@ -1,12 +1,17 @@
 import type { MetadataRoute } from "next";
 
 import { getPublishedCapabilityPages } from "@/content/capabilities";
-import { getApprovedWork } from "@/content/work";
+import {
+  isPublicApprovedCaseStudy,
+  validatePublicApprovedCaseStudy,
+} from "@/content/work";
+import { studies } from "@/lib/site/content";
 
 const SITE_URL = "https://www.rva3d.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const approvedWork = getApprovedWork();
+  const approvedWork = studies.filter(isPublicApprovedCaseStudy);
+  approvedWork.forEach(validatePublicApprovedCaseStudy);
   const publishedCapabilities = getPublishedCapabilityPages();
   const entries: MetadataRoute.Sitemap = [
     {
@@ -18,6 +23,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${SITE_URL}/capabilities`,
       changeFrequency: "monthly",
       priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}/about`,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/hello`,
+      changeFrequency: "monthly",
+      priority: 0.7,
     },
   ];
 

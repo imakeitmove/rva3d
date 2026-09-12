@@ -25,7 +25,8 @@ export function ClientAccess({ recovery = false }: { recovery?: boolean }) {
         <p className={styles.eyebrow}>Client access</p>
         <h1 id="client-access-title">{recovery ? "Recover access" : "Client login"}</h1>
         <p className={styles.introduction}>{recovery ? "Forgot your username or password? Start with the email and company associated with your account." : "A private place for invited clients to access their projects."}</p>
-        <Link className={styles.backLink} href="/review/site">← Back to site</Link>
+        {/* Previous private-candidate destination: /review/site */}
+        <Link className={styles.backLink} href="/">← Back to site</Link>
       </div>
       <div className={styles.formSide}>
         <p id="client-access-notice" className={styles.notice}>Local preview — {recovery ? "account recovery is not connected. No email will be sent." : "sign-in is not connected. Please do not enter real credentials."}</p>

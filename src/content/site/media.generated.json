@@ -5,7 +5,11 @@
     "bytes": 126756,
     "sha256": "c5a6891b7af4dc78c193583b4b353d36d399e83aecd9a64504fa2c53cc380af5",
     "source": "design_prototypes\\rva3d_reset\\private_assets\\deven_portrait.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "6898dc7d4ac2276dbb79.webp": {
     "file": "private-media/6898dc7d4ac2276dbb79.webp",
@@ -13,7 +17,11 @@
     "bytes": 13246,
     "sha256": "6898dc7d4ac2276dbb791efafac110f448bb64fc6a8fbfc1c33a5d4e00b1b4ce",
     "source": "design_prototypes\\rva3d_reset\\private_assets\\boundary_logo.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "093ddfdc7d8fad24b691.webp": {
     "file": "private-media/093ddfdc7d8fad24b691.webp",
@@ -21,7 +29,11 @@
     "bytes": 72612,
     "sha256": "093ddfdc7d8fad24b691d83598343cea8c39171a3e62774317236698b218cad0",
     "source": "public\\media\\work\\amsoil-xpd-wind-grease\\amsoil_hero_composite_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "17da8310e1d43d339ae7.webp": {
     "file": "private-media/17da8310e1d43d339ae7.webp",
@@ -29,7 +41,11 @@
     "bytes": 263624,
     "sha256": "17da8310e1d43d339ae71c27e1028d8f61e6a6aaf97fa63fda37f3224fc21101",
     "source": "public\\media\\work\\capri-sun\\capri_sun_noise_tech_hero_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "aabd7aeef873bdf5a768.webp": {
     "file": "private-media/aabd7aeef873bdf5a768.webp",
@@ -37,7 +53,11 @@
     "bytes": 45650,
     "sha256": "aabd7aeef873bdf5a768ccc66d2abbd8ee4f16637d353c7f7e1785dcc0edab9d",
     "source": "public\\project-media\\cable-snake\\hero.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "b5583981e3154102ea55.mp4": {
     "file": "private-media/b5583981e3154102ea55.mp4",
@@ -45,7 +65,11 @@
     "bytes": 15008179,
     "sha256": "b5583981e3154102ea5518a7129962c394205bb18e0c5b9b665ebe2888903bd0",
     "source": "public\\media\\hero\\rva3d-hero-reel-desktop.mp4",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "07046a9ab42ce82969be.mp4": {
     "file": "private-media/07046a9ab42ce82969be.mp4",
@@ -53,7 +77,11 @@
     "bytes": 6380769,
     "sha256": "07046a9ab42ce82969be7c28d10f6cd4945ea466604334f0c867962ec736d41c",
     "source": "public\\media\\hero\\rva3d-hero-reel-mobile.mp4",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "8156dbc59722ef415f2f.webp": {
     "file": "private-media/8156dbc59722ef415f2f.webp",
@@ -61,7 +89,11 @@
     "bytes": 33388,
     "sha256": "8156dbc59722ef415f2f0b20e58f517b84ee92dbdc99dd9295ea9ef115c1afe1",
     "source": "public\\media\\hero\\rva3d-hero-poster-desktop.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "64f59276c8396dc1fa7e.webp": {
     "file": "private-media/64f59276c8396dc1fa7e.webp",
@@ -69,7 +101,11 @@
     "bytes": 16476,
     "sha256": "64f59276c8396dc1fa7ee18a45f455d0762693f730531f5e1436b6ef117ae31f",
     "source": "public\\media\\hero\\rva3d-hero-poster-mobile.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "5a7717522c1ab9e2bc5d.mp4": {
     "file": "private-media/5a7717522c1ab9e2bc5d.mp4",
@@ -77,7 +113,11 @@
     "bytes": 5013029,
     "sha256": "5a7717522c1ab9e2bc5d3dbf6d7fe64ee1bc4cc741b724168164285513f2618c",
     "source": "public\\media\\work\\axe-whaxe-lil-baby\\axe_whaxe_campaign_v001.mp4",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "481f23fd1cbbf4e5d2ea.webp": {
     "file": "private-media/481f23fd1cbbf4e5d2ea.webp",
@@ -85,7 +125,11 @@
     "bytes": 47478,
     "sha256": "481f23fd1cbbf4e5d2ea23bb46056128f26c486f0cf617363a6a9d5a078f68a9",
     "source": "public\\media\\work\\axe-whaxe-lil-baby\\axe_whaxe_hero_poster_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "fcc5f6a09fabe0684436.mp4": {
     "file": "private-media/fcc5f6a09fabe0684436.mp4",
@@ -93,7 +137,11 @@
     "bytes": 435955,
     "sha256": "fcc5f6a09fabe068443682855f82c574526c01b9261462320c5cb2c11c04c69a",
     "source": "public\\media\\work\\cable-snake\\cable_snake_turnaround_loop_v001.mp4",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "060fe21b6d9f31fec3a0.webp": {
     "file": "private-media/060fe21b6d9f31fec3a0.webp",
@@ -101,7 +149,11 @@
     "bytes": 226162,
     "sha256": "060fe21b6d9f31fec3a0a19d2f5bc3b67fc05ad3d335269a3b151bd07bcb507d",
     "source": "public\\media\\work\\capri-sun\\capri_sun_solstice_final_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "e4d9b02a83dd2b619ae4.webp": {
     "file": "private-media/e4d9b02a83dd2b619ae4.webp",
@@ -109,7 +161,11 @@
     "bytes": 96578,
     "sha256": "e4d9b02a83dd2b619ae4fd33d7dbe9e2b2662efbc7c99bd54af929c216cc363a",
     "source": "public\\media\\portfolio-ribbons\\top\\samuel_adams_bottle.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "ba19635da892714d40ff.webp": {
     "file": "private-media/ba19635da892714d40ff.webp",
@@ -117,7 +173,11 @@
     "bytes": 22602,
     "sha256": "ba19635da892714d40ffef8a7adfc872cbff81dc5b9c5751dbb8c10aa731e5d0",
     "source": "public\\media\\portfolio-ribbons\\top\\industrial_exploded_shaft.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "9db3edf336f18fb15ba0.webp": {
     "file": "private-media/9db3edf336f18fb15ba0.webp",
@@ -125,7 +185,11 @@
     "bytes": 73176,
     "sha256": "9db3edf336f18fb15ba02bc29e5a43e510b93b180812fea525daeb206f120076",
     "source": "public\\media\\portfolio-ribbons\\top\\twisted_tea_two_can_intro.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "2dfd42fb2007c9bff554.webp": {
     "file": "private-media/2dfd42fb2007c9bff554.webp",
@@ -133,7 +197,11 @@
     "bytes": 51220,
     "sha256": "2dfd42fb2007c9bff55438461d840713fd12ae4bbc59f9fc3c2c34f846c49632",
     "source": "public\\media\\portfolio-ribbons\\top\\wawa_coffee_island_fixture.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "de1ed661af124c7f69f2.webp": {
     "file": "private-media/de1ed661af124c7f69f2.webp",
@@ -141,7 +209,11 @@
     "bytes": 94174,
     "sha256": "de1ed661af124c7f69f26820991f2309c0618e7c9a9af08eb70781b64c1f6bc0",
     "source": "public\\media\\portfolio-ribbons\\top\\black_cherry_can_closeup.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "ae9d3b5a86df80985ddb.webp": {
     "file": "private-media/ae9d3b5a86df80985ddb.webp",
@@ -149,7 +221,11 @@
     "bytes": 48808,
     "sha256": "ae9d3b5a86df80985ddb5c8f7579f8f2330a13af209b2215b618945a02c5c6c6",
     "source": "public\\media\\portfolio-ribbons\\top\\desmi_pump_cutaway.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "eabbf0e05d06d74b4ba0.webp": {
     "file": "private-media/eabbf0e05d06d74b4ba0.webp",
@@ -157,7 +233,11 @@
     "bytes": 45576,
     "sha256": "eabbf0e05d06d74b4ba0be47dd13f7daea3e7a816105d5a785e381ebc124e963",
     "source": "public\\media\\portfolio-ribbons\\top\\simply_koozie_product.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "cb715d4d90e83376e0b2.mp4": {
     "file": "private-media/cb715d4d90e83376e0b2.mp4",
@@ -165,7 +245,11 @@
     "bytes": 2697832,
     "sha256": "cb715d4d90e83376e0b2a90cafc5a9a7c5e539ddde5004c141073b37185b7ff2",
     "source": "public\\media\\capabilities\\3d-animation-nvers.mp4",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "3c80cb8fbcb93d5f4aae.webp": {
     "file": "private-media/3c80cb8fbcb93d5f4aae.webp",
@@ -173,7 +257,11 @@
     "bytes": 28008,
     "sha256": "3c80cb8fbcb93d5f4aae36776f6a58d6af472e736a294f732d1c13fab7c559d5",
     "source": "public\\media\\capabilities\\3d-animation-nvers-poster.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "fa6fba3bc636adf3bd99.mp4": {
     "file": "private-media/fa6fba3bc636adf3bd99.mp4",
@@ -181,7 +269,11 @@
     "bytes": 2519661,
     "sha256": "fa6fba3bc636adf3bd99f33efa7090517be4eb66022dc72cbaf7192457db04e3",
     "source": "public\\media\\capabilities\\product-technical-visualization.mp4",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "6a3779e94c67ffe36517.webp": {
     "file": "private-media/6a3779e94c67ffe36517.webp",
@@ -189,7 +281,11 @@
     "bytes": 27838,
     "sha256": "6a3779e94c67ffe3651752f0913f5fb6ddcbb7bb6fd5e050380349d8749d1769",
     "source": "public\\media\\capabilities\\product-technical-visualization-poster.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "d9ef9fe8aeb3ecc0d6b9.mp4": {
     "file": "private-media/d9ef9fe8aeb3ecc0d6b9.mp4",
@@ -197,7 +293,11 @@
     "bytes": 3000272,
     "sha256": "d9ef9fe8aeb3ecc0d6b9cd81a02ccecb6929fdc8c04a00bfd24b3f2bea915671",
     "source": "public\\media\\capabilities\\vfx-compositing-tiger-ups.mp4",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "888ee34c82a5fa98cd8b.webp": {
     "file": "private-media/888ee34c82a5fa98cd8b.webp",
@@ -205,7 +305,11 @@
     "bytes": 46656,
     "sha256": "888ee34c82a5fa98cd8b434ec19f26a0bb54cc9b21f8d6f9eecf74dd3f7051f0",
     "source": "public\\media\\capabilities\\vfx-compositing-tiger-ups-poster.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "c5746f173330d7d5e00b.png": {
     "file": "private-media/c5746f173330d7d5e00b.png",
@@ -213,7 +317,11 @@
     "bytes": 86505,
     "sha256": "c5746f173330d7d5e00b957b55f6fd85ce3d828aba4592d65131426e3794dbc0",
     "source": "..\\production\\PSD\\exports\\RVA_Logo_010_for_onBlack.png",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "190c338103121d919ced.mp4": {
     "file": "private-media/190c338103121d919ced.mp4",
@@ -221,7 +329,11 @@
     "bytes": 7792100,
     "sha256": "190c338103121d919ced740e9b36e26a84a83e90c828aef57b1ecdeb55093284",
     "source": "public\\media\\work\\cable-snake\\cable_snake_case_film_review_v001.mp4",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "11509edc9ff31ac08263.webp": {
     "file": "private-media/11509edc9ff31ac08263.webp",
@@ -229,7 +341,11 @@
     "bytes": 22346,
     "sha256": "11509edc9ff31ac08263a2a40ef663e592472abd4ffc698381e081feed2ebfa8",
     "source": "public\\media\\work\\cable-snake\\cable_snake_case_film_poster_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "47a5efdc783212d88499.webp": {
     "file": "private-media/47a5efdc783212d88499.webp",
@@ -237,7 +353,11 @@
     "bytes": 49396,
     "sha256": "47a5efdc783212d88499905b6000b91e033810e25574c1de952b8532446ebc44",
     "source": "public\\media\\work\\cable-snake\\cable_snake_practical_01.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "ce4feba04dc3f4d59930.webp": {
     "file": "private-media/ce4feba04dc3f4d59930.webp",
@@ -245,7 +365,11 @@
     "bytes": 48148,
     "sha256": "ce4feba04dc3f4d5993026468e04053582b5b5c8e53af9db0ea55cc6757d8e47",
     "source": "public\\media\\work\\cable-snake\\cable_snake_cg_01.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "51e15033955d819eabc0.webp": {
     "file": "private-media/51e15033955d819eabc0.webp",
@@ -253,7 +377,11 @@
     "bytes": 59714,
     "sha256": "51e15033955d819eabc0e263c749cf065cc75351e36402c846862e478eafdbdf",
     "source": "public\\media\\work\\cable-snake\\cable_snake_final_02.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "e509945ffb02119cf812.webp": {
     "file": "private-media/e509945ffb02119cf812.webp",
@@ -261,7 +389,11 @@
     "bytes": 16196,
     "sha256": "e509945ffb02119cf8128a4e49139540c0f99fc0ddbc23434506898d80c16155",
     "source": "public\\media\\work\\cable-snake\\cable_snake_turnaround_poster_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "f2d43a3c6ee30b708cc9.webp": {
     "file": "private-media/f2d43a3c6ee30b708cc9.webp",
@@ -269,7 +401,11 @@
     "bytes": 33840,
     "sha256": "f2d43a3c6ee30b708cc985f4914a8fd299311276ff18c983fc293b19439ae281",
     "source": "public\\media\\work\\cable-snake\\cable_snake_process_rig_01.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "4684a36f492b02dc94ac.webp": {
     "file": "private-media/4684a36f492b02dc94ac.webp",
@@ -277,7 +413,11 @@
     "bytes": 97594,
     "sha256": "4684a36f492b02dc94ac3a624e0f923a42145377c77bec51e7c40d6732250834",
     "source": "public\\media\\work\\cable-snake\\cable_snake_process_lookdev_01.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "e54fd80d5606497ded27.webp": {
     "file": "private-media/e54fd80d5606497ded27.webp",
@@ -285,7 +425,11 @@
     "bytes": 81476,
     "sha256": "e54fd80d5606497ded27964d159ba7b8556f16517c6012e9ff9fb25f7fc045ab",
     "source": "public\\media\\work\\cable-snake\\cable_snake_campaign_context_01.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "a0d3d0fe6b8e72d5abd1.webp": {
     "file": "private-media/a0d3d0fe6b8e72d5abd1.webp",
@@ -293,7 +437,11 @@
     "bytes": 23354,
     "sha256": "a0d3d0fe6b8e72d5abd1d61d009985d2c5c36d9f4e84fc9dcbdd8501a55cc240",
     "source": "public\\media\\work\\cable-snake\\cable_snake_og_1200x630_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "62824ec11554c9947baf.webp": {
     "file": "private-media/62824ec11554c9947baf.webp",
@@ -301,7 +449,11 @@
     "bytes": 46848,
     "sha256": "62824ec11554c9947baf1bd539993e8af1dd816f234d3eed44c4d2501c6c0e90",
     "source": "public\\media\\work\\amsoil-xpd-wind-grease\\amsoil_combined_assembly_viewport_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "b874568252fda0520d17.webp": {
     "file": "private-media/b874568252fda0520d17.webp",
@@ -309,7 +461,11 @@
     "bytes": 44546,
     "sha256": "b874568252fda0520d175844ce1a145b9915dd89c6484dbbe5917e4091a06e11",
     "source": "public\\media\\work\\amsoil-xpd-wind-grease\\amsoil_model_plan_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "0e3ca273a3f16678fd63.webp": {
     "file": "private-media/0e3ca273a3f16678fd63.webp",
@@ -317,7 +473,11 @@
     "bytes": 44466,
     "sha256": "0e3ca273a3f16678fd63ee09891c47e94e51b2adfa119a925cf87eb2eff3139d",
     "source": "public\\media\\work\\amsoil-xpd-wind-grease\\amsoil_bearing_closeup_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "cd894b8dfebb0a0d9745.mp4": {
     "file": "private-media/cd894b8dfebb0a0d9745.mp4",
@@ -325,7 +485,11 @@
     "bytes": 8231616,
     "sha256": "cd894b8dfebb0a0d9745956f905eaf32aef31b5088b698b68d4aacc91c9498da",
     "source": "public\\media\\work\\amsoil-xpd-wind-grease\\amsoil_grease_comparison_v001.mp4",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "8a81c6de581e04705018.webp": {
     "file": "private-media/8a81c6de581e04705018.webp",
@@ -333,7 +497,11 @@
     "bytes": 78398,
     "sha256": "8a81c6de581e047050182e2b9fab276f421b13bdfe604423c54e220ac31efe1d",
     "source": "public\\media\\work\\amsoil-xpd-wind-grease\\amsoil_grease_comparison_poster_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "087caf5c3abab7b2ed48.webp": {
     "file": "private-media/087caf5c3abab7b2ed48.webp",
@@ -341,7 +509,11 @@
     "bytes": 49446,
     "sha256": "087caf5c3abab7b2ed48e8df8dfc4240325aaa296d8725138291928bef9d06cb",
     "source": "public\\media\\work\\amsoil-xpd-wind-grease\\amsoil_trade_show_cutaway_proof_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "0af703c54beaed3ec97f.webp": {
     "file": "private-media/0af703c54beaed3ec97f.webp",
@@ -349,7 +521,11 @@
     "bytes": 43562,
     "sha256": "0af703c54beaed3ec97f225ae785fc1c18231beb2c1f916652e7f0ebd320bd45",
     "source": "public\\media\\work\\amsoil-xpd-wind-grease\\amsoil_og_1200x630_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "988d3389bdc094bbb3e6.webp": {
     "file": "private-media/988d3389bdc094bbb3e6.webp",
@@ -357,7 +533,11 @@
     "bytes": 231942,
     "sha256": "988d3389bdc094bbb3e619f160055d46ee7c8fa7eeaf5617b54aab79a03505d7",
     "source": "public\\media\\work\\capri-sun\\capri_sun_noise_tech_package_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "86a0323a9c21bc13866f.webp": {
     "file": "private-media/86a0323a9c21bc13866f.webp",
@@ -365,7 +545,11 @@
     "bytes": 275534,
     "sha256": "86a0323a9c21bc13866fecea27c5ddad31dd2114602f357ba33e888f947aa66b",
     "source": "public\\media\\work\\capri-sun\\capri_sun_noise_tech_process_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "dce28482f61d881ddfdc.webp": {
     "file": "private-media/dce28482f61d881ddfdc.webp",
@@ -373,7 +557,11 @@
     "bytes": 209946,
     "sha256": "dce28482f61d881ddfdcc205d2c6350c836c39085d149c7cbc5e15dc79c4a8fe",
     "source": "public\\media\\work\\capri-sun\\capri_sun_trick_treat_final_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "557241cf3177f64c5568.webp": {
     "file": "private-media/557241cf3177f64c5568.webp",
@@ -381,7 +569,11 @@
     "bytes": 71054,
     "sha256": "557241cf3177f64c5568bed7b94fdad792f7cb6b59e24f1d3c6c9f067301672a",
     "source": "public\\media\\work\\capri-sun\\capri_sun_og_1200x630_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "3475d41751638033c1bd.webp": {
     "file": "private-media/3475d41751638033c1bd.webp",
@@ -389,7 +581,11 @@
     "bytes": 82008,
     "sha256": "3475d41751638033c1bdd1ff14a9b262c0ed6dc8a4bfc580d1904815d8af483a",
     "source": "public\\media\\work\\axe-whaxe-lil-baby\\axe_whaxe_product_still_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "30c0dc6b31515bd11826.webp": {
     "file": "private-media/30c0dc6b31515bd11826.webp",
@@ -397,7 +593,11 @@
     "bytes": 39986,
     "sha256": "30c0dc6b31515bd118268cf32c3f4dafc439f7d47bdd2ef62b4c6a6d96d71894",
     "source": "public\\media\\work\\axe-whaxe-lil-baby\\axe_whaxe_diamond_still_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "f7267c31df2ed327c877.mp4": {
     "file": "private-media/f7267c31df2ed327c877.mp4",
@@ -405,7 +605,11 @@
     "bytes": 3858603,
     "sha256": "f7267c31df2ed327c8772ccd9cddca00074c1a33a3fe705e834e3d4459288541",
     "source": "public\\media\\work\\axe-whaxe-lil-baby\\axe_whaxe_product_layer_v001.mp4",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "4f602bd8e18339e6974f.webp": {
     "file": "private-media/4f602bd8e18339e6974f.webp",
@@ -413,7 +617,11 @@
     "bytes": 91536,
     "sha256": "4f602bd8e18339e6974ff2eafb139812f598cc9e9703a063dc29004c4b9e7b1e",
     "source": "public\\media\\work\\axe-whaxe-lil-baby\\axe_whaxe_product_layer_poster_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "88def4a68505096b45fe.webp": {
     "file": "private-media/88def4a68505096b45fe.webp",
@@ -421,7 +629,11 @@
     "bytes": 31502,
     "sha256": "88def4a68505096b45fef19c839ae41a434e56b5b1dabda36efb60ab7f861c3d",
     "source": "public\\media\\work\\axe-whaxe-lil-baby\\axe_whaxe_og_1200x630_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "1ac4e06aa9349b3fe9d8.webp": {
     "file": "private-media/1ac4e06aa9349b3fe9d8.webp",
@@ -429,7 +641,11 @@
     "bytes": 185768,
     "sha256": "1ac4e06aa9349b3fe9d81728a1ef9b238d44dc15320ec2fc8aaace7d6763a0a1",
     "source": "public\\media\\work\\wawa-coffee-island\\wawa_hero_island_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "f73c28550420429117c1.webp": {
     "file": "private-media/f73c28550420429117c1.webp",
@@ -437,7 +653,11 @@
     "bytes": 308892,
     "sha256": "f73c28550420429117c142db35842fe83ec1d45e1a8dd59965dce4dd1764a2b3",
     "source": "public\\media\\work\\wawa-coffee-island\\wawa_front_configuration_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "c365a4ae9bcb579b5b61.webp": {
     "file": "private-media/c365a4ae9bcb579b5b61.webp",
@@ -445,7 +665,11 @@
     "bytes": 160242,
     "sha256": "c365a4ae9bcb579b5b61e65d4bf8105be476180561fb2ded306f0107a4524ca1",
     "source": "public\\media\\work\\wawa-coffee-island\\wawa_rear_configuration_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "222bc720efbfb8e3e326.webp": {
     "file": "private-media/222bc720efbfb8e3e326.webp",
@@ -453,7 +677,11 @@
     "bytes": 235242,
     "sha256": "222bc720efbfb8e3e3260bd4f48d659846918ad6de46227f9f654549a75f7b00",
     "source": "public\\media\\work\\wawa-coffee-island\\wawa_stocked_detail_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "5b5b9d831e6de8459e59.webp": {
     "file": "private-media/5b5b9d831e6de8459e59.webp",
@@ -461,7 +689,11 @@
     "bytes": 110034,
     "sha256": "5b5b9d831e6de8459e59d958e79a9d76b0590c9f22891debead07ab7d96955fd",
     "source": "public\\media\\work\\wawa-coffee-island\\wawa_coffee_products_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "0da610165d29c4ccbe8a.webp": {
     "file": "private-media/0da610165d29c4ccbe8a.webp",
@@ -469,7 +701,11 @@
     "bytes": 157322,
     "sha256": "0da610165d29c4ccbe8a0b23429c414fd94bf9b3268448a978a0c2683f4a844b",
     "source": "public\\media\\work\\wawa-coffee-island\\wawa_material_context_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "8e68198c266c99b6f218.webp": {
     "file": "private-media/8e68198c266c99b6f218.webp",
@@ -477,7 +713,11 @@
     "bytes": 186022,
     "sha256": "8e68198c266c99b6f218065d5beb98eca1f131c8520dafca043d67eb19aa36af",
     "source": "public\\media\\work\\wawa-coffee-island\\wawa_material_detail_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "5234b0bbb3871fab211f.mp4": {
     "file": "private-media/5234b0bbb3871fab211f.mp4",
@@ -485,7 +725,11 @@
     "bytes": 1520738,
     "sha256": "5234b0bbb3871fab211f27633f56d4b8529034c5d78e4497042095ff676b5d68",
     "source": "public\\media\\work\\wawa-coffee-island\\wawa_configuration_motion_v001.mp4",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "25ffefb1a5a4631dc5a8.webp": {
     "file": "private-media/25ffefb1a5a4631dc5a8.webp",
@@ -493,7 +737,11 @@
     "bytes": 130226,
     "sha256": "25ffefb1a5a4631dc5a882658b59cdd8d09349d4f9fe1730f4ff769cc8648566",
     "source": "public\\media\\work\\wawa-coffee-island\\wawa_configuration_motion_poster_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "7cec2f2c3cb9e3af2acd.webp": {
     "file": "private-media/7cec2f2c3cb9e3af2acd.webp",
@@ -501,7 +749,11 @@
     "bytes": 238254,
     "sha256": "7cec2f2c3cb9e3af2acddd65cd61b231263840bdbe134836bd5c7e66f6e09e9c",
     "source": "public\\media\\work\\wawa-coffee-island\\wawa_result_three_quarter_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "8f55fa69820f3ad5b096.webp": {
     "file": "private-media/8f55fa69820f3ad5b096.webp",
@@ -509,7 +761,11 @@
     "bytes": 56014,
     "sha256": "8f55fa69820f3ad5b096863ac2179c7e7b877e0de47b4103cb69d996e8d11a73",
     "source": "public\\media\\work\\wawa-coffee-island\\wawa_og_1200x630_v001.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "abe3e50d90e84fe83341.mp4": {
     "file": "private-media/abe3e50d90e84fe83341.mp4",
@@ -517,7 +773,11 @@
     "bytes": 3058137,
     "sha256": "abe3e50d90e84fe83341341b102d8c6adee1549531470ebfc292d0eed1a3e7cd",
     "source": "public\\media\\capabilities\\motion-design.mp4",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "afe0f6a50f13a7cd4ee1.webp": {
     "file": "private-media/afe0f6a50f13a7cd4ee1.webp",
@@ -525,7 +785,11 @@
     "bytes": 34910,
     "sha256": "afe0f6a50f13a7cd4ee15618c87afe36cf03b965ecdceacb666093998dbab13e",
     "source": "public\\media\\capabilities\\motion-design-poster.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "5a8f88d741818b3ccd62.mp4": {
     "file": "private-media/5a8f88d741818b3ccd62.mp4",
@@ -533,7 +797,11 @@
     "bytes": 3136261,
     "sha256": "5a8f88d741818b3ccd625272359344d4d7e12943e003cbdef4cbf8743972586c",
     "source": "public\\media\\capabilities\\motion-design-16x9.mp4",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "d6aee71378ef738a4d10.webp": {
     "file": "private-media/d6aee71378ef738a4d10.webp",
@@ -541,7 +809,11 @@
     "bytes": 56162,
     "sha256": "d6aee71378ef738a4d1066d9c03fbb4bbb0cb88dd10d4af8016dda5567a73233",
     "source": "public\\media\\capabilities\\motion-design-16x9-poster.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "c04a2bdf3ee866d89940.webp": {
     "file": "private-media/c04a2bdf3ee866d89940.webp",
@@ -549,7 +821,11 @@
     "bytes": 86634,
     "sha256": "c04a2bdf3ee866d899408ef797f01209595a5a17e1e20146b711399777228adc",
     "source": "public\\media\\capabilities\\creative-production-support-kbar.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "ca5821b8342cdf6d5f68.webp": {
     "file": "private-media/ca5821b8342cdf6d5f68.webp",
@@ -557,7 +833,11 @@
     "bytes": 133582,
     "sha256": "ca5821b8342cdf6d5f6878bb718feaef6a0a74a3b84c97c9bba9ba18357f2664",
     "source": "public\\media\\capabilities\\creative-production-support-kbar-16x9.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "df62b959011d69d87408.jpg": {
     "file": "private-media/df62b959011d69d87408.jpg",
@@ -565,7 +845,11 @@
     "bytes": 6348729,
     "sha256": "df62b959011d69d874086144bc7b6b34e8db30a1ab6a961e56411b6a3efe0e6b",
     "source": "../source/images/deven_profile_photos/7O6A6475.jpg",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "c7d7a0c66eb5e2fe9dce.mp4": {
     "file": "private-media/c7d7a0c66eb5e2fe9dce.mp4",
@@ -573,7 +857,11 @@
     "bytes": 17657287,
     "sha256": "c7d7a0c66eb5e2fe9dceb91271adb98231a923ab2549ec9a69c12e9a3491b216",
     "source": "Notion:1e6a9ba2-f258-80a9-987e-dc7dc51edc4b/attachment:truck_wrap_replacement_23_MARTIN_0118_budlight_truck_V04.mp4",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "a55fa7e519579b4f6876.jpg": {
     "file": "private-media/a55fa7e519579b4f6876.jpg",
@@ -581,7 +869,11 @@
     "bytes": 78757,
     "sha256": "a55fa7e519579b4f6876c2eedd095fbeda9b4a994921a5b5ffcf9ac37b5fe861",
     "source": "Frame at 2 seconds from the exact Bud Light Notion attachment",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "3818c4ce2c5145fe30b6.jpg": {
     "file": "private-media/3818c4ce2c5145fe30b6.jpg",
@@ -589,7 +881,11 @@
     "bytes": 232485,
     "sha256": "3818c4ce2c5145fe30b63eb1e23e11f19445c3f0ac86fca8a8c5327f5007225e",
     "source": "I:/PROJECTS/devenjames.com_BACKUP/wp-content/uploads/2017/10/foolMeBehindScenes.jpg",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "0027ab84b1cd57952c8e.webp": {
     "file": "private-media/0027ab84b1cd57952c8e.webp",
@@ -597,7 +893,11 @@
     "bytes": 27746,
     "sha256": "0027ab84b1cd57952c8e4359126faee0934030fb80523a12b39b0cd1b9c5c4cc",
     "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/3_output/web/capabilities/vfx_compositing/private_review_media/vfx_compositing/vfx_va_lottery_original_v001_poster.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "607921fe0f23c98ef344.webp": {
     "file": "private-media/607921fe0f23c98ef344.webp",
@@ -605,7 +905,11 @@
     "bytes": 27664,
     "sha256": "607921fe0f23c98ef3444ad03cb14859c62976777758023419fa1c1267d4b534",
     "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/3_output/web/capabilities/vfx_compositing/private_review_media/vfx_compositing/vfx_va_lottery_final_v001_poster.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "a8079ced8663d12fa67d.webp": {
     "file": "private-media/a8079ced8663d12fa67d.webp",
@@ -613,7 +917,11 @@
     "bytes": 26448,
     "sha256": "a8079ced8663d12fa67d4b902c62c49e4224e589b969bcdec6a803ce9bf85d7a",
     "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/3_output/web/capabilities/vfx_compositing/private_review_media/vfx_compositing/vfx_geico_final_v001_poster.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "fa4e1ba4656923eade16.mp4": {
     "file": "private-media/fa4e1ba4656923eade16.mp4",
@@ -621,7 +929,11 @@
     "bytes": 2184008,
     "sha256": "fa4e1ba4656923eade16cd10b612fd18f0de4752f0727c052d06481af4492f23",
     "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/3_output/web/capabilities/vfx_compositing/private_review_media/vfx_compositing/vfx_geico_final_v001.mp4",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "88f51ac508be221df6da.jpg": {
     "file": "private-media/88f51ac508be221df6da.jpg",
@@ -629,7 +941,11 @@
     "bytes": 14947,
     "sha256": "88f51ac508be221df6dabd81e07ffe277fa4da743072295def7dea64a7da1346",
     "source": "Frame at1second from authoritative Notion blocking attachment",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "270248766c5770ee1ba3.mp4": {
     "file": "private-media/270248766c5770ee1ba3.mp4",
@@ -637,7 +953,11 @@
     "bytes": 1603582,
     "sha256": "270248766c5770ee1ba36ecd477d0ba32794bc5618c5e940f4521258082f7561",
     "source": "Notion portfolio3e44a6a9518a4e05b972497ca5d8c0ef / geico_geckOs_box_anim_blocking_option6_preview_001.mp4",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "f3b7d4e01925d1f8d82a.jpg": {
     "file": "private-media/f3b7d4e01925d1f8d82a.jpg",
@@ -645,7 +965,11 @@
     "bytes": 697867,
     "sha256": "f3b7d4e01925d1f8d82aba999da0665cb4eccccbbde36f449d8749712c029d62",
     "source": "Notion portfolio3e44a6a9518a4e05b972497ca5d8c0ef / IMG_4646.jpg",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "3c55a13513b118ff014b.jpg": {
     "file": "private-media/3c55a13513b118ff014b.jpg",
@@ -653,7 +977,11 @@
     "bytes": 6832104,
     "sha256": "3c55a13513b118ff014b26b1f025138509571a9871402d15ad96e5ffd297f4e2",
     "source": "Notion portfolio3e44a6a9518a4e05b972497ca5d8c0ef / HDR_Panorama.jpg",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "ac46f49a01d73fdd2a38.png": {
     "file": "private-media/ac46f49a01d73fdd2a38.png",
@@ -661,7 +989,11 @@
     "bytes": 1713866,
     "sha256": "ac46f49a01d73fdd2a38a9ffb0f21010bff74e145286ff020fe744a45dca018a",
     "source": "Notion portfolio3e44a6a9518a4e05b972497ca5d8c0ef / Screenshot_2024-06-07_140549.png",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "d5306039d7b6af4c4ac2.png": {
     "file": "private-media/d5306039d7b6af4c4ac2.png",
@@ -669,7 +1001,11 @@
     "bytes": 1502762,
     "sha256": "d5306039d7b6af4c4ac246f5fee201f5dc3fb46b389e64f9b9da4c9b33e157ec",
     "source": "Notion portfolio3e44a6a9518a4e05b972497ca5d8c0ef / b801857f-ff70-47ec-813c-55a4a15d6b68.png",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "a1e6b8f4f353dc4cb6e8.jpg": {
     "file": "private-media/a1e6b8f4f353dc4cb6e8.jpg",
@@ -677,7 +1013,11 @@
     "bytes": 510813,
     "sha256": "a1e6b8f4f353dc4cb6e80c97c632e6ab32038ddf00df97e1f7df14c73b9e1038",
     "source": "W:/PROJECTS/_COMPLETE/_master_output/still/geckOs_outro_still.jpg",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "f0c2c4835693639c8fba.mp4": {
     "file": "private-media/f0c2c4835693639c8fba.mp4",
@@ -685,7 +1025,11 @@
     "bytes": 1594858,
     "sha256": "f0c2c4835693639c8fbafa62a6e09bc4699f9f5364972682bf28cad1f1411b5a",
     "source": "public/media/capabilities/five-below-zig-zag-display-loop.mp4",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "651cdbb5b25cc09dea94.webp": {
     "file": "private-media/651cdbb5b25cc09dea94.webp",
@@ -693,7 +1037,11 @@
     "bytes": 147060,
     "sha256": "651cdbb5b25cc09dea94252da7352ae4e20a674566c01eb5431eae7ea74baff9",
     "source": "public/media/capabilities/five-below-zig-zag-display-poster.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "05fcd629ea81b1df88e3.mp4": {
     "file": "private-media/05fcd629ea81b1df88e3.mp4",
@@ -701,7 +1049,11 @@
     "bytes": 2633409,
     "sha256": "05fcd629ea81b1df88e339ad113b6b46ff887b1e55646f93074a6cd560bba910",
     "source": "public/media/capabilities/desmi-chocolate-pump-loop.mp4",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "e173a45ae5120321181d.webp": {
     "file": "private-media/e173a45ae5120321181d.webp",
@@ -709,7 +1061,11 @@
     "bytes": 36996,
     "sha256": "e173a45ae5120321181d7ac6df33d070cf4a670e75965bc43b6f7307bf5a73a7",
     "source": "public/media/capabilities/desmi-chocolate-pump-poster.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "4a87f375fc7b5d845a7f.glb": {
     "file": "private-media/4a87f375fc7b5d845a7f.glb",
@@ -717,7 +1073,11 @@
     "bytes": 85392,
     "sha256": "4a87f375fc7b5d845a7fea8b6b256041e7e9886132c52aa077f6bbb7f2e27428",
     "source": "public/models/RVA_Logo_010_intro_001.glb",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "e31f848d80967dacf54c.glb": {
     "file": "private-media/e31f848d80967dacf54c.glb",
@@ -725,7 +1085,11 @@
     "bytes": 96132,
     "sha256": "e31f848d80967dacf54c9252d075beef756aabea358f9852ed507eaef037079b",
     "source": "public/models/RVA_Logo_010_intro_002.glb",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "f03e2d55e41c89ec7dae.mp4": {
     "file": "private-media/f03e2d55e41c89ec7dae.mp4",
@@ -733,7 +1097,11 @@
     "bytes": 2720936,
     "sha256": "f03e2d55e41c89ec7daed9dab427e7690c9b4c4427e970c22ad4efed908d9d2c",
     "source": "protected-delivery/desmi-rotan-chd-sizzle-loop.mp4",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   },
   "e49948fb9339a7d1ecdb.webp": {
     "file": "private-media/e49948fb9339a7d1ecdb.webp",
@@ -741,6 +1109,10 @@
     "bytes": 94086,
     "sha256": "e49948fb9339a7d1ecdb94e1e6ec49f105f5b676ccf990c27d3e55c76fe62167",
     "source": "protected-delivery/desmi-rotan-chd-sizzle-poster.webp",
-    "publication": "private-review-only"
+    "publication": "public-approved",
+    "approvedAt": "2026-09-12",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval"
   }
 }
