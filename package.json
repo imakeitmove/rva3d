@@ -5,6 +5,7 @@
   "scripts": {
     "prebuild": "node scripts/require-preview-assets.mjs && prisma generate",
     "build:preview": "node scripts/build-preview-release.mjs",
+    "build:production": "node scripts/build-production-release.mjs",
     "verify:assets": "node scripts/verify-preview-assets.mjs",
     "dev": "next dev",
     "build": "next build",

@@ -12,9 +12,52 @@ import {
   validatePublicApprovedCaseStudy,
 } from "../src/content/work/index.ts";
 import { isPublicMediaEntry } from "../src/lib/site/publication.ts";
+import { publicInquiryDeliveryEnabled } from "../src/lib/site/runtime-environment.ts";
 import { verifyPublicApprovedRelease } from "./verify-public-release.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+
+test("public inquiry delivery is limited to an actual Vercel Production target", () => {
+  assert.equal(publicInquiryDeliveryEnabled({ VERCEL_ENV: "production" }), true);
+  assert.equal(publicInquiryDeliveryEnabled({ VERCEL_ENV: "production", VERCEL_TARGET_ENV: "production" }), true);
+  assert.equal(publicInquiryDeliveryEnabled({ VERCEL_ENV: "preview", VERCEL_TARGET_ENV: "preview" }), false);
+  assert.equal(publicInquiryDeliveryEnabled({ VERCEL_ENV: "production", VERCEL_TARGET_ENV: "preview" }), false);
+  assert.equal(publicInquiryDeliveryEnabled({ VERCEL_ENV: "preview", VERCEL_TARGET_ENV: "production" }), false);
+  assert.equal(publicInquiryDeliveryEnabled({ NODE_ENV: "production" }), false);
+});
+
+test("contact delivery records the Resend provider ID and ignores the retired manual launch flag", async () => {
+  const [action, contact] = await Promise.all([
+    fs.readFile(path.join(root, "src/app/(three)/contact-action.ts"), "utf8"),
+    fs.readFile(path.join(root, "src/components/site/Contact.tsx"), "utf8"),
+  ]);
+  const activeAction = action.replace(/\/\/.*$/gm, "");
+  const activeContact = contact.replace(/\{\/\*[\s\S]*?\*\/\}/g, "");
+  assert.doesNotMatch(activeAction, /RVA3D_PUBLIC_LAUNCH_ENABLED/);
+  assert.doesNotMatch(activeContact, /RVA3D_PUBLIC_LAUNCH_ENABLED/);
+  assert.match(activeAction, /const \{ data: delivery, error \} = await resend\.emails\.send/);
+  assert.match(activeAction, /submissionId: delivery\.id/);
+  assert.match(activeContact, /sendingEnabled=\{publicInquiryDeliveryEnabled\(\)\}/);
+});
+
+test("staged packages select and enforce one deployment target", async () => {
+  const [manifest, prepare, previewBuild, productionBuild, releaseGuide] = await Promise.all([
+    fs.readFile(path.join(root, "package.json"), "utf8").then(JSON.parse),
+    fs.readFile(path.join(root, "scripts/prepare-preview-release.mjs"), "utf8"),
+    fs.readFile(path.join(root, "scripts/build-preview-release.mjs"), "utf8"),
+    fs.readFile(path.join(root, "scripts/build-production-release.mjs"), "utf8"),
+    fs.readFile(path.join(root, "docs/production-release.md"), "utf8"),
+  ]);
+  assert.equal(manifest.scripts["build:preview"], "node scripts/build-preview-release.mjs");
+  assert.equal(manifest.scripts["build:production"], "node scripts/build-production-release.mjs");
+  assert.match(prepare, /const releaseTarget = args\.target \?\? "preview"/);
+  assert.match(prepare, /releaseTarget === "production" \? "npm run build:production" : "npm run build:preview"/);
+  assert.match(previewBuild, /process\.env\.VERCEL_ENV, "preview"/);
+  assert.match(productionBuild, /process\.env\.VERCEL_ENV, "production"/);
+  assert.match(productionBuild, /verifyPreparedSource\(process\.cwd\(\), "production"\)/);
+  assert.match(releaseGuide, /vercel deploy --prod --yes --archive=tgz/);
+  assert.match(releaseGuide, /Do not run `vercel promote`/);
+});
 
 test("direct owner approvals validate independently with truthful non-legacy dimensions", () => {
   const geico = workRecords.find(study => study.slug === "geico-geckos-cereal-box");

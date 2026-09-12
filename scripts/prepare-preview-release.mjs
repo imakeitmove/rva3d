@@ -13,6 +13,8 @@ const args = Object.fromEntries(process.argv.slice(2).reduce((pairs, value, i, l
   return pairs;
 }, []));
 assert(args.revision && args.output && args["media-root"], "Usage: node scripts/prepare-preview-release.mjs --revision <sha> --output <new-directory> --media-root <private-delivery-directory>");
+const releaseTarget = args.target ?? "preview";
+assert(["preview", "production"].includes(releaseTarget), "Release target must be preview or production");
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const revision = execFileSync("git", ["-C", repo, "rev-parse", "--verify", args.revision + "^{commit}"], { encoding: "utf8" }).trim();
 const output = path.resolve(args.output);
@@ -23,7 +25,7 @@ const archive = path.join(temporary, "source.tar");
 const roots = ["src", "prisma", "public/site-assets", "public/fonts", "scripts",
   "package.json", "package-lock.json", "tsconfig.json", "next.config.ts", "postcss.config.mjs",
   "eslint.config.mjs", ".nvmrc", "docs/preview-release.md", "docs/rocky-preview-handoff.md",
-  "docs/public-media-policy-followup.md"];
+  "docs/public-media-policy-followup.md", "docs/production-release.md"];
 const tracked = execFileSync("git", ["-C", repo, "ls-tree", "-r", "--name-only", revision], { encoding: "utf8" }).trim().split("\n");
 const included = tracked.filter(file => roots.some(root => file === root || file.startsWith(root + "/")));
 const forbidden = /(^|\/)(\.env[^/]*|private-media|runtime|node_modules|\.next|\.vercel|screenshots?|captures?)(\/|$)|\.(pem|key)$/i;
@@ -48,12 +50,15 @@ for (const [key, entry] of Object.entries(manifest)) {
 await verifyPreviewAssets(output);
 const release = {
   schema: 1, revision, sourceFiles, media: summary,
-  destination: { projectId: "prj_bZXgUFRiXRpbAur3F4RQOOHxcQCe", orgId: "team_r8laQKfVLK3wUEKlg3AUi4Fa", projectName: "rva3d", target: "preview" },
+  destination: { projectId: "prj_bZXgUFRiXRpbAur3F4RQOOHxcQCe", orgId: "team_r8laQKfVLK3wUEKlg3AUi4Fa", projectName: "rva3d", target: releaseTarget },
 };
 await fs.writeFile(path.join(output, ".preview-release.json"), JSON.stringify(release, null, 2) + "\n");
-// A package-specific build command makes media completeness mandatory on Vercel.
+// Target-specific build commands make media completeness and deployment
+// environment mandatory on Vercel. Preview remains the default path.
 await fs.writeFile(path.join(output, "vercel.json"), JSON.stringify({
-  framework: "nextjs", buildCommand: "npm run build:preview", installCommand: "npm ci",
+  framework: "nextjs",
+  buildCommand: releaseTarget === "production" ? "npm run build:production" : "npm run build:preview",
+  installCommand: "npm ci",
 }, null, 2) + "\n");
 // Only copy non-secret project identity/settings; never pull or copy environment files.
 if (args["project-file"]) {

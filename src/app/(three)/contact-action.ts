@@ -3,6 +3,7 @@
 import { headers } from "next/headers";
 import { hasPrivateReviewSession } from "@/lib/private_review_auth";
 import { Resend } from "resend";
+import { publicInquiryDeliveryEnabled } from "@/lib/site/runtime-environment";
 
 const CONTACT_EMAIL = "hello@rva3d.com";
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
@@ -153,7 +154,10 @@ export async function submitContactForm(
 
   // Ordinary candidate browsing cannot send. Explicit test mode retains the owned recipient.
   const controlledTest = formData.get("controlledTest") === "1" && process.env.RVA3D_CONTACT_TEST_ENABLED === "1" && await hasPrivateReviewSession();
-  const publicSending = process.env.RVA3D_PUBLIC_LAUNCH_ENABLED === "1";
+  // Previous manual switch could leave a promoted Preview artifact in dry-run
+  // mode on the Production domain:
+  // const publicSending = process.env.RVA3D_PUBLIC_LAUNCH_ENABLED === "1";
+  const publicSending = publicInquiryDeliveryEnabled();
   if (!controlledTest && !publicSending) return { status: "error", message: "Your inquiry passed validation. Nothing was sent or stored in this protected preview. Email hello@rva3d.com to start a conversation." };
   const apiKey = process.env.RESEND_API_KEY;
   const fromAddress = process.env.EMAIL_FROM;
@@ -173,7 +177,7 @@ export async function submitContactForm(
   try {
     const resend = new Resend(apiKey);
     const inquiryLabel = inquiryTypes[values.inquiryType];
-    const { error } = await resend.emails.send({
+    const { data: delivery, error } = await resend.emails.send({
       from: fromAddress,
       to: toAddress,
       replyTo: values.email,
@@ -201,10 +205,29 @@ export async function submitContactForm(
       };
     }
 
+    if (!delivery?.id) {
+      console.error("Resend accepted a contact form request without a delivery ID.");
+      return {
+        status: "error",
+        message:
+          "We couldn’t confirm your message was sent. Please email hello@rva3d.com or call (804) 392-8183.",
+      };
+    }
+
+    console.info("Resend accepted an RVA3D contact form delivery.", {
+      deliveryId: delivery.id,
+      recipient: toAddress,
+      deploymentEnvironment: process.env.VERCEL_ENV ?? "unknown",
+      targetEnvironment: process.env.VERCEL_TARGET_ENV ?? "unknown",
+    });
+
     return {
       status: "success",
       message: "Thanks. Your message was accepted by our email provider. RVA3D will be in touch soon.",
-      submissionId: crypto.randomUUID(),
+      // Previous implementation returned an unrelated random UUID. The
+      // provider ID proves this exact message was accepted and stored.
+      // submissionId: crypto.randomUUID(),
+      submissionId: delivery.id,
     };
   } catch (error) {
     console.error("Contact form delivery failed.", {

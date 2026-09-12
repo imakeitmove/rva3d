@@ -53,6 +53,7 @@ const candidateEntryFiles = [
   "scripts/public-release.test.mjs",
   "scripts/prepare-preview-release.mjs",
   "scripts/build-preview-release.mjs",
+  "scripts/build-production-release.mjs",
   "scripts/package-preview-transfer.mjs",
   "scripts/verify-preview-project.mjs",
   "scripts/verify-preview-bundle.mjs",

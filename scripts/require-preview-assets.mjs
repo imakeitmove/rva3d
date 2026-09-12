@@ -4,12 +4,15 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { digest, verifyPreviewAssets } from "./verify-preview-assets.mjs";
 
-export async function verifyPreparedSource(root = process.cwd()) {
+export async function verifyPreparedSource(root = process.cwd(), expectedTarget) {
   const release = JSON.parse(await fs.readFile(path.join(root, ".preview-release.json"), "utf8").catch(() => {
-    throw new Error("This is a source-only checkout, not a media-complete Preview package. Run prepare-preview-release.mjs locally; Git previews cannot obtain private assets.");
+    throw new Error("This is a source-only checkout, not a media-complete release package. Run prepare-preview-release.mjs locally; Git deployments cannot obtain private assets.");
   }));
   assert(/^[a-f0-9]{40}$/.test(release.revision), "Invalid source revision");
-  assert.equal(release.destination.target, "preview");
+  assert(["preview", "production"].includes(release.destination.target), "Invalid release target");
+  if (expectedTarget) {
+    assert.equal(release.destination.target, expectedTarget, `Prepared package target must be ${expectedTarget}`);
+  }
   assert.equal(release.destination.projectId, "prj_bZXgUFRiXRpbAur3F4RQOOHxcQCe");
   assert.equal(release.destination.orgId, "team_r8laQKfVLK3wUEKlg3AUi4Fa");
   // Reject injected source files as well as edits to exported files.
@@ -37,6 +40,8 @@ export async function verifyPreparedSource(root = process.cwd()) {
   return { revision: release.revision, ...assets };
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  if (process.env.VERCEL_ENV === "preview" || process.argv.includes("--required")) console.log(await verifyPreparedSource());
-  else console.log("Source build: private-media release validation is separate (npm run build:preview).");
+  const targetFlag = process.argv.indexOf("--target");
+  const expectedTarget = targetFlag >= 0 ? process.argv[targetFlag + 1] : undefined;
+  if (process.env.VERCEL_ENV === "preview" || process.argv.includes("--required")) console.log(await verifyPreparedSource(process.cwd(), expectedTarget));
+  else console.log("Source build: private-media validation is separate (npm run build:preview or npm run build:production).");
 }
