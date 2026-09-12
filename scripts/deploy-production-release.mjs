@@ -19,7 +19,9 @@ const npx = process.platform === "win32" ? "npx.cmd" : "npx";
 const run = (command, args, options = {}) =>
   execFileSync(command, args, {
     cwd: root,
-    shell: process.platform === "win32",
+    shell:
+      process.platform === "win32" &&
+      command.toLowerCase().endsWith(".cmd"),
     stdio: "inherit",
     ...options,
   });
