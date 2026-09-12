@@ -212,6 +212,13 @@ optional local-development source only and is ignored by production builds.
 - `npm run build` – production build.
 - `npm start` – serve the production build.
 
+## Production releases
+
+Pushing or merging `main` updates canonical source; it does not deploy the live
+site. RVA3D Production releases require the validated 93-asset staged package
+and the explicit guarded release command. Preview artifacts must never be
+promoted to Production. Follow [How RVA3D Gets to Production](docs/production-release.md).
+
 ## Resources
 - Three.js docs: https://threejs.org/docs/
 - React Three Fiber: https://docs.pmnd.rs/react-three-fiber/getting-started/introduction

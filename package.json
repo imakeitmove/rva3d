@@ -6,13 +6,15 @@
     "prebuild": "node scripts/require-preview-assets.mjs && prisma generate",
     "build:preview": "node scripts/build-preview-release.mjs",
     "build:production": "node scripts/build-production-release.mjs",
+    "release:production:check": "node scripts/deploy-production-release.mjs --dry-run",
+    "release:production": "node scripts/deploy-production-release.mjs --deploy",
     "verify:assets": "node scripts/verify-preview-assets.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test:content": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test scripts/content-spine.test.mjs scripts/public-release.test.mjs scripts/preview-assets.test.mjs",
+    "test:content": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test scripts/content-spine.test.mjs scripts/public-release.test.mjs scripts/preview-assets.test.mjs scripts/release-workflow.test.mjs",
     "verify:public-release": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/verify-public-release.mjs"
   },
   "dependencies": {

@@ -51,11 +51,11 @@ test("staged packages select and enforce one deployment target", async () => {
   assert.equal(manifest.scripts["build:preview"], "node scripts/build-preview-release.mjs");
   assert.equal(manifest.scripts["build:production"], "node scripts/build-production-release.mjs");
   assert.match(prepare, /const releaseTarget = args\.target \?\? "preview"/);
-  assert.match(prepare, /releaseTarget === "production" \? "npm run build:production" : "npm run build:preview"/);
+  assert.match(prepare, /createStagedVercelConfig\(releaseTarget\)/);
   assert.match(previewBuild, /process\.env\.VERCEL_ENV, "preview"/);
   assert.match(productionBuild, /process\.env\.VERCEL_ENV, "production"/);
   assert.match(productionBuild, /verifyPreparedSource\(process\.cwd\(\), "production"\)/);
-  assert.match(releaseGuide, /vercel deploy --prod --yes --archive=tgz/);
+  assert.match(releaseGuide, /npm run release:production/);
   assert.match(releaseGuide, /Do not run `vercel promote`/);
 });
 

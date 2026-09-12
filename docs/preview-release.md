@@ -4,6 +4,8 @@ For the reviewed candidate-checkpoint integration, portable archive, pinned Node
 
 Source-only builds are not media-complete release validation. Git-triggered Vercel Preview builds deliberately fail without a prepared release marker and all selected private assets. No asset source is configured for Git builds. Do not push expecting a usable Preview.
 
+Git integration remains available for non-`main` development and feature branches. The exact `main` branch is disabled in repository `vercel.json`, so merging or pushing `main` updates canonical source without starting a Vercel deployment. This Git rule does not block an explicit CLI/API deployment from a prepared package. Preview-artifact promotion to Production is forbidden; follow [How RVA3D Gets to Production](production-release.md).
+
 1. Commit the reviewed runtime repair locally. Do not push yet.
 2. Run: `node scripts/prepare-preview-release.mjs --revision <full-commit-sha> --output <new-absolute-temp-directory> --media-root <existing-private-media-directory>`.
 3. In the prepared directory run `npm ci`, `npm run lint`, `npm run test:content`, and `npm run build:preview`. The normal build still uses Turbopack. The release gate verifies source fingerprints, mappings, all media sizes/hashes/types, and the media route trace.
