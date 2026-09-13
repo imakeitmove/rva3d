@@ -10,7 +10,9 @@ const hero = {
 
 // Source: production/site_content Wawa asset audit and current authenticated
 // review. The unconfirmed year and wider collaborator credits remain omitted.
-export const wawaCoffeeIsland = {
+// Original chapter record retained as the factual/media source for this editorial selection.
+// export const wawaCoffeeIsland = {
+const wawaCoffeeIslandLegacy = {
   slug: "wawa-coffee-island",
   title: "Wawa Coffee Island Display",
   client: "Pak-It Displays",
@@ -171,4 +173,38 @@ export const wawaCoffeeIsland = {
     },
   },
   publication: { status: "public-approved", approvedAt: "2026-09-12", approvedBy: "Deven Langston", approvalAuthority: "RVA3D owner", approvalSource: "direct-owner-approval" },
+} as const satisfies WorkCaseStudy;
+
+// Editorial rollout: select evidence around this project's specific production story.
+
+export const wawaCoffeeIsland = {
+  ...wawaCoffeeIslandLegacy,
+  heroMedia: { ...wawaCoffeeIslandLegacy.heroMedia, caption: "The fully stocked Wawa Coffee Island, visualized in 3D." },
+  editorial: {
+    brand: "Wawa",
+    heading: "Build it once. Rearrange the possibilities.",
+    context: "Wawa / Retail visualization",
+    productionLabel: "Client",
+    productionRole: "Pak-It Displays",
+    contribution: wawaCoffeeIslandLegacy.authorship,
+    sections: [
+      { id: "fixture", kind: "group", heading: wawaCoffeeIslandLegacy.processChapters[0].title,
+        copy: wawaCoffeeIslandLegacy.processChapters[0].summary, media: [
+          wawaCoffeeIslandLegacy.processChapters[0].media[0],
+          { ...wawaCoffeeIslandLegacy.processChapters[0].media[1], caption: "The stocked display from the rear." },
+        ] },
+      { id: "products", kind: "group", heading: wawaCoffeeIslandLegacy.processChapters[1].title,
+        copy: wawaCoffeeIslandLegacy.processChapters[1].summary, media: [
+          { ...wawaCoffeeIslandLegacy.processChapters[1].media[0], caption: "Cups, lids, packets and organizers reconstructed for the display." },
+          { ...wawaCoffeeIslandLegacy.processChapters[1].media[1], caption: "Product geometry and existing Wawa packaging artwork recreated for the scene." },
+        ] },
+      { id: "closer-look", kind: "details", heading: wawaCoffeeIslandLegacy.processChapters[2].title,
+        copy: wawaCoffeeIslandLegacy.processChapters[2].summary, media: [wawaCoffeeIslandLegacy.processChapters[2].media[1]] },
+      { id: "reconfigure", kind: "media", heading: wawaCoffeeIslandLegacy.processChapters[3].title,
+        copy: wawaCoffeeIslandLegacy.processChapters[3].summary,
+        media: { ...wawaCoffeeIslandLegacy.processChapters[3].media[0], presentation: "controls" } },
+    ],
+    closing: { heading: "A retail scene built for changing views.", copy: wawaCoffeeIslandLegacy.value,
+      ctaText: "Need to show a product or retail environment before it is built?" },
+  },
 } satisfies WorkCaseStudy;

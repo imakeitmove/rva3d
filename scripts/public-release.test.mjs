@@ -142,24 +142,31 @@ test("legacy approved gate retains Notion and exact 1200 by 630 requirements", a
   assert.doesNotMatch(legacy, /public-approved|direct-owner/);
 });
 
-test("release registry records all seven direct approvals and 93 assets", async () => {
-  // Original public-only expectation now rejects pending Phase 3 approval.
-  await assert.rejects(verifyPublicApprovedRelease(root, { verifyDimensions: false }), /separate publication decision/);
-  const result = await verifyPublicApprovedRelease(root, { verifyDimensions: false, allowReviewAssets: true });
-  assert.deepEqual(result, {
-    status: "PASS",
-    studies: 7,
-    assets: 93,
-    logicalUrls: 157,
-    // Previous eight-source preview: reviewAssets: 23.
-    // Three printed-artwork variants added; previous reviewAssets: 44.
-    // Camera-track test adds three variants; previous reviewAssets: 47.
-    // Previous GEICO-only reviewAssets: 50; Uncommon Goods adds 17 private derivatives.
-    // v002 adds eight source derivatives and retires five excerpt/still registrations.
-    // How We Work navigation review adds three private process-image variants.
-    reviewAssets: 73,
-    seoDimensionsVerified: false,
-  });
+// Previous private-preview expectation retained for restoration; explicit publication approval supersedes it.
+// test("release registry records all seven direct approvals and 93 assets", async () => {
+//   // Original public-only expectation now rejects pending Phase 3 approval.
+//   await assert.rejects(verifyPublicApprovedRelease(root, { verifyDimensions: false }), /separate publication decision/);
+//   const result = await verifyPublicApprovedRelease(root, { verifyDimensions: false, allowReviewAssets: true });
+//   assert.deepEqual(result, {
+//     status: "PASS",
+//     studies: 7,
+//     assets: 93,
+//     logicalUrls: 157,
+//     // Previous eight-source preview: reviewAssets: 23.
+//     // Three printed-artwork variants added; previous reviewAssets: 44.
+//     // Camera-track test adds three variants; previous reviewAssets: 47.
+//     // Previous GEICO-only reviewAssets: 50; Uncommon Goods adds 17 private derivatives.
+//     // v002 adds eight source derivatives and retires five excerpt/still registrations.
+//     // How We Work navigation review adds three private process-image variants.
+//     reviewAssets: 73,
+//     seoDimensionsVerified: false,
+//   });
+// });
+// 
+// 
+test("release registry pins eight owner-approved cases and the exact 162 assets", async () => {
+  const result = await verifyPublicApprovedRelease(root, { verifyDimensions: false });
+  assert.deepEqual(result, { status: "PASS", studies: 8, assets: 162, logicalUrls: 226, seoDimensionsVerified: false });
 });
 
 // GEICO Phase 2 covers the editorial contract and prevents approval drift in shared media.
@@ -169,18 +176,19 @@ test("GEICO preview keeps exactly the selected evidence and the approved public 
   const urls = JSON.parse(await fs.readFile(path.join(root, "src/content/site/media-urls.generated.json"), "utf8"));
   const { createHash } = await import("node:crypto");
   const digest = value => createHash("sha256").update(JSON.stringify(value)).digest("hex");
-  assert.equal(digest(Object.fromEntries(Object.entries(registry).filter(([, entry]) => entry.publication === "public-approved"))), "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8");
-  assert.equal(digest(Object.fromEntries(Object.entries(urls).filter(([, url]) => url.startsWith("/media/")))), "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f");
+  assert.equal(digest(Object.fromEntries(Object.entries(registry).filter(([, entry]) => entry.publication === "public-approved" && entry.approvedAt === "2026-09-12"))), "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8");
+  assert.equal(digest(Object.fromEntries(Object.entries(urls).filter(([, url]) => url.startsWith("/media/") && registry[url.split("/").at(-1)].approvedAt === "2026-09-12"))), "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f");
   // Previous global count included every private case; scope the preserved GEICO assertions to its logical keys.
   const geicoKeys = new Set(Object.entries(urls).filter(([logical]) => logical.startsWith("/media/work/geico-geckos-cereal-box/")).map(([, url]) => url.split("/").at(-1)));
-  const review = [...geicoKeys].map(key => registry[key]).filter(entry => entry.publication === "private-review-only");
+  const review = [...geicoKeys].map(key => registry[key]).filter(entry => entry.approvedAt === "2026-09-13");
   // Human review adds 21 derivatives to the original 23.
   // Previous review inventory: assert.equal(review.length, 44);
   // Before camera-track derivatives: assert.equal(review.length, 47);
-  assert.equal(review.length, 50);
+  // Four unselected GEICO derivatives stay out of the production delivery package.
+  assert.equal(review.length, 46);
   // Printed artwork adds one retained source to the previous fifteen.
   // The early camera-track test adds one retained source.
-  assert.equal(new Set(review.map(entry => entry.source)).size, 17);
+  assert.equal(new Set(review.map(entry => entry.source)).size, 16);
   const study = workRecords.find(item => item.slug === "geico-geckos-cereal-box");
   // Previous sequence: assert.deepEqual(study.editorial.sections.map(section => section.id), ["performance", "physical-reference", "integration", "build-details", "commercial-edit"]);
   assert.deepEqual(study.editorial.sections.map(section => section.id), ["performance", "physical-reference", "integration", "build-details", "pre-color-composite"]);
@@ -203,7 +211,7 @@ test("GEICO preview keeps exactly the selected evidence and the approved public 
   assert.equal(urls[study.editorial.sections[0].supporting[0].src], "/media/ac46f49a01d73fdd2a38.png");
   // Previously duplicated perspective sources in the main row and detail gallery.
   assert.match(study.editorial.sections[0].supporting[1].src, /geico_early_camera_tracked_box_test/);
-  assert.equal(urls[study.editorial.sections[3].media[0].sources[0].src], "/review/assets/32d653ea5c166c189e4a.webp");
+  assert.equal(urls[study.editorial.sections[3].media[0].sources[0].src], "/media/32d653ea5c166c189e4a.webp");
   assert.equal(visible.filter(item => item.src === study.editorial.sections[3].media[0].src).length, 1);
   assert.deepEqual(study.editorial.sections[2].columns[0].supporting.map(item => item.caption), ["Rendered CG", "Shadow support", "Box mask"]);
   assert.match(study.editorial.sections[2].columns[1].main.caption, /lighting reference captured on set/);
@@ -219,7 +227,7 @@ test("GEICO preview keeps exactly the selected evidence and the approved public 
     for (const candidate of item.kind === "image" ? item.sources ?? [item] : [item]) {
       // Previous sequence: assert(urls[candidate.src].startsWith(item === study.editorial.sections[4].media ? "/media/" : "/review/assets/"));
       // The existing public timeline joins the existing public commercial; other selected media remain private derivatives.
-      assert(urls[candidate.src].startsWith(item === study.heroMedia || item === study.editorial.sections[0].supporting[0] ? "/media/" : "/review/assets/"));
+      assert(urls[candidate.src].startsWith("/media/"));
       const entry = registry[urls[candidate.src].split("/").at(-1)];
       if (entry.width !== undefined) assert.equal(entry.width, candidate.width);
       if (entry.height !== undefined) assert.equal(entry.height, candidate.height);
@@ -237,13 +245,16 @@ test("optional responsive and editorial fields fail on invalid geometry or dupli
   assert.throws(() => validatePublicApprovedCaseStudy(duplicate), /duplicate editorial section ID/);
 });
 
-test("Uncommon Goods keeps source variety private and closes with the short edit", async () => {
+test("Uncommon Goods publishes the owner-cleared review selection and closes with the short edit", async () => {
   const { uncommonGoodsOuttaThisWorld: study } = await import("../src/content/work/cases/uncommon-goods-outta-this-world.ts");
   const { default: media } = await import("../src/content/site/uncommon_goods_phase_2.generated.json", { with: { type: "json" } });
   const registry = JSON.parse(await fs.readFile(path.join(root, "src/content/site/media.generated.json"), "utf8"));
   const urls = JSON.parse(await fs.readFile(path.join(root, "src/content/site/media-urls.generated.json"), "utf8"));
   assert.equal(study.publication.status, "preview");
-  assert(!workRecords.some(item => item.slug === study.slug));
+  const publicStudy = workRecords.find(item => item.slug === study.slug);
+  assert.equal(publicStudy.publication.status, "public-approved");
+  assert.deepEqual(publicStudy.editorial, study.editorial);
+  assert.deepEqual(publicStudy.heroMedia, study.heroMedia);
   assert.throws(() => validatePublicApprovedCaseStudy(study), /not directly approved for public release/);
   const visible = [study.heroMedia, ...study.editorial.sections.flatMap(section => section.kind === "media" ? [section.media] : section.media)];
   assert.equal(visible.length, 11);
@@ -260,9 +271,10 @@ test("Uncommon Goods keeps source variety private and closes with the short edit
   for (const [id, item] of Object.entries(media)) {
     const candidates = item.kind === "video" ? [item, item.poster] : item.sources ?? [item];
     for (const candidate of candidates) {
-      assert(urls[candidate.src].startsWith("/review/assets/"));
+      assert(urls[candidate.src].startsWith("/media/"));
       const entry = registry[urls[candidate.src].split("/").at(-1)];
-      assert.equal(entry.publication, "private-review-only");
+      assert.equal(entry.publication, "public-approved");
+      assert.equal(entry.approvedAt, "2026-09-13");
       assert.equal(entry.width, candidate.width);
       assert.equal(entry.height, candidate.height);
     }
@@ -283,8 +295,10 @@ test("Uncommon Goods keeps source variety private and closes with the short edit
   assert.equal(Object.keys(urls).filter(key => key.startsWith("/media/work/" + study.slug + "/")).length, 20);
   assert(!Object.keys(urls).some(key => /uncommon_goods_(continuity_excerpt|closing_name_snowflake)/.test(key)));
   const route = await fs.readFile(path.join(root, "src/app/(three)/work/uncommon-goods-outta-this-world/page.tsx"), "utf8");
-  assert.match(route, /isPublicProduction\(\) \|\| !\(await hasPrivateReviewSession\(\)\)/);
-  assert.match(route, /robots: \{ index: false, follow: false, noarchive: true \}/);
+  const activeRoute = route.replace(/\/\/.*$/gm, "");
+  assert.match(activeRoute, /CasePage\(props\)/);
+  assert.match(activeRoute, /caseMetadata\(props\)/);
+  assert.doesNotMatch(activeRoute, /hasPrivateReviewSession|isPublicProduction/);
 });
 
 

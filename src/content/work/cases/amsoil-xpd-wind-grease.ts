@@ -10,7 +10,9 @@ const hero = {
 
 // Source: production/site_content AMSOIL manifest, asset audit, and current
 // authenticated review case.
-export const amsoilXpdWindGrease = {
+// Original chapter record retained as the factual/media source for this editorial selection.
+// export const amsoilXpdWindGrease = {
+const amsoilXpdWindGreaseLegacy = {
   slug: "amsoil-xpd-wind-grease",
   title: "AMSOIL XPD Wind Grease",
   client: "AMSOIL",
@@ -154,4 +156,32 @@ export const amsoilXpdWindGrease = {
     },
   },
   publication: { status: "public-approved", approvedAt: "2026-09-12", approvedBy: "Deven Langston", approvalAuthority: "RVA3D owner", approvalSource: "direct-owner-approval" },
+} satisfies WorkCaseStudy;
+
+// Editorial rollout: select evidence around this project's specific production story.
+
+export const amsoilXpdWindGrease = {
+  ...amsoilXpdWindGreaseLegacy,
+  heroMedia: amsoilXpdWindGreaseLegacy.processChapters[2].media[0],
+  editorial: {
+    heroHeading: "Three grease conditions, side by side",
+    heading: "Show what a camera cannot reach.",
+    context: "AMSOIL / Technical visualization",
+    productionLabel: "Assignment",
+    productionRole: "3D reconstruction and animation, refined with AMSOIL engineering guidance",
+    contribution: amsoilXpdWindGreaseLegacy.authorship,
+    sections: [
+      { id: "reconstruction", kind: "group", heading: amsoilXpdWindGreaseLegacy.processChapters[0].title,
+        copy: amsoilXpdWindGreaseLegacy.processChapters[0].summary, media: amsoilXpdWindGreaseLegacy.processChapters[0].media },
+      { id: "grease-control", kind: "media", heading: amsoilXpdWindGreaseLegacy.processChapters[1].title,
+        copy: amsoilXpdWindGreaseLegacy.processChapters[1].summary, media: amsoilXpdWindGreaseLegacy.processChapters[1].media[0] },
+      { id: "closer-look", kind: "details", heading: "The reconstructed assembly in context",
+        copy: "The cutaway connects the bearing detail to the larger drivetrain.",
+        media: [{ ...amsoilXpdWindGreaseLegacy.heroMedia, caption: "Cutaway view of the reconstructed turbine assembly." }] },
+      { id: "follow-on", kind: "media", heading: amsoilXpdWindGreaseLegacy.processChapters[3].title,
+        copy: amsoilXpdWindGreaseLegacy.processChapters[3].summary, media: amsoilXpdWindGreaseLegacy.processChapters[3].media[0] },
+    ],
+    closing: { heading: "One asset. More than one explanation.", copy: amsoilXpdWindGreaseLegacy.value,
+      ctaText: "Have a technical story that is hard to show?" },
+  },
 } satisfies WorkCaseStudy;

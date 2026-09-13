@@ -87,7 +87,9 @@ export function EditorialCasePage({ study, editorial, next }: {
     </section>
     <section className={`v-frame case-facts ${styles.facts}`} data-tone="paper" aria-label="Project contribution">
       <dl>
-        <div><dt>Brand / Year</dt><dd>{study.client} / {study.year}</dd></div>
+        {/* Previous fixed Brand / Year row left a dangling slash for projects without a confirmed year. */}
+        {/* <div><dt>Brand / Year</dt><dd>{study.client} / {study.year}</dd></div> */}
+        <div><dt>{study.year ? "Brand / Year" : "Brand"}</dt><dd>{editorial.brand ?? study.client}{study.year ? ` / ${study.year}` : ""}</dd></div>
         <div><dt>{editorial.productionLabel ?? "Production role"}</dt><dd>{editorial.productionRole}</dd></div>
         <div className="facts-contribution"><dt>{editorial.contributionLabel ?? "RVA3D contribution"}</dt><dd>{editorial.contribution}</dd></div>
       </dl>

@@ -21,21 +21,41 @@ export const desmiReview: WorkCaseStudy = {
   client: "DESMI",
   eyebrow: "A clearer view inside the pump.",
   indexSummary: "Cutaway imagery and animation bring the rotor, housing and chocolate-pump operation into view.",
-  summary: "A pump housing hides the very parts that explain how it works. This DESMI review selection pairs a cutaway of the rotor and housing with an animated chocolate-pump example, bringing the mechanism into view.",
+  // Previous summary described an already-public selection as a private review.
+  summary: "A pump housing hides the very parts that explain how it works. A cutaway of the rotor and housing, paired with an animated chocolate-pump example, brings the mechanism into view.",
   problem: "How do we show what is happening inside a closed pump? An exterior view establishes the product, but the explanation needs to reach the components within it.",
   approach: "Use cutaway views and movement together so we can follow the relationship between the housing, rotor and material moving through the pump.",
   result: "The selected review material brings together a pump cutaway still and a chocolate-pump animation.",
   value: "Together, the views give us a clearer way to discuss the mechanism: where the parts sit and what changes when the pump is moving.",
-  authorship: "Selected RVA3D technical-visualization work, presented here for private review.",
+  // Previous private-review wording retained here for provenance.
+  // authorship: "Selected RVA3D technical-visualization work, presented here for private review.",
+  authorship: "Selected RVA3D technical-visualization work.",
   role: ["Technical visualization", "Animation"],
   capabilities: ["Product and Technical Visualization", "3D Animation"],
-  indexMedia: desmiCutaway, heroMedia: desmiCutaway, galleryMedia: [desmiFilm],
+  // Previous heroMedia: desmiCutaway; motion now opens the short technical article.
+  indexMedia: desmiCutaway, heroMedia: { ...desmiFilm, caption: "DESMI ROTAN chocolate-pump animation." }, galleryMedia: [desmiFilm],
   processChapters: [
     { label: "Cutaway", title: "Open the housing. Keep the relationship.", summary: "The blue housing stays recognizable while the cutaway reveals the rotor and internal assembly. We can see the product and its mechanism in the same view.", media: [desmiCutaway] },
     { label: "In motion", title: "Follow the chocolate through the pump.", summary: "The animated example adds movement to the explanation. Paired with the cutaway, it lets us move from identifying the parts to watching the pump in action.", media: [desmiFilm] },
   ],
   credits: [],
-  seo: { title: "DESMI ROTAN pump | RVA3D private review", description: "DESMI pump cutaway and chocolate-pump animation, selected for private review.", image: desmiCutaway },
+  editorial: {
+    heroHeading: "Pump animation", heading: "Make the inner workings visible.",
+    context: "DESMI / Technical visualization", productionLabel: "Assignment",
+    productionRole: "Cutaway imagery and pump animation",
+    contribution: "Selected RVA3D technical visualization and animation",
+    sections: [
+      { id: "cutaway", kind: "media", heading: "Open the housing. Keep the relationship.",
+        copy: "The blue housing stays recognizable while the cutaway reveals the rotor and internal assembly. We can see the product and its mechanism in the same view.",
+        media: { ...desmiCutaway, caption: "A cutaway reveals the rotor and housing." } },
+      { id: "in-motion", kind: "text", heading: "Connect the parts to the movement.",
+        copy: "The animated chocolate-pump example adds movement to the explanation. Paired with the cutaway, it lets us move from identifying the parts to watching the pump in action." },
+    ],
+    closing: { heading: "A clearer way to discuss the mechanism.",
+      copy: "Cutaway imagery shows where the parts sit. Animation shows what changes when they move.",
+      ctaText: "Have a mechanism that is easier to understand when you can see inside?" },
+  },
+  seo: { title: "DESMI ROTAN pump | RVA3D", description: "DESMI pump cutaway and chocolate-pump animation make the internal mechanism visible.", image: desmiCutaway },
   publication: { status: "public-approved", approvedAt: "2026-09-12", approvedBy: "Deven Langston", approvalAuthority: "RVA3D owner", approvalSource: "direct-owner-approval" },
 };
 
@@ -45,8 +65,10 @@ export const studies: readonly WorkCaseStudy[] = [
   workRecords.find(item => item.slug === "geico-geckos-cereal-box")!,
   ...portfolioWorkSlugs.filter(slug => slug !== "geico-geckos-cereal-box").map(slug => workRecords.find(item => item.slug === slug)!),
   desmiReview,
+  workRecords.find(item => item.slug === "uncommon-goods-outta-this-world")!,
 ];
 export const headline: Record<string, string> = {
+  "uncommon-goods-outta-this-world": "Bringing supplied direction into motion for Uncommon Goods.",
   "desmi-rotan-pump": "Making the inner workings visible for DESMI.",
   "geico-geckos-cereal-box": "Bringing a cereal box to life for GEICO.",
   "cable-snake": "Recreating a stop-motion cable snake in 3D for Twist Wireless.",
@@ -56,6 +78,7 @@ export const headline: Record<string, string> = {
   "wawa-coffee-island": "Turning fixture CAD into a fully stocked Wawa Coffee Island.",
 };
 export const context: Record<string, string> = {
+  "uncommon-goods-outta-this-world": "Uncommon Goods / Through Spang TV",
   "desmi-rotan-pump": "DESMI / Technical visualization",
   "geico-geckos-cereal-box": "GEICO / VFX supervision and lead animation",
   "cable-snake": "Twist Wireless / Spang · Dotted Line",

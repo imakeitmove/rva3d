@@ -89,6 +89,8 @@ export type WorkEditorialSection =
   | { id: string; kind: "details"; heading: string; copy: string; media: readonly WorkMedia[] };
 
 export type WorkEditorial = {
+  // Brand may differ from the commissioning client (for example Wawa / Pak-It Displays).
+  brand?: string;
   // Explicit surface grouping; the selected final media section shares the conclusion and CTA.
   closingBand?: { sectionId: string; tone: "cool-guy-gray" };
   // Optional fact labels preserve the existing GEICO defaults.

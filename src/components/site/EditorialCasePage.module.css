@@ -201,3 +201,8 @@
 @media (max-width: 640px) {
   .mediaGroup[data-layout="source-material"] { grid-template-columns: 1fr; gap: 32px; }
 }
+
+/* Square product studies and the tall Solstice pouch keep their native proportions at deliberate scales. */
+.story[data-editorial-case="capri-sun"] :global(.case-hero) > :global(.site-media),
+.story[data-editorial-case="capri-sun"] :global(#noise-tech) > :global(.site-media) { max-width: 900px; margin-inline: auto; }
+.story[data-editorial-case="capri-sun"] :global(#solstice) > :global(.site-media) { max-width: 480px; margin-inline: auto; }

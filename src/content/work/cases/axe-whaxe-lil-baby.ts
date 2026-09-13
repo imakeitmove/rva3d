@@ -10,7 +10,9 @@ const poster = {
 
 // Source: production/site_content AXE manifest and current authenticated case.
 // The attribution explicitly preserves this as pre-RVA3D founder experience.
-export const axeWhaxeLilBaby = {
+// Original chapter record retained as the factual/media source for this editorial selection.
+// export const axeWhaxeLilBaby = {
+const axeWhaxeLilBabyLegacy = {
   slug: "axe-whaxe-lil-baby",
   title: "AXE WHAXE \u00d7 Lil Baby",
   client: "AXE",
@@ -145,4 +147,32 @@ export const axeWhaxeLilBaby = {
     },
   },
   publication: { status: "public-approved", approvedAt: "2026-09-12", approvedBy: "Deven Langston", approvalAuthority: "RVA3D owner", approvalSource: "direct-owner-approval" },
+} as const satisfies WorkCaseStudy;
+
+// Editorial rollout: select evidence around this project's specific production story.
+
+export const axeWhaxeLilBaby = {
+  ...axeWhaxeLilBabyLegacy,
+  editorial: {
+    heroHeading: "Campaign film",
+    heading: "Build the product. Shape the film.",
+    context: "AXE / SuperJoy / Selected founder experience",
+    productionRole: "Deven Langston within the SuperJoy production, before RVA3D",
+    contributionLabel: "Deven\u2019s contribution",
+    contribution: "Product-focused 3D treatment, custom chain and WHAXE text, shot design, animation, lighting, rendering and pacing",
+    sections: [
+      { id: "shot-design", kind: "text", heading: axeWhaxeLilBabyLegacy.processChapters[2].title,
+        copy: axeWhaxeLilBabyLegacy.processChapters[2].summary },
+      { id: "product-language", kind: "media", heading: axeWhaxeLilBabyLegacy.processChapters[0].title,
+        copy: axeWhaxeLilBabyLegacy.processChapters[0].summary, media: axeWhaxeLilBabyLegacy.processChapters[0].media[0] },
+      { id: "closer-look", kind: "details", heading: "Before the final composite",
+        copy: "An isolated render layer separates the product motion and camera work from the finished treatment.",
+        media: [{ ...axeWhaxeLilBabyLegacy.processChapters[1].media[0], presentation: "controls" }] },
+      { id: "diamond-treatment", kind: "media", heading: axeWhaxeLilBabyLegacy.processChapters[1].title,
+        copy: axeWhaxeLilBabyLegacy.processChapters[1].summary, media: axeWhaxeLilBabyLegacy.processChapters[0].media[1] },
+    ],
+    closing: { heading: "A visual language that holds through the edit.",
+      copy: "The products, custom chain, diamond treatment, camera language and pacing came together in a finished campaign film within the SuperJoy production.",
+      ctaText: "Have a product that needs a distinctive presence in motion?" },
+  },
 } satisfies WorkCaseStudy;

@@ -116,3 +116,10 @@ export const uncommonGoodsOuttaThisWorld = {
     }
   }
 } satisfies WorkCaseStudy;
+
+// The owner explicitly cleared the selected Uncommon Goods source/process media
+// for public release during this rollout on 2026-09-13. The reviewed selection is unchanged.
+export const uncommonGoodsOuttaThisWorldPublic = {
+  ...uncommonGoodsOuttaThisWorld,
+  publication: { status: "public-approved", approvedAt: "2026-09-13", approvedBy: "Deven Langston", approvalAuthority: "RVA3D owner", approvalSource: "direct-owner-approval" },
+} satisfies WorkCaseStudy;

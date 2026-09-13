@@ -1,3 +1,4 @@
+import { uncommonGoodsOuttaThisWorldPublic } from "./cases/uncommon-goods-outta-this-world.ts";
 import { geicoGeckosCerealBox } from "./cases/geico-geckos-cereal-box.ts";
 import { amsoilXpdWindGrease } from "./cases/amsoil-xpd-wind-grease.ts";
 import { axeWhaxeLilBaby } from "./cases/axe-whaxe-lil-baby.ts";
@@ -14,6 +15,7 @@ export const workRecords = [
   axeWhaxeLilBaby,
   wawaCoffeeIsland,
   geicoGeckosCerealBox,
+  uncommonGoodsOuttaThisWorldPublic,
 ] as const;
 
 export const portfolioWorkSlugs = [

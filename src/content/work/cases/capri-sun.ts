@@ -10,7 +10,9 @@ const hero = {
 
 // Source: production/site_content Capri Sun manifest, asset audit, and current
 // combined private-review case. Unconfirmed years and partner credits are omitted.
-export const capriSun = {
+// Original chapter record retained as the factual/media source for this editorial selection.
+// export const capriSun = {
+const capriSunLegacy = {
   slug: "capri-sun",
   title: "Capri Sun Selected Work",
   client: "Capri Sun",
@@ -126,4 +128,33 @@ export const capriSun = {
     },
   },
   publication: { status: "public-approved", approvedAt: "2026-09-12", approvedBy: "Deven Langston", approvalAuthority: "RVA3D owner", approvalSource: "direct-owner-approval" },
+} satisfies WorkCaseStudy;
+
+// Editorial rollout: select evidence around this project's specific production story.
+
+export const capriSun = {
+  ...capriSunLegacy,
+  heroMedia: { ...capriSunLegacy.heroMedia, caption: "Noise Tech: a close view of the digital pouch and foil surface." },
+  editorial: {
+    heading: "One familiar pouch. Three different jokes.",
+    context: "Capri Sun / Reusable product assets",
+    productionLabel: "Agency / production",
+    productionRole: "Candy Factory",
+    contribution: capriSunLegacy.authorship,
+    sections: [
+      { id: "noise-tech", kind: "media", heading: capriSunLegacy.processChapters[0].title,
+        copy: capriSunLegacy.processChapters[0].summary,
+        media: { ...capriSunLegacy.processChapters[0].media[0], caption: "Noise Tech: digital pouches and presentation packaging." } },
+      { id: "solstice", kind: "media", heading: capriSunLegacy.processChapters[1].title,
+        copy: capriSunLegacy.processChapters[1].summary, media: capriSunLegacy.processChapters[1].media[0] },
+      { id: "closer-look", kind: "details", heading: "The editable foundation",
+        copy: "The first pouch scene kept the product components and lighting adjustable for subsequent work.",
+        media: [capriSunLegacy.processChapters[0].media[1]] },
+      { id: "trick-treat", kind: "media", heading: capriSunLegacy.processChapters[2].title,
+        copy: capriSunLegacy.processChapters[2].summary,
+        media: { ...capriSunLegacy.processChapters[2].media[0], caption: "Trick & Treat: finished campaign rendering." } },
+    ],
+    closing: { heading: "A foundation with room to change.", copy: capriSunLegacy.value,
+      ctaText: "Have a product that needs to work across more than one idea?" },
+  },
 } satisfies WorkCaseStudy;

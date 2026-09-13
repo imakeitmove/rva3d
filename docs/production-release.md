@@ -7,7 +7,7 @@ Vercel Git integration remains enabled for development and feature branches so
 they can create Preview deployments. The repository `vercel.json` disables Git
 deployments only for `main`. Unspecified branches remain enabled. `main` is the
 canonical source branch, but it is intentionally not a deploy trigger because a
-normal Git checkout does not contain all 93 protected/public-approved release
+normal Git checkout does not contain all manifest-selected public-approved release
 assets.
 
 Preview-artifact promotion is forbidden as a normal RVA3D Production release
@@ -30,11 +30,11 @@ protected-preview behavior are fixed when that artifact is built.
 
    Omitting `--target production` creates a Preview package and makes it
    ineligible for Production. Preparation verifies the remote canonical SHA,
-   validates and copies exactly the 93 approved assets, and seals the generated
+   validates and copies exactly the approved manifest-selected assets, and seals the generated
    `vercel.json`, `.vercelignore`, and Vercel project identity hashes.
 4. In the prepared package run `npm ci`, then
    `npm run release:production:check`. This dry run performs project, target,
-   canonical-source, source-fingerprint, 93-asset, publication/content, lint,
+   canonical-source, source-fingerprint, exact-asset-selection, publication/content, lint,
    type, test, Next build, and media-trace gates. It uploads nothing.
 5. After the dry run passes, run `npm run release:production` from that same
    package. This repeats every gate and then performs the one authorized
@@ -74,3 +74,9 @@ Production mail delivery requires `RESEND_API_KEY` and `EMAIL_FROM`.
 belong in Vercel's Production environment only. Preview ordinary submissions
 remain validation-only; the separately authenticated controlled-test path is
 unchanged.
+
+## September 13 editorial rollout selection
+
+The release baseline is pinned in `src/content/site/public_release_20260913.generated.json`: eight articles, 162 assets and 226 logical media URLs. The original 93 public asset records and 157 mappings remain unchanged. The 69 additions are already-processed, selected GEICO (46), Uncommon Goods (20) and How We Work (3) derivatives. Deven explicitly cleared Uncommon Goods source materials during the rollout. Four unselected GEICO review derivatives are omitted from delivery; their files and historical registrations are preserved. No source masters are copied.
+
+The exact registry and URL digests are checked alongside the existing per-file hashes, source seal, canonical main revision, project identity and Production environment checks. New media still defaults to private review. This updates the approved release selection without relaxing any publication or target guard.

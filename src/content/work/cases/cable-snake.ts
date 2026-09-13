@@ -11,7 +11,9 @@ const hero = {
 
 // Source: production/site_content case-study manifest, selected working copy,
 // and the latest authenticated Cable Snake review.
-export const cableSnake = {
+// Original chapter record retained as the factual/media source for this editorial selection.
+// export const cableSnake = {
+const cableSnakeLegacy = {
   slug: "cable-snake",
   title: "Cable Snake",
   client: "Twist Wireless",
@@ -190,4 +192,30 @@ export const cableSnake = {
     },
   },
   publication: { status: "public-approved", approvedAt: "2026-09-12", approvedBy: "Deven Langston", approvalAuthority: "RVA3D owner", approvalSource: "direct-owner-approval" },
+} as const satisfies WorkCaseStudy;
+
+// Editorial rollout: select evidence around this project's specific production story.
+
+export const cableSnake = {
+  ...cableSnakeLegacy,
+  editorial: {
+    heading: "One character. Two ways to perform.",
+    context: "Twist Wireless / Hybrid practical and CG",
+    productionRole: "Through Spang \u00b7 Dotted Line",
+    contribution: cableSnakeLegacy.authorship,
+    sections: [
+      { id: "practical-match", kind: "group", heading: cableSnakeLegacy.processChapters[1].title,
+        copy: cableSnakeLegacy.processChapters[1].summary, media: cableSnakeLegacy.processChapters[1].media.slice(0, 2) },
+      { id: "performance-control", kind: "media", heading: cableSnakeLegacy.processChapters[2].title,
+        copy: cableSnakeLegacy.processChapters[2].summary,
+        media: { ...cableSnakeLegacy.processChapters[1].media[3], presentation: "controls" } },
+      { id: "closer-look", kind: "details", heading: "Behind the practical / digital match",
+        copy: cableSnakeLegacy.processChapters[0].summary,
+        media: [...cableSnakeLegacy.processChapters[0].media, ...cableSnakeLegacy.processChapters[2].media] },
+      { id: "in-context", kind: "media", heading: cableSnakeLegacy.processChapters[3].title,
+        copy: cableSnakeLegacy.processChapters[3].summary, media: cableSnakeLegacy.processChapters[3].media[0] },
+    ],
+    closing: { heading: "Keep the character. Gain room to revise.", copy: cableSnakeLegacy.result,
+      ctaText: "Need a digital performance that belongs in a practical world?" },
+  },
 } satisfies WorkCaseStudy;

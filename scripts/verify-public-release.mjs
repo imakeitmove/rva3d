@@ -8,7 +8,8 @@ import {
   isPublicApprovedCaseStudy,
   validatePublicApprovedCaseStudy,
 } from "../src/content/work/index.ts";
-import { readRegistry } from "./verify-preview-assets.mjs";
+import { readRegistry, digest } from "./verify-preview-assets.mjs";
+import releaseBaseline from "../src/content/site/public_release_20260913.generated.json" with { type: "json" };
 
 const expectedSlugs = [
   "geico-geckos-cereal-box",
@@ -18,6 +19,7 @@ const expectedSlugs = [
   "axe-whaxe-lil-baby",
   "wawa-coffee-island",
   "desmi-rotan-pump",
+  "uncommon-goods-outta-this-world",
 ];
 
 export async function verifyPublicApprovedRelease(root = process.cwd(), options = {}) {
@@ -26,7 +28,7 @@ export async function verifyPublicApprovedRelease(root = process.cwd(), options 
   for (const study of records) {
     assert(isPublicApprovedCaseStudy(study), `${study.slug} is not public-approved`);
     validatePublicApprovedCaseStudy(study);
-    assert.equal(study.publication.approvedAt, "2026-09-12");
+    assert.equal(study.publication.approvedAt, study.slug === "uncommon-goods-outta-this-world" ? "2026-09-13" : "2026-09-12");
   }
 
   const contentSource = await fs.readFile(path.join(root, "src/lib/site/content.ts"), "utf8");
@@ -71,7 +73,7 @@ export async function verifyPublicApprovedRelease(root = process.cwd(), options 
 //   assert.equal(Object.keys(urls).length, 157, "Unexpected logical media URL count");
 //   for (const entry of entries) {
 //     assert.equal(entry.publication, "public-approved");
-//     assert.equal(entry.approvedAt, "2026-09-12");
+//     assert(releaseBaseline.approvedDates.includes(entry.approvedAt), "Unexpected approval date");
 //     assert.equal(entry.approvedBy, "Deven Langston");
 //     assert.equal(entry.approvalAuthority, "RVA3D owner");
 //     assert.equal(entry.approvalSource, "direct-owner-approval");
@@ -84,11 +86,15 @@ export async function verifyPublicApprovedRelease(root = process.cwd(), options 
   const publicUrls = Object.values(urls).filter(url => url.startsWith("/media/"));
   if (!options.allowReviewAssets) assert.equal(reviewEntries.length, 0, "Private review derivatives require a separate publication decision");
   for (const entry of reviewEntries) assert.equal(entry.publication, "private-review-only");
-  assert.equal(entries.length, 93, "Public release must keep the approved 93-asset package");
-  assert.equal(publicUrls.length, 157, "Unexpected logical media URL count");
+  // September 12 required exactly 93 assets; the owner-approved rollout pins its expanded selection.
+  assert.equal(entries.length, releaseBaseline.assets, "Public release must keep the exact approved asset package");
+  assert.equal(publicUrls.length, releaseBaseline.logicalUrls, "Unexpected logical media URL count");
+  assert.deepEqual(expectedSlugs, releaseBaseline.slugs);
+  assert.equal(digest(JSON.stringify(Object.fromEntries(Object.entries(manifest).filter(([, entry]) => entry.publication === "public-approved")))), releaseBaseline.registryDigest, "Public registry changed from the approved selection");
+  assert.equal(digest(JSON.stringify(Object.fromEntries(Object.entries(urls).filter(([, url]) => url.startsWith("/media/"))))), releaseBaseline.urlsDigest, "Public URL selection changed");
   for (const entry of entries) {
     assert.equal(entry.publication, "public-approved");
-    assert.equal(entry.approvedAt, "2026-09-12");
+    assert(releaseBaseline.approvedDates.includes(entry.approvedAt), "Unexpected approval date");
     assert.equal(entry.approvedBy, "Deven Langston");
     assert.equal(entry.approvalAuthority, "RVA3D owner");
     assert.equal(entry.approvalSource, "direct-owner-approval");

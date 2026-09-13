@@ -4,6 +4,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { digest, verifyPreviewAssets } from "./verify-preview-assets.mjs";
+import releaseBaseline from "../src/content/site/public_release_20260913.generated.json" with { type: "json" };
 import {
   CANONICAL_BRANCH,
   CANONICAL_REPOSITORY_URL,
@@ -129,12 +130,13 @@ export async function verifyPreparedSource(root = process.cwd(), expectedTarget)
   if (release.destination.target === "production") {
     assert.equal(
       assets.assets,
-      93,
-      "Production release requires all 93 approved assets",
+      // Previous release required 93; the new selection is explicitly pinned and verified.
+      releaseBaseline.assets,
+      "Production release requires the complete approved asset selection",
     );
     assert.equal(
       assets.publicApprovedAssets,
-      93,
+      releaseBaseline.assets,
       "Production release assets must all be public-approved",
     );
   }
