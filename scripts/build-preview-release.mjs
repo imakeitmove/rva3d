@@ -12,8 +12,12 @@ if (process.env.VERCEL === "1") {
 }
 console.log(await verifyPreparedSource(process.cwd(), "preview"));
 console.log(await verifyPreviewSource());
-console.log(await verifyPublicApprovedRelease());
+// Previous public-only package: console.log(await verifyPublicApprovedRelease());
+console.log(await verifyPublicApprovedRelease(process.cwd(), { allowReviewAssets: true }));
 const npm = process.platform === "win32" ? "npm.cmd" : "npm";
-execFileSync(npm, ["run", "build"], { stdio: "inherit", shell: process.platform === "win32" });
+// Previous default-only invocation retained: execFileSync(npm, ["run", "build"], { stdio: "inherit", shell: process.platform === "win32" });
+const buildOptions = process.argv.slice(2);
+assert(buildOptions.every(option => option === "--webpack"), "Only the supported Webpack fallback is accepted");
+execFileSync(npm, ["run", "build", ...(buildOptions.length ? ["--", ...buildOptions] : [])], { stdio: "inherit", shell: process.platform === "win32" });
 console.log(await verifyMediaTrace());
 

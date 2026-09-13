@@ -1,4 +1,9 @@
+export type WorkImageSource = { src: string; width: number; height: number };
+
 export type WorkImageMedia = {
+  sources?: readonly WorkImageSource[];
+  background?: "neutral";
+  statusLabel?: string;
   kind: "image";
   src: string;
   width: number;
@@ -8,6 +13,7 @@ export type WorkImageMedia = {
 };
 
 export type WorkVideoMedia = {
+  statusLabel?: string;
   kind: "video";
   src: string;
   mimeType: `video/${string}`;
@@ -72,7 +78,23 @@ export type WorkPublication =
   | ApprovedPublication
   | PublicApprovedPublication;
 
+export type WorkEditorialSection =
+  | { id: string; kind: "text"; heading: string; copy: string }
+  | { id: string; kind: "media"; heading?: string; copy?: string; media: WorkMedia }
+  | { id: string; kind: "group"; heading?: string; copy?: string; media: readonly WorkMedia[]; emphasis?: "first" | "equal" }
+  | { id: string; kind: "details"; heading: string; copy: string; media: readonly WorkMedia[] };
+
+export type WorkEditorial = {
+  heading: string;
+  context: string;
+  contribution: string;
+  productionRole: string;
+  sections: readonly WorkEditorialSection[];
+  closing: { heading: string; copy: string; ctaText: string };
+};
+
 export type WorkCaseStudy = {
+  editorial?: WorkEditorial;
   slug: string;
   title: string;
   client: string;

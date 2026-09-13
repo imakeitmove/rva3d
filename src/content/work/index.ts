@@ -40,6 +40,17 @@ function validateVisualDimensions(
 
 function validateMedia(media: WorkMedia, label: string) {
   validateVisualDimensions(media, label);
+  if (media.statusLabel !== undefined) assertNonEmpty(media.statusLabel, label + " fullscreen status");
+  if (media.kind === "image" && media.sources) {
+    if (!media.sources.length) throw new Error(label + " responsive sources must not be empty");
+    let previousWidth = 0;
+    for (const source of media.sources) {
+      validateVisualDimensions({ ...source, alt: media.alt }, label + " responsive source");
+      if (source.width <= previousWidth) throw new Error(label + " responsive widths must increase");
+      if (Math.abs(source.height - source.width * media.height / media.width) > 1) throw new Error(label + " responsive aspect ratio differs");
+      previousWidth = source.width;
+    }
+  }
 
   if (media.kind === "video") {
     assertNonEmpty(media.mimeType, `${label} MIME type`);
@@ -102,6 +113,23 @@ function validateCaseStudy(study: WorkCaseStudy) {
       ),
     );
   });
+  if (study.editorial) {
+    const editorial = study.editorial;
+    for (const name of ["heading", "context", "contribution", "productionRole"] as const) assertNonEmpty(editorial[name], study.slug + " editorial " + name);
+    const sectionIds = new Set<string>();
+    for (const section of editorial.sections) {
+      if (!/^[a-z][a-z0-9-]*$/.test(section.id) || sectionIds.has(section.id)) throw new Error(study.slug + " invalid or duplicate editorial section ID");
+      sectionIds.add(section.id);
+      if (section.heading) assertNonEmpty(section.heading, section.id + " heading");
+      if (section.kind === "text" || section.kind === "details") assertNonEmpty(section.copy, section.id + " copy");
+      if (section.kind === "media") validateMedia(section.media, section.id);
+      if (section.kind === "group" || section.kind === "details") {
+        if (section.media.length < 1 || section.media.length > 2) throw new Error(section.id + " needs one or two related media");
+        section.media.forEach(media => validateMedia(media, section.id));
+      }
+    }
+    for (const name of ["heading", "copy", "ctaText"] as const) assertNonEmpty(editorial.closing[name], study.slug + " closing " + name);
+  }
   validateVisualDimensions(study.seo.image, `${study.slug} SEO image`);
 }
 

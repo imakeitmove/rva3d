@@ -1,0 +1,133 @@
+.story {
+  background: var(--rva-paper);
+}
+.story .wide.wide {
+  width: calc(100% - 96px);
+  max-width: 1504px;
+  margin-inline: auto;
+}
+.story .facts dl {
+  grid-template-columns: 1fr 2fr;
+  gap: 20px 48px;
+}
+.story .facts dd {
+  max-width: 70ch;
+}
+.sections {
+  padding-top: clamp(56px, 7vw, 104px);
+}
+.beat + .beat {
+  margin-top: clamp(64px, 8vw, 120px);
+}
+.beatCopy {
+  max-width: 1180px;
+  margin: 0 auto 30px;
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 48px;
+  align-items: start;
+}
+.beatCopy h2 {
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 510;
+  line-height: 1.15;
+  letter-spacing: -.03em;
+  margin: 0;
+  max-width: 19ch;
+}
+.beatCopy p,
+.details > p {
+  font-size: 19px;
+  line-height: 1.6;
+  max-width: 64ch;
+  margin: 0;
+}
+.mediaGroup {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+.mediaGroup[data-emphasis="first"] {
+  grid-template-columns: 1.7fr 1fr;
+  align-items: end;
+}
+/* Keep source proportions, including the viewport capture and 3:2 set photo. */
+.story :global(.site-media) img,
+.story :global(.site-media) video {
+  height: auto;
+  object-fit: contain;
+}
+.story :global(.site-media:not(:fullscreen)) img,
+.story :global(.site-media:not(:fullscreen)) video {
+  max-height: none;
+}
+.story :global(.site-media) figcaption {
+  margin-top: 0;
+}
+.details {
+  border-block: 1px solid #080a0930;
+  margin-top: 34px;
+  padding: 10px 0;
+}
+.details summary {
+  cursor: pointer;
+  font-size: 18px;
+  padding: 14px 4px;
+}
+.details summary::after {
+  content: "+";
+  float: right;
+  margin-left: 16px;
+}
+.details[open] summary::after {
+  content: "\2212";
+}
+.details summary:focus-visible {
+  outline: 2px solid var(--rva-void);
+  outline-offset: 4px;
+}
+.details > p {
+  margin: 16px 0 26px;
+}
+.story .closing {
+  padding-top: clamp(56px, 7vw, 104px);
+}
+.story .closing > p {
+  max-width: 64ch;
+}
+.story .closing :global(.related-capabilities) {
+  margin-top: 34px;
+}
+@media (max-width: 900px) {
+  .beatCopy {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .beatCopy h2 {
+    max-width: 25ch;
+  }
+  .mediaGroup,
+  .mediaGroup[data-emphasis="first"] {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .mediaGroup[data-emphasis="first"] > :last-child {
+    width: 76%;
+  }
+}
+@media (max-width: 640px) {
+  .story .wide.wide {
+    width: calc(100% - 40px);
+  }
+  .story .facts dl {
+    grid-template-columns: 1fr;
+  }
+  .beatCopy p,
+  .details > p {
+    font-size: 18px;
+  }
+  .mediaGroup[data-emphasis="first"] > :last-child {
+    width: 100%;
+  }
+}

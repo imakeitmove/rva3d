@@ -65,9 +65,27 @@ export async function verifyPublicApprovedRelease(root = process.cwd(), options 
     }
   }
 
-  const entries = Object.values(manifest);
+  // Original strict registry block retained; preview may add protected derivatives without granting approval.
+//   const entries = Object.values(manifest);
+//   assert.equal(entries.length, 93, "Public release must keep the approved 93-asset package");
+//   assert.equal(Object.keys(urls).length, 157, "Unexpected logical media URL count");
+//   for (const entry of entries) {
+//     assert.equal(entry.publication, "public-approved");
+//     assert.equal(entry.approvedAt, "2026-09-12");
+//     assert.equal(entry.approvedBy, "Deven Langston");
+//     assert.equal(entry.approvalAuthority, "RVA3D owner");
+//     assert.equal(entry.approvalSource, "direct-owner-approval");
+//   }
+//   for (const url of Object.values(urls)) assert(url.startsWith("/media/"), `Non-public media mapping: ${url}`);
+//
+//
+  const entries = Object.values(manifest).filter(entry => entry.publication === "public-approved");
+  const reviewEntries = Object.values(manifest).filter(entry => entry.publication !== "public-approved");
+  const publicUrls = Object.values(urls).filter(url => url.startsWith("/media/"));
+  if (!options.allowReviewAssets) assert.equal(reviewEntries.length, 0, "Private review derivatives require a separate publication decision");
+  for (const entry of reviewEntries) assert.equal(entry.publication, "private-review-only");
   assert.equal(entries.length, 93, "Public release must keep the approved 93-asset package");
-  assert.equal(Object.keys(urls).length, 157, "Unexpected logical media URL count");
+  assert.equal(publicUrls.length, 157, "Unexpected logical media URL count");
   for (const entry of entries) {
     assert.equal(entry.publication, "public-approved");
     assert.equal(entry.approvedAt, "2026-09-12");
@@ -75,17 +93,17 @@ export async function verifyPublicApprovedRelease(root = process.cwd(), options 
     assert.equal(entry.approvalAuthority, "RVA3D owner");
     assert.equal(entry.approvalSource, "direct-owner-approval");
   }
-  for (const url of Object.values(urls)) assert(url.startsWith("/media/"), `Non-public media mapping: ${url}`);
+  for (const url of Object.values(urls)) assert(url.startsWith("/media/") || (options.allowReviewAssets && url.startsWith("/review/assets/")), `Non-public media mapping: ${url}`);
 
   const preparation = await fs.readFile(path.join(root, "scripts/prepare-complete-site.mjs"), "utf8");
   assert(preparation.includes('publication: "private-review-only"'), "Future media must default to private review");
   assert(preparation.includes('`/review/assets/${key}`'), "Future private media must keep protected URLs");
-  return { status: "PASS", studies: expectedSlugs.length, assets: entries.length, logicalUrls: Object.keys(urls).length, seoDimensionsVerified: options.verifyDimensions !== false };
+  return { status: "PASS", studies: expectedSlugs.length, assets: entries.length, logicalUrls: publicUrls.length, ...(options.allowReviewAssets ? { reviewAssets: reviewEntries.length } : {}), seoDimensionsVerified: options.verifyDimensions !== false };
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const mediaRootIndex = process.argv.indexOf("--media-root");
   const mediaRoot = mediaRootIndex >= 0 ? process.argv[mediaRootIndex + 1] : undefined;
   assert(mediaRootIndex < 0 || mediaRoot, "--media-root needs a directory");
-  console.log(await verifyPublicApprovedRelease(process.cwd(), { mediaRoot }));
+  console.log(await verifyPublicApprovedRelease(process.cwd(), { mediaRoot, allowReviewAssets: process.argv.includes("--allow-review-assets") }));
 }

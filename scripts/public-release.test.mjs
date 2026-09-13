@@ -143,12 +143,57 @@ test("legacy approved gate retains Notion and exact 1200 by 630 requirements", a
 });
 
 test("release registry records all seven direct approvals and 93 assets", async () => {
-  const result = await verifyPublicApprovedRelease(root, { verifyDimensions: false });
+  // Original public-only expectation now rejects pending Phase 3 approval.
+  await assert.rejects(verifyPublicApprovedRelease(root, { verifyDimensions: false }), /separate publication decision/);
+  const result = await verifyPublicApprovedRelease(root, { verifyDimensions: false, allowReviewAssets: true });
   assert.deepEqual(result, {
     status: "PASS",
     studies: 7,
     assets: 93,
     logicalUrls: 157,
+    reviewAssets: 23,
     seoDimensionsVerified: false,
   });
+});
+
+// GEICO Phase 2 covers the editorial contract and prevents approval drift in shared media.
+test("GEICO preview keeps exactly the selected evidence and the approved public asset baseline", async () => {
+  const media = JSON.parse(await fs.readFile(path.join(root, "src/content/site/geico_phase_2.generated.json"), "utf8"));
+  const registry = JSON.parse(await fs.readFile(path.join(root, "src/content/site/media.generated.json"), "utf8"));
+  const urls = JSON.parse(await fs.readFile(path.join(root, "src/content/site/media-urls.generated.json"), "utf8"));
+  const { createHash } = await import("node:crypto");
+  const digest = value => createHash("sha256").update(JSON.stringify(value)).digest("hex");
+  assert.equal(digest(Object.fromEntries(Object.entries(registry).filter(([, entry]) => entry.publication === "public-approved"))), "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8");
+  assert.equal(digest(Object.fromEntries(Object.entries(urls).filter(([, url]) => url.startsWith("/media/")))), "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f");
+  const review = Object.values(registry).filter(entry => entry.publication === "private-review-only");
+  assert.equal(review.length, 23);
+  assert.equal(new Set(review.map(entry => entry.source)).size, 8);
+  const study = workRecords.find(item => item.slug === "geico-geckos-cereal-box");
+  assert.deepEqual(study.editorial.sections.map(section => section.id), ["performance", "physical-reference", "integration", "render-support"]);
+  assert.equal(study.heroMedia.caption, "RVA3D composite before final color correction.");
+  assert.match(media.physical.caption, /Physical cereal box photographed/);
+  assert.equal(media.render.background, "neutral");
+  assert.equal(media.blocking.presentation, "controls");
+  assert.equal(media.blocking.hasAudio, false);
+  assert.doesNotMatch(JSON.stringify(study.editorial), /aired master|approved option|pure AO/);
+  assert.match(study.editorial.closing.copy, /A Flame artist handled the finishing stage/);
+  const visible = [study.heroMedia, ...study.editorial.sections.flatMap(section => section.kind === "media" ? [section.media] : section.media ?? [])];
+  assert.equal(visible.length, 8);
+  for (const item of visible) {
+    for (const candidate of item.kind === "image" ? item.sources : [item]) {
+      assert(urls[candidate.src].startsWith("/review/assets/"));
+      const entry = registry[urls[candidate.src].split("/").at(-1)];
+      assert.equal(entry.width, candidate.width);
+      assert.equal(entry.height, candidate.height);
+    }
+  }
+});
+
+test("optional responsive and editorial fields fail on invalid geometry or duplicate section IDs", () => {
+  const study = structuredClone(workRecords.find(item => item.slug === "geico-geckos-cereal-box"));
+  study.heroMedia.sources[0].height = 1;
+  assert.throws(() => validatePublicApprovedCaseStudy(study), /aspect ratio differs/);
+  const duplicate = structuredClone(workRecords.find(item => item.slug === "geico-geckos-cereal-box"));
+  duplicate.editorial.sections[1].id = duplicate.editorial.sections[0].id;
+  assert.throws(() => validatePublicApprovedCaseStudy(duplicate), /duplicate editorial section ID/);
 });

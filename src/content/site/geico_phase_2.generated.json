@@ -1,0 +1,205 @@
+{
+  "hero": {
+    "kind": "image",
+    "src": "/media/work/geico-geckos-cereal-box/geico_pre_color_composite_w1920_v001.webp",
+    "width": 1920,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_pre_color_composite_w800_v001.webp",
+        "width": 800,
+        "height": 450
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_pre_color_composite_w1200_v001.webp",
+        "width": 1200,
+        "height": 675
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_pre_color_composite_w1920_v001.webp",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_pre_color_composite_w2400_v001.webp",
+        "width": 2400,
+        "height": 1350
+      }
+    ],
+    "alt": "CG GeckO's cereal box integrated with photographed breakfast objects in a kitchen, before final color correction.",
+    "caption": "RVA3D composite before final color correction.",
+    "statusLabel": "RVA3D composite before final color correction."
+  },
+  "physical": {
+    "kind": "image",
+    "src": "/media/work/geico-geckos-cereal-box/geico_physical_box_reference_w1920_v001.webp",
+    "width": 1920,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_physical_box_reference_w800_v001.webp",
+        "width": 800,
+        "height": 450
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_physical_box_reference_w1200_v001.webp",
+        "width": 1200,
+        "height": 675
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_physical_box_reference_w1920_v001.webp",
+        "width": 1920,
+        "height": 1080
+      }
+    ],
+    "alt": "Real printed GeckO's cereal box among breakfast props, photographed as lighting and framing reference.",
+    "caption": "Physical cereal box photographed on set — reference for the digital replacement.",
+    "statusLabel": "Physical cereal box photographed on set — reference for the digital replacement."
+  },
+  "set": {
+    "kind": "image",
+    "src": "/media/work/geico-geckos-cereal-box/geico_on_set_camera_w1600_v001.webp",
+    "width": 1600,
+    "height": 1067,
+    "sources": [
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_on_set_camera_w640_v001.webp",
+        "width": 640,
+        "height": 427
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_on_set_camera_w1000_v001.webp",
+        "width": 1000,
+        "height": 667
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_on_set_camera_w1600_v001.webp",
+        "width": 1600,
+        "height": 1067
+      }
+    ],
+    "alt": "Camera rig and crew in the kitchen set, with the breakfast table and lighting equipment visible.",
+    "caption": "Camera and lighting setup on location."
+  },
+  "standIns": {
+    "kind": "image",
+    "src": "/media/work/geico-geckos-cereal-box/geico_scene_stand_ins_w1920_v001.webp",
+    "width": 1920,
+    "height": 973,
+    "sources": [
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_scene_stand_ins_w800_v001.webp",
+        "width": 800,
+        "height": 405
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_scene_stand_ins_w1200_v001.webp",
+        "width": 1200,
+        "height": 608
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_scene_stand_ins_w1920_v001.webp",
+        "width": 1920,
+        "height": 973
+      }
+    ],
+    "alt": "Front-view wireframe of the digital cereal box and stand-in geometry for the bowl, glass, carafe, milk bottle, and table.",
+    "caption": "Digital box and stand-in geometry for the surrounding breakfast objects.",
+    "statusLabel": "Digital box and stand-in geometry."
+  },
+  "render": {
+    "kind": "image",
+    "src": "/media/work/geico-geckos-cereal-box/geico_outro_cg_elements_w1920_v001.webp",
+    "width": 1920,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_outro_cg_elements_w800_v001.webp",
+        "width": 800,
+        "height": 450
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_outro_cg_elements_w1200_v001.webp",
+        "width": 1200,
+        "height": 675
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_outro_cg_elements_w1920_v001.webp",
+        "width": 1920,
+        "height": 1080
+      }
+    ],
+    "alt": "Rendered CG cereal box and table contribution with a transparent background, before compositing with the photographed scene.",
+    "caption": "Rendered CG elements, before compositing with the photographed scene.",
+    "statusLabel": "Rendered CG elements, before compositing.",
+    "background": "neutral"
+  },
+  "shadow": {
+    "kind": "image",
+    "src": "/media/work/geico-geckos-cereal-box/geico_outro_shadow_support_w1600_v001.webp",
+    "width": 1600,
+    "height": 900,
+    "sources": [
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_outro_shadow_support_w800_v001.webp",
+        "width": 800,
+        "height": 450
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_outro_shadow_support_w1600_v001.webp",
+        "width": 1600,
+        "height": 900
+      }
+    ],
+    "alt": "Shadow-support render showing a neutral box, surface, and directional contact shading.",
+    "caption": "Shadow-support render.",
+    "statusLabel": "Shadow-support render."
+  },
+  "mask": {
+    "kind": "image",
+    "src": "/media/work/geico-geckos-cereal-box/geico_outro_box_mask_w1600_v001.webp",
+    "width": 1600,
+    "height": 900,
+    "sources": [
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_outro_box_mask_w800_v001.webp",
+        "width": 800,
+        "height": 450
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_outro_box_mask_w1600_v001.webp",
+        "width": 1600,
+        "height": 900
+      }
+    ],
+    "alt": "Displayed box isolation mask: a white cereal-box silhouette on black. The source is an RGB JPEG, not an alpha-channel image.",
+    "caption": "Box isolation mask.",
+    "statusLabel": "Box isolation mask."
+  },
+  "social": {
+    "kind": "image",
+    "src": "/media/work/geico-geckos-cereal-box/geico_pre_color_og_1200x630_v001.webp",
+    "width": 1200,
+    "height": 630,
+    "alt": "CG GeckO's cereal box integrated with photographed breakfast objects in a kitchen, before final color correction."
+  },
+  "blocking": {
+    "kind": "video",
+    "src": "/media/work/geico-geckos-cereal-box/geico_blocking_options_720p_v001.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/geico-geckos-cereal-box/geico_blocking_options_poster_w1280_v001.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Front-facing cereal box during early performance blocking."
+    },
+    "presentation": "controls",
+    "hasAudio": false,
+    "alt": "Early cereal-box animation options showing different entrances, turns, flexing, and a raised-letter treatment on a simplified kitchen set.",
+    "caption": "Early performance options — 18 seconds of animation blocking.",
+    "statusLabel": "Early animation and performance exploration."
+  }
+}

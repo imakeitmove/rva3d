@@ -6,6 +6,7 @@ import { siteHref } from "@/lib/site/paths";
 import { Shell } from "./Shell";
 import { SiteMedia } from "./SiteMedia";
 import { ProjectCard } from "./ProjectCard";
+import { EditorialCasePage } from "./EditorialCasePage";
 type Props = { params: Promise<{ slug: string }> };
 export function WorkIndex() {
   const initialCount = Math.min(4, studies.length);
@@ -39,6 +40,7 @@ export async function CasePage({ params }: Props) {
   const { slug } = await params, index = studies.findIndex(item => item.slug === slug), study = studies[index];
   if (!study) notFound();
   const next = studies[(index + 1) % studies.length];
+  if (study.editorial) return <EditorialCasePage study={study} editorial={study.editorial} next={next} />;
   const chapters = slug === "cable-snake" ? [study.processChapters[1], study.processChapters[3]] : slug === "amsoil-xpd-wind-grease" ? [study.processChapters[0], study.processChapters[2]] : slug === "wawa-coffee-island" ? [study.processChapters[0], study.processChapters[1], study.processChapters[3]] : study.processChapters.slice(0, 3).filter(chapter => chapter.media.length > 0);
   const related = capabilities.filter(item => study.capabilities.includes(item.title));
   return <Shell><article className={`case-story case-${slug}`}>

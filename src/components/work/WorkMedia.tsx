@@ -37,15 +37,31 @@ export function WorkMedia({
 
   return (
     <figure className={styles.figure}>
-      <Image
-        src={media.src}
-        alt={media.alt}
-        width={media.width}
-        height={media.height}
-        sizes={sizes ?? "(max-width: 900px) 100vw, 80vw"}
-        priority={priority}
-        unoptimized={privateDelivery}
-      />
+      {media.sources?.length ? (
+        // These preprocessed variants use registered authenticated URLs; Next optimization cannot forward their session cookie.
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={media.src}
+          srcSet={media.sources.map(source => source.src + " " + source.width + "w").join(", ")}
+          sizes={sizes ?? "(max-width: 900px) 100vw, 80vw"}
+          width={media.width}
+          height={media.height}
+          alt={media.alt}
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : "auto"}
+          decoding="async"
+        />
+      ) : (
+        <Image
+          src={media.src}
+          alt={media.alt}
+          width={media.width}
+          height={media.height}
+          sizes={sizes ?? "(max-width: 900px) 100vw, 80vw"}
+          priority={priority}
+          unoptimized={privateDelivery}
+        />
+      )}
       {media.caption ? (
         <figcaption className={styles.caption}>{privateDelivery ? <BrandText text={media.caption} /> : media.caption}</figcaption>
       ) : null}

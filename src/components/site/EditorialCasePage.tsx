@@ -1,0 +1,85 @@
+import type { WorkCaseStudy, WorkEditorial, WorkEditorialSection, WorkMedia } from "@/content/work/types";
+import { capabilities } from "@/content/capabilities";
+import { headline, protectedMedia } from "@/lib/site/content";
+import { siteHref } from "@/lib/site/paths";
+import { BrandText } from "./Brand";
+import { Shell } from "./Shell";
+import { SiteMedia } from "./SiteMedia";
+import styles from "./EditorialCasePage.module.css";
+
+const wideSizes = "(max-width: 640px) calc(100vw - 40px), (max-width: 1600px) calc(100vw - 96px), 1504px";
+
+function CaseMediaGroup({ media, emphasis = "equal" }: {
+  media: readonly WorkMedia[];
+  emphasis?: "first" | "equal";
+}) {
+  return <div className={styles.mediaGroup} data-emphasis={emphasis}>
+    {media.map((item, index) => <SiteMedia key={item.src} media={protectedMedia(item)}
+      sizes={emphasis === "first"
+        ? `(max-width: 900px) calc(100vw - 40px), ${index === 0 ? "60vw" : "35vw"}`
+        : "(max-width: 900px) calc(100vw - 40px), 46vw"} />)}
+  </div>;
+}
+
+function EditorialSection({ section }: { section: WorkEditorialSection }) {
+  if (section.kind === "details") {
+    return <details className={styles.details} id={section.id}>
+      <summary>{section.heading}</summary>
+      <p><BrandText text={section.copy} /></p>
+      <CaseMediaGroup media={section.media} />
+    </details>;
+  }
+  return <section className={styles.beat} id={section.id} aria-labelledby={section.heading ? `${section.id}-heading` : undefined}>
+    {section.heading && <div className={styles.beatCopy}>
+      <h2 id={`${section.id}-heading`}>{section.heading}</h2>
+      {section.copy && <p><BrandText text={section.copy} /></p>}
+    </div>}
+    {section.kind === "media" && <SiteMedia media={protectedMedia(section.media)} sizes={wideSizes} />}
+    {section.kind === "group" && <CaseMediaGroup media={section.media} emphasis={section.emphasis} />}
+  </section>;
+}
+
+// Opt-in composition: existing cases continue through the original chapter renderer.
+export function EditorialCasePage({ study, editorial, next }: {
+  study: WorkCaseStudy;
+  editorial: WorkEditorial;
+  next: WorkCaseStudy;
+}) {
+  const related = capabilities.filter(item => study.capabilities.includes(item.title));
+  return <Shell><article className={`case-story ${styles.story}`} data-editorial-case={study.slug}>
+    <section className="case-opening" data-tone="paper">
+      <div className="v-frame">
+        <a className="editorial-link" href={siteHref(`/work#${study.slug}`)}>← Back to Work</a>
+        <p className="label">{editorial.context}</p>
+        <h1>{editorial.heading}</h1>
+        <p className="editorial-lead">{study.summary}</p>
+      </div>
+      <div className={`v-broad case-hero ${styles.wide}`}>
+        <SiteMedia media={protectedMedia(study.heroMedia)} priority sizes={wideSizes} />
+      </div>
+    </section>
+    <section className={`v-frame case-facts ${styles.facts}`} data-tone="paper" aria-label="Project contribution">
+      <dl>
+        <div><dt>Brand / Year</dt><dd>{study.client} / {study.year}</dd></div>
+        <div><dt>Production role</dt><dd>{editorial.productionRole}</dd></div>
+        <div className="facts-contribution"><dt>RVA3D contribution</dt><dd>{editorial.contribution}</dd></div>
+      </dl>
+    </section>
+    <div className={`v-broad ${styles.wide} ${styles.sections}`} data-tone="paper">
+      {editorial.sections.map(section => <EditorialSection key={section.id} section={section} />)}
+    </div>
+    <section className={`v-frame delivery ${styles.closing}`} data-tone="paper">
+      <h2>{editorial.closing.heading}</h2>
+      <p><BrandText text={editorial.closing.copy} /></p>
+      <p>{editorial.closing.ctaText}</p>
+      <a className="button" href={siteHref("/#contact")}>Get in touch ↗</a>
+      <div className="related-capabilities"><h3>Related capabilities</h3>
+        {related.map(item => <a className="editorial-link" key={item.slug} href={siteHref(`/capabilities#${item.slug}`)}>{item.title} ↗</a>)}
+      </div>
+    </section>
+    <nav className="v-broad case-next" aria-label="More projects" data-tone="paper">
+      <div><p className="label">Next project</p><a href={siteHref(`/work/${next.slug}`)}>{headline[next.slug]} ↗</a></div>
+      <a className="editorial-link" href={siteHref(`/work#${study.slug}`)}>← Back to Work</a>
+    </nav>
+  </article></Shell>;
+}

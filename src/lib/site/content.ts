@@ -65,5 +65,14 @@ export const context: Record<string, string> = {
   "wawa-coffee-island": "Wawa / Client: Pak-It Displays",
 };
 export function protectedMedia(media: WorkMedia): WorkMedia {
-  return media.kind === "video" ? { ...media, src: mediaUrl(media.src), poster: { ...media.poster, src: mediaUrl(media.poster.src) } } : { ...media, src: mediaUrl(media.src) };
+  // Previous single-source resolution retained for existing-record compatibility reference.
+  // return media.kind === "video" ? { ...media, src: mediaUrl(media.src), poster: { ...media.poster, src: mediaUrl(media.poster.src) } } : { ...media, src: mediaUrl(media.src) };
+  if (media.kind === "video") {
+    return { ...media, src: mediaUrl(media.src), poster: protectedMedia(media.poster) as typeof media.poster };
+  }
+  return {
+    ...media,
+    src: mediaUrl(media.src),
+    ...(media.sources ? { sources: media.sources.map(source => ({ ...source, src: mediaUrl(source.src) })) } : {}),
+  };
 }

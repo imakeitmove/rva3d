@@ -1,0 +1,26 @@
+.neutral img {
+  background: #707070;
+}
+.status {
+  margin: 0;
+  padding: 14px 24px;
+  color: #f8f8f2;
+  background: #151719;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+}
+.withStatus:fullscreen {
+  grid-template-rows: minmax(0, 1fr) auto;
+  align-content: stretch;
+}
+.withStatus:fullscreen > figure {
+  min-height: 0;
+  display: grid;
+  align-items: center;
+}
+.withStatus:fullscreen img,
+.withStatus:fullscreen video {
+  max-height: calc(100dvh - 5rem);
+  object-fit: contain;
+}
