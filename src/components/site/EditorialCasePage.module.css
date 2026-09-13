@@ -148,5 +148,7 @@
   .mediaColumns, .mediaColumns[data-emphasis="first"] { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
-  .supporting, .supporting[data-count="3"] { grid-template-columns: 1fr; width: 82%; }
+  /* Set-photo supports stack on phones; the three-image process strip stays compact. */
+  .supporting { grid-template-columns: 1fr; width: 82%; }
+  .supporting[data-count="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; gap: 12px; }
 }
