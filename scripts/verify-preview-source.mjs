@@ -24,6 +24,7 @@ const candidateEntryFiles = [
   "src/app/(three)/privacy/page.tsx",
   "src/app/(three)/work/page.tsx",
   "src/app/(three)/work/[slug]/page.tsx",
+  "src/app/(three)/work/uncommon-goods-outta-this-world/page.tsx",
   "src/app/login/page.tsx",
   "src/app/login/recovery/page.tsx",
   "src/app/client-login/page.tsx",

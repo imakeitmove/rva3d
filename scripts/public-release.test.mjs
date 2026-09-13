@@ -154,7 +154,8 @@ test("release registry records all seven direct approvals and 93 assets", async 
     // Previous eight-source preview: reviewAssets: 23.
     // Three printed-artwork variants added; previous reviewAssets: 44.
     // Camera-track test adds three variants; previous reviewAssets: 47.
-    reviewAssets: 50,
+    // Previous GEICO-only reviewAssets: 50; Uncommon Goods adds 17 private derivatives.
+    reviewAssets: 67,
     seoDimensionsVerified: false,
   });
 });
@@ -168,7 +169,9 @@ test("GEICO preview keeps exactly the selected evidence and the approved public 
   const digest = value => createHash("sha256").update(JSON.stringify(value)).digest("hex");
   assert.equal(digest(Object.fromEntries(Object.entries(registry).filter(([, entry]) => entry.publication === "public-approved"))), "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8");
   assert.equal(digest(Object.fromEntries(Object.entries(urls).filter(([, url]) => url.startsWith("/media/")))), "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f");
-  const review = Object.values(registry).filter(entry => entry.publication === "private-review-only");
+  // Previous global count included every private case; scope the preserved GEICO assertions to its logical keys.
+  const geicoKeys = new Set(Object.entries(urls).filter(([logical]) => logical.startsWith("/media/work/geico-geckos-cereal-box/")).map(([, url]) => url.split("/").at(-1)));
+  const review = [...geicoKeys].map(key => registry[key]).filter(entry => entry.publication === "private-review-only");
   // Human review adds 21 derivatives to the original 23.
   // Previous review inventory: assert.equal(review.length, 44);
   // Before camera-track derivatives: assert.equal(review.length, 47);
@@ -230,4 +233,43 @@ test("optional responsive and editorial fields fail on invalid geometry or dupli
   const duplicate = structuredClone(workRecords.find(item => item.slug === "geico-geckos-cereal-box"));
   duplicate.editorial.sections[1].id = duplicate.editorial.sections[0].id;
   assert.throws(() => validatePublicApprovedCaseStudy(duplicate), /duplicate editorial section ID/);
+});
+
+test("Uncommon Goods remains a private nine-item review with registered native-size evidence", async () => {
+  const { uncommonGoodsOuttaThisWorld: study } = await import("../src/content/work/cases/uncommon-goods-outta-this-world.ts");
+  const { default: media } = await import("../src/content/site/uncommon_goods_phase_2.generated.json", { with: { type: "json" } });
+  const registry = JSON.parse(await fs.readFile(path.join(root, "src/content/site/media.generated.json"), "utf8"));
+  const urls = JSON.parse(await fs.readFile(path.join(root, "src/content/site/media-urls.generated.json"), "utf8"));
+  assert.equal(study.publication.status, "preview");
+  assert(!workRecords.some(item => item.slug === study.slug));
+  assert.throws(() => validatePublicApprovedCaseStudy(study), /not directly approved for public release/);
+  const visible = [study.heroMedia, ...study.editorial.sections.flatMap(section => section.kind === "media" ? [section.media] : section.media)];
+  assert.equal(visible.length, 9);
+  assert.equal(new Set(visible.map(item => item.src)).size, 9);
+  assert.equal(media.M3.width, 640);
+  assert.equal(media.M4.caption, "Prepared background and elements in the production archive.");
+  assert.equal(media.M9.caption, "Frame from the :30 commercial edit.");
+  for (const [id, item] of Object.entries(media)) {
+    const candidates = item.kind === "video" ? [item, item.poster] : item.sources ?? [item];
+    for (const candidate of candidates) {
+      assert(urls[candidate.src].startsWith("/review/assets/"));
+      const entry = registry[urls[candidate.src].split("/").at(-1)];
+      assert.equal(entry.publication, "private-review-only");
+      assert.equal(entry.width, candidate.width);
+      assert.equal(entry.height, candidate.height);
+    }
+    if (item.kind === "video") {
+      assert.equal(item.presentation, "controls");
+      assert.equal(item.hasAudio, id === "M1" || id === "M6");
+    }
+  }
+  const excerpt = registry[urls[media.M5.src].split("/").at(-1)];
+  assert.equal(excerpt.frames, 216);
+  assert.equal(excerpt.frameRate, "24000/1001");
+  assert.equal(excerpt.duration, 9.009);
+  assert.equal(excerpt.hasAudio, false);
+  assert.equal(Object.keys(urls).filter(key => key.startsWith("/media/work/" + study.slug + "/")).length, 17);
+  const route = await fs.readFile(path.join(root, "src/app/(three)/work/uncommon-goods-outta-this-world/page.tsx"), "utf8");
+  assert.match(route, /isPublicProduction\(\) \|\| !\(await hasPrivateReviewSession\(\)\)/);
+  assert.match(route, /robots: \{ index: false, follow: false, noarchive: true \}/);
 });

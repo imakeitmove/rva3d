@@ -182,3 +182,12 @@
 .closingBand + :global(.case-next) {
   background: var(--rva-paper);
 }
+
+/* Uncommon Goods evidence stays at a useful native scale; existing cases are unchanged. */
+.story[data-editorial-case="uncommon-goods-outta-this-world"] :global(#supplied-direction) > :global(.site-media) { max-width: 520px; margin-inline: auto; }
+.mediaDescription { max-width: 64ch; margin: 24px auto 0; font-size: 18px; line-height: 1.6; }
+.story[data-editorial-case="uncommon-goods-outta-this-world"] :global(#source-preparation) .mediaGroup { max-width: 1100px; margin-inline: auto; grid-template-columns: 1fr 0.87234fr; }
+.story[data-editorial-case="uncommon-goods-outta-this-world"] :global(#shorter-route) > :global(.site-media) { max-width: 960px; margin-inline: auto; }
+@media (max-width: 900px) {
+  .story[data-editorial-case="uncommon-goods-outta-this-world"] :global(#source-preparation) .mediaGroup { grid-template-columns: 1fr; max-width: 560px; }
+}

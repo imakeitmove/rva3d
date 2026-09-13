@@ -51,6 +51,8 @@ function EditorialSection({ section }: { section: WorkEditorialSection }) {
       style={{ "--supporting-columns": section.supporting.map(item => (item.width / item.height) + "fr").join(" ") } as CSSProperties}>
       {section.supporting.map(item => <SiteMedia key={item.src} media={protectedMedia(item)} sizes="(max-width: 640px) 74vw, 54vw" />)}
     </div>}
+    {/* Optional real text makes supplied visual instructions understandable without fullscreen. */}
+    {section.kind === "media" && section.description && <p className={styles.mediaDescription}>{section.description}</p>}
     {section.kind === "composition" && <CaseMediaColumns columns={section.columns} emphasis={section.emphasis} />}
     {section.kind === "group" && <CaseMediaGroup media={section.media} emphasis={section.emphasis} />}
   </section>;
@@ -83,8 +85,8 @@ export function EditorialCasePage({ study, editorial, next }: {
     <section className={`v-frame case-facts ${styles.facts}`} data-tone="paper" aria-label="Project contribution">
       <dl>
         <div><dt>Brand / Year</dt><dd>{study.client} / {study.year}</dd></div>
-        <div><dt>Production role</dt><dd>{editorial.productionRole}</dd></div>
-        <div className="facts-contribution"><dt>RVA3D contribution</dt><dd>{editorial.contribution}</dd></div>
+        <div><dt>{editorial.productionLabel ?? "Production role"}</dt><dd>{editorial.productionRole}</dd></div>
+        <div className="facts-contribution"><dt>{editorial.contributionLabel ?? "RVA3D contribution"}</dt><dd>{editorial.contribution}</dd></div>
       </dl>
     </section>
     <div className={`v-broad ${styles.wide} ${styles.sections}`} data-tone="paper">
