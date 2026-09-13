@@ -61,6 +61,10 @@ export function EditorialCasePage({ study, editorial, next }: {
   next: WorkCaseStudy;
 }) {
   const related = capabilities.filter(item => study.capabilities.includes(item.title));
+  // The GEICO conclusion shares one surface without changing the editorial media order.
+  const closingMedia = study.slug === "geico-geckos-cereal-box"
+    ? editorial.sections.find(section => section.id === "pre-color-composite")
+    : undefined;
   return <Shell><article className={`case-story ${styles.story}`} data-editorial-case={study.slug}>
     <section className="case-opening" data-tone="paper">
       <div className="v-frame">
@@ -82,8 +86,13 @@ export function EditorialCasePage({ study, editorial, next }: {
       </dl>
     </section>
     <div className={`v-broad ${styles.wide} ${styles.sections}`} data-tone="paper">
-      {editorial.sections.map(section => <EditorialSection key={section.id} section={section} />)}
+      {/* Previously all sections rendered here; the closing still now shares the conclusion surface. */}
+      {editorial.sections.filter(section => section !== closingMedia).map(section => <EditorialSection key={section.id} section={section} />)}
     </div>
+    <div className={closingMedia ? styles.closingBand : undefined}>
+    {closingMedia && <div className={`v-broad ${styles.wide}`}>
+      <EditorialSection section={closingMedia} />
+    </div>}
     <section className={`v-frame delivery ${styles.closing}`} data-tone="paper">
       <h2>{editorial.closing.heading}</h2>
       <p><BrandText text={editorial.closing.copy} /></p>
@@ -96,6 +105,7 @@ export function EditorialCasePage({ study, editorial, next }: {
         {related.map(item => <a className="editorial-link" key={item.slug} href={siteHref(`/capabilities#${item.slug}`)}>{item.title} ↗</a>)}
       </div>
     </section>
+    </div>
     <nav className="v-broad case-next" aria-label="More projects" data-tone="paper">
       <div><p className="label">Next project</p><a href={siteHref(`/work/${next.slug}`)}>{headline[next.slug]} ↗</a></div>
       <a className="editorial-link" href={siteHref(`/work#${study.slug}`)}>← Back to Work</a>

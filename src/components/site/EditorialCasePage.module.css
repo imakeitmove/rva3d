@@ -165,3 +165,18 @@
 @media (max-width: 640px) {
   .mediaSupporting { grid-template-columns: 1fr; width: 82%; }
 }
+
+/* One full-width GEICO conclusion surface, ending before Next project. */
+.closingBand {
+  display: flow-root;
+  padding-top: clamp(64px, 8vw, 120px);
+  background: var(--rva-cool-guy-gray);
+  color: var(--rva-void);
+}
+.closingBand :global(.site-media:not(:fullscreen)) figcaption {
+  background: var(--rva-cool-guy-gray);
+  color: var(--rva-void);
+}
+.closingBand + :global(.case-next) {
+  background: var(--rva-paper);
+}
