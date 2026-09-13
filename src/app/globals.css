@@ -6,6 +6,12 @@
   --rva-signal: #d7ff43;
   --rva-depth-green: #087a14;
   --rva-purple: #6230c0;
+  /* September 9 Notion palette; used by V002 navigation. Existing consumers retain their values.
+     https://app.notion.com/p/2aba9ba2f25880378320c6bf604577db */
+  --rva-void-violet: #15121a;
+  --rva-void-black: #111111;
+  --rva-signal-green: #c7eb01;
+  --rva-paper-white: #f4f1e8;
   /* Cool Guy Gray: editorial pause surfaces and secondary brand fields. */
   --rva-cool-guy-gray: #81909a;
   --rva-stone: #a4a59f;

@@ -112,12 +112,13 @@ export function AboutEditorialLegacy() {
 export function AboutEditorial() {
   return (
     <Shell>
-      <div className="about-editorial">
+      <div className="about-editorial about-navigation-v2">
         <MovedAboutFragments />
+        <div className="editorial-width about-page-switcher"><EditorialPageNav current="about" /></div>
         <section className="about-ground editorial-width" data-tone="paper">
           <div className="about-positioning">
             {/* Previous text-only navigation: <EditorialPageNav current="about" /> */}
-            <EditorialPageNav current="about" tiles />
+            {/* V001 navigation lived in the text column: <EditorialPageNavLegacy current="about" tiles /> */}
             <p className="label">Richmond, Virginia / RVA3D</p>
             <h1>
               Rendered with

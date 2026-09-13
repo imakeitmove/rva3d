@@ -1,3 +1,4 @@
+import navigation from "./EditorialNavigation.module.css";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { capabilities } from "@/content/capabilities";
@@ -21,7 +22,7 @@ export function WorkIndex() {
       <div data-project-controls hidden><p className="label" data-project-status role="status" aria-atomic="true">Showing {initialCount} of {studies.length} projects</p><button className="button" data-control-tone="purple" data-project-load-more type="button">Load more <span aria-hidden="true">↓</span></button></div>
       <noscript><style>{'[data-project-mode="inventory"] [data-project-card][hidden]{display:block!important}'}</style><p>All projects are shown when JavaScript is unavailable.</p></noscript>
     </section>
-    <section className="work-closing" data-tone="paper"><div className="v-frame"><h2><span className="work-closing-highlight">Your project</span> doesn’t have to look like any of these.</h2><div className="work-closing-copy"><p>The work changes with the brief. A product to explain, a story to tell, a shot that needs something you can’t film... bring us the challenge. We’ll help figure out what to make and the best way to make it.</p><a className="editorial-link" href={siteHref("/how-we-work")}>How we work <span aria-hidden="true">↗</span></a></div></div></section>
+    <section className="work-closing" data-tone="paper"><div className="v-frame"><h2><span className="work-closing-highlight">Your project</span> doesn’t have to look like any of these.</h2><div className="work-closing-copy"><p>The work changes with the brief. A product to explain, a story to tell, a shot that needs something you can’t film... bring us the challenge. We’ll help figure out what to make and the best way to make it.</p><a className={[navigation.link, navigation.greenCta].join(" ")} href={siteHref("/how-we-work")}>How we work <span aria-hidden="true">↗</span></a></div></div></section>
   </Shell>;
 }
 // Superseded four-card replacement/long closing treatment retained as source-only comments.

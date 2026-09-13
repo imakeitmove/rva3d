@@ -14,13 +14,16 @@ export function HowWeWork() {
   return (
     <Shell>
       <div className="about-editorial how-we-work-editorial">
-        <section className="how-we-work-opening how-we-work-opening--refined editorial-width" data-tone="paper">
-          <EditorialPageNav current="how-we-work" />
-          <p className="label">Working with RVA3D</p>
-          <h1>How we work.</h1>
-          <p className="editorial-lead">
-            Clear expectations. Useful check-ins. Room to make something good.
-          </p>
+        {/* V001 used a contained paper opening; V002 joins the blue intro, image and dark content. */}
+        <section className="how-we-work-opening-v2" data-tone="paper">
+          <div className="editorial-width"><EditorialPageNav current="how-we-work" /></div>
+          <div className="editorial-width how-we-work-intro">
+            {/* Removed redundant kicker: <p className="label">Working with RVA3D</p> */}
+            <h1>How we work.</h1>
+            <p className="editorial-lead">
+              Clear expectations. Useful check-ins. Room to make something good.
+            </p>
+          </div>
           <figure className="how-we-work-process-image">
             <picture>
               <source
@@ -31,7 +34,7 @@ export function HowWeWork() {
               />
               <source
                 srcSet={processMedia.wide.sources.map(source => mediaUrl(source.src) + " " + source.width + "w").join(", ")}
-                sizes="(max-width: 1050px) calc(100vw - 64px), (max-width: 1376px) calc(100vw - 96px), 1280px"
+                sizes="100vw"
               />
               <Image
                 src={mediaUrl(processMedia.wide.src)}

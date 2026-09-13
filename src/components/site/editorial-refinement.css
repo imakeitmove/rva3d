@@ -313,3 +313,76 @@
     font-size: 15px;
   }
 }
+
+/* V002: shared navigation replaces the V001 square/text variants above. */
+.about-navigation-v2 .about-page-switcher {
+  padding-top: 56px;
+  margin-bottom: 48px;
+}
+.about-navigation-v2 .about-ground { padding-top: 0; }
+.capability-wayfinding-v2 { padding: 30px 0 15px; }
+
+/* Explicit full-width blue opening; the image joins the dark section without gaps. */
+.about-editorial .how-we-work-opening-v2 {
+  width: 100%;
+  padding: 56px 0 0;
+  background: var(--rva-info);
+  color: var(--rva-void-violet);
+  text-align: center;
+}
+.how-we-work-opening-v2 .how-we-work-intro {
+  margin-top: 36px;
+  padding-bottom: 38px;
+}
+.about-editorial .how-we-work-opening-v2 h1 {
+  max-width: none;
+  margin: 0 0 20px;
+  font-size: clamp(56px, 7.5vw, 96px);
+  font-weight: 700;
+  letter-spacing: -.065em;
+  line-height: .98;
+}
+.about-editorial .how-we-work-opening-v2 .editorial-lead {
+  max-width: 1000px;
+  margin: 0 auto;
+  font-size: 22px;
+  line-height: 1.5;
+  white-space: normal;
+  text-wrap: pretty;
+}
+.how-we-work-opening-v2 .how-we-work-process-image {
+  width: 100%;
+  height: min(128px, calc((100vw - 96px) / 10));
+  margin: 0;
+  overflow: hidden;
+}
+.how-we-work-opening-v2 .how-we-work-process-image picture,
+.how-we-work-opening-v2 .how-we-work-process-image img {
+  width: 100%;
+  height: 100%;
+}
+.how-we-work-opening-v2 .how-we-work-process-image img {
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: 50% 55%;
+}
+@media (max-width: 1050px) {
+  .how-we-work-opening-v2 .how-we-work-process-image {
+    height: calc((100vw - 64px) / 10);
+  }
+}
+@media (max-width: 700px) {
+  .about-navigation-v2 .about-page-switcher {
+    padding-top: 36px;
+    margin-bottom: 36px;
+  }
+  .about-editorial .how-we-work-opening-v2 { padding-top: 36px; }
+  .how-we-work-opening-v2 .how-we-work-intro {
+    margin-top: 32px;
+    padding-bottom: 32px;
+  }
+  .about-editorial .how-we-work-opening-v2 .editorial-lead { font-size: 20px; }
+  .how-we-work-opening-v2 .how-we-work-process-image {
+    height: calc((100vw - 40px) / 4);
+  }
+}

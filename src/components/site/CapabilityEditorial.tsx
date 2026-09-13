@@ -1,4 +1,5 @@
 ﻿import "./editorial-refinement.css";
+import navigation from "./EditorialNavigation.module.css";
 import { capabilities } from "@/content/capabilities";
 import { capabilityEditorial } from "@/content/site/capability-editorial";
 import proofData from "@/content/site/capability-proof-v2.generated.json";
@@ -27,7 +28,7 @@ export function CapabilityEditorial() {
   return <Shell><div className="capabilities-editorial capabilities-v2">
     <section className="capability-ambient-hero" data-tone="void"><div className="ambient-capability-image" style={{ backgroundImage: `url("${heroSrc}")` }} aria-hidden="true" /><div className="editorial-width ambient-hero-grid"><div><p className="label">Capabilities / What we do</p><h1>We make the pixels<br className="wide-only" /> do what we<br className="wide-only" /> <em>want them to do.</em></h1><p>Take the idea from talk to tech. RVA3D has the tools and techniques to tell the story, show how a product works or build something people can interact with. Tell us what you need people to see.</p><a className="button" href={siteHref("/#contact")}>Get in touch <span aria-hidden="true">&#8599;</span></a></div><figure><SiteMedia capabilityFullscreen media={hero} priority /><figcaption>Inside the work / AMSOIL technical visualization</figcaption></figure></div></section>
     {/* Previous wayfinding used centered, heavy labels without directional markers. */}
-    <div className="editorial-width capability-wayfinding capability-wayfinding--refined" data-tone="paper"><nav aria-label="Jump to a capability">{capabilities.map(capability => <a key={capability.slug} href={`#${capability.slug}`}>{capability.title}<span aria-hidden="true">↘</span></a>)}</nav></div>
+    <div className="editorial-width capability-wayfinding-v2" data-tone="paper"><nav className={navigation.capabilityGrid} aria-label="Jump to a capability">{capabilities.map(capability => <a className={navigation.link} key={capability.slug} href={`#${capability.slug}`}>{capability.title}<span aria-hidden="true">↘</span></a>)}</nav></div>
     <div className="refined-capabilities">{capabilities.map(capability => {
       const copy = capabilityEditorial[capability.slug];
       // Previous composition put the heading above both columns and the logo on the left.
@@ -41,7 +42,7 @@ export function CapabilityEditorial() {
         {capability.slug === "creative-production-support" && <a className="proof-link" href={siteHref("/how-we-work#process")}>See how the work happens <span aria-hidden="true">&#8599;</span></a>}
       </div></div></div></div></section>;
     })}</div>
-    <section className="messy-brief" data-tone="paper"><div className="editorial-width messy-grid"><div>{/* Previous reassurance: A good place to start / Bring the messy version. */}<p className="label">WE ARE ON YOUR TEAM</p><h2>We&#8217;ll help you<br /><em>however we can.</em></h2></div><div><p>A finished brief is welcome, but not required. Bring the script, sketch, CAD file, reference folder, footage or half-formed idea.</p><p>We&#8217;ll work out what needs making, what to review when and the clearest path to final.</p><div className="messy-actions"><a className="button" href={siteHref("/#contact")}>Get in touch <span aria-hidden="true">&#8599;</span></a><a className="proof-link" href={siteHref("/how-we-work")}>See how we work <span aria-hidden="true">&#8599;</span></a></div></div></div></section>
+    <section className="messy-brief" data-tone="paper"><div className="editorial-width messy-grid"><div>{/* Previous reassurance: A good place to start / Bring the messy version. */}<p className="label">WE ARE ON YOUR TEAM</p><h2>We&#8217;ll help you<br /><em>however we can.</em></h2></div><div><p>A finished brief is welcome, but not required. Bring the script, sketch, CAD file, reference folder, footage or half-formed idea.</p><p>We&#8217;ll work out what needs making, what to review when and the clearest path to final.</p><div className="messy-actions">{/* The following contact section supplies this action; previous button retained for restoration: <a className="button" href={siteHref("/#contact")}>Get in touch <span aria-hidden="true">&#8599;</span></a> */}<a className={[navigation.link, navigation.grayCta].join(" ")} href={siteHref("/how-we-work")}>See how we work <span aria-hidden="true">&#8599;</span></a></div></div></div></section>
   </div></Shell>;
 }
 
