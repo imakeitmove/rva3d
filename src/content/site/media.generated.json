@@ -1598,5 +1598,38 @@
     "publication": "private-review-only",
     "width": 2400,
     "height": 1200
+  },
+  "d331d4807a21bd1facd9.webp": {
+    "file": "private-media/d331d4807a21bd1facd9.webp",
+    "type": "image/webp",
+    "bytes": 52494,
+    "sha256": "d331d4807a21bd1facd9e47c8cb16066d504f4e90d24adeadb7ee5034f959c67",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/geico_geckos/set_photos/IMG_4639_geckos_cereal_box_printed.jpg",
+    "sourceSha256": "0ee70ed5e3ce764b809ac7832054e26f6317db004a9cf6562f718df902c1be14",
+    "publication": "private-review-only",
+    "width": 640,
+    "height": 427
+  },
+  "f6cb87782b85e8ae3630.webp": {
+    "file": "private-media/f6cb87782b85e8ae3630.webp",
+    "type": "image/webp",
+    "bytes": 97184,
+    "sha256": "f6cb87782b85e8ae3630144b0372bd5ef7561ebf3b5c24286eed514529cf9b17",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/geico_geckos/set_photos/IMG_4639_geckos_cereal_box_printed.jpg",
+    "sourceSha256": "0ee70ed5e3ce764b809ac7832054e26f6317db004a9cf6562f718df902c1be14",
+    "publication": "private-review-only",
+    "width": 1000,
+    "height": 667
+  },
+  "5a1770202091e18f3680.webp": {
+    "file": "private-media/5a1770202091e18f3680.webp",
+    "type": "image/webp",
+    "bytes": 194664,
+    "sha256": "5a1770202091e18f3680f572243582f15b962052b741ced7ef14142fd58c3041",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/geico_geckos/set_photos/IMG_4639_geckos_cereal_box_printed.jpg",
+    "sourceSha256": "0ee70ed5e3ce764b809ac7832054e26f6317db004a9cf6562f718df902c1be14",
+    "publication": "private-review-only",
+    "width": 1600,
+    "height": 1067
   }
 }

@@ -1,5 +1,6 @@
 import type { WorkCaseStudy, WorkImageMedia, WorkVideoMedia } from "../types";
 import registered from "../../site/geico.generated.json" with { type: "json" };
+import printed from "../../site/geico_printed_artwork.generated.json" with { type: "json" };
 import refinements from "../../site/geico_review_refinements.generated.json" with { type: "json" };
 import media from "../../site/geico_phase_2.generated.json" with { type: "json" };
 
@@ -113,7 +114,8 @@ export const geicoGeckosCerealBox = {
             "main": (media.set as WorkImageMedia),
             "supporting": [
               (refinements.tableSide as WorkImageMedia),
-              (refinements.overShoulder as WorkImageMedia)
+              // Previous support retained in the media registry: (refinements.overShoulder as WorkImageMedia)
+              (printed.printedArtwork as WorkImageMedia)
             ]
           }
         ]

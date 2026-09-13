@@ -152,7 +152,8 @@ test("release registry records all seven direct approvals and 93 assets", async 
     assets: 93,
     logicalUrls: 157,
     // Previous eight-source preview: reviewAssets: 23.
-    reviewAssets: 44,
+    // Three printed-artwork variants added; previous reviewAssets: 44.
+    reviewAssets: 47,
     seoDimensionsVerified: false,
   });
 });
@@ -168,8 +169,10 @@ test("GEICO preview keeps exactly the selected evidence and the approved public 
   assert.equal(digest(Object.fromEntries(Object.entries(urls).filter(([, url]) => url.startsWith("/media/")))), "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f");
   const review = Object.values(registry).filter(entry => entry.publication === "private-review-only");
   // Human review adds 21 derivatives to the original 23.
-  assert.equal(review.length, 44);
-  assert.equal(new Set(review.map(entry => entry.source)).size, 15);
+  // Previous review inventory: assert.equal(review.length, 44);
+  assert.equal(review.length, 47);
+  // Printed artwork adds one retained source to the previous fifteen.
+  assert.equal(new Set(review.map(entry => entry.source)).size, 16);
   const study = workRecords.find(item => item.slug === "geico-geckos-cereal-box");
   // Previous sequence: assert.deepEqual(study.editorial.sections.map(section => section.id), ["performance", "physical-reference", "integration", "build-details", "commercial-edit"]);
   assert.deepEqual(study.editorial.sections.map(section => section.id), ["performance", "physical-reference", "integration", "build-details", "pre-color-composite"]);
@@ -186,6 +189,8 @@ test("GEICO preview keeps exactly the selected evidence and the approved public 
   // Original edit selected eight visible assets; human review expands this to sixteen.
   // Before the supporting BTS pair: assert.equal(visible.length, 16);
   assert.equal(visible.length, 18);
+  assert.equal(study.editorial.sections[1].columns[1].supporting[1].caption, "Printed cereal-box artwork on set.");
+  assert.match(study.editorial.sections[1].columns[1].supporting[1].src, /geico_printed_artwork_on_set/);
   assert.deepEqual(study.editorial.sections[0].supporting.map(item => item.caption), ["Animation blocking and timing in Cinema 4D.", "Wider 3D scene and lighting setup."]);
   assert.equal(urls[study.editorial.sections[0].supporting[0].src], "/media/ac46f49a01d73fdd2a38.png");
   assert.deepEqual(study.editorial.sections[0].supporting[1].sources, study.editorial.sections[3].media[0].sources);

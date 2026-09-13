@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import type { WorkCaseStudy, WorkEditorial, WorkEditorialSection, WorkMedia, WorkMediaColumn } from "@/content/work/types";
 import { capabilities } from "@/content/capabilities";
 import { headline, protectedMedia } from "@/lib/site/content";
@@ -46,8 +47,9 @@ function EditorialSection({ section }: { section: WorkEditorialSection }) {
       {section.copy && <p><BrandText text={section.copy} /></p>}
     </div>}
     {section.kind === "media" && <SiteMedia media={protectedMedia(section.media)} sizes={wideSizes} />}
-    {section.kind === "media" && section.supporting && <div className={styles.mediaSupporting}>
-      {section.supporting.map(item => <SiteMedia key={item.src} media={protectedMedia(item)} sizes="(max-width: 640px) 74vw, 36vw" />)}
+    {section.kind === "media" && section.supporting && <div className={styles.mediaSupporting}
+      style={{ "--supporting-columns": section.supporting.map(item => (item.width / item.height) + "fr").join(" ") } as CSSProperties}>
+      {section.supporting.map(item => <SiteMedia key={item.src} media={protectedMedia(item)} sizes="(max-width: 640px) 74vw, 54vw" />)}
     </div>}
     {section.kind === "composition" && <CaseMediaColumns columns={section.columns} emphasis={section.emphasis} />}
     {section.kind === "group" && <CaseMediaGroup media={section.media} emphasis={section.emphasis} />}

@@ -1,0 +1,28 @@
+{
+  "printedArtwork": {
+    "kind": "image",
+    "src": "/media/work/geico-geckos-cereal-box/geico_printed_artwork_on_set_w1600_v001.webp",
+    "width": 1600,
+    "height": 1067,
+    "sources": [
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_printed_artwork_on_set_w640_v001.webp",
+        "width": 640,
+        "height": 427
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_printed_artwork_on_set_w1000_v001.webp",
+        "width": 1000,
+        "height": 667
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_printed_artwork_on_set_w1600_v001.webp",
+        "width": 1600,
+        "height": 1067
+      }
+    ],
+    "alt": "Printed flat cereal-box packaging held open on the kitchen set.",
+    "caption": "Printed cereal-box artwork on set.",
+    "statusLabel": "Printed cereal-box artwork on set."
+  }
+}
