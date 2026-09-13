@@ -1,5 +1,9 @@
 import "./editorial-refinement.css";
 
+import Image from "next/image";
+import processMedia from "@/content/site/how_we_work_media.generated.json";
+import { mediaUrl } from "@/lib/site/content";
+
 import { buyerFaqs, processSteps } from "@/content/site/how-we-work";
 import { siteHref } from "@/lib/site/paths";
 import { Brand } from "./Brand";
@@ -10,13 +14,34 @@ export function HowWeWork() {
   return (
     <Shell>
       <div className="about-editorial how-we-work-editorial">
-        <section className="how-we-work-opening editorial-width" data-tone="paper">
+        <section className="how-we-work-opening how-we-work-opening--refined editorial-width" data-tone="paper">
           <EditorialPageNav current="how-we-work" />
           <p className="label">Working with RVA3D</p>
           <h1>How we work.</h1>
           <p className="editorial-lead">
             Clear expectations. Useful check-ins. Room to make something good.
           </p>
+          <figure className="how-we-work-process-image">
+            <picture>
+              <source
+                media="(max-width: 700px)"
+                srcSet={mediaUrl(processMedia.mobile.src)}
+                width={processMedia.mobile.width}
+                height={processMedia.mobile.height}
+              />
+              <source
+                srcSet={processMedia.wide.sources.map(source => mediaUrl(source.src) + " " + source.width + "w").join(", ")}
+                sizes="(max-width: 1050px) calc(100vw - 64px), (max-width: 1376px) calc(100vw - 96px), 1280px"
+              />
+              <Image
+                src={mediaUrl(processMedia.wide.src)}
+                width={processMedia.wide.width}
+                height={processMedia.wide.height}
+                alt="A hands-on wooden build and 3D technical visualization within an RVA3D process montage."
+                unoptimized
+              />
+            </picture>
+          </figure>
         </section>
 
         <section

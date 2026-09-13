@@ -116,7 +116,8 @@ export function AboutEditorial() {
         <MovedAboutFragments />
         <section className="about-ground editorial-width" data-tone="paper">
           <div className="about-positioning">
-            <EditorialPageNav current="about" />
+            {/* Previous text-only navigation: <EditorialPageNav current="about" /> */}
+            <EditorialPageNav current="about" tiles />
             <p className="label">Richmond, Virginia / RVA3D</p>
             <h1>
               Rendered with

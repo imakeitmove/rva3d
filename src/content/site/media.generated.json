@@ -1909,5 +1909,38 @@
     "duration": 12.345667,
     "frameRate": "24000/1001",
     "hasAudio": false
+  },
+  "bdcece1db427d6497830.webp": {
+    "file": "private-media/bdcece1db427d6497830.webp",
+    "type": "image/webp",
+    "bytes": 66386,
+    "sha256": "bdcece1db427d649783028f94e3f3f379b28921ed17343bbf7d2b79866165acd",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/how-we-work/images_for_header.jpg",
+    "sourceSha256": "7f5fa5f1b4a8a9575ac3e9ef5d22c04d8f825d412c6a3d0226a4358371cf0f7e",
+    "publication": "private-review-only",
+    "width": 1280,
+    "height": 256
+  },
+  "384bfbf8c8b0dc6f7f35.webp": {
+    "file": "private-media/384bfbf8c8b0dc6f7f35.webp",
+    "type": "image/webp",
+    "bytes": 180016,
+    "sha256": "384bfbf8c8b0dc6f7f358c5547e2cf3b986b761c7e8ad38668fa475e5d2517ea",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/how-we-work/images_for_header.jpg",
+    "sourceSha256": "7f5fa5f1b4a8a9575ac3e9ef5d22c04d8f825d412c6a3d0226a4358371cf0f7e",
+    "publication": "private-review-only",
+    "width": 2560,
+    "height": 512
+  },
+  "e0cd670cb72c66ad769a.webp": {
+    "file": "private-media/e0cd670cb72c66ad769a.webp",
+    "type": "image/webp",
+    "bytes": 30608,
+    "sha256": "e0cd670cb72c66ad769adef887878834825c4a72d7cc81c514825e1bc6d23e61",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/how-we-work/images_for_header.jpg",
+    "sourceSha256": "7f5fa5f1b4a8a9575ac3e9ef5d22c04d8f825d412c6a3d0226a4358371cf0f7e",
+    "publication": "private-review-only",
+    "width": 700,
+    "height": 350
   }
 }

@@ -156,7 +156,8 @@ test("release registry records all seven direct approvals and 93 assets", async 
     // Camera-track test adds three variants; previous reviewAssets: 47.
     // Previous GEICO-only reviewAssets: 50; Uncommon Goods adds 17 private derivatives.
     // v002 adds eight source derivatives and retires five excerpt/still registrations.
-    reviewAssets: 70,
+    // How We Work navigation review adds three private process-image variants.
+    reviewAssets: 73,
     seoDimensionsVerified: false,
   });
 });

@@ -26,7 +26,8 @@ export function CapabilityEditorial() {
   const logoModelUrl = mediaUrl("/models/RVA_Logo_010_intro_002.glb");
   return <Shell><div className="capabilities-editorial capabilities-v2">
     <section className="capability-ambient-hero" data-tone="void"><div className="ambient-capability-image" style={{ backgroundImage: `url("${heroSrc}")` }} aria-hidden="true" /><div className="editorial-width ambient-hero-grid"><div><p className="label">Capabilities / What we do</p><h1>We make the pixels<br className="wide-only" /> do what we<br className="wide-only" /> <em>want them to do.</em></h1><p>Take the idea from talk to tech. RVA3D has the tools and techniques to tell the story, show how a product works or build something people can interact with. Tell us what you need people to see.</p><a className="button" href={siteHref("/#contact")}>Get in touch <span aria-hidden="true">&#8599;</span></a></div><figure><SiteMedia capabilityFullscreen media={hero} priority /><figcaption>Inside the work / AMSOIL technical visualization</figcaption></figure></div></section>
-    <div className="editorial-width capability-wayfinding" data-tone="paper"><nav aria-label="Jump to a capability">{capabilities.map(capability => <a key={capability.slug} href={`#${capability.slug}`}>{capability.title}</a>)}</nav></div>
+    {/* Previous wayfinding used centered, heavy labels without directional markers. */}
+    <div className="editorial-width capability-wayfinding capability-wayfinding--refined" data-tone="paper"><nav aria-label="Jump to a capability">{capabilities.map(capability => <a key={capability.slug} href={`#${capability.slug}`}>{capability.title}<span aria-hidden="true">↘</span></a>)}</nav></div>
     <div className="refined-capabilities">{capabilities.map(capability => {
       const copy = capabilityEditorial[capability.slug];
       // Previous composition put the heading above both columns and the logo on the left.
