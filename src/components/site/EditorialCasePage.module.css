@@ -168,7 +168,7 @@
   .mediaSupporting { grid-template-columns: 1fr; width: 82%; }
 }
 
-/* One full-width GEICO conclusion surface, ending before Next project. */
+/* Explicit opt-in conclusion surface, ending before Next project. GEICO rendering is preserved. */
 .closingBand {
   display: flow-root;
   padding-top: clamp(64px, 8vw, 120px);
@@ -187,10 +187,17 @@
 .story[data-editorial-case="uncommon-goods-outta-this-world"] :global(#supplied-direction) > :global(.site-media) { max-width: 520px; margin-inline: auto; }
 .mediaDescription { max-width: 64ch; margin: 24px auto 0; font-size: 18px; line-height: 1.6; }
 .story[data-editorial-case="uncommon-goods-outta-this-world"] :global(#source-preparation) .mediaGroup { max-width: 1100px; margin-inline: auto; grid-template-columns: 1fr 0.87234fr; }
-.story[data-editorial-case="uncommon-goods-outta-this-world"] :global(#shorter-route) > :global(.site-media) { max-width: 960px; margin-inline: auto; }
+.story[data-editorial-case="uncommon-goods-outta-this-world"] :global(#shorter-route) > :global(.site-media) { max-width: 1120px; margin-inline: auto; }
 @media (max-width: 900px) {
   .story[data-editorial-case="uncommon-goods-outta-this-world"] :global(#source-preparation) .mediaGroup { grid-template-columns: 1fr; max-width: 560px; }
 }
 
 /* Keep the existing fullscreen control clear of the supplied storyboard instructions. */
 .story[data-editorial-case="uncommon-goods-outta-this-world"] :global(#supplied-direction) > :global(.site-media:not(:fullscreen)) > :global(.site-fullscreen) { top: auto; bottom: 72px; }
+
+/* Four source examples: wide photography/animation beside quieter square product views. */
+.mediaGroup[data-layout="source-material"] { max-width: 1240px; margin-inline: auto; grid-template-columns: 1.6fr 1fr; gap: 44px 32px; align-items: start; }
+.mediaGroup[data-layout="source-material"] > :nth-child(even) { max-width: 540px; }
+@media (max-width: 640px) {
+  .mediaGroup[data-layout="source-material"] { grid-template-columns: 1fr; gap: 32px; }
+}

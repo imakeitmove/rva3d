@@ -85,10 +85,12 @@ export type WorkEditorialSection =
   | { id: string; kind: "text"; heading: string; copy: string }
   // Previously standalone media only; optional supporting stills retain the primary media presentation.
   | { id: string; kind: "media"; heading?: string; copy?: string; description?: string; media: WorkMedia; supporting?: readonly WorkImageMedia[] }
-  | { id: string; kind: "group"; heading?: string; copy?: string; media: readonly WorkMedia[]; emphasis?: "first" | "equal" }
+  | { id: string; kind: "group"; heading?: string; copy?: string; layout?: "source-material"; media: readonly WorkMedia[]; emphasis?: "first" | "equal" }
   | { id: string; kind: "details"; heading: string; copy: string; media: readonly WorkMedia[] };
 
 export type WorkEditorial = {
+  // Explicit surface grouping; the selected final media section shares the conclusion and CTA.
+  closingBand?: { sectionId: string; tone: "cool-guy-gray" };
   // Optional fact labels preserve the existing GEICO defaults.
   productionLabel?: string;
   contributionLabel?: string;

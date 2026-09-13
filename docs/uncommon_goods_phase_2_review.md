@@ -1,20 +1,19 @@
-# Uncommon Goods Phase 2 private review
+# Uncommon Goods Phase 2 private review — visual revision v002
 
-This record is intentionally separate from the approved public portfolio. Its explicit work route reuses the existing signed review session and returns not-found without that session or in public Production. The review adapter exposes it at /review/site/work/uncommon-goods-outta-this-world. No authentication implementation or environment-loading behavior changes.
+This is the current revision of the private review based on e82e16dbf60b927145c552ca41a803f3bc7195c0. Historical Phase 2 v001 artifacts and immutable media packages remain unchanged.
 
-Base: approved GEICO 13a9761c69f6c7072e99a769efedd3ef79050050. The approved GEICO record and media are preserved. Shared additions are optional fact labels, an optional accessible media description, and CSS scoped to Uncommon Goods.
+The article now runs: :30 hero → supplied boards → four source examples → musical-kit preparation → collapsed craft detail → Cool Guy Gray :15/conclusion/CTA → paper Next project. Timing and visual handoffs are explained concisely in the musical-kit prose.
 
-Media recipe: scripts/build_uncommon_goods_case_media.mjs. Use --source-root, --archive-root, --master, --project-root and --output-root. Outputs are immutable v001 files; all 17 derivatives are private-review-only. The recipe records source and output SHA-256, dimensions, extraction frames, frame rates, durations, encoding settings, and audio preservation in uncommon_goods_media_manifest.json. Never run against 1_source or the original archive as an output destination.
+The silent continuity excerpt and its poster are retired from both the case media map and delivery registry. The closing snowflake still is also retired. The private index/SEO fallback reuses the existing :30 poster. Neither retired item ships in the current prepared package.
 
-Media: M1 :30 with copied AAC; M2 actual NASA/rocket, musical-kit and snowflake annotated panels; M3 native 640px supplied-animation frame; M4 four archive elements with nonchronological labels; M5 frames 379 through 594, 9.009s silent at 24000/1001; M6 October 6 :15 with copied AAC; M7 actual AE frame 36 at 12s, carefully cropped; M8 original 1280x720 early orbit preview; M9 frame 604 at 25.191833s.
+Four selected sources: UG004 (lit moon-lamp Layer 3.jpg), UG007 (57992_SpaceSuit.jpg), UG011 (Infinity Galaxy Puzzle_51738_V1.mp4), UG049 (MandalaSpinner.mp4). The two source videos retain all native frames and run silently with intentional native playback; the spinner remains 540×540 and is labelled as omitted from the final :30.
 
-The selected M2 panels are stacked and readable at phone width, with a concise HTML explanation. Full-board expanded inspection is optional and has not been added. Existing fullscreen behavior inspects the selected plate.
+Recipe: scripts/build_uncommon_goods_case_media_v002.mjs. This version follows the existing Uncommon Goods hash/registration pipeline and generates only the eight required new files. Use --source-root, --inventory (Phase 1 inventory), --project-root and --output-root. The first run records five retired registrations; repeated runs verify immutable outputs. The original v001 recipe remains for historical reproduction only.
 
-Preparation uses the existing committed-source workflow:
-1. node scripts/prepare-preview-release.mjs --revision <commit> --output <new-directory> --media-root <this-worktree/private-media>
-2. Install the locked dependencies in that package using the pinned Node 22.
-3. Provision its ignored local-only review settings as already documented in docs/preview-release.md.
-4. npm run build:preview -- --webpack
-5. npm start -- --hostname 127.0.0.1 --port 4348
+WorkEditorial.closingBand explicitly selects a final media section on the established cool-guy-gray surface. GEICO opts into the same capability with its existing pre-color-composite section. Its visible content, section order and styling are preserved. A scoped source-material group layout accommodates four natural-ratio examples; other groups keep their prior limit.
 
-No publication clearance is inferred for supplied boards, source elements, AE captures or 3D process media. M4 attribution remains neutral. Actual audio has been preserved and stream-verified; verified captions/transcripts still require publication review. No deployment is part of this change.
+The public catalogue and auth/environment behavior are unchanged. The case remains session-gated at /review/site/work/uncommon-goods-outta-this-world and unavailable in public Production. No deployment is authorized.
+
+Run typecheck, lint and test:content, then prepare a new committed-source package using scripts/prepare-preview-release.mjs. Provision its ignored existing server-only review settings as documented in docs/preview-release.md. Run npm ci, npm run build:preview -- --webpack, and npm start -- --hostname 127.0.0.1 --port 4348 using pinned Node 22.
+
+Publication clearance and verified transcripts remain separate review items. The musical-kit prepared-elements caption remains neutral.

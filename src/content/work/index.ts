@@ -137,8 +137,14 @@ function validateCaseStudy(study: WorkCaseStudy) {
       }
       if (section.kind === "group" || section.kind === "details") {
         // Previous paired-only limit: if (section.media.length < 1 || section.media.length > 2) throw new Error(section.id + " needs one or two related media");
-        if (section.media.length < 1 || section.media.length > (section.kind === "details" ? 4 : 2)) throw new Error(section.id + " has an invalid related-media count");
+        if (section.media.length < 1 || section.media.length > (section.kind === "details" || (section.kind === "group" && section.layout === "source-material") ? 4 : 2)) throw new Error(section.id + " has an invalid related-media count");
         section.media.forEach(media => validateMedia(media, section.id));
+      }
+    }
+    if (editorial.closingBand) {
+      const selected = editorial.sections.find(section => section.id === editorial.closingBand?.sectionId);
+      if (editorial.closingBand.tone !== "cool-guy-gray" || selected?.kind !== "media" || selected !== editorial.sections.at(-1)) {
+        throw new Error(study.slug + " closing band must select the final media section and an established surface");
       }
     }
     for (const name of ["heading", "copy", "ctaText"] as const) assertNonEmpty(editorial.closing[name], study.slug + " closing " + name);

@@ -155,7 +155,8 @@ test("release registry records all seven direct approvals and 93 assets", async 
     // Three printed-artwork variants added; previous reviewAssets: 44.
     // Camera-track test adds three variants; previous reviewAssets: 47.
     // Previous GEICO-only reviewAssets: 50; Uncommon Goods adds 17 private derivatives.
-    reviewAssets: 67,
+    // v002 adds eight source derivatives and retires five excerpt/still registrations.
+    reviewAssets: 70,
     seoDimensionsVerified: false,
   });
 });
@@ -235,7 +236,7 @@ test("optional responsive and editorial fields fail on invalid geometry or dupli
   assert.throws(() => validatePublicApprovedCaseStudy(duplicate), /duplicate editorial section ID/);
 });
 
-test("Uncommon Goods remains a private nine-item review with registered native-size evidence", async () => {
+test("Uncommon Goods keeps source variety private and closes with the short edit", async () => {
   const { uncommonGoodsOuttaThisWorld: study } = await import("../src/content/work/cases/uncommon-goods-outta-this-world.ts");
   const { default: media } = await import("../src/content/site/uncommon_goods_phase_2.generated.json", { with: { type: "json" } });
   const registry = JSON.parse(await fs.readFile(path.join(root, "src/content/site/media.generated.json"), "utf8"));
@@ -244,11 +245,17 @@ test("Uncommon Goods remains a private nine-item review with registered native-s
   assert(!workRecords.some(item => item.slug === study.slug));
   assert.throws(() => validatePublicApprovedCaseStudy(study), /not directly approved for public release/);
   const visible = [study.heroMedia, ...study.editorial.sections.flatMap(section => section.kind === "media" ? [section.media] : section.media)];
-  assert.equal(visible.length, 9);
-  assert.equal(new Set(visible.map(item => item.src)).size, 9);
+  assert.equal(visible.length, 11);
+  assert.equal(new Set(visible.map(item => item.src)).size, 11);
   assert.equal(media.M3.width, 640);
   assert.equal(media.M4.caption, "Prepared background and elements in the production archive.");
-  assert.equal(media.M9.caption, "Frame from the :30 commercial edit.");
+  assert.equal(media.M5, undefined);
+  assert.equal(media.M9, undefined);
+  assert.doesNotMatch(JSON.stringify(media), /continuity_excerpt|closing_name_snowflake/);
+  assert.deepEqual(study.editorial.sections.map(section => section.id), ["supplied-direction", "source-material", "source-preparation", "closer-look", "shorter-route"]);
+  assert.deepEqual(study.editorial.closingBand, { sectionId: "shorter-route", tone: "cool-guy-gray" });
+  assert.equal(study.editorial.sections[1].media.length, 4);
+  assert.match(media.sourceSpinner.caption, /ultimately omitted from the final :30/);
   for (const [id, item] of Object.entries(media)) {
     const candidates = item.kind === "video" ? [item, item.poster] : item.sources ?? [item];
     for (const candidate of candidates) {
@@ -263,13 +270,31 @@ test("Uncommon Goods remains a private nine-item review with registered native-s
       assert.equal(item.hasAudio, id === "M1" || id === "M6");
     }
   }
-  const excerpt = registry[urls[media.M5.src].split("/").at(-1)];
-  assert.equal(excerpt.frames, 216);
-  assert.equal(excerpt.frameRate, "24000/1001");
-  assert.equal(excerpt.duration, 9.009);
-  assert.equal(excerpt.hasAudio, false);
-  assert.equal(Object.keys(urls).filter(key => key.startsWith("/media/work/" + study.slug + "/")).length, 17);
+  const puzzle = registry[urls[media.sourcePuzzle.src].split("/").at(-1)];
+  const spinner = registry[urls[media.sourceSpinner.src].split("/").at(-1)];
+  assert.equal(puzzle.frames, 205);
+  assert.equal(spinner.frames, 296);
+  assert.equal(puzzle.frameRate, "24000/1001");
+  assert.equal(spinner.frameRate, "24000/1001");
+  assert.equal(spinner.width, 540);
+  assert.equal(puzzle.hasAudio, false);
+  assert.equal(spinner.hasAudio, false);
+  assert.equal(Object.keys(urls).filter(key => key.startsWith("/media/work/" + study.slug + "/")).length, 20);
+  assert(!Object.keys(urls).some(key => /uncommon_goods_(continuity_excerpt|closing_name_snowflake)/.test(key)));
   const route = await fs.readFile(path.join(root, "src/app/(three)/work/uncommon-goods-outta-this-world/page.tsx"), "utf8");
   assert.match(route, /isPublicProduction\(\) \|\| !\(await hasPrivateReviewSession\(\)\)/);
   assert.match(route, /robots: \{ index: false, follow: false, noarchive: true \}/);
+});
+
+
+test("an explicit closing band cannot select missing, earlier or unsupported content", () => {
+  for (const closingBand of [
+    { sectionId: "missing", tone: "cool-guy-gray" },
+    { sectionId: "performance", tone: "cool-guy-gray" },
+    { sectionId: "pre-color-composite", tone: "invented-gray" },
+  ]) {
+    const study = structuredClone(workRecords.find(item => item.slug === "geico-geckos-cereal-box"));
+    study.editorial.closingBand = closingBand;
+    assert.throws(() => validatePublicApprovedCaseStudy(study), /closing band must select/);
+  }
 });

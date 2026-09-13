@@ -1736,33 +1736,6 @@
     "width": 1312,
     "height": 1504
   },
-  "9664cda60cf1bd0a5673.webp": {
-    "file": "private-media/9664cda60cf1bd0a5673.webp",
-    "type": "image/webp",
-    "bytes": 74252,
-    "sha256": "9664cda60cf1bd0a56732ae41773c07e9640ff0d82ef8e69995b6ef42483146e",
-    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/demo_reels/QY9-012 Outta This World 30 _Master.mp4",
-    "sourceSha256": "67e0b34b116dfc1ca83bac3582d02557c5607c2fd3ec5bad5d8bc966c076fa50",
-    "publication": "private-review-only",
-    "width": 1280,
-    "height": 720
-  },
-  "43b3923907c432ecbbbf.mp4": {
-    "file": "private-media/43b3923907c432ecbbbf.mp4",
-    "type": "video/mp4",
-    "bytes": 3003431,
-    "sha256": "43b3923907c432ecbbbf38ef74e77d2868bdfe6bb10c9aaf022c110c9f2ba9ac",
-    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/demo_reels/QY9-012 Outta This World 30 _Master.mp4",
-    "sourceSha256": "67e0b34b116dfc1ca83bac3582d02557c5607c2fd3ec5bad5d8bc966c076fa50",
-    "publication": "private-review-only",
-    "width": 1920,
-    "height": 1080,
-    "duration": 9.009,
-    "codec": "h264",
-    "frames": 216,
-    "frameRate": "24000/1001",
-    "hasAudio": false
-  },
   "700149be1596ac2931de.webp": {
     "file": "private-media/700149be1596ac2931de.webp",
     "type": "image/webp",
@@ -1839,37 +1812,102 @@
     "frameRate": "24/1",
     "hasAudio": false
   },
-  "8b7b81ed09d226c4beee.webp": {
-    "file": "private-media/8b7b81ed09d226c4beee.webp",
+  "461393205ef195652b2f.webp": {
+    "file": "private-media/461393205ef195652b2f.webp",
     "type": "image/webp",
-    "bytes": 34816,
-    "sha256": "8b7b81ed09d226c4beee113c7b75af9d88a89fb6eddd99438e85e6c866798a48",
-    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/demo_reels/QY9-012 Outta This World 30 _Master.mp4",
-    "sourceSha256": "67e0b34b116dfc1ca83bac3582d02557c5607c2fd3ec5bad5d8bc966c076fa50",
+    "bytes": 9848,
+    "sha256": "461393205ef195652b2faffffcf8d96527a132d7a189fa0fa46aed739d26e94a",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/source_material_from_client/1. MOON LIGHT/MoonLight-Frames-assets/Layer 3.jpg",
+    "sourceSha256": "ae24bd22fc4d18b94ee9025f68417d333cc2dc4c5069eb842e657263fa02aa76",
     "publication": "private-review-only",
     "width": 800,
     "height": 450
   },
-  "ebcc118bc12611d81b22.webp": {
-    "file": "private-media/ebcc118bc12611d81b22.webp",
+  "3071fe0038513b3cd1ef.webp": {
+    "file": "private-media/3071fe0038513b3cd1ef.webp",
     "type": "image/webp",
-    "bytes": 54872,
-    "sha256": "ebcc118bc12611d81b220529750178c5ba5e6857886f34a9951168e74abc7a64",
-    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/demo_reels/QY9-012 Outta This World 30 _Master.mp4",
-    "sourceSha256": "67e0b34b116dfc1ca83bac3582d02557c5607c2fd3ec5bad5d8bc966c076fa50",
+    "bytes": 27646,
+    "sha256": "3071fe0038513b3cd1ef2480a6ca32c8fe21de6a3263eb51d6c0aa128d734b8e",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/source_material_from_client/1. MOON LIGHT/MoonLight-Frames-assets/Layer 3.jpg",
+    "sourceSha256": "ae24bd22fc4d18b94ee9025f68417d333cc2dc4c5069eb842e657263fa02aa76",
     "publication": "private-review-only",
-    "width": 1200,
-    "height": 675
+    "width": 1440,
+    "height": 810
   },
-  "7522f8e5f11cf0d86acf.webp": {
-    "file": "private-media/7522f8e5f11cf0d86acf.webp",
+  "54304fcfc45787373f0e.webp": {
+    "file": "private-media/54304fcfc45787373f0e.webp",
     "type": "image/webp",
-    "bytes": 91194,
-    "sha256": "7522f8e5f11cf0d86acf5f078956bcb600567500d26c4217a89afe6ef6344d9a",
-    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/demo_reels/QY9-012 Outta This World 30 _Master.mp4",
-    "sourceSha256": "67e0b34b116dfc1ca83bac3582d02557c5607c2fd3ec5bad5d8bc966c076fa50",
+    "bytes": 15704,
+    "sha256": "54304fcfc45787373f0e2854b528c4f73f32dfac3770f26deaa83988a880d063",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/source_material_from_client/2. NASA SUIT/57992_SpaceSuit.jpg",
+    "sourceSha256": "8034b03eb67a2c378d9cc325fc025827d0a9a714fd3613f77a108a42ab5ce78a",
     "publication": "private-review-only",
-    "width": 1920,
+    "width": 540,
+    "height": 540
+  },
+  "8da2a72c88d7b7b1da54.webp": {
+    "file": "private-media/8da2a72c88d7b7b1da54.webp",
+    "type": "image/webp",
+    "bytes": 47662,
+    "sha256": "8da2a72c88d7b7b1da54103d8786b02204104afdf98a383c5f9e0efaf61a8c45",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/source_material_from_client/2. NASA SUIT/57992_SpaceSuit.jpg",
+    "sourceSha256": "8034b03eb67a2c378d9cc325fc025827d0a9a714fd3613f77a108a42ab5ce78a",
+    "publication": "private-review-only",
+    "width": 1080,
     "height": 1080
+  },
+  "a83fbc125d25e0850663.webp": {
+    "file": "private-media/a83fbc125d25e0850663.webp",
+    "type": "image/webp",
+    "bytes": 156644,
+    "sha256": "a83fbc125d25e0850663ada8b899c51e806ce5391125ac2a20467af029277ff8",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/source_material_from_client/3. GALAXY PUZZLE/Infinity Galaxy Puzzle_51738_V1.mp4",
+    "sourceSha256": "73960b98eaae6fbbdbe9aa3bc1a8f230931c95792d1bcc29dcd695ee47278619",
+    "publication": "private-review-only",
+    "width": 1280,
+    "height": 720
+  },
+  "5b14df5546610cf99404.mp4": {
+    "file": "private-media/5b14df5546610cf99404.mp4",
+    "type": "video/mp4",
+    "bytes": 3513176,
+    "sha256": "5b14df5546610cf9940449db65bbd4c8ce766aeedf2b216911d187596589b861",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/source_material_from_client/3. GALAXY PUZZLE/Infinity Galaxy Puzzle_51738_V1.mp4",
+    "sourceSha256": "73960b98eaae6fbbdbe9aa3bc1a8f230931c95792d1bcc29dcd695ee47278619",
+    "publication": "private-review-only",
+    "width": 1280,
+    "height": 720,
+    "codec": "h264",
+    "frames": 205,
+    "duration": 8.550208,
+    "frameRate": "24000/1001",
+    "hasAudio": false
+  },
+  "e04faeb2e70162315192.webp": {
+    "file": "private-media/e04faeb2e70162315192.webp",
+    "type": "image/webp",
+    "bytes": 17516,
+    "sha256": "e04faeb2e70162315192b4534c991e074d57692d30b120cc0fa5b62d61da34bf",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/source_material_from_client/7. GARDEN SPINNER/MandalaSpinner.mp4",
+    "sourceSha256": "6264b143eebdbf0234bc3b185ef35ba31dd695a1d216847b79dcc5c4bf8a8e5f",
+    "publication": "private-review-only",
+    "width": 540,
+    "height": 540
+  },
+  "a70a87bf8633d8329757.mp4": {
+    "file": "private-media/a70a87bf8633d8329757.mp4",
+    "type": "video/mp4",
+    "bytes": 3345365,
+    "sha256": "a70a87bf8633d8329757971aab9a80252fbd5adb5e6334802f92a43bd15fcf9c",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/source_material_from_client/7. GARDEN SPINNER/MandalaSpinner.mp4",
+    "sourceSha256": "6264b143eebdbf0234bc3b185ef35ba31dd695a1d216847b79dcc5c4bf8a8e5f",
+    "publication": "private-review-only",
+    "width": 540,
+    "height": 540,
+    "codec": "h264",
+    "frames": 296,
+    "duration": 12.345667,
+    "frameRate": "24000/1001",
+    "hasAudio": false
   }
 }

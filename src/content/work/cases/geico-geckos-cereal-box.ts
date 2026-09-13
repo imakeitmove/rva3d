@@ -84,6 +84,7 @@ export const geicoGeckosCerealBox = {
     "approvalSource": "direct-owner-approval"
   },
   "editorial": {
+    "closingBand": { "sectionId": "pre-color-composite", "tone": "cool-guy-gray" },
     "heroHeading": "Commercial edit",
     "heading": "A cereal box with a performance of its own.",
     "context": "GEICO / 3D animation & VFX",

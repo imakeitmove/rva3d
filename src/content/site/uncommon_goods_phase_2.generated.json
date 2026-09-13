@@ -74,32 +74,6 @@
     "caption": "Prepared background and elements in the production archive.",
     "alt": "Four archive elements: an empty background, isolated gong, foreground pieces, and a prepared musical-kit plate."
   },
-  "M5": {
-    "kind": "video",
-    "src": "/media/work/uncommon-goods-outta-this-world/uncommon_goods_continuity_excerpt_v001.mp4",
-    "width": 1920,
-    "height": 1080,
-    "mimeType": "video/mp4",
-    "poster": {
-      "kind": "image",
-      "src": "/media/work/uncommon-goods-outta-this-world/uncommon_goods_continuity_excerpt_poster_w1280_v001.webp",
-      "width": 1280,
-      "height": 720,
-      "sources": [
-        {
-          "src": "/media/work/uncommon-goods-outta-this-world/uncommon_goods_continuity_excerpt_poster_w1280_v001.webp",
-          "width": 1280,
-          "height": 720
-        }
-      ],
-      "alt": "The illustrated van leaves the mug, enters the musical kit, and rising notes lead into the name snowflake."
-    },
-    "presentation": "controls",
-    "hasAudio": false,
-    "caption": "Silent excerpt from the :30 edit.",
-    "alt": "The illustrated van leaves the mug, enters the musical kit, and rising notes lead into the name snowflake.",
-    "statusLabel": "Silent excerpt from the :30 edit."
-  },
   "M6": {
     "kind": "video",
     "src": "/media/work/uncommon-goods-outta-this-world/uncommon_goods_commercial_15_v001.mp4",
@@ -171,29 +145,95 @@
     "alt": "An early Cinema 4D viewport preview of the rocket orbiting the moon lamp.",
     "statusLabel": "Early 3D orbit preview for the illustrated rocket."
   },
-  "M9": {
+  "sourceMoon": {
     "kind": "image",
-    "src": "/media/work/uncommon-goods-outta-this-world/uncommon_goods_closing_name_snowflake_w1920_v001.webp",
-    "width": 1920,
-    "height": 1080,
+    "src": "/media/work/uncommon-goods-outta-this-world/uncommon_goods_source_moon_lamp_w1440_v002.webp",
+    "width": 1440,
+    "height": 810,
     "sources": [
       {
-        "src": "/media/work/uncommon-goods-outta-this-world/uncommon_goods_closing_name_snowflake_w800_v001.webp",
+        "src": "/media/work/uncommon-goods-outta-this-world/uncommon_goods_source_moon_lamp_w800_v002.webp",
         "width": 800,
         "height": 450
       },
       {
-        "src": "/media/work/uncommon-goods-outta-this-world/uncommon_goods_closing_name_snowflake_w1200_v001.webp",
-        "width": 1200,
-        "height": 675
+        "src": "/media/work/uncommon-goods-outta-this-world/uncommon_goods_source_moon_lamp_w1440_v002.webp",
+        "width": 1440,
+        "height": 810
+      }
+    ],
+    "caption": "Supplied moon-lamp photography.",
+    "alt": "A lit moon lamp suspended above its wooden base in the supplied product photography."
+  },
+  "sourceNasa": {
+    "kind": "image",
+    "src": "/media/work/uncommon-goods-outta-this-world/uncommon_goods_source_nasa_suit_w1080_v002.webp",
+    "width": 1080,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "/media/work/uncommon-goods-outta-this-world/uncommon_goods_source_nasa_suit_w540_v002.webp",
+        "width": 540,
+        "height": 540
       },
       {
-        "src": "/media/work/uncommon-goods-outta-this-world/uncommon_goods_closing_name_snowflake_w1920_v001.webp",
-        "width": 1920,
+        "src": "/media/work/uncommon-goods-outta-this-world/uncommon_goods_source_nasa_suit_w1080_v002.webp",
+        "width": 1080,
         "height": 1080
       }
     ],
-    "caption": "Frame from the :30 commercial edit.",
-    "alt": "The full wooden name-snowflake ornament hanging from a red ribbon in the commercial."
+    "caption": "Supplied NASA suit bottle photography.",
+    "alt": "Front view of the white NASA suit bottle cover with gold bottle foil."
+  },
+  "sourcePuzzle": {
+    "kind": "video",
+    "src": "/media/work/uncommon-goods-outta-this-world/uncommon_goods_source_galaxy_puzzle_v002.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "presentation": "controls",
+    "hasAudio": false,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/uncommon-goods-outta-this-world/uncommon_goods_source_galaxy_puzzle_poster_w1280_v002.webp",
+      "width": 1280,
+      "height": 720,
+      "sources": [
+        {
+          "src": "/media/work/uncommon-goods-outta-this-world/uncommon_goods_source_galaxy_puzzle_poster_w1280_v002.webp",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "alt": "The supplied product animation shows scattered galaxy-puzzle pieces assembling into a complete image."
+    },
+    "caption": "Supplied galaxy-puzzle forming animation.",
+    "alt": "The supplied product animation shows scattered galaxy-puzzle pieces assembling into a complete image."
+  },
+  "sourceSpinner": {
+    "kind": "video",
+    "src": "/media/work/uncommon-goods-outta-this-world/uncommon_goods_source_garden_spinner_v002.mp4",
+    "width": 540,
+    "height": 540,
+    "mimeType": "video/mp4",
+    "presentation": "controls",
+    "hasAudio": false,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/uncommon-goods-outta-this-world/uncommon_goods_source_garden_spinner_poster_w540_v002.webp",
+      "width": 540,
+      "height": 540,
+      "sources": [
+        {
+          "src": "/media/work/uncommon-goods-outta-this-world/uncommon_goods_source_garden_spinner_poster_w540_v002.webp",
+          "width": 540,
+          "height": 540
+        }
+      ],
+      "alt": "A hanging garden spinner rotates in supplied development footage; it does not appear in the delivered commercial."
+    },
+    "caption": "Development source — the garden spinner was ultimately omitted from the final :30.",
+    "alt": "A hanging garden spinner rotates in supplied development footage; it does not appear in the delivered commercial.",
+    "statusLabel": "Development source — the garden spinner was ultimately omitted from the final :30."
   }
 }

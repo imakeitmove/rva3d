@@ -10,11 +10,12 @@ import styles from "./EditorialCasePage.module.css";
 
 const wideSizes = "(max-width: 640px) calc(100vw - 40px), (max-width: 1600px) calc(100vw - 96px), 1504px";
 
-function CaseMediaGroup({ media, emphasis = "equal" }: {
+function CaseMediaGroup({ media, emphasis = "equal", layout }: {
   media: readonly WorkMedia[];
   emphasis?: "first" | "equal";
+  layout?: "source-material";
 }) {
-  return <div className={styles.mediaGroup} data-emphasis={emphasis}>
+  return <div className={styles.mediaGroup} data-emphasis={emphasis} data-layout={layout}>
     {media.map((item, index) => <SiteMedia key={item.src} media={protectedMedia(item)}
       sizes={emphasis === "first"
         ? `(max-width: 900px) calc(100vw - 40px), ${index === 0 ? "60vw" : "35vw"}`
@@ -54,7 +55,7 @@ function EditorialSection({ section }: { section: WorkEditorialSection }) {
     {/* Optional real text makes supplied visual instructions understandable without fullscreen. */}
     {section.kind === "media" && section.description && <p className={styles.mediaDescription}>{section.description}</p>}
     {section.kind === "composition" && <CaseMediaColumns columns={section.columns} emphasis={section.emphasis} />}
-    {section.kind === "group" && <CaseMediaGroup media={section.media} emphasis={section.emphasis} />}
+    {section.kind === "group" && <CaseMediaGroup media={section.media} emphasis={section.emphasis} layout={section.layout} />}
   </section>;
 }
 
@@ -65,9 +66,11 @@ export function EditorialCasePage({ study, editorial, next }: {
   next: WorkCaseStudy;
 }) {
   const related = capabilities.filter(item => study.capabilities.includes(item.title));
-  // The GEICO conclusion shares one surface without changing the editorial media order.
-  const closingMedia = study.slug === "geico-geckos-cereal-box"
-    ? editorial.sections.find(section => section.id === "pre-color-composite")
+  // Previous GEICO-only selector retained for restoration; both cases now opt in through content.
+  // const closingMedia = study.slug === "geico-geckos-cereal-box"
+  //   ? editorial.sections.find(section => section.id === "pre-color-composite") : undefined;
+  const closingMedia = editorial.closingBand
+    ? editorial.sections.find(section => section.id === editorial.closingBand?.sectionId)
     : undefined;
   return <Shell><article className={`case-story ${styles.story}`} data-editorial-case={study.slug}>
     <section className="case-opening" data-tone="paper">

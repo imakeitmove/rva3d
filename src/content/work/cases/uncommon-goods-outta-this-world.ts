@@ -1,6 +1,7 @@
 import type { WorkCaseStudy, WorkImageMedia, WorkVideoMedia } from "../types";
 import media from "../../site/uncommon_goods_phase_2.generated.json" with { type: "json" };
 
+// v002 retires the continuity excerpt and closing still from e82e16db; their original packages remain intact.
 // Private review record only: deliberately excluded from workRecords, public metadata, and portfolio order.
 export const uncommonGoodsOuttaThisWorld = {
   "slug": "uncommon-goods-outta-this-world",
@@ -29,9 +30,9 @@ export const uncommonGoodsOuttaThisWorld = {
     "VFX and Compositing",
     "Creative Production Support"
   ],
-  "indexMedia": (media.M9 as WorkImageMedia),
+  "indexMedia": (media.M1.poster as WorkImageMedia),
   "heroMedia": (media.M1 as WorkVideoMedia),
-  "seo": { title: "Uncommon Goods — Outta This World | RVA3D", description: "Motion design and animation through Spang TV, from supplied direction to connected commercial edits.", image: (media.M9 as WorkImageMedia) },
+  "seo": { title: "Uncommon Goods — Outta This World | RVA3D", description: "Motion design and animation through Spang TV, from supplied direction to connected commercial edits.", image: (media.M1.poster as WorkImageMedia) },
   "galleryMedia": [],
   "processChapters": [],
   "credits": [
@@ -49,6 +50,7 @@ export const uncommonGoodsOuttaThisWorld = {
     "status": "preview"
   },
   "editorial": {
+    "closingBand": { "sectionId": "shorter-route", "tone": "cool-guy-gray" },
     "heroHeading": "Commercial edit — :30",
     "heading": "A different animation problem in every scene.",
     "context": "Uncommon Goods / Motion design & animation",
@@ -66,28 +68,27 @@ export const uncommonGoodsOuttaThisWorld = {
         "description": "The supplied directions call for the rocket to land behind the rotating NASA suit, the van to start the musical kit as notes rise from it, and the snowflake drawing to give way to the product before a zoom transition."
       },
       {
+        "id": "source-material",
+        "kind": "group",
+        "layout": "source-material",
+        "heading": "Different products. Different ingredients.",
+        "copy": "The source material wasn't one neat package. Some products arrived as photographs, some as simple animations or video, and others as artwork that needed to become independently controllable pieces. The workflow changed from scene to scene.",
+        "media": [
+          (media.sourceMoon as WorkImageMedia),
+          (media.sourceNasa as WorkImageMedia),
+          (media.sourcePuzzle as WorkVideoMedia),
+          (media.sourceSpinner as WorkVideoMedia)
+        ]
+      },
+      {
         "id": "source-preparation",
         "kind": "group",
         "heading": "Make the ingredients usable.",
-        "copy": "The source material came in different forms: product photography, GIFs, video, artwork and prepared layouts. Before those pieces could move together, they had to become controllable ingredients inside the animation... backgrounds, product states and individual elements that could be timed and composed independently.",
+        "copy": "The musical kit is one concrete example: a source animation alongside a prepared background and separate elements that could be timed and composed independently. Once the pieces were usable, the job became timing: deciding how long each action needed, where the eye should land, and how one product could hand the frame to the next.",
         "media": [
           (media.M3 as WorkImageMedia),
           (media.M4 as WorkImageMedia)
         ]
-      },
-      {
-        "id": "visual-handoffs",
-        "kind": "media",
-        "heading": "Each action leads to the next.",
-        "copy": "Animating the individual products was only half the job. The rhythm comes from the handoffs between them: the illustrated van carries the eye into the musical kit, notes pull the frame upward, and one action creates the momentum for the next. Those connections are where timing, framing and compositing start to behave like editing.",
-        "media": (media.M5 as WorkVideoMedia)
-      },
-      {
-        "id": "shorter-route",
-        "kind": "media",
-        "heading": "A shorter route through the same world.",
-        "copy": "The :15 wasn't a :30 with half the shots blindly removed. Its route changes. The astronaut sequence connects directly into the mug, bypassing the puzzle and accordion lamp before the spot races toward the same finish. Compressing the idea meant finding a different sequence of visual handoffs that still felt intentional.",
-        "media": (media.M6 as WorkVideoMedia)
       },
       {
         "id": "closer-look",
@@ -100,10 +101,13 @@ export const uncommonGoodsOuttaThisWorld = {
         ]
       },
       {
-        "id": "closing-commercial-frame",
+        "id": "shorter-route",
         "kind": "media",
-        "media": (media.M9 as WorkImageMedia)
+        "heading": "A shorter route through the same world.",
+        "copy": "The :15 wasn't a :30 with half the shots blindly removed. Its route changes. The astronaut sequence connects directly into the mug, bypassing the puzzle and accordion lamp before the spot races toward the same finish. Compressing the idea meant finding a different sequence of visual handoffs that still felt intentional.",
+        "media": (media.M6 as WorkVideoMedia)
       }
+
     ],
     "closing": {
       "heading": "Bring the plan into motion.",
