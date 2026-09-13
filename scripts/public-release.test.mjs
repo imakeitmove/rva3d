@@ -151,7 +151,8 @@ test("release registry records all seven direct approvals and 93 assets", async 
     studies: 7,
     assets: 93,
     logicalUrls: 157,
-    reviewAssets: 23,
+    // Previous eight-source preview: reviewAssets: 23.
+    reviewAssets: 44,
     seoDimensionsVerified: false,
   });
 });
@@ -166,10 +167,11 @@ test("GEICO preview keeps exactly the selected evidence and the approved public 
   assert.equal(digest(Object.fromEntries(Object.entries(registry).filter(([, entry]) => entry.publication === "public-approved"))), "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8");
   assert.equal(digest(Object.fromEntries(Object.entries(urls).filter(([, url]) => url.startsWith("/media/")))), "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f");
   const review = Object.values(registry).filter(entry => entry.publication === "private-review-only");
-  assert.equal(review.length, 23);
-  assert.equal(new Set(review.map(entry => entry.source)).size, 8);
+  // Human review adds 21 derivatives to the original 23.
+  assert.equal(review.length, 44);
+  assert.equal(new Set(review.map(entry => entry.source)).size, 15);
   const study = workRecords.find(item => item.slug === "geico-geckos-cereal-box");
-  assert.deepEqual(study.editorial.sections.map(section => section.id), ["performance", "physical-reference", "integration", "render-support"]);
+  assert.deepEqual(study.editorial.sections.map(section => section.id), ["performance", "physical-reference", "integration", "build-details", "commercial-edit"]);
   assert.equal(study.heroMedia.caption, "RVA3D composite before final color correction.");
   assert.match(media.physical.caption, /Physical cereal box photographed/);
   assert.equal(media.render.background, "neutral");
@@ -177,14 +179,21 @@ test("GEICO preview keeps exactly the selected evidence and the approved public 
   assert.equal(media.blocking.hasAudio, false);
   assert.doesNotMatch(JSON.stringify(study.editorial), /aired master|approved option|pure AO/);
   assert.match(study.editorial.closing.copy, /A Flame artist handled the finishing stage/);
-  const visible = [study.heroMedia, ...study.editorial.sections.flatMap(section => section.kind === "media" ? [section.media] : section.media ?? [])];
-  assert.equal(visible.length, 8);
+  const visible = [study.heroMedia, ...study.editorial.sections.flatMap(section => section.kind === "media" ? [section.media] : section.kind === "composition" ? section.columns.flatMap(column => [column.main, ...(column.supporting ?? [])]) : section.media ?? [])];
+  // Original edit selected eight visible assets; human review expands this to sixteen.
+  assert.equal(visible.length, 16);
+  assert.deepEqual(study.editorial.sections[2].columns[0].supporting.map(item => item.caption), ["Rendered CG", "Shadow support", "Box mask"]);
+  assert.match(study.editorial.sections[2].columns[1].main.caption, /lighting reference captured on set/);
+  assert.equal(study.editorial.sections[3].media.length, 4);
+  assert.equal(study.editorial.sections[4].media.src, "/media/work/geico-geckos-cereal-box/geico-final.mp4");
+  assert.match(study.editorial.sections[4].media.caption, /^Archived commercial edit/);
+  assert.equal(study.editorial.sections[4].media.hasAudio, false);
   for (const item of visible) {
-    for (const candidate of item.kind === "image" ? item.sources : [item]) {
-      assert(urls[candidate.src].startsWith("/review/assets/"));
+    for (const candidate of item.kind === "image" ? item.sources ?? [item] : [item]) {
+      assert(urls[candidate.src].startsWith(item === study.editorial.sections[4].media ? "/media/" : "/review/assets/"));
       const entry = registry[urls[candidate.src].split("/").at(-1)];
-      assert.equal(entry.width, candidate.width);
-      assert.equal(entry.height, candidate.height);
+      if (entry.width !== undefined) assert.equal(entry.width, candidate.width);
+      if (entry.height !== undefined) assert.equal(entry.height, candidate.height);
     }
   }
 });

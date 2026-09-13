@@ -78,7 +78,10 @@ export type WorkPublication =
   | ApprovedPublication
   | PublicApprovedPublication;
 
+export type WorkMediaColumn = { main: WorkMedia; supporting?: readonly WorkMedia[] };
+
 export type WorkEditorialSection =
+  | { id: string; kind: "composition"; heading?: string; copy?: string; columns: readonly WorkMediaColumn[]; emphasis?: "first" | "equal" }
   | { id: string; kind: "text"; heading: string; copy: string }
   | { id: string; kind: "media"; heading?: string; copy?: string; media: WorkMedia }
   | { id: string; kind: "group"; heading?: string; copy?: string; media: readonly WorkMedia[]; emphasis?: "first" | "equal" }

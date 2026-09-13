@@ -123,8 +123,17 @@ function validateCaseStudy(study: WorkCaseStudy) {
       if (section.heading) assertNonEmpty(section.heading, section.id + " heading");
       if (section.kind === "text" || section.kind === "details") assertNonEmpty(section.copy, section.id + " copy");
       if (section.kind === "media") validateMedia(section.media, section.id);
+      if (section.kind === "composition") {
+        if (section.columns.length !== 2) throw new Error(section.id + " needs two media columns");
+        for (const column of section.columns) {
+          validateMedia(column.main, section.id);
+          if (column.supporting && (column.supporting.length < 1 || column.supporting.length > 3)) throw new Error(section.id + " needs one to three supporting images");
+          column.supporting?.forEach(media => validateMedia(media, section.id));
+        }
+      }
       if (section.kind === "group" || section.kind === "details") {
-        if (section.media.length < 1 || section.media.length > 2) throw new Error(section.id + " needs one or two related media");
+        // Previous paired-only limit: if (section.media.length < 1 || section.media.length > 2) throw new Error(section.id + " needs one or two related media");
+        if (section.media.length < 1 || section.media.length > (section.kind === "details" ? 4 : 2)) throw new Error(section.id + " has an invalid related-media count");
         section.media.forEach(media => validateMedia(media, section.id));
       }
     }

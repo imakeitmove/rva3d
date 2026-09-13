@@ -1,0 +1,182 @@
+{
+  "tableSide": {
+    "kind": "image",
+    "src": "/media/work/geico-geckos-cereal-box/geico_table_side_reference_w1600_v001.webp",
+    "width": 1600,
+    "height": 1067,
+    "sources": [
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_table_side_reference_w640_v001.webp",
+        "width": 640,
+        "height": 427
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_table_side_reference_w1000_v001.webp",
+        "width": 1000,
+        "height": 667
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_table_side_reference_w1600_v001.webp",
+        "width": 1600,
+        "height": 1067
+      }
+    ],
+    "alt": "Physical cereal box and breakfast props on the table, with production lighting and flags beside the set.",
+    "caption": "Breakfast-table setup, viewed from the side."
+  },
+  "overShoulder": {
+    "kind": "image",
+    "src": "/media/work/geico-geckos-cereal-box/geico_over_shoulder_set_reference_w1600_v001.webp",
+    "width": 1600,
+    "height": 1067,
+    "sources": [
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_over_shoulder_set_reference_w640_v001.webp",
+        "width": 640,
+        "height": 427
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_over_shoulder_set_reference_w1000_v001.webp",
+        "width": 1000,
+        "height": 667
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_over_shoulder_set_reference_w1600_v001.webp",
+        "width": 1600,
+        "height": 1067
+      }
+    ],
+    "alt": "Over-the-shoulder view of the camera and physical cereal-box setup on the kitchen table.",
+    "caption": "View toward the cereal-box setup from behind the camera."
+  },
+  "perspective": {
+    "kind": "image",
+    "src": "/media/work/geico-geckos-cereal-box/geico_scene_perspective_w1920_v001.webp",
+    "width": 1920,
+    "height": 964,
+    "sources": [
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_scene_perspective_w800_v001.webp",
+        "width": 800,
+        "height": 402
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_scene_perspective_w1200_v001.webp",
+        "width": 1200,
+        "height": 602
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_scene_perspective_w1920_v001.webp",
+        "width": 1920,
+        "height": 964
+      }
+    ],
+    "alt": "Perspective viewport of the digital cereal box, breakfast-table stand-ins, camera, and lighting setup.",
+    "caption": "Working 3D scene and lighting setup.",
+    "statusLabel": "Working 3D scene and lighting setup."
+  },
+  "artwork": {
+    "kind": "image",
+    "src": "/media/work/geico-geckos-cereal-box/geico_supplied_packaging_artwork_w1920_v001.webp",
+    "width": 1920,
+    "height": 1338,
+    "sources": [
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_supplied_packaging_artwork_w800_v001.webp",
+        "width": 800,
+        "height": 558
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_supplied_packaging_artwork_w1200_v001.webp",
+        "width": 1200,
+        "height": 836
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_supplied_packaging_artwork_w1920_v001.webp",
+        "width": 1920,
+        "height": 1338
+      }
+    ],
+    "alt": "Supplied flat packaging artwork showing the cereal-box front, back, side panels, and folding flaps.",
+    "caption": "Supplied cereal-box packaging artwork.",
+    "statusLabel": "Supplied packaging artwork / reference."
+  },
+  "floor": {
+    "kind": "image",
+    "src": "/media/work/geico-geckos-cereal-box/geico_panorama_rig_floor_reference_w1600_v001.webp",
+    "width": 1600,
+    "height": 1600,
+    "sources": [
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_panorama_rig_floor_reference_w640_v001.webp",
+        "width": 640,
+        "height": 640
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_panorama_rig_floor_reference_w1000_v001.webp",
+        "width": 1000,
+        "height": 1000
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_panorama_rig_floor_reference_w1600_v001.webp",
+        "width": 1600,
+        "height": 1600
+      }
+    ],
+    "alt": "Downward capture from the panorama rig showing the table and breakfast props; a reference view, not a complete panorama.",
+    "caption": "Table reference from the panorama rig.",
+    "statusLabel": "Panorama-rig reference view."
+  },
+  "boxSide": {
+    "kind": "image",
+    "src": "/media/work/geico-geckos-cereal-box/geico_physical_box_side_reference_w1200_v001.webp",
+    "width": 1200,
+    "height": 1800,
+    "sources": [
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_physical_box_side_reference_w480_v001.webp",
+        "width": 480,
+        "height": 720
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_physical_box_side_reference_w800_v001.webp",
+        "width": 800,
+        "height": 1200
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_physical_box_side_reference_w1200_v001.webp",
+        "width": 1200,
+        "height": 1800
+      }
+    ],
+    "alt": "Photograph of the printed side panel of the real cereal box on set.",
+    "caption": "Physical cereal-box side reference.",
+    "statusLabel": "Physical cereal-box side reference."
+  },
+  "panorama": {
+    "kind": "image",
+    "src": "/media/work/geico-geckos-cereal-box/geico_panorama_display_reference_w2400_v001.webp",
+    "width": 2400,
+    "height": 1200,
+    "sources": [
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_panorama_display_reference_w800_v001.webp",
+        "width": 800,
+        "height": 400
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_panorama_display_reference_w1600_v001.webp",
+        "width": 1600,
+        "height": 800
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_panorama_display_reference_w2400_v001.webp",
+        "width": 2400,
+        "height": 1200
+      }
+    ],
+    "alt": "Equirectangular panorama of the kitchen set used as a display reference for the on-set lighting capture.",
+    "caption": "360° lighting reference captured on set.",
+    "statusLabel": "360° lighting reference / display panorama."
+  }
+}

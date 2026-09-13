@@ -1,4 +1,5 @@
 import type { WorkCaseStudy, WorkImageMedia, WorkVideoMedia } from "../types";
+import refinements from "../../site/geico_review_refinements.generated.json" with { type: "json" };
 import media from "../../site/geico_phase_2.generated.json" with { type: "json" };
 
 // Phase 2 editorial preview. Existing index, SEO image, and publication provenance stay unchanged.
@@ -75,34 +76,77 @@ export const geicoGeckosCerealBox = {
       },
       {
         "id": "physical-reference",
-        "kind": "group",
+        "kind": "composition",
         "heading": "Start with the real box.",
         "copy": "The physical cereal box gave us a shared reference for scale, framing, color, and light. Deven provided VFX guidance on set and captured HDRI reference so the digital work could follow the photographed kitchen.",
         "emphasis": "first",
-        "media": [
-          (media.physical as WorkImageMedia),
-          (media.set as WorkImageMedia)
+        "columns": [
+          {
+            "main": (media.physical as WorkImageMedia)
+          },
+          {
+            "main": (media.set as WorkImageMedia),
+            "supporting": [
+              (refinements.tableSide as WorkImageMedia),
+              (refinements.overShoulder as WorkImageMedia)
+            ]
+          }
         ]
       },
       {
         "id": "integration",
-        "kind": "group",
+        "kind": "composition",
         "heading": "The box had to share the table.",
         "copy": "The surrounding objects mattered even where the photography stayed. Digital stand-ins gave us surfaces for reflections, contact shading, and occlusion, helping the animated box sit among the bowl, glass, and milk bottle. RVA3D developed the lighting and renders, then brought those elements into the initial composite.",
-        "media": [
-          (media.standIns as WorkImageMedia),
-          (media.render as WorkImageMedia)
+        "columns": [
+          {
+            "main": (media.standIns as WorkImageMedia),
+            "supporting": [
+              ({ ...media.render, caption: "Rendered CG" } as WorkImageMedia),
+              ({ ...media.shadow, caption: "Shadow support" } as WorkImageMedia),
+              ({ ...media.mask, caption: "Box mask" } as WorkImageMedia)
+            ]
+          },
+          {
+            "main": (refinements.panorama as WorkImageMedia)
+          }
         ]
       },
       {
-        "id": "render-support",
+        "id": "build-details",
         "kind": "details",
-        "heading": "A closer look at the render support",
-        "copy": "Separate support renders and masks helped control how the box met the photographed scene. The shadow-support view shows contact and light response; the box mask isolates the object for compositing adjustments.",
+        "heading": "A closer look at the build",
+        "copy": "A wider scene view, supplied packaging artwork, and physical references behind the digital box.",
         "media": [
-          (media.shadow as WorkImageMedia),
-          (media.mask as WorkImageMedia)
+          (refinements.perspective as WorkImageMedia),
+          (refinements.artwork as WorkImageMedia),
+          (refinements.floor as WorkImageMedia),
+          (refinements.boxSide as WorkImageMedia)
         ]
+      },
+      {
+        "id": "commercial-edit",
+        "kind": "media",
+        "heading": "Commercial edit",
+        "media": {
+          "kind": "video",
+          "src": "/media/work/geico-geckos-cereal-box/geico-final.mp4",
+          "mimeType": "video/mp4",
+          "width": 1280,
+          "height": 720,
+          "alt": "Archived commercial edit featuring the GEICO GeckO’s cereal-box sequence.",
+          "caption": "Archived commercial edit featuring the GEICO GeckO’s cereal-box sequence.",
+          "statusLabel": "Archived commercial edit.",
+          "poster": {
+            "kind": "image",
+            "src": "/media/work/geico-geckos-cereal-box/geico-final-poster.webp",
+            "width": 1280,
+            "height": 720,
+            "alt": "Cereal-box sequence in the archived GEICO commercial edit."
+          },
+          "presentation": "controls",
+          "hasAudio": false
+        }
       }
     ],
     "closing": {
@@ -269,3 +313,45 @@ export const geicoGeckosCerealBox = {
 //   }
 // } as const satisfies WorkCaseStudy;
 //
+
+// Original Phase 2 section composition retained before the approved human-review expansion.
+// [
+//   {
+//     "id": "performance",
+//     "kind": "media",
+//     "heading": "How much personality fits in a cardboard box?",
+//     "copy": "A hop, a turn, a little flex: each changes the box’s personality. We explored different entrances and reactions to find how expressive it could be while still reading as cardboard. Early blocking made those choices visible before detailed lighting and compositing.",
+//     "media": "__MEDIA_blocking__"
+//   },
+//   {
+//     "id": "physical-reference",
+//     "kind": "group",
+//     "heading": "Start with the real box.",
+//     "copy": "The physical cereal box gave us a shared reference for scale, framing, color, and light. Deven provided VFX guidance on set and captured HDRI reference so the digital work could follow the photographed kitchen.",
+//     "emphasis": "first",
+//     "media": [
+//       "__MEDIA_physical__",
+//       "__MEDIA_set__"
+//     ]
+//   },
+//   {
+//     "id": "integration",
+//     "kind": "group",
+//     "heading": "The box had to share the table.",
+//     "copy": "The surrounding objects mattered even where the photography stayed. Digital stand-ins gave us surfaces for reflections, contact shading, and occlusion, helping the animated box sit among the bowl, glass, and milk bottle. RVA3D developed the lighting and renders, then brought those elements into the initial composite.",
+//     "media": [
+//       "__MEDIA_standIns__",
+//       "__MEDIA_render__"
+//     ]
+//   },
+//   {
+//     "id": "render-support",
+//     "kind": "details",
+//     "heading": "A closer look at the render support",
+//     "copy": "Separate support renders and masks helped control how the box met the photographed scene. The shadow-support view shows contact and light response; the box mask isolates the object for compositing adjustments.",
+//     "media": [
+//       "__MEDIA_shadow__",
+//       "__MEDIA_mask__"
+//     ]
+//   }
+// ]

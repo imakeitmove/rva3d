@@ -21,3 +21,9 @@ The tracing rule targets only /review/assets/* and ./private-media/*. Preparatio
 The optional local `test-preview-package.mjs` integration harness generates temporary credentials only in memory and exercises the real login and session checks; it never discovers a password or disables authentication. Its results do not replace acceptance using the owner's existing authorized credential source or hosted verification. Set RVA3D_BROWSER_CLI to the installed agent-browser CLI path and RVA3D_QA_OUTPUT to a local evidence directory outside the prepared package.
 
 Known publication mismatch: the prior public Git checkpoint includes Five Below video/poster, DESMI video/poster, and the logo GLB despite registration as private-review-only. This workflow excludes those public original folders from upload. Existing Git history remains unchanged; history remediation or a publication reclassification requires a separate explicit decision.
+
+## Local prepared-preview authentication
+
+Preparation intentionally excludes environment files. Before the first local start, provision only RVA3D_PRIVATE_REVIEW_PASSWORD (plaintext) and RVA3D_PRIVATE_REVIEW_COOKIE_SECRET in the prepared directory's ignored .env.local, or supply them in the server process environment. Do not copy unrelated credentials or use NEXT_PUBLIC_*. Keep both values stable across restarts; changing either revokes existing review sessions.
+
+From that prepared directory, use the pinned Node version and npm start -- --hostname 127.0.0.1 --port 4347, then open http://localhost:4347/review/site/work/geico-geckos-cereal-box. Next.js loads .env.local automatically at runtime; no rebuild is needed for these values. Inherited process variables take precedence over env files, so avoid launch scripts that override them. A new prepared export requires separate local configuration; secrets must not be added to the export recipe or committed.

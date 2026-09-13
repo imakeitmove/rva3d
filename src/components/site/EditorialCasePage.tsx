@@ -1,4 +1,4 @@
-import type { WorkCaseStudy, WorkEditorial, WorkEditorialSection, WorkMedia } from "@/content/work/types";
+import type { WorkCaseStudy, WorkEditorial, WorkEditorialSection, WorkMedia, WorkMediaColumn } from "@/content/work/types";
 import { capabilities } from "@/content/capabilities";
 import { headline, protectedMedia } from "@/lib/site/content";
 import { siteHref } from "@/lib/site/paths";
@@ -21,6 +21,17 @@ function CaseMediaGroup({ media, emphasis = "equal" }: {
   </div>;
 }
 
+function CaseMediaColumns({ columns, emphasis = "equal" }: { columns: readonly WorkMediaColumn[]; emphasis?: "first" | "equal" }) {
+  return <div className={styles.mediaColumns} data-emphasis={emphasis}>
+    {columns.map((column, index) => <div className={styles.mediaColumn} key={column.main.src}>
+      <SiteMedia media={protectedMedia(column.main)} sizes={"(max-width: 640px) calc(100vw - 40px), (max-width: 900px) calc(100vw - 96px), " + (emphasis === "first" && index === 0 ? "60vw" : "40vw")} />
+      {column.supporting && <div className={styles.supporting} data-count={column.supporting.length}>
+        {column.supporting.map(item => <SiteMedia key={item.src} media={protectedMedia(item)} sizes="(max-width: 640px) 76vw, (max-width: 900px) 30vw, 20vw" />)}
+      </div>}
+    </div>)}
+  </div>;
+}
+
 function EditorialSection({ section }: { section: WorkEditorialSection }) {
   if (section.kind === "details") {
     return <details className={styles.details} id={section.id}>
@@ -35,6 +46,7 @@ function EditorialSection({ section }: { section: WorkEditorialSection }) {
       {section.copy && <p><BrandText text={section.copy} /></p>}
     </div>}
     {section.kind === "media" && <SiteMedia media={protectedMedia(section.media)} sizes={wideSizes} />}
+    {section.kind === "composition" && <CaseMediaColumns columns={section.columns} emphasis={section.emphasis} />}
     {section.kind === "group" && <CaseMediaGroup media={section.media} emphasis={section.emphasis} />}
   </section>;
 }
@@ -71,8 +83,11 @@ export function EditorialCasePage({ study, editorial, next }: {
     <section className={`v-frame delivery ${styles.closing}`} data-tone="paper">
       <h2>{editorial.closing.heading}</h2>
       <p><BrandText text={editorial.closing.copy} /></p>
+      {/* Previously adjacent CTA content; the scoped wrapper now adds an editorial pause. */}
+      <div className={styles.contactCta}>
       <p>{editorial.closing.ctaText}</p>
       <a className="button" href={siteHref("/#contact")}>Get in touch ↗</a>
+      </div>
       <div className="related-capabilities"><h3>Related capabilities</h3>
         {related.map(item => <a className="editorial-link" key={item.slug} href={siteHref(`/capabilities#${item.slug}`)}>{item.title} ↗</a>)}
       </div>
