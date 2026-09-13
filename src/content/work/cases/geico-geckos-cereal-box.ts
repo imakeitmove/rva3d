@@ -1,5 +1,6 @@
 import type { WorkCaseStudy, WorkImageMedia, WorkVideoMedia } from "../types";
 import registered from "../../site/geico.generated.json" with { type: "json" };
+import cameraTrack from "../../site/geico_camera_track_test.generated.json" with { type: "json" };
 import printed from "../../site/geico_printed_artwork.generated.json" with { type: "json" };
 import refinements from "../../site/geico_review_refinements.generated.json" with { type: "json" };
 import media from "../../site/geico_phase_2.generated.json" with { type: "json" };
@@ -97,7 +98,8 @@ export const geicoGeckosCerealBox = {
         "media": (media.blocking as WorkVideoMedia),
         "supporting": [
           { ...registered.timeline, caption: "Animation blocking and timing in Cinema 4D." } as WorkImageMedia,
-          { ...refinements.perspective, caption: "Wider 3D scene and lighting setup." } as WorkImageMedia
+          // Previous main support: refinements.perspective remains in the Closer look gallery below.
+          (cameraTrack.cameraTrackTest as WorkImageMedia)
         ]
       },
       {

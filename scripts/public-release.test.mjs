@@ -153,7 +153,8 @@ test("release registry records all seven direct approvals and 93 assets", async 
     logicalUrls: 157,
     // Previous eight-source preview: reviewAssets: 23.
     // Three printed-artwork variants added; previous reviewAssets: 44.
-    reviewAssets: 47,
+    // Camera-track test adds three variants; previous reviewAssets: 47.
+    reviewAssets: 50,
     seoDimensionsVerified: false,
   });
 });
@@ -170,9 +171,11 @@ test("GEICO preview keeps exactly the selected evidence and the approved public 
   const review = Object.values(registry).filter(entry => entry.publication === "private-review-only");
   // Human review adds 21 derivatives to the original 23.
   // Previous review inventory: assert.equal(review.length, 44);
-  assert.equal(review.length, 47);
+  // Before camera-track derivatives: assert.equal(review.length, 47);
+  assert.equal(review.length, 50);
   // Printed artwork adds one retained source to the previous fifteen.
-  assert.equal(new Set(review.map(entry => entry.source)).size, 16);
+  // The early camera-track test adds one retained source.
+  assert.equal(new Set(review.map(entry => entry.source)).size, 17);
   const study = workRecords.find(item => item.slug === "geico-geckos-cereal-box");
   // Previous sequence: assert.deepEqual(study.editorial.sections.map(section => section.id), ["performance", "physical-reference", "integration", "build-details", "commercial-edit"]);
   assert.deepEqual(study.editorial.sections.map(section => section.id), ["performance", "physical-reference", "integration", "build-details", "pre-color-composite"]);
@@ -191,9 +194,12 @@ test("GEICO preview keeps exactly the selected evidence and the approved public 
   assert.equal(visible.length, 18);
   assert.equal(study.editorial.sections[1].columns[1].supporting[1].caption, "Printed cereal-box artwork on set.");
   assert.match(study.editorial.sections[1].columns[1].supporting[1].src, /geico_printed_artwork_on_set/);
-  assert.deepEqual(study.editorial.sections[0].supporting.map(item => item.caption), ["Animation blocking and timing in Cinema 4D.", "Wider 3D scene and lighting setup."]);
+  assert.deepEqual(study.editorial.sections[0].supporting.map(item => item.caption), ["Animation blocking and timing in Cinema 4D.", "Early camera-tracked box animation test."]);
   assert.equal(urls[study.editorial.sections[0].supporting[0].src], "/media/ac46f49a01d73fdd2a38.png");
-  assert.deepEqual(study.editorial.sections[0].supporting[1].sources, study.editorial.sections[3].media[0].sources);
+  // Previously duplicated perspective sources in the main row and detail gallery.
+  assert.match(study.editorial.sections[0].supporting[1].src, /geico_early_camera_tracked_box_test/);
+  assert.equal(urls[study.editorial.sections[3].media[0].sources[0].src], "/review/assets/32d653ea5c166c189e4a.webp");
+  assert.equal(visible.filter(item => item.src === study.editorial.sections[3].media[0].src).length, 1);
   assert.deepEqual(study.editorial.sections[2].columns[0].supporting.map(item => item.caption), ["Rendered CG", "Shadow support", "Box mask"]);
   assert.match(study.editorial.sections[2].columns[1].main.caption, /lighting reference captured on set/);
   assert.equal(study.editorial.sections[3].media.length, 4);

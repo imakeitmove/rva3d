@@ -1,0 +1,28 @@
+{
+  "cameraTrackTest": {
+    "kind": "image",
+    "src": "/media/work/geico-geckos-cereal-box/geico_early_camera_tracked_box_test_w1920_v001.webp",
+    "width": 1920,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_early_camera_tracked_box_test_w800_v001.webp",
+        "width": 800,
+        "height": 450
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_early_camera_tracked_box_test_w1200_v001.webp",
+        "width": 1200,
+        "height": 675
+      },
+      {
+        "src": "/media/work/geico-geckos-cereal-box/geico_early_camera_tracked_box_test_w1920_v001.webp",
+        "width": 1920,
+        "height": 1080
+      }
+    ],
+    "alt": "Early box animation test frame with a bent cereal box on a simple tabletop.",
+    "caption": "Early camera-tracked box animation test.",
+    "statusLabel": "Early camera-tracked box animation test."
+  }
+}

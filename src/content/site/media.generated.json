@@ -1631,5 +1631,38 @@
     "publication": "private-review-only",
     "width": 1600,
     "height": 1067
+  },
+  "5ac4c719e932b7060a10.webp": {
+    "file": "private-media/5ac4c719e932b7060a10.webp",
+    "type": "image/webp",
+    "bytes": 19950,
+    "sha256": "5ac4c719e932b7060a104eabe3b98017db3ada84c9de73bf3a673c31cf0bfa60",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/geico_geckos/intro_shot_render_stills/geico_geckOs_box_anim_shot1_cameraTrack_V02_Main0018.png",
+    "sourceSha256": "1dc433224a98490f2330387d254f82561fa3ae8ea458a610e64e3b73d00cd786",
+    "publication": "private-review-only",
+    "width": 800,
+    "height": 450
+  },
+  "341ce6117a7502177afc.webp": {
+    "file": "private-media/341ce6117a7502177afc.webp",
+    "type": "image/webp",
+    "bytes": 32304,
+    "sha256": "341ce6117a7502177afcd648d75102e4149255e6b2364b4a2638418c869d4108",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/geico_geckos/intro_shot_render_stills/geico_geckOs_box_anim_shot1_cameraTrack_V02_Main0018.png",
+    "sourceSha256": "1dc433224a98490f2330387d254f82561fa3ae8ea458a610e64e3b73d00cd786",
+    "publication": "private-review-only",
+    "width": 1200,
+    "height": 675
+  },
+  "738e4cc5e0ad3bf23220.webp": {
+    "file": "private-media/738e4cc5e0ad3bf23220.webp",
+    "type": "image/webp",
+    "bytes": 56386,
+    "sha256": "738e4cc5e0ad3bf232201e2734db1232baf0fc2a39f88f04d35ecfcef0309565",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/geico_geckos/intro_shot_render_stills/geico_geckOs_box_anim_shot1_cameraTrack_V02_Main0018.png",
+    "sourceSha256": "1dc433224a98490f2330387d254f82561fa3ae8ea458a610e64e3b73d00cd786",
+    "publication": "private-review-only",
+    "width": 1920,
+    "height": 1080
   }
 }
