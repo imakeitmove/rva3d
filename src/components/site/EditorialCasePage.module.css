@@ -191,3 +191,6 @@
 @media (max-width: 900px) {
   .story[data-editorial-case="uncommon-goods-outta-this-world"] :global(#source-preparation) .mediaGroup { grid-template-columns: 1fr; max-width: 560px; }
 }
+
+/* Keep the existing fullscreen control clear of the supplied storyboard instructions. */
+.story[data-editorial-case="uncommon-goods-outta-this-world"] :global(#supplied-direction) > :global(.site-media:not(:fullscreen)) > :global(.site-fullscreen) { top: auto; bottom: 72px; }
