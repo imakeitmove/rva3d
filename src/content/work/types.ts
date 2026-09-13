@@ -83,7 +83,8 @@ export type WorkMediaColumn = { main: WorkMedia; supporting?: readonly WorkMedia
 export type WorkEditorialSection =
   | { id: string; kind: "composition"; heading?: string; copy?: string; columns: readonly WorkMediaColumn[]; emphasis?: "first" | "equal" }
   | { id: string; kind: "text"; heading: string; copy: string }
-  | { id: string; kind: "media"; heading?: string; copy?: string; media: WorkMedia }
+  // Previously standalone media only; optional supporting stills retain the primary media presentation.
+  | { id: string; kind: "media"; heading?: string; copy?: string; media: WorkMedia; supporting?: readonly WorkImageMedia[] }
   | { id: string; kind: "group"; heading?: string; copy?: string; media: readonly WorkMedia[]; emphasis?: "first" | "equal" }
   | { id: string; kind: "details"; heading: string; copy: string; media: readonly WorkMedia[] };
 

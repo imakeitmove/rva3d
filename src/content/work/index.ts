@@ -123,6 +123,10 @@ function validateCaseStudy(study: WorkCaseStudy) {
       if (section.heading) assertNonEmpty(section.heading, section.id + " heading");
       if (section.kind === "text" || section.kind === "details") assertNonEmpty(section.copy, section.id + " copy");
       if (section.kind === "media") validateMedia(section.media, section.id);
+      if (section.kind === "media" && section.supporting) {
+        if (section.supporting.length !== 2) throw new Error(section.id + " needs two supporting stills");
+        section.supporting.forEach(media => validateMedia(media, section.id + " supporting still"));
+      }
       if (section.kind === "composition") {
         if (section.columns.length !== 2) throw new Error(section.id + " needs two media columns");
         for (const column of section.columns) {

@@ -1,4 +1,5 @@
 import type { WorkCaseStudy, WorkImageMedia, WorkVideoMedia } from "../types";
+import registered from "../../site/geico.generated.json" with { type: "json" };
 import refinements from "../../site/geico_review_refinements.generated.json" with { type: "json" };
 import media from "../../site/geico_phase_2.generated.json" with { type: "json" };
 
@@ -92,7 +93,11 @@ export const geicoGeckosCerealBox = {
         "kind": "media",
         "heading": "How much personality fits in a cardboard box?",
         "copy": "A hop, a turn, a little flex: each changes the box’s personality. We explored different entrances and reactions to find how expressive it could be while still reading as cardboard. Early blocking made those choices visible before detailed lighting and compositing.",
-        "media": (media.blocking as WorkVideoMedia)
+        "media": (media.blocking as WorkVideoMedia),
+        "supporting": [
+          { ...registered.timeline, caption: "Animation blocking and timing in Cinema 4D." } as WorkImageMedia,
+          { ...refinements.perspective, caption: "Wider 3D scene and lighting setup." } as WorkImageMedia
+        ]
       },
       {
         "id": "physical-reference",

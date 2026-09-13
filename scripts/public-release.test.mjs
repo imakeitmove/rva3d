@@ -182,9 +182,13 @@ test("GEICO preview keeps exactly the selected evidence and the approved public 
   assert.equal(media.blocking.hasAudio, false);
   assert.doesNotMatch(JSON.stringify(study.editorial), /aired master|approved option|pure AO/);
   assert.match(study.editorial.closing.copy, /A Flame artist handled the finishing stage/);
-  const visible = [study.heroMedia, ...study.editorial.sections.flatMap(section => section.kind === "media" ? [section.media] : section.kind === "composition" ? section.columns.flatMap(column => [column.main, ...(column.supporting ?? [])]) : section.media ?? [])];
+  const visible = [study.heroMedia, ...study.editorial.sections.flatMap(section => section.kind === "media" ? [section.media, ...(section.supporting ?? [])] : section.kind === "composition" ? section.columns.flatMap(column => [column.main, ...(column.supporting ?? [])]) : section.media ?? [])];
   // Original edit selected eight visible assets; human review expands this to sixteen.
-  assert.equal(visible.length, 16);
+  // Before the supporting BTS pair: assert.equal(visible.length, 16);
+  assert.equal(visible.length, 18);
+  assert.deepEqual(study.editorial.sections[0].supporting.map(item => item.caption), ["Animation blocking and timing in Cinema 4D.", "Wider 3D scene and lighting setup."]);
+  assert.equal(urls[study.editorial.sections[0].supporting[0].src], "/media/ac46f49a01d73fdd2a38.png");
+  assert.deepEqual(study.editorial.sections[0].supporting[1].sources, study.editorial.sections[3].media[0].sources);
   assert.deepEqual(study.editorial.sections[2].columns[0].supporting.map(item => item.caption), ["Rendered CG", "Shadow support", "Box mask"]);
   assert.match(study.editorial.sections[2].columns[1].main.caption, /lighting reference captured on set/);
   assert.equal(study.editorial.sections[3].media.length, 4);
@@ -198,7 +202,8 @@ test("GEICO preview keeps exactly the selected evidence and the approved public 
   for (const item of visible) {
     for (const candidate of item.kind === "image" ? item.sources ?? [item] : [item]) {
       // Previous sequence: assert(urls[candidate.src].startsWith(item === study.editorial.sections[4].media ? "/media/" : "/review/assets/"));
-      assert(urls[candidate.src].startsWith(item === study.heroMedia ? "/media/" : "/review/assets/"));
+      // The existing public timeline joins the existing public commercial; other selected media remain private derivatives.
+      assert(urls[candidate.src].startsWith(item === study.heroMedia || item === study.editorial.sections[0].supporting[0] ? "/media/" : "/review/assets/"));
       const entry = registry[urls[candidate.src].split("/").at(-1)];
       if (entry.width !== undefined) assert.equal(entry.width, candidate.width);
       if (entry.height !== undefined) assert.equal(entry.height, candidate.height);
