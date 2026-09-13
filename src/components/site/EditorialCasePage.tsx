@@ -67,6 +67,7 @@ export function EditorialCasePage({ study, editorial, next }: {
         <p className="editorial-lead">{study.summary}</p>
       </div>
       <div className={`v-broad case-hero ${styles.wide}`}>
+        {editorial.heroHeading && <div className={styles.beatCopy}><h2>{editorial.heroHeading}</h2></div>}
         <SiteMedia media={protectedMedia(study.heroMedia)} priority sizes={wideSizes} />
       </div>
     </section>

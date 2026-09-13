@@ -88,6 +88,7 @@ export type WorkEditorialSection =
   | { id: string; kind: "details"; heading: string; copy: string; media: readonly WorkMedia[] };
 
 export type WorkEditorial = {
+  heroHeading?: string;
   heading: string;
   context: string;
   contribution: string;

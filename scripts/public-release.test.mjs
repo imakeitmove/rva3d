@@ -171,8 +171,11 @@ test("GEICO preview keeps exactly the selected evidence and the approved public 
   assert.equal(review.length, 44);
   assert.equal(new Set(review.map(entry => entry.source)).size, 15);
   const study = workRecords.find(item => item.slug === "geico-geckos-cereal-box");
-  assert.deepEqual(study.editorial.sections.map(section => section.id), ["performance", "physical-reference", "integration", "build-details", "commercial-edit"]);
-  assert.equal(study.heroMedia.caption, "RVA3D composite before final color correction.");
+  // Previous sequence: assert.deepEqual(study.editorial.sections.map(section => section.id), ["performance", "physical-reference", "integration", "build-details", "commercial-edit"]);
+  assert.deepEqual(study.editorial.sections.map(section => section.id), ["performance", "physical-reference", "integration", "build-details", "pre-color-composite"]);
+  // Previous sequence: assert.equal(study.heroMedia.caption, "RVA3D composite before final color correction.");
+  assert.deepEqual(study.editorial.sections[4].media, media.hero);
+  assert.equal(study.editorial.heroHeading, "Commercial edit");
   assert.match(media.physical.caption, /Physical cereal box photographed/);
   assert.equal(media.render.background, "neutral");
   assert.equal(media.blocking.presentation, "controls");
@@ -185,12 +188,17 @@ test("GEICO preview keeps exactly the selected evidence and the approved public 
   assert.deepEqual(study.editorial.sections[2].columns[0].supporting.map(item => item.caption), ["Rendered CG", "Shadow support", "Box mask"]);
   assert.match(study.editorial.sections[2].columns[1].main.caption, /lighting reference captured on set/);
   assert.equal(study.editorial.sections[3].media.length, 4);
-  assert.equal(study.editorial.sections[4].media.src, "/media/work/geico-geckos-cereal-box/geico-final.mp4");
-  assert.match(study.editorial.sections[4].media.caption, /^Archived commercial edit/);
-  assert.equal(study.editorial.sections[4].media.hasAudio, false);
+  // Previous sequence: assert.equal(study.editorial.sections[4].media.src, "/media/work/geico-geckos-cereal-box/geico-final.mp4");
+  assert.equal(study.heroMedia.src, "/media/work/geico-geckos-cereal-box/geico-final.mp4");
+  // Previous sequence: assert.match(study.editorial.sections[4].media.caption, /^Archived commercial edit/);
+  assert.match(study.heroMedia.caption, /^Archived commercial edit/);
+  // Previous sequence: assert.equal(study.editorial.sections[4].media.hasAudio, false);
+  assert.equal(study.heroMedia.hasAudio, false);
+  assert.equal(study.heroMedia.presentation, "controls");
   for (const item of visible) {
     for (const candidate of item.kind === "image" ? item.sources ?? [item] : [item]) {
-      assert(urls[candidate.src].startsWith(item === study.editorial.sections[4].media ? "/media/" : "/review/assets/"));
+      // Previous sequence: assert(urls[candidate.src].startsWith(item === study.editorial.sections[4].media ? "/media/" : "/review/assets/"));
+      assert(urls[candidate.src].startsWith(item === study.heroMedia ? "/media/" : "/review/assets/"));
       const entry = registry[urls[candidate.src].split("/").at(-1)];
       if (entry.width !== undefined) assert.equal(entry.width, candidate.width);
       if (entry.height !== undefined) assert.equal(entry.height, candidate.height);
@@ -200,7 +208,8 @@ test("GEICO preview keeps exactly the selected evidence and the approved public 
 
 test("optional responsive and editorial fields fail on invalid geometry or duplicate section IDs", () => {
   const study = structuredClone(workRecords.find(item => item.slug === "geico-geckos-cereal-box"));
-  study.heroMedia.sources[0].height = 1;
+  // Previous sequence: study.heroMedia.sources[0].height = 1;
+  study.editorial.sections[4].media.sources[0].height = 1;
   assert.throws(() => validatePublicApprovedCaseStudy(study), /aspect ratio differs/);
   const duplicate = structuredClone(workRecords.find(item => item.slug === "geico-geckos-cereal-box"));
   duplicate.editorial.sections[1].id = duplicate.editorial.sections[0].id;

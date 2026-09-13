@@ -34,7 +34,26 @@ export const geicoGeckosCerealBox = {
     "height": 2156,
     "alt": "Finished GEICO cereal-box shot with breakfast objects and matched lighting"
   },
-  "heroMedia": (media.hero as WorkImageMedia),
+  // Previous opening still now closes the editorial sequence: "heroMedia": (media.hero as WorkImageMedia).
+  "heroMedia": {
+    "kind": "video",
+    "src": "/media/work/geico-geckos-cereal-box/geico-final.mp4",
+    "mimeType": "video/mp4",
+    "width": 1280,
+    "height": 720,
+    "alt": "Archived commercial edit featuring the GEICO GeckO’s cereal-box sequence.",
+    "caption": "Archived commercial edit featuring the GEICO GeckO’s cereal-box sequence.",
+    "statusLabel": "Archived commercial edit.",
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/geico-geckos-cereal-box/geico-final-poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Cereal-box sequence in the archived GEICO commercial edit."
+    },
+    "presentation": "controls",
+    "hasAudio": false
+  },
   "galleryMedia": [],
   "processChapters": [],
   "credits": [
@@ -62,6 +81,7 @@ export const geicoGeckosCerealBox = {
     "approvalSource": "direct-owner-approval"
   },
   "editorial": {
+    "heroHeading": "Commercial edit",
     "heading": "A cereal box with a performance of its own.",
     "context": "GEICO / 3D animation & VFX",
     "contribution": "On-set VFX supervision and HDRI capture; digital box development, animation, lighting, rendering, and initial compositing.",
@@ -125,28 +145,9 @@ export const geicoGeckosCerealBox = {
         ]
       },
       {
-        "id": "commercial-edit",
+        "id": "pre-color-composite",
         "kind": "media",
-        "heading": "Commercial edit",
-        "media": {
-          "kind": "video",
-          "src": "/media/work/geico-geckos-cereal-box/geico-final.mp4",
-          "mimeType": "video/mp4",
-          "width": 1280,
-          "height": 720,
-          "alt": "Archived commercial edit featuring the GEICO GeckO’s cereal-box sequence.",
-          "caption": "Archived commercial edit featuring the GEICO GeckO’s cereal-box sequence.",
-          "statusLabel": "Archived commercial edit.",
-          "poster": {
-            "kind": "image",
-            "src": "/media/work/geico-geckos-cereal-box/geico-final-poster.webp",
-            "width": 1280,
-            "height": 720,
-            "alt": "Cereal-box sequence in the archived GEICO commercial edit."
-          },
-          "presentation": "controls",
-          "hasAudio": false
-        }
+        "media": (media.hero as WorkImageMedia)
       }
     ],
     "closing": {
@@ -355,3 +356,29 @@ export const geicoGeckosCerealBox = {
 //     ]
 //   }
 // ]
+
+// Previous end-of-story commercial placement, moved intact to the opening.
+//       {
+//         "id": "commercial-edit",
+//         "kind": "media",
+//         "heading": "Commercial edit",
+//         "media": {
+//           "kind": "video",
+//           "src": "/media/work/geico-geckos-cereal-box/geico-final.mp4",
+//           "mimeType": "video/mp4",
+//           "width": 1280,
+//           "height": 720,
+//           "alt": "Archived commercial edit featuring the GEICO GeckO’s cereal-box sequence.",
+//           "caption": "Archived commercial edit featuring the GEICO GeckO’s cereal-box sequence.",
+//           "statusLabel": "Archived commercial edit.",
+//           "poster": {
+//             "kind": "image",
+//             "src": "/media/work/geico-geckos-cereal-box/geico-final-poster.webp",
+//             "width": 1280,
+//             "height": 720,
+//             "alt": "Cereal-box sequence in the archived GEICO commercial edit."
+//           },
+//           "presentation": "controls",
+//           "hasAudio": false
+//         }
+//       }
