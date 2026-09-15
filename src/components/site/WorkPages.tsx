@@ -1,3 +1,9 @@
+// Public-safety audit 2026-09-15; previous wording retained for reference:
+// "RVA3D completed the contracted 3D work described below"
+// Public-safety audit 2026-09-15; previous wording retained for reference:
+// "And advertised the hell out of things! We’d love to elevate your idea, too."
+// Public-safety audit 2026-09-15; previous wording retained for reference:
+// "We’ve brought characters to life. Made ideas memorable."
 import navigation from "./EditorialNavigation.module.css";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -15,7 +21,7 @@ export function WorkIndex() {
     <section className="editorial-opening" data-tone="paper"><div className="v-frame">
       {/* The unrequested top project counter was removed. Collection progress remains dynamic beside Load more. */}
       {/* Previous intro: Products to explore. Characters to believe. Ideas made visible. Find the work closest to what you have in mind. */}
-      <h1>The proof<br />is in the <em>pixels.</em></h1><p className="editorial-lead work-intro-copy"><span>We’ve brought characters to life. Made ideas memorable.</span><span>And advertised the hell out of things! We’d love to elevate your idea, too.</span></p>
+      <h1>The proof<br />is in the <em>pixels.</em></h1><p className="editorial-lead work-intro-copy"><span>Deven Langston has brought characters to life. Made ideas memorable.</span><span>This is the experience behind RVA3D. We’d love to elevate your idea, too.</span></p>
     </div></section>
     <section className="project-catalogue v-broad" data-tone="paper" aria-label="Case studies" data-project-gallery data-project-mode="inventory" data-project-group-size="4">
       <div className="catalogue" data-project-cards>{studies.map((study, index) => <ProjectCard key={study.slug} study={study} hidden={index >= initialCount} />)}</div>
@@ -47,7 +53,7 @@ export async function CasePage({ params }: Props) {
   return <Shell><article className={`case-story case-${slug}`}>
     <section className="case-opening" data-tone="paper"><div className="v-frame"><a className="editorial-link" href={siteHref(`/work#${slug}`)}>← Back to Work</a><p className="label">{context[slug]}</p><h1>{headline[slug]}</h1><p className="editorial-lead">{study.summary}</p></div><div className="v-broad case-hero"><SiteMedia media={protectedMedia(study.heroMedia)} priority /></div></section>
     <section className="v-frame case-facts" data-tone="paper"><dl><div><dt>{slug === "wawa-coffee-island" ? "Client" : "Brand"}</dt><dd>{study.client}</dd></div>{study.year && <div><dt>Year</dt><dd>{study.year}</dd></div>}{slug === "capri-sun" ? <div><dt>Agency / production</dt><dd>Candy Factory</dd></div> : study.productionPartner ? <div><dt>Production partner</dt><dd>{study.productionPartner}</dd></div> : null}<div className="facts-contribution"><dt>Deven Langston / Contribution</dt><dd>{study.role.join(" · ")}</dd></div></dl>
-      <p>{slug === "capri-sun" ? "Agency / production: Candy Factory. RVA3D completed the contracted 3D work described below, including modeling, materials, animation, rendering and compositing." : study.authorship}</p>
+      <p>{slug === "capri-sun" ? "Agency / production: Candy Factory. Deven Langston completed the contracted 3D work described below, including modeling, materials, animation, rendering and compositing." : study.authorship}</p>
     </section>
     <section className="v-frame case-brief" data-tone="paper"><p className="label">The assignment</p><h2>{study.eyebrow}</h2><p>{study.problem}</p></section>
     <div className="v-broad case-chapters" data-tone="paper">{chapters.filter(Boolean).map((chapter, i) => <section className="visual-chapter" key={chapter.title}><div className="chapter-text"><p className="label">0{i + 1} / {chapter.label || "The work"}</p><h2>{chapter.title}</h2><p>{chapter.summary}</p></div><div className="chapter-evidence">{chapter.media.slice(0, slug === "capri-sun" ? 1 : 2).map(media => <SiteMedia key={media.src} media={protectedMedia(media)} />)}</div></section>)}</div>

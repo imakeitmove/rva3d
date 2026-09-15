@@ -11,7 +11,7 @@ const hero = {
 // Source: production/site_content Capri Sun manifest, asset audit, and current
 // combined private-review case. Unconfirmed years and partner credits are omitted.
 // Original chapter record retained as the factual/media source for this editorial selection.
-// export const capriSun = {
+// const capriSunBeforeSafetyAudit = {
 const capriSunLegacy = {
   slug: "capri-sun",
   title: "Capri Sun Selected Work",
@@ -132,7 +132,7 @@ const capriSunLegacy = {
 
 // Editorial rollout: select evidence around this project's specific production story.
 
-export const capriSun = {
+const capriSunBeforeSafetyAudit = {
   ...capriSunLegacy,
   heroMedia: { ...capriSunLegacy.heroMedia, caption: "Noise Tech: a close view of the digital pouch and foil surface." },
   editorial: {
@@ -157,4 +157,13 @@ export const capriSun = {
     closing: { heading: "A foundation with room to change.", copy: capriSunLegacy.value,
       ctaText: "Have a product that needs to work across more than one idea?" },
   },
+} satisfies WorkCaseStudy;
+
+// Public-safe selection, 2026-09-15. The richer record above is preserved
+// for permission review; only the final-work selection below is exported.
+export const capriSun = {
+  ...capriSunBeforeSafetyAudit,
+  processChapters: capriSunLegacy.processChapters.map((chapter, index) => index === 0 ? { ...chapter, media: [chapter.media[0]] } : chapter),
+  editorial: { ...capriSunBeforeSafetyAudit.editorial, sections: capriSunBeforeSafetyAudit.editorial.sections.filter(section => section.id !== "closer-look") },
+  seo: { ...capriSunLegacy.seo, description: "Deven Langston's 3D product visualization and animation for Capri Sun through Candy Factory, across three campaign assignments." },
 } satisfies WorkCaseStudy;

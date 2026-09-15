@@ -11,7 +11,7 @@ const poster = {
 // Source: production/site_content AXE manifest and current authenticated case.
 // The attribution explicitly preserves this as pre-RVA3D founder experience.
 // Original chapter record retained as the factual/media source for this editorial selection.
-// export const axeWhaxeLilBaby = {
+// const axeWhaxeLilBabyBeforeSafetyAudit = {
 const axeWhaxeLilBabyLegacy = {
   slug: "axe-whaxe-lil-baby",
   title: "AXE WHAXE \u00d7 Lil Baby",
@@ -151,7 +151,7 @@ const axeWhaxeLilBabyLegacy = {
 
 // Editorial rollout: select evidence around this project's specific production story.
 
-export const axeWhaxeLilBaby = {
+const axeWhaxeLilBabyBeforeSafetyAudit = {
   ...axeWhaxeLilBabyLegacy,
   editorial: {
     heroHeading: "Campaign film",
@@ -175,4 +175,12 @@ export const axeWhaxeLilBaby = {
       copy: "The products, custom chain, diamond treatment, camera language and pacing came together in a finished campaign film within the SuperJoy production.",
       ctaText: "Have a product that needs a distinctive presence in motion?" },
   },
+} satisfies WorkCaseStudy;
+
+// Public-safe selection, 2026-09-15. The richer record above is preserved
+// for permission review; only the final-work selection below is exported.
+export const axeWhaxeLilBaby = {
+  ...axeWhaxeLilBabyBeforeSafetyAudit,
+  processChapters: [axeWhaxeLilBabyLegacy.processChapters[0], { ...axeWhaxeLilBabyLegacy.processChapters[1], media: [] }, axeWhaxeLilBabyLegacy.processChapters[2]],
+  editorial: { ...axeWhaxeLilBabyBeforeSafetyAudit.editorial, sections: axeWhaxeLilBabyBeforeSafetyAudit.editorial.sections.filter(section => section.id !== "closer-look") },
 } satisfies WorkCaseStudy;

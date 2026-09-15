@@ -7,7 +7,7 @@ import media from "../../site/geico_phase_2.generated.json" with { type: "json" 
 
 // Phase 2 editorial preview. Existing index, SEO image, and publication provenance stay unchanged.
 // The new social crop is registered privately for Phase 3; it cannot replace public metadata yet.
-export const geicoGeckosCerealBox = {
+const geicoGeckosCerealBoxBeforeSafetyAudit = {
   "slug": "geico-geckos-cereal-box",
   "title": "GEICO GeckO’s Cereal Box",
   "client": "GEICO",
@@ -392,3 +392,25 @@ export const geicoGeckosCerealBox = {
 //           "hasAudio": false
 //         }
 //       }
+
+// Public-safe selection, 2026-09-15. The richer record above is preserved
+// for permission review; only the final-work selection below is exported.
+export const geicoGeckosCerealBox = {
+  ...geicoGeckosCerealBoxBeforeSafetyAudit,
+  summary: "For GEICO, Deven Langston served as VFX supervisor and lead animator on a cereal box that could perform like a character and still belong on a real kitchen table.",
+  authorship: "Deven Langston developed the digital box, animation, lighting, renders and initial composite. A separate Flame artist handled finishing, composite touch-ups and consistency with the surrounding commercial.",
+  seo: { ...geicoGeckosCerealBoxBeforeSafetyAudit.seo, description: "GEICO cereal-box animation and VFX by Deven Langston, including on-set supervision, animation, lighting, rendering and initial compositing, with separate Flame finishing." },
+  editorial: {
+    ...geicoGeckosCerealBoxBeforeSafetyAudit.editorial,
+    closingBand: { sectionId: "finished-shot", tone: "cool-guy-gray" },
+    sections: [
+      { id: "performance", kind: "text", heading: "How much personality fits in a cardboard box?",
+        copy: "Deven shaped the box's movement and timing to give it personality while preserving the weight and physical presence of cardboard." },
+      { id: "integration", kind: "text", heading: "The box had to share the table.",
+        copy: "Deven matched the lighting, reflections and contact shading to the photographed kitchen, then brought the rendered elements into the initial composite." },
+      { id: "finished-shot", kind: "media", media: { ...geicoGeckosCerealBoxBeforeSafetyAudit.indexMedia, caption: "Finished cereal-box shot from the GEICO commercial." } },
+    ],
+    closing: { ...geicoGeckosCerealBoxBeforeSafetyAudit.editorial.closing,
+      copy: "Deven's contribution carried the box from on-set reference through animation, lighting, rendering and the initial composite. A separate Flame artist handled finishing and adjustments for consistency with the surrounding commercial." },
+  },
+} satisfies WorkCaseStudy;

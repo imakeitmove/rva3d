@@ -1,3 +1,11 @@
+// Public-safety audit: previous content retained for reference.
+// "DESMI ROTAN CHD: cutaways, exploded views and rotor movement bring the pump’s inner workings into view."
+// Public-safety audit: previous content retained for reference.
+// "Five Below: a zig-zag retail display brought into motion, making its shape and arrangement easy to follow."
+// Public-safety audit: previous content retained for reference.
+// "Fool Me Twice: animation controls beside the finished paper-cut character. Selected founder title-animation work from a 48-hour film project."
+// Public-safety audit: previous content retained for reference.
+// "Bud Light Seltzer: replaced the truck-side wrap across several live-action shots. The existing breakdown shows original footage beside the finished effect."
 import type { CapabilitySlug } from "@/content/capabilities/types";
 export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy: string; uses: string[]; proof: string }> = {
   "3d-animation": {
@@ -10,7 +18,7 @@ export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy
       "Impossible camera moves"
     ],
     // Previous proof described AXE WHAXE; the selected review example is now Five Below.
-    "proof": "Five Below: a zig-zag retail display brought into motion, making its shape and arrangement easy to follow."
+    "proof": "From Deven Langston’s prior work: a Five Below zig-zag retail display brought into motion, making its shape and arrangement easy to follow."
   },
   "product-technical-visualization": {
     // Previous: "Really get in there good!"
@@ -22,7 +30,7 @@ export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy
       "Product cutaways",
       "Spaces & configurations"
     ],
-    "proof": "DESMI ROTAN CHD: cutaways, exploded views and rotor movement bring the pump’s inner workings into view."
+    "proof": "DESMI ROTAN CHD: technical visualization and animation from Deven Langston’s prior work bring the pump’s inner workings into view."
   },
   "motion-design": {
     // Previous: "Make messages move with intent."
@@ -45,7 +53,7 @@ export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy
       "CG in live action",
       "Cleanup & finishing"
     ],
-    "proof": "Bud Light Seltzer: replaced the truck-side wrap across several live-action shots. The existing breakdown shows original footage beside the finished effect."
+    "proof": "GEICO: Deven Langston supervised VFX and animated the cereal box, with lighting, rendering and initial compositing. A separate Flame artist handled final finishing."
   },
   "interactive-3d": {
     "promise": "Sometimes the picture needs to do something.",
@@ -61,7 +69,7 @@ export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy
       "Specialist collaboration",
       "Difficult shots & assets"
     ],
-    "proof": "Fool Me Twice: animation controls beside the finished paper-cut character. Selected founder title-animation work from a 48-hour film project."
+    "proof": "Uncommon Goods: motion design, animation and compositing by Deven Langston through Spang TV, working from supplied creative direction."
   }
 };
 // V1 copy retained for restoration; V2 reduces volume and replaces proof.

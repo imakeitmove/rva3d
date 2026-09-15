@@ -1,7 +1,9 @@
+// Public-safety audit 2026-09-15; previous wording retained for reference:
+// "3D animation, product visualization and motion design: selected projects and the contribution behind them."
 // COMPLETE SITE CANDIDATE
 export { WorkIndex as default } from "@/components/site/WorkPages";
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Work | RVA3D", description: "3D animation, product visualization and motion design: selected projects and the contribution behind them." };
+export const metadata = { title: "Work | RVA3D", description: "Selected prior work by Deven Langston: 3D animation, product visualization, motion design and VFX from the experience behind RVA3D." };
 /* Previous implementation retained for restoration. Replaced only in the isolated complete-site candidate.
 import type { Metadata } from "next";
 import Link from "next/link";

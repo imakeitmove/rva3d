@@ -11,7 +11,7 @@ const hero = {
 // Source: production/site_content AMSOIL manifest, asset audit, and current
 // authenticated review case.
 // Original chapter record retained as the factual/media source for this editorial selection.
-// export const amsoilXpdWindGrease = {
+// const amsoilXpdWindGreaseBeforeSafetyAudit = {
 const amsoilXpdWindGreaseLegacy = {
   slug: "amsoil-xpd-wind-grease",
   title: "AMSOIL XPD Wind Grease",
@@ -160,7 +160,7 @@ const amsoilXpdWindGreaseLegacy = {
 
 // Editorial rollout: select evidence around this project's specific production story.
 
-export const amsoilXpdWindGrease = {
+const amsoilXpdWindGreaseBeforeSafetyAudit = {
   ...amsoilXpdWindGreaseLegacy,
   heroMedia: amsoilXpdWindGreaseLegacy.processChapters[2].media[0],
   editorial: {
@@ -184,4 +184,23 @@ export const amsoilXpdWindGrease = {
     closing: { heading: "One asset. More than one explanation.", copy: amsoilXpdWindGreaseLegacy.value,
       ctaText: "Have a technical story that is hard to show?" },
   },
+} satisfies WorkCaseStudy;
+
+// Public-safe selection, 2026-09-15. The richer record above is preserved
+// for permission review; only the final-work selection below is exported.
+export const amsoilXpdWindGrease = {
+  ...amsoilXpdWindGreaseBeforeSafetyAudit,
+  processChapters: [amsoilXpdWindGreaseLegacy.processChapters[2]],
+  editorial: {
+    ...amsoilXpdWindGreaseBeforeSafetyAudit.editorial,
+    sections: [
+      { id: "reconstruction", kind: "text", heading: amsoilXpdWindGreaseLegacy.processChapters[0].title,
+        copy: "Deven reconstructed the internal drivetrain from limited references and stock models, refining the assembly with engineering guidance." },
+      { id: "grease-control", kind: "text", heading: amsoilXpdWindGreaseLegacy.processChapters[1].title,
+        copy: amsoilXpdWindGreaseLegacy.processChapters[1].summary },
+      { id: "assembly", kind: "media", heading: "The bearing in its larger context.",
+        copy: "The cutaway connects the bearing detail to the larger drivetrain.", media: amsoilXpdWindGreaseLegacy.heroMedia },
+    ],
+  },
+  seo: { ...amsoilXpdWindGreaseLegacy.seo, description: "Technical visualization by Deven Langston: a reconstructed wind-turbine assembly and animation comparing three grease conditions for AMSOIL." },
 } satisfies WorkCaseStudy;

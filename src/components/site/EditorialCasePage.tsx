@@ -1,3 +1,7 @@
+// Public-safety audit 2026-09-15; previous wording retained for reference:
+// "<p className=\"label\">{editorial.context}</p>"
+// Public-safety audit 2026-09-15; previous wording retained for reference:
+// "editorial.contributionLabel ?? \"RVA3D contribution\""
 import type { CSSProperties } from "react";
 import type { WorkCaseStudy, WorkEditorial, WorkEditorialSection, WorkMedia, WorkMediaColumn } from "@/content/work/types";
 import { capabilities } from "@/content/capabilities";
@@ -76,7 +80,7 @@ export function EditorialCasePage({ study, editorial, next }: {
     <section className="case-opening" data-tone="paper">
       <div className="v-frame">
         <a className="editorial-link" href={siteHref(`/work#${study.slug}`)}>← Back to Work</a>
-        <p className="label">{editorial.context}</p>
+        <p className="label">{editorial.context} · Prior work by Deven Langston</p>
         <h1>{editorial.heading}</h1>
         <p className="editorial-lead">{study.summary}</p>
       </div>
@@ -91,7 +95,7 @@ export function EditorialCasePage({ study, editorial, next }: {
         {/* <div><dt>Brand / Year</dt><dd>{study.client} / {study.year}</dd></div> */}
         <div><dt>{study.year ? "Brand / Year" : "Brand"}</dt><dd>{editorial.brand ?? study.client}{study.year ? ` / ${study.year}` : ""}</dd></div>
         <div><dt>{editorial.productionLabel ?? "Production role"}</dt><dd>{editorial.productionRole}</dd></div>
-        <div className="facts-contribution"><dt>{editorial.contributionLabel ?? "RVA3D contribution"}</dt><dd>{editorial.contribution}</dd></div>
+        <div className="facts-contribution"><dt>{editorial.contributionLabel ?? "Deven’s contribution"}</dt><dd>{editorial.contribution}</dd></div>
       </dl>
     </section>
     <div className={`v-broad ${styles.wide} ${styles.sections}`} data-tone="paper">

@@ -1,3 +1,9 @@
+// Public-safety audit 2026-09-15; previous wording retained for reference:
+// "The selected review material brings together a pump cutaway still and a chocolate-pump animation."
+// Public-safety audit 2026-09-15; previous wording retained for reference:
+// "contribution: \"Selected RVA3D technical visualization and animation\""
+// Public-safety audit 2026-09-15; previous wording retained for reference:
+// "authorship: \"Selected RVA3D technical-visualization work.\""
 import "server-only";
 import { workRecords } from "@/content/work/records";
 import { portfolioWorkSlugs } from "@/content/work/records";
@@ -25,11 +31,11 @@ export const desmiReview: WorkCaseStudy = {
   summary: "A pump housing hides the very parts that explain how it works. A cutaway of the rotor and housing, paired with an animated chocolate-pump example, brings the mechanism into view.",
   problem: "How do we show what is happening inside a closed pump? An exterior view establishes the product, but the explanation needs to reach the components within it.",
   approach: "Use cutaway views and movement together so we can follow the relationship between the housing, rotor and material moving through the pump.",
-  result: "The selected review material brings together a pump cutaway still and a chocolate-pump animation.",
+  result: "A pump cutaway still and a chocolate-pump animation make the internal mechanism visible.",
   value: "Together, the views give us a clearer way to discuss the mechanism: where the parts sit and what changes when the pump is moving.",
   // Previous private-review wording retained here for provenance.
   // authorship: "Selected RVA3D technical-visualization work, presented here for private review.",
-  authorship: "Selected RVA3D technical-visualization work.",
+  authorship: "Selected technical visualization and animation from Deven Langston’s prior professional work.",
   role: ["Technical visualization", "Animation"],
   capabilities: ["Product and Technical Visualization", "3D Animation"],
   // Previous heroMedia: desmiCutaway; motion now opens the short technical article.
@@ -43,7 +49,7 @@ export const desmiReview: WorkCaseStudy = {
     heroHeading: "Pump animation", heading: "Make the inner workings visible.",
     context: "DESMI / Technical visualization", productionLabel: "Assignment",
     productionRole: "Cutaway imagery and pump animation",
-    contribution: "Selected RVA3D technical visualization and animation",
+    contribution: "Technical visualization and animation by Deven Langston",
     sections: [
       { id: "cutaway", kind: "media", heading: "Open the housing. Keep the relationship.",
         copy: "The blue housing stays recognizable while the cutaway reveals the rotor and internal assembly. We can see the product and its mechanism in the same view.",

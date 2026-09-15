@@ -1,3 +1,7 @@
+// Public-safety audit: previous content retained for reference.
+// "Object.assign(uncommonGoodsOuttaThisWorldPublic, {"
+// Public-safety audit: previous content retained for reference.
+// "export const uncommonGoodsOuttaThisWorldPublic = {"
 import type { WorkCaseStudy, WorkImageMedia, WorkVideoMedia } from "../types";
 import media from "../../site/uncommon_goods_phase_2.generated.json" with { type: "json" };
 
@@ -119,7 +123,31 @@ export const uncommonGoodsOuttaThisWorld = {
 
 // The owner explicitly cleared the selected Uncommon Goods source/process media
 // for public release during this rollout on 2026-09-13. The reviewed selection is unchanged.
-export const uncommonGoodsOuttaThisWorldPublic = {
+const uncommonGoodsOuttaThisWorldPublicBeforeSafetyAudit = {
   ...uncommonGoodsOuttaThisWorld,
   publication: { status: "public-approved", approvedAt: "2026-09-13", approvedBy: "Deven Langston", approvalAuthority: "RVA3D owner", approvalSource: "direct-owner-approval" },
+} satisfies WorkCaseStudy;
+
+// September 15 supersedes the earlier owner publication decision for process media.
+// Final edits and accurate contribution remain public; source material stays above.
+export const uncommonGoodsOuttaThisWorldPublic = {
+  ...uncommonGoodsOuttaThisWorldPublicBeforeSafetyAudit,
+  indexSummary: "Supplied creative direction brought into a flowing commercial through motion design, animation and compositing.",
+  summary: "Working through Spang TV, Deven Langston turned supplied creative direction and product assets into a flowing Uncommon Goods commercial, handling motion design, animation, compositing, transitions and selective 3D.",
+  authorship: "Deven Langston handled motion-design execution through Spang TV within the supplied creative framework.",
+  credits: [
+    { name: "Deven Langston", role: "Motion design, animation and compositing" },
+    { name: "Spang TV", role: "Production" },
+  ],
+  seo: { ...uncommonGoodsOuttaThisWorld.seo, description: "Motion design, animation and compositing by Deven Langston through Spang TV for Uncommon Goods, working from supplied creative direction." },
+  editorial: {
+    ...uncommonGoodsOuttaThisWorld.editorial,
+    sections: [
+      { id: "supplied-direction", kind: "text", heading: "Bring the supplied direction into motion.",
+        copy: "The supplied creative direction established the products, visual world and key actions. Deven prepared scenes, developed timing and built transitions that connected those ideas within the edit." },
+      { id: "motion-design", kind: "text", heading: "A different animation problem in every scene.",
+        copy: "The work combined 2D motion design, compositing and selective 3D. Deven adapted the approach to each scene while maintaining a consistent graphic language across the commercial." },
+      uncommonGoodsOuttaThisWorld.editorial.sections[4],
+    ],
+  },
 } satisfies WorkCaseStudy;

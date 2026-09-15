@@ -183,7 +183,7 @@ export async function verifyPreviewSource(root=process.cwd()) {
   const dependencyClosure = await verifyTrackedDependencyClosure(root);
   const html=(await read("src/lib/site/home-template.mjs")).split("// Previous hero composition")[0];
   assert(!/v-hero-(prev|next)|id="ribbon-(prev|next)"/.test(html),"Old hero or ribbon arrows present");
-  assert(html.includes("brings 20 years of experience in animation, motion design, and 3D production"),"Homepage experience copy missing");
+  assert(html.includes("brings his 20 years of experience in animation, motion design, and 3D production"),"Homepage experience copy missing");
   const header=await read("src/components/site/Header.tsx");
   assert(header.includes('className="hamburger"')&&!header.includes('More navigation'),"Partial More navigation is not the approved header");
   // Previous string-presence check included Contact and could pass against comments.

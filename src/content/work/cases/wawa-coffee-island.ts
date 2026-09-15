@@ -11,7 +11,7 @@ const hero = {
 // Source: production/site_content Wawa asset audit and current authenticated
 // review. The unconfirmed year and wider collaborator credits remain omitted.
 // Original chapter record retained as the factual/media source for this editorial selection.
-// export const wawaCoffeeIsland = {
+// const wawaCoffeeIslandBeforeSafetyAudit = {
 const wawaCoffeeIslandLegacy = {
   slug: "wawa-coffee-island",
   title: "Wawa Coffee Island Display",
@@ -177,7 +177,7 @@ const wawaCoffeeIslandLegacy = {
 
 // Editorial rollout: select evidence around this project's specific production story.
 
-export const wawaCoffeeIsland = {
+const wawaCoffeeIslandBeforeSafetyAudit = {
   ...wawaCoffeeIslandLegacy,
   heroMedia: { ...wawaCoffeeIslandLegacy.heroMedia, caption: "The fully stocked Wawa Coffee Island, visualized in 3D." },
   editorial: {
@@ -207,4 +207,23 @@ export const wawaCoffeeIsland = {
     closing: { heading: "A retail scene built for changing views.", copy: wawaCoffeeIslandLegacy.value,
       ctaText: "Need to show a product or retail environment before it is built?" },
   },
+} satisfies WorkCaseStudy;
+
+// Public-safe selection, 2026-09-15. The richer record above is preserved
+// for permission review; only the final-work selection below is exported.
+export const wawaCoffeeIsland = {
+  ...wawaCoffeeIslandBeforeSafetyAudit,
+  processChapters: [wawaCoffeeIslandLegacy.processChapters[3]],
+  editorial: {
+    ...wawaCoffeeIslandBeforeSafetyAudit.editorial,
+    sections: [
+      { id: "fixture", kind: "text", heading: wawaCoffeeIslandLegacy.processChapters[0].title,
+        copy: "Pak-It Displays supplied the fixture design and CAD. Deven reconstructed the products, dressed the scene and developed its materials, lighting and animation." },
+      { id: "products", kind: "media", heading: "A stocked environment, down to the details.",
+        copy: "Wide views and close details needed to feel like the same convincing retail environment.", media: wawaCoffeeIslandLegacy.processChapters[3].media[1] },
+      wawaCoffeeIslandBeforeSafetyAudit.editorial.sections[3],
+    ],
+  },
+  credits: [...wawaCoffeeIslandLegacy.credits, { name: "Pak-It Displays", role: "Fixture design and commissioning client" }],
+  seo: { ...wawaCoffeeIslandLegacy.seo, description: "Deven Langston's retail visualization for Pak-It Displays: a fully stocked Wawa Coffee Island, developed from supplied fixture CAD." },
 } satisfies WorkCaseStudy;

@@ -1,3 +1,5 @@
+// Public-safety audit: previous content retained for reference.
+// "alt=\"A hands-on wooden build and 3D technical visualization within an RVA3D process montage.\""
 import "./editorial-refinement.css";
 
 import Image from "next/image";
@@ -40,7 +42,9 @@ export function HowWeWork() {
                 src={mediaUrl(processMedia.wide.src)}
                 width={processMedia.wide.width}
                 height={processMedia.wide.height}
-                alt="A hands-on wooden build and 3D technical visualization within an RVA3D process montage."
+                alt={processMedia.alt}
+                // Keep the finished fixture in view within the existing shallow image band.
+                style={{ objectPosition: "50% 28%" }}
                 unoptimized
               />
             </picture>
