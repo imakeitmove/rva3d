@@ -133,7 +133,9 @@ const uncommonGoodsOuttaThisWorldPublicBeforeSafetyAudit = {
 export const uncommonGoodsOuttaThisWorldPublic = {
   ...uncommonGoodsOuttaThisWorldPublicBeforeSafetyAudit,
   indexSummary: "Supplied creative direction brought into a flowing commercial through motion design, animation and compositing.",
-  summary: "Working through Spang TV, Deven Langston turned supplied creative direction and product assets into a flowing Uncommon Goods commercial, handling motion design, animation, compositing, transitions and selective 3D.",
+  // Previous summary listed every discipline; the contribution row retains that detail.
+  // summary: "Working through Spang TV, Deven Langston turned supplied creative direction and product assets into a flowing Uncommon Goods commercial, handling motion design, animation, compositing, transitions and selective 3D.",
+  summary: "Working through Spang TV, Deven Langston brought supplied creative direction and product assets into motion for Uncommon Goods, connecting a different animation challenge in every scene.",
   authorship: "Deven Langston handled motion-design execution through Spang TV within the supplied creative framework.",
   credits: [
     { name: "Deven Langston", role: "Motion design, animation and compositing" },
@@ -143,10 +145,13 @@ export const uncommonGoodsOuttaThisWorldPublic = {
   editorial: {
     ...uncommonGoodsOuttaThisWorld.editorial,
     sections: [
-      { id: "supplied-direction", kind: "text", heading: "Bring the supplied direction into motion.",
-        copy: "The supplied creative direction established the products, visual world and key actions. Deven prepared scenes, developed timing and built transitions that connected those ideas within the edit." },
-      { id: "motion-design", kind: "text", heading: "A different animation problem in every scene.",
-        copy: "The work combined 2D motion design, compositing and selective 3D. Deven adapted the approach to each scene while maintaining a consistent graphic language across the commercial." },
+// Earlier editorial wording retained; consolidated to avoid repeating the premise.
+//       { id: "supplied-direction", kind: "text", heading: "Bring the supplied direction into motion.",
+//         copy: "The supplied creative direction established the products, visual world and key actions. Deven prepared scenes, developed timing and built transitions that connected those ideas within the edit." },
+//       { id: "motion-design", kind: "text", heading: "A different animation problem in every scene.",
+//         copy: "The work combined 2D motion design, compositing and selective 3D. Deven adapted the approach to each scene while maintaining a consistent graphic language across the commercial." },
+      { id: "supplied-direction", kind: "text", heading: "One graphic world. Different ways to move.",
+        copy: "Supplied creative direction established the products, visual world and key actions. Deven combined 2D motion design, compositing and selective 3D, adapting the technique to each scene and building the timing and transitions that hold the edit together." },
       uncommonGoodsOuttaThisWorld.editorial.sections[4],
     ],
   },

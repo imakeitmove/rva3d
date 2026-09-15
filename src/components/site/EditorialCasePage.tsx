@@ -47,7 +47,7 @@ function EditorialSection({ section }: { section: WorkEditorialSection }) {
       <CaseMediaGroup media={section.media} />
     </details>;
   }
-  return <section className={styles.beat} id={section.id} aria-labelledby={section.heading ? `${section.id}-heading` : undefined}>
+  return <section className={styles.beat} data-kind={section.kind} id={section.id} aria-labelledby={section.heading ? `${section.id}-heading` : undefined}>
     {section.heading && <div className={styles.beatCopy}>
       <h2 id={`${section.id}-heading`}>{section.heading}</h2>
       {section.copy && <p><BrandText text={section.copy} /></p>}
@@ -79,7 +79,7 @@ export function EditorialCasePage({ study, editorial, next, permissionReview = f
     ? editorial.sections.find(section => section.id === editorial.closingBand?.sectionId)
     : undefined;
   const PageShell = permissionReview ? PermissionReviewShell : Shell;
-  return <PageShell><article className={`case-story ${styles.story}`} data-editorial-case={study.slug}>
+  return <PageShell><article className={`case-story ${styles.story} ${permissionReview ? "" : styles.publicStory}`} data-editorial-case={study.slug}>
     <section className="case-opening" data-tone="paper">
       <div className="v-frame">
         {!permissionReview && <a className="editorial-link" href={siteHref(`/work#${study.slug}`)}>← Back to Work</a>}

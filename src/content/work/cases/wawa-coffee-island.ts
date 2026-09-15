@@ -235,5 +235,22 @@ export const wawaCoffeeIsland = {
   heroMedia: wawaCoffeeIslandBeforeSafetyAudit.heroMedia,
   galleryMedia: wawaCoffeeIslandBeforeSafetyAudit.galleryMedia,
   processChapters: wawaCoffeeIslandBeforeSafetyAudit.processChapters,
-  editorial: { ...wawaCoffeeIslandBeforeSafetyAudit.editorial },
+  // Previous sequence is preserved in wawaCoffeeIslandBeforeSafetyAudit.
+  editorial: {
+    ...wawaCoffeeIslandBeforeSafetyAudit.editorial,
+    sections: [
+      wawaCoffeeIslandBeforeSafetyAudit.editorial.sections[0],
+      { id: "products", kind: "group", emphasis: "first", heading: "A stocked environment, down to the details.",
+        copy: "Reflective coffee bags, cups and packaging needed to feel physical at close range. Controlled creasing and variation gave the reconstructed products the same care as the fixture around them.",
+        media: [
+          wawaCoffeeIslandLegacy.processChapters[2].media[1],
+          { ...wawaCoffeeIslandLegacy.processChapters[1].media[1], caption: "Product geometry and existing Wawa packaging artwork recreated for the scene." },
+        ] },
+      { id: "closer-look", kind: "details",
+        heading: "Another view of the stocked fixture",
+        copy: "Cups, lids, packets and organizers reconstructed for the display.",
+        media: [wawaCoffeeIslandLegacy.processChapters[1].media[0]] },
+      wawaCoffeeIslandBeforeSafetyAudit.editorial.sections[3],
+    ],
+  },
 } satisfies WorkCaseStudy;

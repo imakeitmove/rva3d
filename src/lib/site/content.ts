@@ -54,8 +54,10 @@ export const desmiReview: WorkCaseStudy = {
       { id: "cutaway", kind: "media", heading: "Open the housing. Keep the relationship.",
         copy: "The blue housing stays recognizable while the cutaway reveals the rotor and internal assembly. We can see the product and its mechanism in the same view.",
         media: { ...desmiCutaway, caption: "A cutaway reveals the rotor and housing." } },
-      { id: "in-motion", kind: "text", heading: "Connect the parts to the movement.",
-        copy: "The animated chocolate-pump example adds movement to the explanation. Paired with the cutaway, it lets us move from identifying the parts to watching the pump in action." },
+// Earlier editorial wording retained; consolidated to avoid repeating the premise.
+//       { id: "in-motion", kind: "text", heading: "Connect the parts to the movement.",
+//         copy: "The animated chocolate-pump example adds movement to the explanation. Paired with the cutaway, it lets us move from identifying the parts to watching the pump in action." },
+      // The existing closing now supplies this comparison immediately after the cutaway.
     ],
     closing: { heading: "A clearer way to discuss the mechanism.",
       copy: "Cutaway imagery shows where the parts sit. Animation shows what changes when they move.",

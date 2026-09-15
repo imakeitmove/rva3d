@@ -206,3 +206,62 @@
 .story[data-editorial-case="capri-sun"] :global(.case-hero) > :global(.site-media),
 .story[data-editorial-case="capri-sun"] :global(#noise-tech) > :global(.site-media) { max-width: 900px; margin-inline: auto; }
 .story[data-editorial-case="capri-sun"] :global(#solstice) > :global(.site-media) { max-width: 480px; margin-inline: auto; }
+
+
+/* September 15 editorial refinement. Original rules above remain available;
+   these overrides apply only to public articles, not permission-review pages. */
+.publicStory :global(.case-hero) > .beatCopy {
+  display: block;
+  max-width: none;
+  margin-bottom: 16px;
+}
+.publicStory :global(.case-hero) > .beatCopy h2 {
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0;
+  max-width: none;
+}
+.publicStory .beat[data-kind="text"] + .beat {
+  margin-top: clamp(40px, 5vw, 72px);
+}
+/* Supporting evidence stays legible without competing with the finished scene. */
+.publicStory[data-editorial-case="cable-snake"] :global(#performance-control) > :global(.site-media),
+.publicStory[data-editorial-case="amsoil-xpd-wind-grease"] :global(#grease-control) > :global(.site-media),
+.publicStory[data-editorial-case="wawa-coffee-island"] :global(#fixture) > .mediaGroup {
+  max-width: 1120px;
+  margin-inline: auto;
+}
+/* Keep the portrait and its explanation together as one composed story beat. */
+.publicStory[data-editorial-case="capri-sun"] :global(#solstice) {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: center;
+  max-width: 1120px;
+  margin-inline: auto;
+}
+.publicStory[data-editorial-case="capri-sun"] :global(#solstice) .beatCopy {
+  display: block;
+  margin: 0;
+}
+.publicStory[data-editorial-case="capri-sun"] :global(#solstice) .beatCopy p { margin-top: 24px; }
+.publicStory[data-editorial-case="capri-sun"] :global(#solstice) > :global(.site-media) { width: 100%; }
+@media (max-width: 900px) {
+  .publicStory[data-editorial-case="capri-sun"] :global(#solstice) {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+@media (max-width: 640px) {
+  .publicStory :global(.case-opening) { padding-top: 64px; }
+  .publicStory :global(.case-opening) :global(.editorial-lead) { margin-bottom: 24px; }
+  .publicStory .beat + .beat,
+  .publicStory .details + .beat { margin-top: 56px; }
+  .publicStory .beat[data-kind="text"] + .beat { margin-top: 40px; }
+  /* Packaging evidence remains secondary when Wawa's material pair stacks. */
+  .publicStory[data-editorial-case="wawa-coffee-island"] :global(#products) .mediaGroup > :last-child {
+    width: 82%;
+    margin-left: auto;
+  }
+}
