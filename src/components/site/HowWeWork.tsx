@@ -61,10 +61,6 @@ export function HowWeWork() {
           aria-labelledby="working-title"
         >
           <div className="editorial-width">
-            <header className={styles.openingTitle}>
-              <p className="label">How We Work</p>
-              <h1>A clear route through complicated work.</h1>
-            </header>
             <div className={styles.editorialPair}>
               <div className="feel-statement">
                 <h2 id="working-title">Clear, direct,<br />and surprisingly<br /><em>easy.</em></h2>
@@ -72,7 +68,10 @@ export function HowWeWork() {
               </div>
               <div className={styles.openingCopy}>
                 <p><Brand /> works directly with brands and internal teams, and can also plug into an existing agency or production workflow.</p>
-                <p>The commercial framework is standardized. The exact production choreography adapts to the project.</p>
+                <div className={styles.workingNotes}>
+                  <p><span className="label">Visible / Easy to steer</span><strong>See it while you can shape it.</strong></p>
+                  <p><span className="label">Clear when things change</span><strong>No last-minute mysteries.</strong></p>
+                </div>
               </div>
             </div>
           </div>
@@ -85,12 +84,12 @@ export function HowWeWork() {
           aria-labelledby="process-title"
         >
           <div className="editorial-width">
-            <h2 id="process-title" className="sr-only">Talk, Define, Make, Deliver</h2>
+            <h2 id="process-title" className="sr-only">Talk, Define, Make, Refine, Deliver</h2>
             <ol className={styles.sequence} aria-label="The process at a glance">
-              {["Talk", "Define", "Make", "Deliver"].map((title, index) => (
+              {processSteps.map(([title], index) => (
                 <li key={title}>
                   <span className={styles.circle}>{title}</span>
-                  {index < 3 && <span className={styles.arrow} aria-hidden="true">→</span>}
+                  {index < processSteps.length - 1 && <span className={styles.arrow} aria-hidden="true">→</span>}
                 </li>
               ))}
             </ol>
@@ -135,14 +134,10 @@ export function HowWeWork() {
                 You’ll get meaningful updates while work is underway and a clear
                 review when something needs your decision.
               </p>
-              <p className="review-intent">
-                Reviews are designed to stay organized in one place instead of
-                disappearing into scattered email threads.
-              </p>
             </div>
             <div className={styles.communicationCopy}>
               <p>What changed, what happens next and whether you need to do anything.</p>
-              <p>The version, the question and the feedback or approval needed to move forward.</p>
+              <p>Each review brings the version, the question and your feedback together in one place, so notes don’t get lost across email threads and it’s easy to see what happens next.</p>
             </div>
           </div>
         </section>
@@ -315,3 +310,26 @@ export function HowWeWork() {
 //           </div>
 //         </section>
 //
+
+// V1 details retained for restoration; replaced by the requested focused follow-up.
+//             <header className={styles.openingTitle}>
+//               <p className="label">How We Work</p>
+//               <h1>A clear route through complicated work.</h1>
+//             </header>
+//
+//
+//                 <p>The commercial framework is standardized. The exact production choreography adapts to the project.</p>
+//
+// Talk, Define, Make, Deliver</h2>
+//
+// {["Talk", "Define", "Make", "Deliver"].map((title, index) => (
+//
+// {index < 3 && <span className={styles.arrow}
+//
+//               <p className="review-intent">
+//                 Reviews are designed to stay organized in one place instead of
+//                 disappearing into scattered email threads.
+//               </p>
+//
+//
+//               <p>The version, the question and the feedback or approval needed to move forward.</p>

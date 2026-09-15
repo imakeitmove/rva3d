@@ -19,7 +19,8 @@
   gap: clamp(40px, 7vw, 110px);
 }
 .page :global(.feel-statement) h2 { margin: 0; }
-.page :global(.feel-statement) > p { margin: 24px 0 0; }
+/* Remove the inherited 24ch width cap; the sentence now wraps only to its column. */
+.page :global(.feel-statement) > p { margin: 24px 0 0; max-width: none; }
 .page .openingCopy { padding-top: 8px; }
 .page .openingCopy p { max-width: 42ch; margin: 0; font-size: clamp(20px, 1.7vw, 25px); }
 .page .openingCopy p + p { margin-top: 28px; font-size: 19px; }
@@ -38,19 +39,26 @@
 .circle {
   display: grid;
   place-items: center;
-  width: clamp(130px, 13.5vw, 184px);
+  /* Previous four-circle sizing: clamp(130px, 13.5vw, 184px). */
+  width: clamp(108px, 11.5vw, 164px);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: var(--rva-purple);
+  background: var(--step-color);
   color: var(--rva-paper-white);
   font-size: clamp(23px, 2.2vw, 32px);
   font-weight: 580;
   letter-spacing: -.035em;
 }
-.sequence li:nth-child(2) .circle { background: var(--rva-signal-green); color: var(--rva-void-black); }
-.sequence li:nth-child(3) .circle { background: var(--rva-info); color: var(--rva-void-black); }
-.sequence li:nth-child(4) .circle { background: var(--rva-cool-guy-gray); color: var(--rva-void-black); }
-.arrow { padding-inline: clamp(14px, 2.5vw, 42px); font-size: clamp(30px, 3vw, 44px); line-height: 1; }
+/* V1: Define was Signal Green, Make Info Blue, and Deliver Cool Guy Gray.
+   Share each step's color between the circle and its unboxed numeral. */
+.sequence li, .page :global(.process-list) li { --step-color: var(--rva-purple); }
+.sequence li:nth-child(2), .page :global(.process-list) li:nth-child(2) { --step-color: var(--rva-cool-guy-gray); }
+.sequence li:nth-child(3), .page :global(.process-list) li:nth-child(3) { --step-color: var(--rva-info); }
+.sequence li:nth-child(4), .page :global(.process-list) li:nth-child(4) { --step-color: var(--rva-process); }
+.sequence li:nth-child(5), .page :global(.process-list) li:nth-child(5) { --step-color: var(--rva-signal-green); }
+.sequence li:not(:first-child) .circle { color: var(--rva-void-black); }
+/* Five stages replace the wider four-stage arrow spacing. */
+.arrow { padding-inline: clamp(12px, 1.5vw, 25px); font-size: clamp(26px, 2.5vw, 38px); line-height: 1; }
 .page :global(.process-list) { max-width: 1060px; margin-inline: auto; }
 .page :global(.process-list) li {
   grid-template-columns: clamp(130px, 16vw, 210px) minmax(0, 1fr);
@@ -62,7 +70,8 @@
 .page :global(.process-list) li + li { margin-top: clamp(44px, 5vw, 76px); }
 .page :global(.process-list .decision-index) {
   padding: 0;
-  color: var(--rva-purple);
+  /* Previous numeral color: var(--rva-purple). */
+  color: var(--step-color);
   font: 200 clamp(120px, 14vw, 190px)/.82 var(--font-geist-sans), sans-serif;
   letter-spacing: -.08em;
 }
@@ -76,9 +85,10 @@
 .page :global(.process-list) p { max-width: 54ch; font-size: 20px !important; line-height: 1.6 !important; }
 
 .page .plan { background: var(--rva-cool-guy-gray); color: var(--rva-void-black); padding-block: clamp(60px, 7vw, 108px); }
-.planInner { display: flex; justify-content: space-between; align-items: flex-end; gap: 48px; }
-.page .plan h2 { max-width: 18ch; margin: 0; font-size: clamp(42px, 4.8vw, 72px); font-weight: 650; line-height: 1.16; letter-spacing: -.05em; }
-.page .plan :global(.button) { flex: none; margin-bottom: 6px; }
+.planInner { display: flex; justify-content: space-between; align-items: center; gap: 48px; } /* Previously flex-end. */
+/* Previous heading measure/size: 18ch; clamp(42px, 4.8vw, 72px). */
+.page .plan h2 { max-width: 26ch; margin: 0; font-size: clamp(40px, 4vw, 60px); font-weight: 650; line-height: 1.16; letter-spacing: -.05em; }
+.page .plan :global(.button) { flex: none; margin: 0; } /* Remove the previous 6px bottom offset. */
 .page :global(.review-story-dark) { padding-block: clamp(60px, 7vw, 108px); }
 .page :global(.review-dark-grid) { grid-template-columns: 1.1fr 1fr; align-items: start; gap: clamp(40px, 7vw, 110px); }
 .page :global(.review-intro) h2 { margin-top: 20px; }
@@ -92,8 +102,8 @@
 @media (max-width: 900px) {
   .editorialPair { gap: 36px; }
   .page .openingCopy p { font-size: 20px; }
-  .circle { width: 126px; font-size: 25px; }
-  .arrow { padding-inline: 16px; font-size: 32px; }
+  .circle { width: 108px; font-size: 25px; } /* Previously 126px. */
+  .arrow { padding-inline: 12px; font-size: 28px; } /* Previously 16px / 32px. */
   .planInner { align-items: flex-start; flex-direction: column; gap: 36px; }
   .page :global(.review-dark-grid) { gap: 36px; }
 }
@@ -120,4 +130,17 @@
 @media (max-width: 380px) {
   .page :global(.process-list) li { grid-template-columns: 76px minmax(0, 1fr); gap: 18px; }
   .page :global(.process-list .decision-index) { font-size: 78px; }
+}
+/* Concise supporting statements in the existing prose flow, without cards. */
+.page .workingNotes { margin-top: 30px; }
+.page .workingNotes p { margin: 0; }
+.page .workingNotes p + p { margin-top: 24px; }
+.page .workingNotes :global(.label) { display: block; margin-bottom: 8px; color: var(--rva-paper); }
+.page .workingNotes strong { display: block; font-size: clamp(23px, 2vw, 29px); line-height: 1.25; font-weight: 500; letter-spacing: -.025em; }
+/* Five legible circles become vertical before the row gets cramped. */
+@media (min-width: 701px) and (max-width: 800px) {
+  .sequence { flex-direction: column; margin-bottom: 64px; }
+  .sequence li { flex-direction: column; }
+  .circle { width: 136px; font-size: 27px; }
+  .arrow { padding: 11px 0; writing-mode: vertical-rl; }
 }
