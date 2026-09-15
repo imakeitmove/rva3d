@@ -132,9 +132,11 @@
   .page :global(.process-list .decision-index) { font-size: 78px; }
 }
 /* Concise supporting statements in the existing prose flow, without cards. */
-.page .workingNotes { margin-top: 30px; }
-.page .workingNotes p { margin: 0; }
-.page .workingNotes p + p { margin-top: 24px; }
+/* Previously stacked at every width; wrap only when two readable columns will not fit. */
+.page .workingNotes { display: flex; flex-wrap: wrap; gap: 24px 28px; margin-top: 30px; }
+.page .workingNotes p { flex: 1 1 210px; min-width: 0; margin: 0; }
+/* Row and column gaps replace the previous 24px second-paragraph margin. */
+.page .workingNotes p + p { margin-top: 0; }
 .page .workingNotes :global(.label) { display: block; margin-bottom: 8px; color: var(--rva-paper); }
 .page .workingNotes strong { display: block; font-size: clamp(23px, 2vw, 29px); line-height: 1.25; font-weight: 500; letter-spacing: -.025em; }
 /* Five legible circles become vertical before the row gets cramped. */
