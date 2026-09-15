@@ -57,6 +57,8 @@
   gap: 18px;
 }
 .capabilityGrid .link {
+  /* Previously inherited dark text; white is scoped to the capability tiles. */
+  color: #fff;
   display: flex;
   margin: 12px;
   min-height: 0;
