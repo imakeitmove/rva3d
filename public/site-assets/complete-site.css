@@ -576,12 +576,16 @@ Previous reference metrics: RVA 600/900; suffix 1.062em x .708em; stroke 3.6.
 }
 
 /* Homepage hiring-fit disclosure replaces the numbered grid; old grid styles remain for reference. */
-.complete-site .v-fit-disclosure{padding:clamp(36px,4vw,60px) 0 88px}
+/* Previous standalone spacing: padding:clamp(36px,4vw,60px) 0 88px. */
+.complete-site .v-fit-disclosure{margin-top:clamp(36px,4vw,60px);padding:22px 0 0;border-top:1px solid #080a0930}
 .complete-site .v-fit-disclosure summary{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:56px;list-style:none;cursor:pointer;font-size:clamp(24px,2.5vw,38px);font-weight:520;letter-spacing:-.035em;line-height:1.2}
 .complete-site .v-fit-disclosure summary::-webkit-details-marker{display:none}
 .complete-site .v-fit-disclosure summary:focus-visible{outline:3px solid var(--rva-purple);outline-offset:8px;border-radius:2px}
-.complete-site .v-fit-indicator{flex:none;color:var(--rva-purple);font-size:36px;transform:rotate(0deg)}
-.complete-site .v-fit-disclosure details[open] .v-fit-indicator{transform:rotate(90deg)}
+/* Previous bare chevron rotated 90deg; the circular down arrow now rotates 180deg. */
+.complete-site .v-fit-indicator{flex:none;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:var(--rva-purple);color:var(--rva-signal);font-size:28px;line-height:1}
+.complete-site .v-fit-indicator>span{display:block;transition:transform 180ms ease;transform:rotate(0deg)}
+.complete-site .v-fit-disclosure details[open] .v-fit-indicator>span{transform:rotate(180deg)}
+@media(prefers-reduced-motion:reduce){.complete-site .v-fit-indicator>span{transition:none}}
 .complete-site .v-fit-hint{margin:8px 0 0;font-size:16px;line-height:1.5}
 .complete-site .v-fit-answer{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(40px,8vw,120px);margin-top:40px}
 .complete-site .v-fit-answer h3{margin:0 0 12px;color:var(--rva-purple);font-size:clamp(23px,2vw,29px);line-height:1.15;font-weight:520;letter-spacing:-.025em}
@@ -589,7 +593,8 @@ Previous reference metrics: RVA 600/900; suffix 1.062em x .708em; stroke 3.6.
 .complete-site .v-fit-answer p+h3{margin-top:34px}
 .complete-site .v-fit-disclosure .v-fit-link{margin-top:30px}
 @media(max-width:700px){
- .complete-site .v-fit-disclosure{padding:30px 0 66px}
+ /* Previous standalone mobile spacing: padding:30px 0 66px. */
+ .complete-site .v-fit-disclosure{margin-top:32px;padding:20px 0 0}
  .complete-site .v-fit-answer{grid-template-columns:1fr;gap:32px;margin-top:30px}
  .complete-site .v-fit-answer p{font-size:17px}
  .complete-site .v-fit-disclosure summary{gap:18px}
