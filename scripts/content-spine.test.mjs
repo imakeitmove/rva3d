@@ -1029,7 +1029,10 @@ test("buyer-confidence copy and distinct project interaction contracts stay scop
   const activeWork = work.split("// Superseded four-card")[0].replace(/\{\/\*[\s\S]*?\*\/\}/g, "");
   const activeCap = cap.split("// V1 copy")[0];
   assert.match(activeHome,/data-project-mode="sampler"/); assert.doesNotMatch(activeHome,/case-count|data-project-status/);
-  assert.match(activeHome,/id="fit"/); assert.match(activeHome,/When \$\{brandName\(\)\} makes sense\./);
+  // Previous visible-heading contract: "When RVA3D makes sense." is now an optional disclosure.
+  assert.match(activeHome,/id="fit"/); assert.match(activeHome,/Does \$\{brandName\(\)\} make sense for this\?/);
+  assert.match(activeHome,/<details id="hiring-fit"><summary[^>]*aria-expanded="false"[^>]*aria-controls="fit-answer"/);
+  assert.doesNotMatch(activeHome,/v-fit-list|A good time to call/);
   assert.match(activeHome,/needs senior 3D, motion or visualization capacity/);
   assert.match(activeHome,/class="v-frame v-tagline-unit"/);
   assert.match(activeWork,/data-project-mode="inventory"/); assert.match(activeWork,/data-project-load-more/);
