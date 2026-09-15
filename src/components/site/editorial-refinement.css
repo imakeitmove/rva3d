@@ -326,10 +326,13 @@
 .about-editorial .how-we-work-opening-v2 {
   width: 100%;
   padding: 56px 0 0;
-  background: var(--rva-info);
-  color: var(--rva-void-violet);
+  /* Restore 01eb3d73; previous opening: var(--rva-info), var(--rva-void-violet). */
+  background: var(--rva-lightly-lavender);
+  color: var(--rva-void-black);
   text-align: center;
 }
+/* Restore the balanced navigation spacing from 01eb3d73. */
+.how-we-work-opening-v2 > .editorial-width { padding-bottom: 56px; }
 .how-we-work-opening-v2 .how-we-work-intro {
   margin-top: 36px;
   padding-bottom: 38px;
@@ -377,6 +380,7 @@
     margin-bottom: 36px;
   }
   .about-editorial .how-we-work-opening-v2 { padding-top: 36px; }
+  .how-we-work-opening-v2 > .editorial-width { padding-bottom: 36px; }
   .how-we-work-opening-v2 .how-we-work-intro {
     margin-top: 32px;
     padding-bottom: 32px;

@@ -19,13 +19,15 @@ export function HowWeWork() {
         {/* V001 used a contained paper opening; V002 joins the blue intro, image and dark content. */}
         <section className="how-we-work-opening-v2" data-tone="paper">
           <div className="editorial-width"><EditorialPageNav current="how-we-work" /></div>
+          {/* Restore the simplified opening from 8ddaa766. Regressed intro retained:
           <div className="editorial-width how-we-work-intro">
-            {/* Removed redundant kicker: <p className="label">Working with RVA3D</p> */}
+            Removed redundant kicker: <p className="label">Working with RVA3D</p>
             <h1>How we work.</h1>
             <p className="editorial-lead">
               Clear expectations. Useful check-ins. Room to make something good.
             </p>
           </div>
+          */}
           <figure className="how-we-work-process-image">
             <picture>
               <source

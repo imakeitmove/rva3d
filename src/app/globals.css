@@ -12,6 +12,8 @@
   --rva-void-black: #111111;
   --rva-signal-green: #c7eb01;
   --rva-paper-white: #f4f1e8;
+  /* Restore the September 13 How We Work palette token (8ddaa766). */
+  --rva-lightly-lavender: #e8e1eb;
   /* Cool Guy Gray: editorial pause surfaces and secondary brand fields. */
   --rva-cool-guy-gray: #81909a;
   --rva-stone: #a4a59f;
