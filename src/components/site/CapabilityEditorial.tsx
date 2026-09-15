@@ -20,7 +20,9 @@ export function CapabilityEditorial() {
   const amsoil = studies.find(item => item.slug === "amsoil-xpd-wind-grease")!;
   // Previous WHAXE hero selection is retained in the V1 implementation below;
   // the active proof slot now uses the requested Five Below display animation.
-  const hero = protectedMedia(amsoil.heroMedia);
+  // Restore the approved still and caption selection from 797bec0f (September 13).
+  // Previous shared reference: const hero = protectedMedia(amsoil.heroMedia);
+  const hero = protectedMedia(amsoil.indexMedia);
   const heroSrc = hero.kind === "image" ? hero.src : hero.poster.src;
   // One authoritative registry reference can replace the motion reel without changing layout.
   const reel = capabilities.find(item => item.slug === "motion-design")!.overviewMedia!;
