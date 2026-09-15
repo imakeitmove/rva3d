@@ -11,6 +11,9 @@ const publicHeaders = {
   "CDN-Cache-Control": "public, max-age=31536000, immutable",
   "Vercel-CDN-Cache-Control": "public, max-age=31536000, immutable",
   "X-Content-Type-Options": "nosniff",
+  // Full and partial bodies must use distinct CDN cache entries. Hosted warm-cache
+  // verification caught partial responses inheriting a cached full response's 200.
+  Vary: "Range",
 };
 
 async function serve(request: Request, context: { params: Promise<{ key: string }> }) {
