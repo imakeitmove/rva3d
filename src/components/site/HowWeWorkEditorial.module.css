@@ -146,3 +146,129 @@
   .circle { width: 136px; font-size: 27px; }
   .arrow { padding: 11px 0; writing-mode: vertical-rl; }
 }
+
+
+/* Creative-direction refinement, September 2026.
+   Earlier declarations above are retained for restoration. These scoped rules
+   replace the rainbow diagram and oversized numerals with the site's existing
+   paper, purple, fine rules and editorial type relationships. */
+.page .sequence {
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 1060px;
+  margin: 0 auto clamp(40px, 4vw, 60px);
+}
+
+.page .sequence li { flex: 1; flex-direction: row; }
+.page .sequence li:last-child { flex: none; }
+
+.page .circle {
+  width: clamp(96px, 8vw, 124px);
+  background: var(--rva-paper);
+  border: 1px solid #080a0930;
+  color: var(--rva-void-black);
+  font-size: clamp(21px, 1.7vw, 26px);
+  font-weight: 500;
+  letter-spacing: -.025em;
+}
+
+.page .arrow {
+  flex: 1;
+  padding: 0 12px;
+  text-align: center;
+  writing-mode: horizontal-tb;
+  font-size: 26px;
+}
+
+/* The number identifies the stage; the title and description carry the weight. */
+.page :global(.process-list) li {
+  grid-template-columns: 116px minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 64px);
+  padding-block: 32px;
+  border-top: 1px solid #080a0926;
+}
+
+.page :global(.process-list) li + li { margin-top: 0; }
+.page :global(.process-list) li:last-child { padding-bottom: 0; }
+
+.page :global(.process-list .decision-index) {
+  padding-top: 2px;
+  color: var(--rva-purple);
+  font-size: clamp(60px, 5.3vw, 78px);
+  font-weight: 350;
+  line-height: 1;
+  letter-spacing: -.065em;
+}
+
+.page :global(.process-list) h3 {
+  margin-bottom: 10px;
+  font-size: clamp(29px, 2.5vw, 36px);
+  font-weight: 550;
+}
+
+.page .workingNotes {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #ffffff30;
+}
+.page .workingNotes :global(.label) { color: #c7aff0; }
+
+.page .plan { padding-block: clamp(52px, 5.5vw, 84px); }
+.page .plan h2 {
+  max-width: 26ch;
+  font-size: clamp(36px, 3.5vw, 54px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -.045em;
+}
+
+/* Retain the existing two paragraphs, with a clear lead and quieter detail. */
+.page .communicationCopy {
+  margin-top: 50px;
+  padding-top: 24px;
+  border-top: 1px solid #ffffff30;
+}
+.page .communicationCopy p + p {
+  margin-top: 24px;
+  max-width: 46ch;
+  font-size: 20px;
+  line-height: 1.6;
+  color: #d6d4df;
+}
+
+@media (max-width: 900px) {
+  .page :global(.process-list) li {
+    grid-template-columns: 90px minmax(0, 1fr);
+    gap: 32px;
+  }
+}
+
+@media (max-width: 700px) {
+  /* A single reading line avoids making phone users scroll through a second
+     five-stage list before reaching the explanations. It stays informational. */
+  .page .sequence { justify-content: space-between; margin-bottom: 28px; }
+  .page .circle {
+    width: auto;
+    aspect-ratio: auto;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    font-size: clamp(14px, 3.8vw, 20px);
+    letter-spacing: -.025em;
+  }
+  .page .arrow { padding-inline: 4px; font-size: 18px; }
+  .page :global(.process-list) li {
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 20px;
+    padding-block: 26px;
+  }
+  .page :global(.process-list .decision-index) {
+    padding-top: 2px;
+    font-size: 40px;
+    letter-spacing: -.055em;
+  }
+  .page :global(.process-list) h3 { font-size: 28px; }
+  .page .plan h2 { font-size: clamp(36px, 7.8vw, 46px); }
+  .page .communicationCopy { margin-top: 0; padding-top: 24px; }
+  .page .communicationCopy p + p { font-size: 18px; }
+}
