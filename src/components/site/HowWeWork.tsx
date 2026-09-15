@@ -112,7 +112,8 @@ export function HowWeWork() {
         <section className={styles.plan} data-tone="paper" aria-labelledby="plan-title">
           <div className={["editorial-width", styles.planInner].join(" ")}>
             <h2 id="plan-title">A clear plan leaves more room for the <span className="work-closing-highlight">interesting part</span>.</h2>
-            <a className="button" href={siteHref("/#contact")}>Get in touch <span aria-hidden="true">↗</span></a>
+            {/* Previous CTA: Get in touch, using the default green button treatment. */}
+            <a className="button" data-control-tone="purple" href={siteHref("/#contact")}>Start a project <span aria-hidden="true">↗</span></a>
           </div>
         </section>
 
@@ -130,14 +131,14 @@ export function HowWeWork() {
                 <br />
                 in the middle.
               </h2>
-              <p>
-                You’ll get meaningful updates while work is underway and a clear
-                review when something needs your decision.
-              </p>
+              {/* The approved update sentence now stands alone in the right column. */}
             </div>
             <div className={styles.communicationCopy}>
+              <p>You’ll get meaningful updates while work is underway and a clear review when something needs your decision.</p>
+              {/* Previous explanatory copy retained for restoration:
               <p>What changed, what happens next and whether you need to do anything.</p>
               <p>Each review brings the version, the question and your feedback together in one place, so notes don’t get lost across email threads and it’s easy to see what happens next.</p>
+              */}
             </div>
           </div>
         </section>

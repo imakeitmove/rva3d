@@ -272,3 +272,24 @@
   .page .communicationCopy { margin-top: 0; padding-top: 24px; }
   .page .communicationCopy p + p { font-size: 18px; }
 }
+
+/* Focused final refinement: normal grid alignment relates the CTA to the last
+   headline line. Earlier composition rules remain above for restoration. */
+.page .planInner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+}
+.page .communicationCopy {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  align-self: center;
+}
+@media (max-width: 900px) {
+  .page .planInner {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: start;
+    gap: 28px;
+  }
+}

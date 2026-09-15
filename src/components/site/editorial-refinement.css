@@ -390,3 +390,26 @@
     height: calc((100vw - 40px) / 4);
   }
 }
+
+/* Capability details are editorial notes beneath their media. The previous
+   boxed-label declarations remain above for restoration; real controls retain
+   their existing styles. */
+.capabilities-v2 .large-capability-proof .need-labels {
+  margin: 14px 0 0;
+  padding: 0;
+  gap: 4px 18px;
+}
+.capabilities-v2 .large-capability-proof .need-labels li {
+  display: flex;
+  gap: 8px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.capabilities-v2 .large-capability-proof .need-labels li::before {
+  content: "·";
+}
