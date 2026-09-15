@@ -1,6 +1,7 @@
 // Public-safety audit: previous content retained for reference.
 // "alt=\"A hands-on wooden build and 3D technical visualization within an RVA3D process montage.\""
 import "./editorial-refinement.css";
+import styles from "./HowWeWorkEditorial.module.css";
 
 import Image from "next/image";
 import processMedia from "@/content/site/how_we_work_media.generated.json";
@@ -15,7 +16,7 @@ import { Shell } from "./Shell";
 export function HowWeWork() {
   return (
     <Shell>
-      <div className="about-editorial how-we-work-editorial">
+      <div className={`about-editorial how-we-work-editorial ${styles.page}`}>
         {/* V001 used a contained paper opening; V002 joins the blue intro, image and dark content. */}
         <section className="how-we-work-opening-v2" data-tone="paper">
           <div className="editorial-width"><EditorialPageNav current="how-we-work" /></div>
@@ -59,57 +60,19 @@ export function HowWeWork() {
           data-tone="void"
           aria-labelledby="working-title"
         >
-          <div className="editorial-width feel-grid">
-            <div className="feel-statement">
-              <p className="label">How working together feels</p>
-              <h2 id="working-title">
-                Clear, direct,
-                <br />
-                and surprisingly
-                <br />
-                <em>easy.</em>
-              </h2>
-              <p>Informed, without having to manage production.</p>
-            </div>
-            <div className="feel-principles">
-              <article className="principle-main">
-                <span className="label">Direct / Autonomous</span>
-                <h3>
-                  You steer the idea.
-                  <br />
-                  Deven handles the making.
-                </h3>
-                <p>
-                  No relaying notes through layers of people. And no need to
-                  backseat-drive the mouse. Your attention goes to the decisions
-                  that matter.
-                </p>
-              </article>
-              <div className="principle-pair">
-                <article>
-                  <span className="label">Visible / Easy to steer</span>
-                  <h3>
-                    See it while
-                    <br />
-                    you can shape it.
-                  </h3>
-                  <p>
-                    Useful review moments make it clear what you are looking at,
-                    which feedback helps and what happens next.
-                  </p>
-                </article>
-                <article>
-                  <span className="label">Clear when things change</span>
-                  <h3>
-                    No last-minute
-                    <br />
-                    mysteries.
-                  </h3>
-                  <p>
-                    If timing, scope or feasibility threatens the plan, you hear
-                    about it while there is still a way through.
-                  </p>
-                </article>
+          <div className="editorial-width">
+            <header className={styles.openingTitle}>
+              <p className="label">How We Work</p>
+              <h1>A clear route through complicated work.</h1>
+            </header>
+            <div className={styles.editorialPair}>
+              <div className="feel-statement">
+                <h2 id="working-title">Clear, direct,<br />and surprisingly<br /><em>easy.</em></h2>
+                <p>Informed, without having to manage production.</p>
+              </div>
+              <div className={styles.openingCopy}>
+                <p><Brand /> works directly with brands and internal teams, and can also plug into an existing agency or production workflow.</p>
+                <p>The commercial framework is standardized. The exact production choreography adapts to the project.</p>
               </div>
             </div>
           </div>
@@ -122,34 +85,15 @@ export function HowWeWork() {
           aria-labelledby="process-title"
         >
           <div className="editorial-width">
-            <div className="process-intro">
-              <div>
-                <p className="label">How we work</p>
-                <h2 id="process-title">
-                  A clear route
-                  <br />
-                  from idea to final.
-                </h2>
-              </div>
-              <div>
-                <p>
-                  <Brand /> works directly with brands and internal teams, and can
-                  also plug into an existing agency or production workflow.
-                </p>
-                <p>
-                  The commercial framework is standardized. The exact production
-                  choreography adapts to the project.
-                </p>
-              </div>
-            </div>
-            <div className="process-path" aria-hidden="true">
-              {processSteps.map(([title], index) => (
-                <span key={title}>
-                  {index > 0 && <i>→</i>}
-                  {title}
-                </span>
+            <h2 id="process-title" className="sr-only">Talk, Define, Make, Deliver</h2>
+            <ol className={styles.sequence} aria-label="The process at a glance">
+              {["Talk", "Define", "Make", "Deliver"].map((title, index) => (
+                <li key={title}>
+                  <span className={styles.circle}>{title}</span>
+                  {index < 3 && <span className={styles.arrow} aria-hidden="true">→</span>}
+                </li>
               ))}
-            </div>
+            </ol>
             <ol className="decision-list process-list">
               {processSteps.map(([title, copy], index) => (
                 <li key={title}>
@@ -163,12 +107,13 @@ export function HowWeWork() {
                 </li>
               ))}
             </ol>
-            <div className="process-outro">
-              <p>A clear plan leaves more room for the interesting part.</p>
-              <a className="button" href={siteHref("/#contact")}>
-                Get in touch <span aria-hidden="true">↗</span>
-              </a>
-            </div>
+          </div>
+        </section>
+
+        <section className={styles.plan} data-tone="paper" aria-labelledby="plan-title">
+          <div className={["editorial-width", styles.planInner].join(" ")}>
+            <h2 id="plan-title">A clear plan leaves more room for the <span className="work-closing-highlight">interesting part</span>.</h2>
+            <a className="button" href={siteHref("/#contact")}>Get in touch <span aria-hidden="true">↗</span></a>
           </div>
         </section>
 
@@ -195,23 +140,9 @@ export function HowWeWork() {
                 disappearing into scattered email threads.
               </p>
             </div>
-            <div className="communication-compact">
-              <article>
-                <p className="label">Update</p>
-                <h3>Where we are.</h3>
-                <p>
-                  What changed, what happens next and whether you need to do
-                  anything.
-                </p>
-              </article>
-              <article>
-                <p className="label">Review</p>
-                <h3>What to look at.</h3>
-                <p>
-                  The version, the question and the feedback or approval needed to
-                  move forward.
-                </p>
-              </article>
+            <div className={styles.communicationCopy}>
+              <p>What changed, what happens next and whether you need to do anything.</p>
+              <p>The version, the question and the feedback or approval needed to move forward.</p>
             </div>
           </div>
         </section>
@@ -227,8 +158,7 @@ export function HowWeWork() {
               <p className="label">Before we begin</p>
               <h2 id="faq-title">Questions people reasonably ask before hiring us.</h2>
               <p>
-                The first conversation is low-pressure. These answers cover the
-                practical questions that often come next.
+                These answers cover questions that usually come up after our first meeting.
               </p>
             </div>
             <div className="faq-list">
@@ -246,17 +176,142 @@ export function HowWeWork() {
           </div>
         </section>
 
-        <section className="how-we-work-closing" data-tone="paper">
-          <div className="editorial-width">
-            <p className="label">Have something in mind?</p>
-            <h2>Bring us the challenge.</h2>
-            <p>We’ll help figure out what to make and the clearest way to make it.</p>
-            <a className="button" href={siteHref("/#contact")}>
-              Get in touch <span aria-hidden="true">↗</span>
-            </a>
-          </div>
-        </section>
       </div>
     </Shell>
   );
 }
+
+// Previous composition retained for restoration; superseded by this focused editorial pass.
+// Previous feature-block opening; copy is now composed beside the statement.
+//           <div className="editorial-width feel-grid">
+//             <div className="feel-statement">
+//               <p className="label">How working together feels</p>
+//               <h2 id="working-title">
+//                 Clear, direct,
+//                 <br />
+//                 and surprisingly
+//                 <br />
+//                 <em>easy.</em>
+//               </h2>
+//               <p>Informed, without having to manage production.</p>
+//             </div>
+//             <div className="feel-principles">
+//               <article className="principle-main">
+//                 <span className="label">Direct / Autonomous</span>
+//                 <h3>
+//                   You steer the idea.
+//                   <br />
+//                   Deven handles the making.
+//                 </h3>
+//                 <p>
+//                   No relaying notes through layers of people. And no need to
+//                   backseat-drive the mouse. Your attention goes to the decisions
+//                   that matter.
+//                 </p>
+//               </article>
+//               <div className="principle-pair">
+//                 <article>
+//                   <span className="label">Visible / Easy to steer</span>
+//                   <h3>
+//                     See it while
+//                     <br />
+//                     you can shape it.
+//                   </h3>
+//                   <p>
+//                     Useful review moments make it clear what you are looking at,
+//                     which feedback helps and what happens next.
+//                   </p>
+//                 </article>
+//                 <article>
+//                   <span className="label">Clear when things change</span>
+//                   <h3>
+//                     No last-minute
+//                     <br />
+//                     mysteries.
+//                   </h3>
+//                   <p>
+//                     If timing, scope or feasibility threatens the plan, you hear
+//                     about it while there is still a way through.
+//                   </p>
+//                 </article>
+//               </div>
+//             </div>
+//           </div>
+//
+//
+// Previous process heading, duplicate prose, and ruled text sequence.
+//             <div className="process-intro">
+//               <div>
+//                 <p className="label">How we work</p>
+//                 <h2 id="process-title">
+//                   A clear route
+//                   <br />
+//                   from idea to final.
+//                 </h2>
+//               </div>
+//               <div>
+//                 <p>
+//                   <Brand /> works directly with brands and internal teams, and can
+//                   also plug into an existing agency or production workflow.
+//                 </p>
+//                 <p>
+//                   The commercial framework is standardized. The exact production
+//                   choreography adapts to the project.
+//                 </p>
+//               </div>
+//             </div>
+//             <div className="process-path" aria-hidden="true">
+//               {processSteps.map(([title], index) => (
+//                 <span key={title}>
+//                   {index > 0 && <i>→</i>}
+//                   {title}
+//                 </span>
+//               ))}
+//             </div>
+//
+//
+// Previous small ruled process CTA; moved into its own gray section.
+//             <div className="process-outro">
+//               <p>A clear plan leaves more room for the interesting part.</p>
+//               <a className="button" href={siteHref("/#contact")}>
+//                 Get in touch <span aria-hidden="true">↗</span>
+//               </a>
+//             </div>
+//
+//
+// Previous Update/Review cards; their explanatory text remains without labels or small headings.
+//             <div className="communication-compact">
+//               <article>
+//                 <p className="label">Update</p>
+//                 <h3>Where we are.</h3>
+//                 <p>
+//                   What changed, what happens next and whether you need to do
+//                   anything.
+//                 </p>
+//               </article>
+//               <article>
+//                 <p className="label">Review</p>
+//                 <h3>What to look at.</h3>
+//                 <p>
+//                   The version, the question and the feedback or approval needed to
+//                   move forward.
+//                 </p>
+//               </article>
+//             </div>
+//
+//
+// Previous FAQ intro: The first conversation is low-pressure. These answers cover the
+//                 practical questions that often come next.
+//
+// Previous lavender closing; removed without replacement.
+//         <section className="how-we-work-closing" data-tone="paper">
+//           <div className="editorial-width">
+//             <p className="label">Have something in mind?</p>
+//             <h2>Bring us the challenge.</h2>
+//             <p>We’ll help figure out what to make and the clearest way to make it.</p>
+//             <a className="button" href={siteHref("/#contact")}>
+//               Get in touch <span aria-hidden="true">↗</span>
+//             </a>
+//           </div>
+//         </section>
+//
