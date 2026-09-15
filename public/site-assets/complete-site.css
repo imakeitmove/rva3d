@@ -514,7 +514,8 @@ Previous reference metrics: RVA 600/900; suffix 1.062em x .708em; stroke 3.6.
 /* Buyer-confidence pass: concise problem-fit guidance between proof and studio context. */
 .complete-site .v-fit{
  background:var(--rva-paper);color:var(--rva-void);padding:clamp(72px,8vw,118px) 0;
- border-bottom:1px solid #080a0924;scroll-margin-top:var(--sticky-header-offset);
+ /* Former border-bottom:1px solid #080a0924 crossed the overlapping owner portrait. */
+ scroll-margin-top:var(--sticky-header-offset);
 }
 .complete-site .v-fit-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(26px,4vw,64px)}
 .complete-site .v-fit-intro{grid-column:1/6;align-self:start}
@@ -572,4 +573,24 @@ Previous reference metrics: RVA 600/900; suffix 1.062em x .708em; stroke 3.6.
  .complete-site [data-project-mode="inventory"] [data-project-load-more]{align-self:flex-start;justify-self:auto;text-align:left}
  .complete-site .v-contact-copy h2,
  .complete-site .v-contact-copy h2+p{text-align:left;margin-left:0;margin-right:0}
+}
+
+/* Homepage hiring-fit disclosure replaces the numbered grid; old grid styles remain for reference. */
+.complete-site .v-fit-disclosure{padding:clamp(36px,4vw,60px) 0 88px}
+.complete-site .v-fit-disclosure summary{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:56px;list-style:none;cursor:pointer;font-size:clamp(24px,2.5vw,38px);font-weight:520;letter-spacing:-.035em;line-height:1.2}
+.complete-site .v-fit-disclosure summary::-webkit-details-marker{display:none}
+.complete-site .v-fit-disclosure summary:focus-visible{outline:3px solid var(--rva-purple);outline-offset:8px;border-radius:2px}
+.complete-site .v-fit-indicator{flex:none;color:var(--rva-purple);font-size:36px;transform:rotate(45deg)}
+.complete-site .v-fit-disclosure details[open] .v-fit-indicator{transform:rotate(-135deg)}
+.complete-site .v-fit-hint{margin:8px 0 0;font-size:16px;line-height:1.5}
+.complete-site .v-fit-answer{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(40px,8vw,120px);margin-top:40px}
+.complete-site .v-fit-answer h3{margin:0 0 12px;color:var(--rva-purple);font-size:clamp(23px,2vw,29px);line-height:1.15;font-weight:520;letter-spacing:-.025em}
+.complete-site .v-fit-answer p{max-width:48ch;margin:0;font-size:18px;line-height:1.6}
+.complete-site .v-fit-answer p+h3{margin-top:34px}
+.complete-site .v-fit-disclosure .v-fit-link{margin-top:30px}
+@media(max-width:700px){
+ .complete-site .v-fit-disclosure{padding:30px 0 66px}
+ .complete-site .v-fit-answer{grid-template-columns:1fr;gap:32px;margin-top:30px}
+ .complete-site .v-fit-answer p{font-size:17px}
+ .complete-site .v-fit-disclosure summary{gap:18px}
 }

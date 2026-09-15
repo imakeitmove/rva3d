@@ -33,3 +33,11 @@ document.body.dataset.keywordDepth=String(data.dimensionalKeyword);
 const phrase=document.querySelector("#band-phrase");
 const markKeyword=()=>{for(const word of phrase.querySelectorAll('.v-band-word'))word.classList.toggle('v-dimensional-keyword',["dimension","depth","perspective"].includes(word.textContent.toLowerCase().replace(/[.,!?]/g,"")));};
 new MutationObserver(markKeyword).observe(phrase,{childList:true});markKeyword();
+
+// Native details preserves keyboard/touch/no-script behavior; mirror its state for explicit ARIA.
+const hiringFit = document.querySelector("#hiring-fit");
+if (hiringFit) {
+ const syncHiringFit = () => hiringFit.querySelector("summary").setAttribute("aria-expanded", String(hiringFit.open));
+ hiringFit.addEventListener("toggle", syncHiringFit);
+ syncHiringFit();
+}
