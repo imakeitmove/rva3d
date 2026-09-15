@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import {
   hasPrivateReviewSession,
+  reviewScopeForPath,
   safePrivateReviewPath,
 } from "@/lib/private_review_auth";
 
@@ -23,7 +24,7 @@ export default async function PrivateReviewLogin({
 }: PrivateReviewLoginProps) {
   const params = await searchParams;
   const next = safePrivateReviewPath(params.next ?? null);
-  if (await hasPrivateReviewSession()) {
+  if (await hasPrivateReviewSession(reviewScopeForPath(next))) {
     redirect(next);
   }
 
@@ -37,7 +38,7 @@ export default async function PrivateReviewLogin({
           <p className={styles.eyebrow}>Private review room</p>
           <h1 id="review-login-title">Private RVA3D Review</h1>
           <p className={styles.introduction}>
-            This area contains working portfolio material shared for feedback.
+            This private review includes additional process material for clearance before publication.
           </p>
         </div>
 

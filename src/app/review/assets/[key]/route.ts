@@ -1,14 +1,15 @@
 import { open } from "node:fs/promises";
 import path from "node:path";
-import { hasPrivateReviewSession } from "@/lib/private_review_auth";
+import { privateReviewSessionScope } from "@/lib/private_review_auth";
+import { canReviewAsset } from "@/lib/permission-review";
 import manifest from "@/content/site/media.generated.json";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 const privateHeaders = { "Cache-Control": "private, no-store", "CDN-Cache-Control": "no-store", "Vercel-CDN-Cache-Control": "no-store", "X-Robots-Tag": "noindex, nofollow, noarchive", "X-Content-Type-Options": "nosniff" };
 async function serve(request: Request, context: { params: Promise<{ key: string }> }) {
-  if (!(await hasPrivateReviewSession())) return new Response(null, { status: 404, headers: privateHeaders });
-  if (request.headers.get("sec-fetch-site") === "cross-site") return new Response(null, { status: 403, headers: privateHeaders });
   const { key } = await context.params;
+  if (!canReviewAsset(await privateReviewSessionScope(), key)) return new Response(null, { status: 404, headers: privateHeaders });
+  if (request.headers.get("sec-fetch-site") === "cross-site") return new Response(null, { status: 403, headers: privateHeaders });
   const entry = Object.hasOwn(manifest, key) ? manifest[key as keyof typeof manifest] : null;
   if (!entry) return new Response(null, { status: 404, headers: privateHeaders });
   // Previously HEAD trusted the manifest alone. Both methods now open/stat the file.

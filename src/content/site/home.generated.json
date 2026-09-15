@@ -5,15 +5,15 @@
       "title": "Deven Langston — selected animation & motion",
       "caption": "Selected prior professional work by Deven Langston, the experience behind RVA3D.",
       "kind": "video",
-      "src": "/media/5a8f88d741818b3ccd62.mp4",
-      "mobileSrc": "/media/5a8f88d741818b3ccd62.mp4",
-      "width": 1280,
-      "height": 720,
+      "src": "/media/b5583981e3154102ea55.mp4",
+      "mobileSrc": "/media/07046a9ab42ce82969be.mp4",
+      "width": 1600,
+      "height": 900,
       "poster": {
-        "src": "/media/d6aee71378ef738a4d10.webp",
-        "alt": "Graphic motion design from Deven Langston's selected prior work"
+        "src": "/media/8156dbc59722ef415f2f.webp",
+        "alt": "Selected animation and visualization from Deven Langston's professional experience"
       },
-      "mobilePoster": "/media/d6aee71378ef738a4d10.webp",
+      "mobilePoster": "/media/64f59276c8396dc1fa7e.webp",
       "loop": true,
       "hasAudio": true
     },
@@ -101,6 +101,36 @@
       "viewerFit": "contain",
       "viewerFocalPoint": "50% 50%",
       "galleryName": "Beverage product visualization",
+      "presentation": {
+        "fit": "contain",
+        "objectPosition": "50% 50%",
+        "backdrop": "media",
+        "brightness": 0.88,
+        "saturation": 0.65
+      }
+    },
+    {
+      "id": "cable-snake:final:hero-loop.mp4",
+      "kind": "video",
+      "src": "/media/fcc5f6a09fabe0684436.mp4",
+      "poster": {
+        "src": "/media/aabd7aeef873bdf5a768.webp"
+      },
+      "thumbnail": "/media/aabd7aeef873bdf5a768.webp",
+      "title": "Cable Snake",
+      "alt": "Short finished Cable Snake character turnaround.",
+      "focalPoint": "50% 50%",
+      "caseSlug": "cable-snake",
+      "loop": true,
+      "hasAudio": false,
+      "publicHeadline": "Recreating a stop-motion cable snake in 3D for Twist Wireless.",
+      "context": "CG character build, rigging, and animation for Twist Wireless.",
+      "metadata": "Deven Langston / Twist Wireless / CG character build / Rigging",
+      "width": 1600,
+      "height": 900,
+      "viewerFit": "contain",
+      "viewerFocalPoint": "50% 50%",
+      "galleryName": "Cable Snake",
       "presentation": {
         "fit": "contain",
         "objectPosition": "50% 50%",

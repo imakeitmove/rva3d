@@ -179,8 +179,18 @@ const axeWhaxeLilBabyBeforeSafetyAudit = {
 
 // Public-safe selection, 2026-09-15. The richer record above is preserved
 // for permission review; only the final-work selection below is exported.
-export const axeWhaxeLilBaby = {
+const axeWhaxeLilBabyFinalOnlyAudit = {
   ...axeWhaxeLilBabyBeforeSafetyAudit,
   processChapters: [axeWhaxeLilBabyLegacy.processChapters[0], { ...axeWhaxeLilBabyLegacy.processChapters[1], media: [] }, axeWhaxeLilBabyLegacy.processChapters[2]],
   editorial: { ...axeWhaxeLilBabyBeforeSafetyAudit.editorial, sections: axeWhaxeLilBabyBeforeSafetyAudit.editorial.sections.filter(section => section.id !== "closer-look") },
+} satisfies WorkCaseStudy;
+
+// Project-specific public authorization, 2026-09-15. Rich media restored;
+// the corrected contribution, known credits, summary and SEO remain authoritative.
+export const axeWhaxeLilBaby = {
+  ...axeWhaxeLilBabyFinalOnlyAudit,
+  heroMedia: axeWhaxeLilBabyBeforeSafetyAudit.heroMedia,
+  galleryMedia: axeWhaxeLilBabyBeforeSafetyAudit.galleryMedia,
+  processChapters: axeWhaxeLilBabyBeforeSafetyAudit.processChapters,
+  editorial: { ...axeWhaxeLilBabyBeforeSafetyAudit.editorial },
 } satisfies WorkCaseStudy;

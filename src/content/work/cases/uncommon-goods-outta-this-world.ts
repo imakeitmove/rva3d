@@ -151,3 +151,11 @@ export const uncommonGoodsOuttaThisWorldPublic = {
     ],
   },
 } satisfies WorkCaseStudy;
+
+// Rich review keeps corrected authorship, production credits and summary.
+export const uncommonGoodsPermissionReview = {
+  ...uncommonGoodsOuttaThisWorldPublic,
+  galleryMedia: uncommonGoodsOuttaThisWorld.galleryMedia,
+  processChapters: uncommonGoodsOuttaThisWorld.processChapters,
+  editorial: uncommonGoodsOuttaThisWorld.editorial,
+} satisfies WorkCaseStudy;

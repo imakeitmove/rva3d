@@ -8,6 +8,7 @@ import { capabilities } from "@/content/capabilities";
 import { headline, protectedMedia } from "@/lib/site/content";
 import { siteHref } from "@/lib/site/paths";
 import { BrandText } from "./Brand";
+import { PermissionReviewShell } from "./PermissionReviewShell";
 import { Shell } from "./Shell";
 import { SiteMedia } from "./SiteMedia";
 import styles from "./EditorialCasePage.module.css";
@@ -64,10 +65,11 @@ function EditorialSection({ section }: { section: WorkEditorialSection }) {
 }
 
 // Opt-in composition: existing cases continue through the original chapter renderer.
-export function EditorialCasePage({ study, editorial, next }: {
+export function EditorialCasePage({ study, editorial, next, permissionReview = false }: {
   study: WorkCaseStudy;
   editorial: WorkEditorial;
-  next: WorkCaseStudy;
+  next?: WorkCaseStudy;
+  permissionReview?: boolean;
 }) {
   const related = capabilities.filter(item => study.capabilities.includes(item.title));
   // Previous GEICO-only selector retained for restoration; both cases now opt in through content.
@@ -76,10 +78,11 @@ export function EditorialCasePage({ study, editorial, next }: {
   const closingMedia = editorial.closingBand
     ? editorial.sections.find(section => section.id === editorial.closingBand?.sectionId)
     : undefined;
-  return <Shell><article className={`case-story ${styles.story}`} data-editorial-case={study.slug}>
+  const PageShell = permissionReview ? PermissionReviewShell : Shell;
+  return <PageShell><article className={`case-story ${styles.story}`} data-editorial-case={study.slug}>
     <section className="case-opening" data-tone="paper">
       <div className="v-frame">
-        <a className="editorial-link" href={siteHref(`/work#${study.slug}`)}>← Back to Work</a>
+        {!permissionReview && <a className="editorial-link" href={siteHref(`/work#${study.slug}`)}>← Back to Work</a>}
         <p className="label">{editorial.context} · Prior work by Deven Langston</p>
         <h1>{editorial.heading}</h1>
         <p className="editorial-lead">{study.summary}</p>
@@ -110,18 +113,18 @@ export function EditorialCasePage({ study, editorial, next }: {
       <h2>{editorial.closing.heading}</h2>
       <p><BrandText text={editorial.closing.copy} /></p>
       {/* Previously adjacent CTA content; the scoped wrapper now adds an editorial pause. */}
-      <div className={styles.contactCta}>
+      {!permissionReview && <><div className={styles.contactCta}>
       <p>{editorial.closing.ctaText}</p>
       <a className="button" href={siteHref("/#contact")}>Get in touch ↗</a>
       </div>
       <div className="related-capabilities"><h3>Related capabilities</h3>
         {related.map(item => <a className="editorial-link" key={item.slug} href={siteHref(`/capabilities#${item.slug}`)}>{item.title} ↗</a>)}
-      </div>
+      </div></>}
     </section>
     </div>
-    <nav className="v-broad case-next" aria-label="More projects" data-tone="paper">
+    {!permissionReview && next && <nav className="v-broad case-next" aria-label="More projects" data-tone="paper">
       <div><p className="label">Next project</p><a href={siteHref(`/work/${next.slug}`)}>{headline[next.slug]} ↗</a></div>
       <a className="editorial-link" href={siteHref(`/work#${study.slug}`)}>← Back to Work</a>
-    </nav>
-  </article></Shell>;
+    </nav>}
+  </article></PageShell>;
 }

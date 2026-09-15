@@ -14,7 +14,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test:content": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test scripts/content-spine.test.mjs scripts/public-release.test.mjs scripts/preview-assets.test.mjs scripts/release-workflow.test.mjs",
+    "test:content": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test scripts/content-spine.test.mjs scripts/public-release.test.mjs scripts/preview-assets.test.mjs scripts/release-workflow.test.mjs scripts/review-session.test.mjs",
     "verify:public-release": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/verify-public-release.mjs"
   },
   "dependencies": {

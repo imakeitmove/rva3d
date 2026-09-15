@@ -188,7 +188,7 @@ const amsoilXpdWindGreaseBeforeSafetyAudit = {
 
 // Public-safe selection, 2026-09-15. The richer record above is preserved
 // for permission review; only the final-work selection below is exported.
-export const amsoilXpdWindGrease = {
+const amsoilXpdWindGreaseFinalOnlyAudit = {
   ...amsoilXpdWindGreaseBeforeSafetyAudit,
   processChapters: [amsoilXpdWindGreaseLegacy.processChapters[2]],
   editorial: {
@@ -203,4 +203,14 @@ export const amsoilXpdWindGrease = {
     ],
   },
   seo: { ...amsoilXpdWindGreaseLegacy.seo, description: "Technical visualization by Deven Langston: a reconstructed wind-turbine assembly and animation comparing three grease conditions for AMSOIL." },
+} satisfies WorkCaseStudy;
+
+// Project-specific public authorization, 2026-09-15. Rich media restored;
+// the corrected contribution, known credits, summary and SEO remain authoritative.
+export const amsoilXpdWindGrease = {
+  ...amsoilXpdWindGreaseFinalOnlyAudit,
+  heroMedia: amsoilXpdWindGreaseBeforeSafetyAudit.heroMedia,
+  galleryMedia: amsoilXpdWindGreaseBeforeSafetyAudit.galleryMedia,
+  processChapters: amsoilXpdWindGreaseBeforeSafetyAudit.processChapters,
+  editorial: { ...amsoilXpdWindGreaseBeforeSafetyAudit.editorial },
 } satisfies WorkCaseStudy;

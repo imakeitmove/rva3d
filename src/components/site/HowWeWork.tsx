@@ -42,7 +42,7 @@ export function HowWeWork() {
                 src={mediaUrl(processMedia.wide.src)}
                 width={processMedia.wide.width}
                 height={processMedia.wide.height}
-                alt={processMedia.alt}
+                alt="A hands-on build and technical visualization from Deven Langston’s experience behind RVA3D."
                 // Keep the finished fixture in view within the existing shallow image band.
                 style={{ objectPosition: "50% 28%" }}
                 unoptimized

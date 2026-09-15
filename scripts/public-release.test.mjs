@@ -164,9 +164,11 @@ test("legacy approved gate retains Notion and exact 1200 by 630 requirements", a
 // });
 //
 //
-test("release registry pins eight owner-approved cases and the exact conservative final-media selection", async () => {
-  const result = await verifyPublicApprovedRelease(root, { verifyDimensions: false });
-  assert.deepEqual(result, { status: "PASS", studies: 8, assets: 63, logicalUrls: 106, seoDimensionsVerified: false });
+test("release registry pins eight owner-approved cases and the exact selectively restored public-media selection", async () => {
+  const result = await verifyPublicApprovedRelease(root, { verifyDimensions: false, allowReviewAssets: true });
+  const { reviewAssets, ...publicResult } = result;
+  assert([undefined, 0, 17].includes(reviewAssets));
+  assert.deepEqual(publicResult, { status: "PASS", studies: 8, assets: 145, logicalUrls: 208, seoDimensionsVerified: false });
 });
 
 // GEICO Phase 2 covers the editorial contract and prevents approval drift in shared media.
@@ -241,7 +243,7 @@ test("optional responsive and editorial fields fail on invalid geometry or dupli
   const study = structuredClone(workRecords.find(item => item.slug === "geico-geckos-cereal-box"));
   // Previous sequence: study.heroMedia.sources[0].height = 1;
   // The public final still has no responsive derivatives. Inject an invalid one to test validation.
-  study.editorial.sections[2].media.sources = [{ src: study.editorial.sections[2].media.src, width: 100, height: 1 }];
+  study.editorial.sections[4].media.sources = [{ src: study.editorial.sections[4].media.src, width: 100, height: 1 }];
   assert.throws(() => validatePublicApprovedCaseStudy(study), /aspect ratio differs/);
   const duplicate = structuredClone(workRecords.find(item => item.slug === "geico-geckos-cereal-box"));
   duplicate.editorial.sections[1].id = duplicate.editorial.sections[0].id;
@@ -322,16 +324,21 @@ test("an explicit closing band cannot select missing, earlier or unsupported con
 test("withdrawn assets and all logical aliases are excluded from public delivery and serialized case content", async () => {
   const registry = JSON.parse(await fs.readFile(path.join(root, "src/content/site/media.generated.json"), "utf8"));
   const urls = JSON.parse(await fs.readFile(path.join(root, "src/content/site/media-urls.generated.json"), "utf8"));
-  const archive = JSON.parse(await fs.readFile(path.join(root, "src/content/site/review_media_archive.generated.json"), "utf8")).publicSafetyAudit20260915;
+  const archiveFile = JSON.parse(await fs.readFile(path.join(root, "src/content/site/review_media_archive.generated.json"), "utf8"));
+  const archive = archiveFile.publicSafetyAudit20260915;
+  const { restoredKeys, privateKeys } = archiveFile.projectPublicationRevision20260915;
+  assert.equal(restoredKeys.length, 82);
+  assert.equal(privateKeys.length, 17);
+  for (const key of restoredKeys) assert.equal(registry[key].publication, "public-approved");
   assert.equal(Object.keys(archive.manifest).length, 99);
   const publicCases = JSON.stringify(workRecords);
-  for (const key of Object.keys(archive.manifest)) {
-    assert.equal(registry[key], undefined, key + " must not be served");
+  for (const key of privateKeys) {
+    assert([undefined, "private-review-only"].includes(registry[key]?.publication), key + " must not be public");
     assert.equal(isPublicMediaEntry(registry[key]), false);
     assert(!publicCases.includes(key));
   }
-  for (const logical of Object.keys(archive.urls)) {
-    assert.equal(urls[logical], undefined, logical + " must not resolve");
+  for (const [logical, delivery] of Object.entries(archive.urls).filter(([, delivery]) => privateKeys.includes(delivery.split("/").at(-1)))) {
+    assert([undefined, "/review/assets/" + delivery.split("/").at(-1)].includes(urls[logical]), logical + " must not resolve publicly");
     assert(!publicCases.includes(logical), logical + " leaked into public case data");
   }
   function check(value) {
@@ -346,17 +353,18 @@ test("withdrawn assets and all logical aliases are excluded from public delivery
   for (const file of ["home.generated.json", "capability-proof-v2.generated.json", "how_we_work_media.generated.json"]) {
     const content = JSON.parse(await fs.readFile(path.join(root, "src/content/site", file), "utf8"));
     check(content);
-    for (const key of Object.keys(archive.manifest)) assert(!JSON.stringify(content).includes(key));
+    for (const key of privateKeys) assert(!JSON.stringify(content).includes(key));
   }
 });
 
 test("GEICO and Uncommon Goods retain final edits and scoped historical attribution", () => {
   const geico = workRecords.find(item => item.slug === "geico-geckos-cereal-box");
   assert.equal(geico.heroMedia.src, "/media/work/geico-geckos-cereal-box/geico-final.mp4");
-  assert.deepEqual(geico.editorial.sections.map(section => section.id), ["performance", "integration", "finished-shot"]);
+  assert.deepEqual(geico.editorial.sections.map(section => section.id), ["performance", "physical-reference", "integration", "build-details", "pre-color-composite"]);
   assert.match(geico.authorship, /Deven Langston/);
   assert.match(geico.editorial.closing.copy, /separate Flame artist/);
   assert.doesNotMatch(geico.seo.description, /by RVA3D/);
+  assert.doesNotMatch(JSON.stringify(geico.editorial), /RVA3D (?:developed|composite)|RVA3D’s work/);
   const uncommon = workRecords.find(item => item.slug === "uncommon-goods-outta-this-world");
   assert.match(uncommon.heroMedia.src, /commercial_30/);
   assert.match(uncommon.editorial.sections.at(-1).media.src, /commercial_15/);

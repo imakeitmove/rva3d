@@ -222,7 +222,7 @@ const cableSnakeBeforeSafetyAudit = {
 
 // Public-safe selection, 2026-09-15. The richer record above is preserved
 // for permission review; only the final-work selection below is exported.
-export const cableSnake = {
+const cableSnakeFinalOnlyAudit = {
   ...cableSnakeBeforeSafetyAudit,
   summary: "For Twist Wireless's Cable is a Snake campaign, Deven Langston built and animated the digital counterpart to a practical puppet, matching its appearance and integrating it into live-action scenes. The campaign was produced through Spang and Dotted Line.",
   processChapters: [cableSnakeLegacy.processChapters[3]],
@@ -236,4 +236,14 @@ export const cableSnake = {
     ],
   },
   seo: { ...cableSnakeLegacy.seo, description: "Deven Langston's digital character build, animation and compositing for Twist Wireless, through Spang and Dotted Line." },
+} satisfies WorkCaseStudy;
+
+// Project-specific public authorization, 2026-09-15. Rich media restored;
+// the corrected contribution, known credits, summary and SEO remain authoritative.
+export const cableSnake = {
+  ...cableSnakeFinalOnlyAudit,
+  heroMedia: cableSnakeBeforeSafetyAudit.heroMedia,
+  galleryMedia: cableSnakeBeforeSafetyAudit.galleryMedia,
+  processChapters: cableSnakeBeforeSafetyAudit.processChapters,
+  editorial: { ...cableSnakeBeforeSafetyAudit.editorial },
 } satisfies WorkCaseStudy;

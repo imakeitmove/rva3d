@@ -211,7 +211,7 @@ const wawaCoffeeIslandBeforeSafetyAudit = {
 
 // Public-safe selection, 2026-09-15. The richer record above is preserved
 // for permission review; only the final-work selection below is exported.
-export const wawaCoffeeIsland = {
+const wawaCoffeeIslandFinalOnlyAudit = {
   ...wawaCoffeeIslandBeforeSafetyAudit,
   processChapters: [wawaCoffeeIslandLegacy.processChapters[3]],
   editorial: {
@@ -226,4 +226,14 @@ export const wawaCoffeeIsland = {
   },
   credits: [...wawaCoffeeIslandLegacy.credits, { name: "Pak-It Displays", role: "Fixture design and commissioning client" }],
   seo: { ...wawaCoffeeIslandLegacy.seo, description: "Deven Langston's retail visualization for Pak-It Displays: a fully stocked Wawa Coffee Island, developed from supplied fixture CAD." },
+} satisfies WorkCaseStudy;
+
+// Project-specific public authorization, 2026-09-15. Rich media restored;
+// the corrected contribution, known credits, summary and SEO remain authoritative.
+export const wawaCoffeeIsland = {
+  ...wawaCoffeeIslandFinalOnlyAudit,
+  heroMedia: wawaCoffeeIslandBeforeSafetyAudit.heroMedia,
+  galleryMedia: wawaCoffeeIslandBeforeSafetyAudit.galleryMedia,
+  processChapters: wawaCoffeeIslandBeforeSafetyAudit.processChapters,
+  editorial: { ...wawaCoffeeIslandBeforeSafetyAudit.editorial },
 } satisfies WorkCaseStudy;

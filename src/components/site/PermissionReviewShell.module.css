@@ -1,0 +1,4 @@
+.header { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 24px clamp(20px, 4vw, 64px); background: #181818; color: #fff; font-weight: 600; }
+.header button { color: inherit; background: transparent; border: 1px solid #888; border-radius: 3px; padding: 10px 16px; cursor: pointer; }
+.header button:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.notice { padding: 20px clamp(20px, 4vw, 64px); background: #eee9df; color: #333; line-height: 1.6; }

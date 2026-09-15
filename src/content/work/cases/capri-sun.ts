@@ -167,3 +167,11 @@ export const capriSun = {
   editorial: { ...capriSunBeforeSafetyAudit.editorial, sections: capriSunBeforeSafetyAudit.editorial.sections.filter(section => section.id !== "closer-look") },
   seo: { ...capriSunLegacy.seo, description: "Deven Langston's 3D product visualization and animation for Capri Sun through Candy Factory, across three campaign assignments." },
 } satisfies WorkCaseStudy;
+
+// Used only by the authenticated, project-scoped clearance presentation.
+export const capriSunPermissionReview = {
+  ...capriSun,
+  galleryMedia: capriSunBeforeSafetyAudit.galleryMedia,
+  processChapters: capriSunBeforeSafetyAudit.processChapters,
+  editorial: capriSunBeforeSafetyAudit.editorial,
+} satisfies WorkCaseStudy;

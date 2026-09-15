@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { verifyPrivateReviewToken, PRIVATE_REVIEW_COOKIE } from "@/lib/private_review_auth";
+import { verifyPrivateReviewToken, privateReviewTokenScope, PRIVATE_REVIEW_COOKIE } from "@/lib/private_review_auth";
+import { canReviewAsset, permissionReviewAvailable } from "@/lib/permission-review";
 import { safeReviewNext } from "@/lib/review-boundary";
 import { isPublicProduction } from "@/lib/site/runtime-environment";
 
@@ -37,6 +38,15 @@ export function proxy(request: NextRequest) {
 
   const token = request.cookies.get(PRIVATE_REVIEW_COOKIE)?.value;
   const authenticated = !!token && verifyPrivateReviewToken(token);
+  const scope = token ? privateReviewTokenScope(token) : null;
+  if (pathname.startsWith("/review/projects/")) {
+    const slug = pathname.slice("/review/projects/".length).replace(/\/$/, "");
+    if (!permissionReviewAvailable(slug)) return finishPrivate(new NextResponse(null, { status: 404 }));
+    if (!token || !verifyPrivateReviewToken(token, Date.now(), slug)) return finishPrivate(NextResponse.redirect(new URL("/review/login?next=" + encodeURIComponent(safeReviewNext(pathname)), request.url), 303));
+    return finishPrivate(NextResponse.next());
+  }
+  if (pathname.startsWith("/review/assets/")) return finishPrivate(canReviewAsset(scope, pathname.slice("/review/assets/".length)) ? NextResponse.next() : new NextResponse(null, { status: 404 }));
+  if (pathname === "/review/logout") return finishPrivate(scope ? NextResponse.next() : new NextResponse(null, { status: 404 }));
   if (pathname === "/review" || pathname === "/review/") return finishPrivate(NextResponse.redirect(new URL("/review/site/", request.url), 303));
   if (pathname.startsWith("/review/site")) {
     if (!authenticated) return finishPrivate(NextResponse.redirect(new URL("/review/login?next=" + encodeURIComponent(safeReviewNext(pathname + request.nextUrl.search)), request.url), 303));

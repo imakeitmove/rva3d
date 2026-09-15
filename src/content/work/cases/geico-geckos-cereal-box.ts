@@ -395,7 +395,7 @@ const geicoGeckosCerealBoxBeforeSafetyAudit = {
 
 // Public-safe selection, 2026-09-15. The richer record above is preserved
 // for permission review; only the final-work selection below is exported.
-export const geicoGeckosCerealBox = {
+const geicoGeckosCerealBoxFinalOnlyAudit = {
   ...geicoGeckosCerealBoxBeforeSafetyAudit,
   summary: "For GEICO, Deven Langston served as VFX supervisor and lead animator on a cereal box that could perform like a character and still belong on a real kitchen table.",
   authorship: "Deven Langston developed the digital box, animation, lighting, renders and initial composite. A separate Flame artist handled finishing, composite touch-ups and consistency with the surrounding commercial.",
@@ -413,4 +413,14 @@ export const geicoGeckosCerealBox = {
     closing: { ...geicoGeckosCerealBoxBeforeSafetyAudit.editorial.closing,
       copy: "Deven's contribution carried the box from on-set reference through animation, lighting, rendering and the initial composite. A separate Flame artist handled finishing and adjustments for consistency with the surrounding commercial." },
   },
+} satisfies WorkCaseStudy;
+
+// Project-specific public authorization, 2026-09-15. Rich media restored;
+// the corrected contribution, known credits, summary and SEO remain authoritative.
+export const geicoGeckosCerealBox = {
+  ...geicoGeckosCerealBoxFinalOnlyAudit,
+  heroMedia: geicoGeckosCerealBoxBeforeSafetyAudit.heroMedia,
+  galleryMedia: geicoGeckosCerealBoxBeforeSafetyAudit.galleryMedia,
+  processChapters: geicoGeckosCerealBoxBeforeSafetyAudit.processChapters,
+  editorial: { ...geicoGeckosCerealBoxBeforeSafetyAudit.editorial, sections: geicoGeckosCerealBoxBeforeSafetyAudit.editorial.sections.map(section => section.id === "performance" ? { ...section, copy: "A hop, a turn, a little flex: each changes the box's personality. Deven explored different entrances and reactions to find how expressive it could be while still reading as cardboard. Early blocking made those choices visible before detailed lighting and compositing." } : section.id === "integration" ? { ...section, copy: "The surrounding objects mattered even where the photography stayed. Digital stand-ins provided surfaces for reflections, contact shading and occlusion, helping the animated box sit among the bowl, glass and milk bottle. Deven developed the lighting and renders, then brought those elements into the initial composite." } : section), contribution: geicoGeckosCerealBoxFinalOnlyAudit.authorship, closing: { ...geicoGeckosCerealBoxBeforeSafetyAudit.editorial.closing, copy: geicoGeckosCerealBoxFinalOnlyAudit.editorial.closing.copy } },
 } satisfies WorkCaseStudy;

@@ -53,7 +53,7 @@ export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy
       "CG in live action",
       "Cleanup & finishing"
     ],
-    "proof": "GEICO: Deven Langston supervised VFX and animated the cereal box, with lighting, rendering and initial compositing. A separate Flame artist handled final finishing."
+    "proof": "Bud Light Seltzer: Deven Langston replaced the truck-side wrap across several live-action shots. The breakdown shows original footage beside the finished effect."
   },
   "interactive-3d": {
     "promise": "Sometimes the picture needs to do something.",
@@ -69,7 +69,7 @@ export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy
       "Specialist collaboration",
       "Difficult shots & assets"
     ],
-    "proof": "Uncommon Goods: motion design, animation and compositing by Deven Langston through Spang TV, working from supplied creative direction."
+    "proof": "Fool Me Twice: animation controls beside the finished paper-cut character, from Deven Langston’s title-animation work on a 48-hour film project."
   }
 };
 // V1 copy retained for restoration; V2 reduces volume and replaces proof.

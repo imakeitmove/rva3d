@@ -1,21 +1,26 @@
 {
   "wide": {
-    "src": "/media/work/wawa-coffee-island/wawa_hero_island_v001.webp",
-    "width": 2400,
-    "height": 1350,
+    "src": "/media/how-we-work/how_we_work_process_montage_w2560_v001.webp",
+    "width": 2560,
+    "height": 512,
     "sources": [
       {
-        "src": "/media/work/wawa-coffee-island/wawa_hero_island_v001.webp",
-        "width": 2400,
-        "height": 1350
+        "src": "/media/how-we-work/how_we_work_process_montage_w1280_v001.webp",
+        "width": 1280,
+        "height": 256
+      },
+      {
+        "src": "/media/how-we-work/how_we_work_process_montage_w2560_v001.webp",
+        "width": 2560,
+        "height": 512
       }
     ]
   },
   "mobile": {
-    "src": "/media/work/wawa-coffee-island/wawa_hero_island_v001.webp",
-    "width": 2400,
-    "height": 1350
+    "src": "/media/how-we-work/how_we_work_process_montage_mobile_w700_v001.webp",
+    "width": 700,
+    "height": 350
   },
-  "alt": "Finished Wawa Coffee Island visualization by Deven Langston for Pak-It Displays.",
-  "mobileAlt": "Finished Wawa Coffee Island visualization by Deven Langston for Pak-It Displays."
+  "alt": "RVA3D process montage: wireframes, components, a hands-on wooden build, and technical and illustrative 3D work.",
+  "mobileAlt": "A hands-on wooden build beside a 3D cutaway visualization in the RVA3D process montage."
 }
