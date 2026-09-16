@@ -582,7 +582,7 @@ Previous reference metrics: RVA 600/900; suffix 1.062em x .708em; stroke 3.6.
 .complete-site .v-fit-disclosure summary::-webkit-details-marker{display:none}
 .complete-site .v-fit-disclosure summary:focus-visible{outline:3px solid var(--rva-purple);outline-offset:8px;border-radius:2px}
 /* Previous bare chevron rotated 90deg; the circular down arrow now rotates 180deg. */
-.complete-site .v-fit-indicator{flex:none;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:var(--rva-purple);color:var(--rva-signal);font-size:28px;line-height:1}
+.complete-site .v-fit-indicator{flex:none;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:var(--rva-purple);/* Previous arrow color:var(--rva-signal); */color:#fff;font-size:28px;line-height:1}
 .complete-site .v-fit-indicator>span{display:block;transition:transform 180ms ease;transform:rotate(0deg)}
 .complete-site .v-fit-disclosure details[open] .v-fit-indicator>span{transform:rotate(180deg)}
 @media(prefers-reduced-motion:reduce){.complete-site .v-fit-indicator>span{transition:none}}
