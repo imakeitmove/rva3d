@@ -21,7 +21,7 @@ const amsoilXpdWindGreaseLegacy = {
   indexSummary:
     "A credible wind-turbine cutaway and controllable grease animation made three inaccessible mechanical conditions easy to compare.",
   summary:
-    "AMSOIL needed to show how different grease conditions behave inside a wind-turbine bearing, where conventional filming was impractical. Working from limited diagrams, reference footage, engineering guidance, and two stock models, Deven reconstructed a credible internal assembly and developed controllable grease animation.",
+    "AMSOIL needed to compare three grease conditions inside a wind-turbine bearing that a camera could not reach. We reconstructed the assembly from limited references and stock models, then developed the animation with engineering guidance.",
   problem:
     "The relevant mechanism was inaccessible to a camera, the available 3D models were incomplete, and the differences between correct filling, overpacking, and the wrong grease were visually subtle.",
   approach:
@@ -31,7 +31,7 @@ const amsoilXpdWindGreaseLegacy = {
   value:
     "One technically credible asset explained an otherwise hidden process and could be adapted from motion into a large-format sales environment.",
   authorship:
-    "Deven Langston handled the 3D reconstruction, look development, animation, lighting, rendering, compositing, and engineering-review revisions described in this case.",
+    "3D reconstruction, materials, animation, lighting, rendering and compositing, refined through engineering review.",
   role: [
     "3D reconstruction",
     "Technical visualization",
@@ -79,7 +79,7 @@ const amsoilXpdWindGreaseLegacy = {
       label: "Animation",
       title: "Control the grease without overbuilding the simulation.",
       summary:
-        "An art-directable Cinema 4D setup produced liquid-like movement inside the bearing while remaining fast to revise in response to creative feedback and engineering review.",
+        "A controllable animation setup made the grease move convincingly inside the bearing and kept revisions practical through creative and engineering review.",
       media: [
         {
           kind: "image",
@@ -202,7 +202,7 @@ const amsoilXpdWindGreaseFinalOnlyAudit = {
         copy: "The cutaway connects the bearing detail to the larger drivetrain.", media: amsoilXpdWindGreaseLegacy.heroMedia },
     ],
   },
-  seo: { ...amsoilXpdWindGreaseLegacy.seo, description: "Technical visualization by Deven Langston: a reconstructed wind-turbine assembly and animation comparing three grease conditions for AMSOIL." },
+  seo: { ...amsoilXpdWindGreaseLegacy.seo, description: "Inside an AMSOIL wind-turbine bearing: 3D reconstruction and animation make three grease conditions easy to compare." },
 } satisfies WorkCaseStudy;
 
 // Project-specific public authorization, 2026-09-15. Rich media restored;
@@ -214,3 +214,9 @@ export const amsoilXpdWindGrease = {
   processChapters: amsoilXpdWindGreaseBeforeSafetyAudit.processChapters,
   editorial: { ...amsoilXpdWindGreaseBeforeSafetyAudit.editorial },
 } satisfies WorkCaseStudy;
+
+// Copy audit 2026-09-16: replaced passages retained for editorial rollback.
+// AMSOIL needed to show how different grease conditions behave inside a wind-turbine bearing, where conventional filming was impractical. Working from limited diagrams, reference footage, engineering guidance, and two stock models, Deven reconstructed a credible internal assembly and developed controllable grease animation.
+// Deven Langston handled the 3D reconstruction, look development, animation, lighting, rendering, compositing, and engineering-review revisions described in this case.
+// An art-directable Cinema 4D setup produced liquid-like movement inside the bearing while remaining fast to revise in response to creative feedback and engineering review.
+// Technical visualization by Deven Langston: a reconstructed wind-turbine assembly and animation comparing three grease conditions for AMSOIL.

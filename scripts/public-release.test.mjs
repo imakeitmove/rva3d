@@ -167,8 +167,10 @@ test("legacy approved gate retains Notion and exact 1200 by 630 requirements", a
 test("release registry pins eight owner-approved cases and the exact selectively restored public-media selection", async () => {
   const result = await verifyPublicApprovedRelease(root, { verifyDimensions: false, allowReviewAssets: true });
   const { reviewAssets, ...publicResult } = result;
-  assert([undefined, 0, 17].includes(reviewAssets));
-  assert.deepEqual(publicResult, { status: "PASS", studies: 8, assets: 145, logicalUrls: 208, seoDimensionsVerified: false });
+  // Previous review packages contained 0 or 17 derivatives. This local pass adds 12.
+  assert([undefined, 0, 12, 17, 29].includes(reviewAssets));
+  // Previous approved selection: 145 assets / 208 logical URLs.
+  assert.deepEqual(publicResult, { status: "PASS", studies: 8, assets: 157, logicalUrls: 220, seoDimensionsVerified: false });
 });
 
 // GEICO Phase 2 covers the editorial contract and prevents approval drift in shared media.
@@ -243,7 +245,9 @@ test("optional responsive and editorial fields fail on invalid geometry or dupli
   const study = structuredClone(workRecords.find(item => item.slug === "geico-geckos-cereal-box"));
   // Previous sequence: study.heroMedia.sources[0].height = 1;
   // The public final still has no responsive derivatives. Inject an invalid one to test validation.
-  study.editorial.sections[4].media.sources = [{ src: study.editorial.sections[4].media.src, width: 100, height: 1 }];
+  // Select by meaning so story reordering does not invalidate the geometry test.
+  const composite = study.editorial.sections.find(section => section.id === "pre-color-composite");
+  composite.media.sources = [{ src: composite.media.src, width: 100, height: 1 }];
   assert.throws(() => validatePublicApprovedCaseStudy(study), /aspect ratio differs/);
   const duplicate = structuredClone(workRecords.find(item => item.slug === "geico-geckos-cereal-box"));
   duplicate.editorial.sections[1].id = duplicate.editorial.sections[0].id;
@@ -345,6 +349,7 @@ test("withdrawn assets and all logical aliases are excluded from public delivery
     if (!value || typeof value !== "object") return;
     if (typeof value.src === "string" && value.src.startsWith("/")) {
       const delivery = urls[value.src] ?? value.src;
+      // September 16 deployment authorization makes the reviewed additions public too.
       assert(isPublicMediaEntry(registry[delivery.split("/").at(-1)]), "Public media does not resolve: " + value.src);
     }
     Object.values(value).forEach(check);
@@ -360,11 +365,13 @@ test("withdrawn assets and all logical aliases are excluded from public delivery
 test("GEICO and Uncommon Goods retain final edits and scoped historical attribution", () => {
   const geico = workRecords.find(item => item.slug === "geico-geckos-cereal-box");
   assert.equal(geico.heroMedia.src, "/media/work/geico-geckos-cereal-box/geico-final.mp4");
-  assert.deepEqual(geico.editorial.sections.map(section => section.id), ["performance", "physical-reference", "integration", "build-details", "pre-color-composite"]);
-  assert.match(geico.authorship, /Deven Langston/);
+  // Previous GEICO order retained: assert.deepEqual(geico.editorial.sections.map(section => section.id), ["performance", "physical-reference", "integration", "build-details", "pre-color-composite"]);
+  assert.deepEqual(geico.editorial.sections.map(section => section.id), ["performance", "blocking", "physical-reference", "reference-pair", "integration", "pre-color-composite", "build-details"]);
+  assert(geico.credits.some(credit => credit.name === "Deven Langston"));
   assert.match(geico.editorial.closing.copy, /separate Flame artist/);
-  assert.doesNotMatch(geico.seo.description, /by RVA3D/);
-  assert.doesNotMatch(JSON.stringify(geico.editorial), /RVA3D (?:developed|composite)|RVA3D’s work/);
+  assert.match(geico.authorship, /initial composit/);
+  assert.match(geico.authorship, /separate Flame artist/);
+  assert.doesNotMatch(JSON.stringify(geico.editorial), /RVA3D was hired|commissioned RVA3D|RVA3D team produced/);
   const uncommon = workRecords.find(item => item.slug === "uncommon-goods-outta-this-world");
   assert.match(uncommon.heroMedia.src, /commercial_30/);
   assert.match(uncommon.editorial.sections.at(-1).media.src, /commercial_15/);
@@ -372,3 +379,48 @@ test("GEICO and Uncommon Goods retain final edits and scoped historical attribut
   assert(uncommon.credits.some(credit => credit.name === "Spang TV"));
   assert(!uncommon.credits.some(credit => credit.organization === "RVA3D"));
 });
+
+// Copy audit follow-up: previous wording retained.
+// assert.match(geico.authorship, /Deven Langston/);
+
+// Copy audit follow-up: previous wording retained.
+// assert.doesNotMatch(geico.seo.description, /by RVA3D/);
+
+// Copy audit follow-up: previous wording retained.
+// assert.doesNotMatch(JSON.stringify(geico.editorial), /RVA3D (?:developed|composite)|RVA3D’s work/);
+
+// Caption-only disclosures remain bounded and do not weaken text or media validation.
+test("case refinement keeps caption-only Cable evidence and approved media provenance", async () => {
+  const cable = workRecords.find(study => study.slug === "cable-snake");
+  const details = cable.editorial.sections.find(section => section.id === "closer-look");
+  assert.equal(details.copy, undefined);
+  assert.equal(details.media.length, 4);
+  assert(details.media.every(media => media.kind === "image"));
+  assert.doesNotThrow(() => validatePublicApprovedCaseStudy(cable));
+  const invalid = structuredClone(cable);
+  invalid.editorial.sections.find(section => section.id === "closer-look").copy = "";
+  assert.throws(() => validatePublicApprovedCaseStudy(invalid), /copy must not be empty/);
+  const provenance = JSON.parse(await fs.readFile(path.join(root, "src/content/site/case-refinement-20260916.provenance.json"), "utf8"));
+  const registry = JSON.parse(await fs.readFile(path.join(root, "src/content/site/media.generated.json"), "utf8"));
+  assert.equal(provenance.length, 12);
+  for (const asset of provenance) {
+    // Previous local selection: assert.equal(registry[asset.key].publication, "private-review-only");
+    assert.equal(registry[asset.key].publication, "public-approved");
+    assert.equal(registry[asset.key].approvedAt, "2026-09-16");
+    assert.equal(registry[asset.key].sourceSha256, asset.sourceSha256);
+    assert.equal(registry[asset.key].sha256, asset.sha256);
+  }
+});
+
+// Prior assertions retained after the local-only media and sequence changes:
+// assert([undefined, 0, 17].includes(reviewAssets));
+// study.editorial.sections[4].media.sources = [{ src: study.editorial.sections[4].media.src, width: 100, height: 1 }];
+
+// Previous local-only delivery assertion retained for provenance:
+//       // The requested local-only additions must resolve through the authenticated review route.
+//       if (value.src.startsWith("/media/work/refinement-20260916/")) {
+//         assert(delivery.startsWith("/review/assets/"));
+//         assert.equal(registry[delivery.split("/").at(-1)]?.publication, "private-review-only");
+//       } else {
+//         assert(isPublicMediaEntry(registry[delivery.split("/").at(-1)]), "Public media does not resolve: " + value.src);
+//       }

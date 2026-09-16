@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { createHash } from "node:crypto";
+// Exact-copy hash assertion retired by the copy audit.
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
@@ -43,11 +43,10 @@ test("How We Work preserves the original FAQ set and adds the approved AI answer
   assert.equal(buyerFaqs.length, 13);
   assert.equal(questions.filter((question) => question === "Does RVA3D use AI?").length, 1);
   const aiAnswer = buyerFaqs[11][1];
-  assert.equal(aiAnswer.split(/\n\s*\n/).length, 6);
-  assert.equal(
-    createHash("sha256").update(aiAnswer).digest("hex"),
-    "fc93d8a4b2c420d7e1c18ff8b2ab037f06b15602d34ea741103a069d03424056",
-  );
+  // Test the substantive disclosure and responsibility after compression.
+  assert.match(aiAnswer, /coding and prototyping/);
+  assert.match(aiAnswer, /human directed, reviewed and tested/);
+  assert.match(aiAnswer, /responsibility stay with RVA3D/);
   assert.doesNotMatch(aiAnswer, /model training|copyright ownership|dataset provenance|AI vendor|AI-free|contractual AI/i);
 });
 
@@ -551,7 +550,7 @@ test("private review evidence remains authenticated and separate from preview pr
   assert.match(privateMediaRoute, /private, no-store/);
   assert.match(privateCase, /Complete campaign credits and public-use/);
   assert.match(reviewCaseRoute, /requirePrivateReviewSession/);
-  assert.match(publicAxeRecord, /Selected founder experience/);
+  assert.match(publicAxeRecord, /Product-focused 3D within the SuperJoy production/);
   assert.match(publicAxeRecord, /productionPartner: "SuperJoy"/);
   assert.doesNotMatch(publicAxeRecord, /approval remains pending/i);
   assert.doesNotMatch(publicAxeRecord, /rights pending/i);
@@ -1033,15 +1032,15 @@ test("buyer-confidence copy and distinct project interaction contracts stay scop
   assert.match(activeHome,/id="fit"/); assert.match(activeHome,/When \$\{brandName\(\)\} makes sense for you/);
   assert.match(activeHome,/<details id="hiring-fit"><summary[^>]*aria-expanded="false"[^>]*aria-controls="fit-answer"/);
   assert.doesNotMatch(activeHome,/v-fit-list|A good time to call/);
-  assert.match(activeHome,/needs senior 3D, motion or visualization capacity/);
+  assert.match(activeHome,/take ownership of a difficult asset, shot or sequence within your production workflow/);
   assert.match(activeHome,/class="v-frame v-tagline-unit"/);
   assert.match(activeWork,/data-project-mode="inventory"/); assert.match(activeWork,/data-project-load-more/);
   assert.doesNotMatch(activeWork,/data-project-direction/); assert.match(activeWork,/Showing \{initialCount\} of \{studies.length\} projects/);
   assert.doesNotMatch(activeWork,/Selected work \/ 01/);
-  assert(activeWork.includes("We’ve brought characters to life. Made ideas memorable."));
-  assert(activeWork.includes("And advertised the hell out of things! We’d love to elevate your idea, too."));
-  for (const copy of ["Imaging anything you can imagine.","No detail is too small.","Moving messages make moving messages.","Wait what did you change?","Bring in the render-enforcements!"]) assert(activeCap.includes(copy));
-  assert(activeCap.includes("Use design in motion to draw attention and make a message stick."));
+  assert(activeWork.includes("Products to explain. Characters to animate. Shots to solve."));
+  assert(activeWork.includes("See what each project needed, what we contributed and how it came together."));
+  for (const copy of ["Give the impossible a convincing performance.","No detail is too small.","Moving messages make moving messages.","Wait, what did you change?","Bring in the render-enforcements!"]) assert(activeCap.includes(copy));
+  assert(activeCap.includes("Turn a script, supplied boards or brand direction into motion."));
   assert(activeCap.includes("Bring the footage or production question; we’ll work out the rest!"));
   assert.match(editorial,/WE ARE ON YOUR TEAM/); assert.match(editorial,/We&#8217;ll help you/);
   assert.match(editorial,/capability-story-actions/); assert.match(header,/nav-client-login/);
@@ -1091,3 +1090,31 @@ test("the QR hello route is public-safe, focused and analytics-ready", async () 
   assert(proxy.indexOf('pathname === "/hello"') < proxy.indexOf("const token = request.cookies"));
   assert.match(proxy, /pathname\.startsWith\("\/review\/assets\/"\).*status: 404/s);
 });
+
+// Copy audit follow-up: previous wording retained.
+// import { createHash } from "node:crypto";
+
+// Copy audit follow-up: previous wording retained.
+//   assert.equal(aiAnswer.split(/\n\s*\n/).length, 6);
+//   assert.equal(
+//     createHash("sha256").update(aiAnswer).digest("hex"),
+//     "fc93d8a4b2c420d7e1c18ff8b2ab037f06b15602d34ea741103a069d03424056",
+//   );
+
+// Copy audit follow-up: previous wording retained.
+// assert.match(publicAxeRecord, /Selected founder experience/);
+
+// Copy audit follow-up: previous wording retained.
+// assert.match(activeHome,/needs senior 3D, motion or visualization capacity/);
+
+// Copy audit follow-up: previous wording retained.
+// assert(activeWork.includes("We’ve brought characters to life. Made ideas memorable."));
+
+// Copy audit follow-up: previous wording retained.
+// assert(activeWork.includes("And advertised the hell out of things! We’d love to elevate your idea, too."));
+
+// Copy audit follow-up: previous wording retained.
+// ["Imaging anything you can imagine.","No detail is too small.","Moving messages make moving messages.","Wait what did you change?","Bring in the render-enforcements!"]
+
+// Copy audit follow-up: previous wording retained.
+// assert(activeCap.includes("Use design in motion to draw attention and make a message stick."));

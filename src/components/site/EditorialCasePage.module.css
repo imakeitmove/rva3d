@@ -265,3 +265,51 @@
     margin-left: auto;
   }
 }
+
+/* September 16 GEICO editorial pass: one reading measure and deliberate evidence scales.
+   Opt-in selectors preserve each other case's existing composition. */
+.publicStory[data-editorial-case="geico-geckos-cereal-box"] .beatCopy {
+  display: block;
+  max-width: 720px;
+  margin-inline: auto;
+  margin-bottom: 0;
+}
+.publicStory[data-editorial-case="geico-geckos-cereal-box"] .beatCopy h2 { max-width: 25ch; }
+.publicStory[data-editorial-case="geico-geckos-cereal-box"] .beatCopy p { margin-top: 24px; }
+.publicStory[data-editorial-case="geico-geckos-cereal-box"] .beat[data-kind="media"] > :global(.site-media) {
+  max-width: 1240px;
+  margin-inline: auto;
+}
+.publicStory[data-editorial-case="geico-geckos-cereal-box"] :global(#reference-pair) .mediaGroup {
+  max-width: 1080px;
+  margin-inline: auto;
+  gap: 28px;
+}
+.publicStory[data-editorial-case="geico-geckos-cereal-box"] :global(#build-details) {
+  max-width: 960px;
+  margin: clamp(64px, 8vw, 112px) auto 0;
+}
+.publicStory[data-editorial-case="geico-geckos-cereal-box"] :global(#build-details) .mediaGroup {
+  gap: 40px 28px;
+}
+.publicStory[data-editorial-case="geico-geckos-cereal-box"] .closing { max-width: 720px; }
+.publicStory[data-editorial-case="geico-geckos-cereal-box"] .closing h2 { max-width: 22ch; }
+/* WIP and fluid tests read as supporting production evidence. */
+.publicStory[data-editorial-case="axe-whaxe-lil-baby"] :global(#animation-wip) > :global(.site-media),
+.publicStory[data-editorial-case="desmi-rotan-pump"] :global(#fluid-research) > :global(.site-media) {
+  max-width: 1080px;
+  margin-inline: auto;
+}
+@media (min-width: 740px) and (max-width: 900px) {
+  .publicStory[data-editorial-case="geico-geckos-cereal-box"] :global(#reference-pair) .mediaGroup,
+  .publicStory[data-editorial-case="geico-geckos-cereal-box"] :global(#build-details) .mediaGroup {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 739px) {
+  .publicStory[data-editorial-case="geico-geckos-cereal-box"] :global(#reference-pair) .mediaGroup,
+  .publicStory[data-editorial-case="geico-geckos-cereal-box"] :global(#build-details) .mediaGroup {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}

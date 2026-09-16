@@ -1,0 +1,142 @@
+[
+  {
+    "id": "cableHero-poster-v001",
+    "logical": "/media/work/refinement-20260916/cableHero-poster-v001.webp",
+    "key": "4184539dd78a247efac5.webp",
+    "source": "cable_snake/selected/TWISTBROADBAND_CableBill_30_Twist_REV_UNSLATED.mp4",
+    "sourceSha256": "a6ba84eba4f84e204dbe6378881da6ff16df433a23b41e2f9547ca3fe5cd779b",
+    "sha256": "4184539dd78a247efac55d0dd548247ee5b2081a6c45ae30482f46206a40770b",
+    "bytes": 66542,
+    "width": 1600,
+    "height": 900
+  },
+  {
+    "id": "cableHero-v001",
+    "logical": "/media/work/refinement-20260916/cableHero-v001.mp4",
+    "key": "b7796dc75b2a46f33efd.mp4",
+    "source": "cable_snake/selected/TWISTBROADBAND_CableBill_30_Twist_REV_UNSLATED.mp4",
+    "sourceSha256": "a6ba84eba4f84e204dbe6378881da6ff16df433a23b41e2f9547ca3fe5cd779b",
+    "sha256": "b7796dc75b2a46f33efd61cfbb92d09b5c5e29932dbe7dd65b5eade06b3aefaa",
+    "bytes": 6395323,
+    "width": 1600,
+    "height": 900,
+    "duration": 30.03,
+    "recipe": "H.264 CRF22, AAC128, faststart; full source duration"
+  },
+  {
+    "id": "wawaHero-poster-v001",
+    "logical": "/media/work/refinement-20260916/wawaHero-poster-v001.webp",
+    "key": "2995f5a88e3d5f298973.webp",
+    "source": "pakit_displays/wawa_coffee_island/LARGE_WAWA_ISLAND_FIXTURE_Presentation_V22.mp4",
+    "sourceSha256": "f48c9062d1d6e36fe364f36f5611da094d1146292e3743b4c663519548574cc7",
+    "sha256": "2995f5a88e3d5f2989735648acdbd1c43fdc445084805d4d401a3870d732030a",
+    "bytes": 87314,
+    "width": 1600,
+    "height": 900
+  },
+  {
+    "id": "wawaHero-v001",
+    "logical": "/media/work/refinement-20260916/wawaHero-v001.mp4",
+    "key": "6acb13358c0cd59ba0a2.mp4",
+    "source": "pakit_displays/wawa_coffee_island/LARGE_WAWA_ISLAND_FIXTURE_Presentation_V22.mp4",
+    "sourceSha256": "f48c9062d1d6e36fe364f36f5611da094d1146292e3743b4c663519548574cc7",
+    "sha256": "6acb13358c0cd59ba0a2ecb7920046191534eba49f9fa0809195b72b6debd829",
+    "bytes": 17434081,
+    "width": 1600,
+    "height": 900,
+    "duration": 44.041667,
+    "recipe": "H.264 CRF22, AAC128, faststart; full source duration"
+  },
+  {
+    "id": "whaxeWip-poster-v001",
+    "logical": "/media/work/refinement-20260916/whaxeWip-poster-v001.webp",
+    "key": "3344a4d6c250ea525ad1.webp",
+    "source": "axe_whaxe_lil_baby/process/WHAXE_animation_part21_V04_WIP.mp4",
+    "sourceSha256": "cc4ee5522501a7615a8c0e566c7400d46ac33bef75c6b482be234fe0fcba026d",
+    "sha256": "3344a4d6c250ea525ad1f4f03af4cabe95a35bf9210ddd4f692da9b0cdaeb3f5",
+    "bytes": 143144,
+    "width": 1600,
+    "height": 900
+  },
+  {
+    "id": "whaxeWip-v001",
+    "logical": "/media/work/refinement-20260916/whaxeWip-v001.mp4",
+    "key": "c755fa76db47fe877eb9.mp4",
+    "source": "axe_whaxe_lil_baby/process/WHAXE_animation_part21_V04_WIP.mp4",
+    "sourceSha256": "cc4ee5522501a7615a8c0e566c7400d46ac33bef75c6b482be234fe0fcba026d",
+    "sha256": "c755fa76db47fe877eb92c90baef51b48668717e1cd3dec88a76b59a7f38bcf5",
+    "bytes": 11577940,
+    "width": 1600,
+    "height": 900,
+    "duration": 15.124958,
+    "recipe": "H.264 CRF22, AAC128, faststart; full source duration"
+  },
+  {
+    "id": "desmiFluid-poster-v001",
+    "logical": "/media/work/refinement-20260916/desmiFluid-poster-v001.webp",
+    "key": "7b36892ea08318da1647.webp",
+    "source": "desmi_rotan_CHD/process/fluid_sim_RandD.mp4",
+    "sourceSha256": "88dd9e7c2c9e4d78da2226876561993a4993f8560f6f2237e8679b1469e0d1cb",
+    "sha256": "7b36892ea08318da1647a592496d5fb7f23c9ca4e82ff23b04a489597c1ff1cf",
+    "bytes": 126620,
+    "width": 1600,
+    "height": 900
+  },
+  {
+    "id": "desmiFluid-v001",
+    "logical": "/media/work/refinement-20260916/desmiFluid-v001.mp4",
+    "key": "7114aa1cb8055f753928.mp4",
+    "source": "desmi_rotan_CHD/process/fluid_sim_RandD.mp4",
+    "sourceSha256": "88dd9e7c2c9e4d78da2226876561993a4993f8560f6f2237e8679b1469e0d1cb",
+    "sha256": "7114aa1cb8055f75392879917b21159d201f1f994f52248630b5218bfc9bfa26",
+    "bytes": 17729493,
+    "width": 1600,
+    "height": 900,
+    "duration": 18.059708,
+    "recipe": "H.264 CRF22, AAC128, faststart; full source duration"
+  },
+  {
+    "id": "whaxeGeometry-v001",
+    "logical": "/media/work/refinement-20260916/whaxeGeometry-v001.webp",
+    "key": "23d6e04c8935d3287326.webp",
+    "source": "axe_whaxe_lil_baby/process/Screenshot 2026-09-16 063543.png",
+    "sourceSha256": "c5238938a626b3de8af7aa7648df3077263954de716f98b9c0f1506550fd992d",
+    "sha256": "23d6e04c8935d328732637d1b9df10b59561a4791e281608f2b5c14fd7b718d2",
+    "bytes": 157162,
+    "width": 1384,
+    "height": 1014
+  },
+  {
+    "id": "whaxeMaterial-v001",
+    "logical": "/media/work/refinement-20260916/whaxeMaterial-v001.webp",
+    "key": "73db00e430a554ba929d.webp",
+    "source": "axe_whaxe_lil_baby/process/Screenshot 2026-09-16 065350.png",
+    "sourceSha256": "a0a45bc501c21af94bc7a213b1024893dc89bd00781ae339fc1cb7ed82fc8cb0",
+    "sha256": "73db00e430a554ba929d5b115b189bbcb1c317be6cb59970cb75d870700f6316",
+    "bytes": 111196,
+    "width": 1440,
+    "height": 809
+  },
+  {
+    "id": "desmiGeometry-v001",
+    "logical": "/media/work/refinement-20260916/desmiGeometry-v001.webp",
+    "key": "4b91b646d88f022018cb.webp",
+    "source": "desmi_rotan_CHD/process/6994hd101echd-w-guard_triangulated.jpg",
+    "sourceSha256": "1218b5e08f3b2bc2aeb6cd83ffba67b4a79af4386c4cc786dec72623b1b5d37f",
+    "sha256": "4b91b646d88f022018cb6187d4da68353da58b75f78a43f1422ab8b25c3ec5f0",
+    "bytes": 115820,
+    "width": 1280,
+    "height": 720
+  },
+  {
+    "id": "desmiCutaway-v001",
+    "logical": "/media/work/refinement-20260916/desmiCutaway-v001.webp",
+    "key": "f71ea0d1d8e5e835b9d0.webp",
+    "source": "desmi_rotan_CHD/process/CASING_CLEANUP_v4_orange_cut_front.jpg",
+    "sourceSha256": "1f843e7e7f31824311782dc5098b5d001d5ad34591f866dd3e0f0d09578ac713",
+    "sha256": "f71ea0d1d8e5e835b9d01862e9080e4a6fd9cb32558ca3b2eeac3eee05b59775",
+    "bytes": 57462,
+    "width": 1440,
+    "height": 810
+  }
+]

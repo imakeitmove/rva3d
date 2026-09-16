@@ -20,9 +20,20 @@ export const workRecords = [
 
 export const portfolioWorkSlugs = [
   "cable-snake",
-  "amsoil-xpd-wind-grease",
-  "capri-sun",
   "axe-whaxe-lil-baby",
+  "capri-sun",
+  "amsoil-xpd-wind-grease",
   "wawa-coffee-island",
   "geico-geckos-cereal-box",
 ] as const;
+
+// September 16: WHAXE takes AMSOIL's initial-catalogue slot; all other positions stay fixed.
+// Previous portfolio order retained for rollback:
+// export const portfolioWorkSlugs = [
+//   "cable-snake",
+//   "amsoil-xpd-wind-grease",
+//   "capri-sun",
+//   "axe-whaxe-lil-baby",
+//   "wawa-coffee-island",
+//   "geico-geckos-cereal-box",
+// ] as const;

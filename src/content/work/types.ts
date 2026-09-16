@@ -86,7 +86,9 @@ export type WorkEditorialSection =
   // Previously standalone media only; optional supporting stills retain the primary media presentation.
   | { id: string; kind: "media"; heading?: string; copy?: string; description?: string; media: WorkMedia; supporting?: readonly WorkImageMedia[] }
   | { id: string; kind: "group"; heading?: string; copy?: string; layout?: "source-material"; media: readonly WorkMedia[]; emphasis?: "first" | "equal" }
-  | { id: string; kind: "details"; heading: string; copy: string; media: readonly WorkMedia[] };
+  // Previous: | { id: string; kind: "details"; heading: string; copy: string; media: readonly WorkMedia[] };
+  // A heading and image captions can fully explain a disclosure.
+  | { id: string; kind: "details"; heading: string; copy?: string; media: readonly WorkMedia[] };
 
 export type WorkEditorial = {
   // Brand may differ from the commissioning client (for example Wawa / Pak-It Displays).

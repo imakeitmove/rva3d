@@ -10,7 +10,10 @@ export function Contact({ testMode = false }: { testMode?: boolean }) {
     {/* Previous: <img className="v-contact-logo" src={data.logoStill} alt="RVA3D" width={280} height={96} /> */}
     <Image className="v-contact-logo" data-brand-artwork="contact" src={data.logoStill} alt="RVA3D" width={1172} height={352} unoptimized />
     <p className="label">THE IDEA IS NOT THE PROBLEM.</p><h2>Add<br /><em>dimension</em><br />to your work.</h2>
-    <p><Brand /> brings ideas to life with 3D animation, motion graphics, VFX, and interactive media.</p>
+    <p>Bring the brief, the rough idea or the part that has you stuck. We’ll work out where <Brand /> can help and what comes next.</p>
     <address><a href="mailto:hello@rva3d.com">hello@rva3d.com ↗</a><a href="tel:+18043928183">(804) 392-8183</a></address>
   </div>{/* Previous UI launch gate: process.env.RVA3D_PUBLIC_LAUNCH_ENABLED === "1". */}<InquiryForm testMode={testMode} sendingEnabled={publicInquiryDeliveryEnabled()} /></div><footer className="v-frame v-footer"><div><Brand /><span>Richmond, VA</span></div><nav className="v-footer-links" aria-label="Studio information"><a href={siteHref("/how-we-work")}>How we work</a><a href={siteHref("/how-we-work#faq")}>FAQ</a><a href={siteHref("/about#collaborate")}>{/* Previous label retained: Collaborate with <Brand /> */}Collaborate</a></nav><small>© 2026 Make It Move, LLC. All rights reserved.</small></footer></section>;
 }
+
+// Copy audit 2026-09-16: replaced passages retained for editorial rollback.
+// <Brand /> brings ideas to life with 3D animation, motion graphics, VFX, and interactive media.

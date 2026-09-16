@@ -1,7 +1,7 @@
 export const processSteps = [
-  ["Talk", "Start with the problem, audience, deliverables, timing, existing materials, constraints, and what success needs to look like."],
-  ["Define", "RVA3D turns that conversation into a clear scope, estimate, schedule, deliverables, and review plan before production begins."],
-  ["Make", "Concepting, design, visualization, animation, compositing, interactive development, or whatever combination the project actually requires."],
+  ["Talk", "Bring the problem, audience, deadline and whatever materials you have. We’ll work out what the project needs to achieve."],
+  ["Define", "Agree the scope, estimate, schedule, deliverables and review points before production begins."],
+  ["Make", "Develop the design, animation or shot work around the brief, with progress shared while there’s room to steer."],
   ["Refine", "Review work at useful checkpoints. The normal project structure includes two consolidated rounds of substantive client feedback unless the project scope says otherwise."],
   ["Deliver", "Final approved deliverables are prepared for the required platforms and formats, then released according to the agreed project terms."],
 ] as const;
@@ -9,11 +9,11 @@ export const processSteps = [
 export const buyerFaqs = [
   [
     "Who does RVA3D work with?",
-    "RVA3D works directly with brands and internal creative or marketing teams, and also partners with agencies, production companies and other creative studios. The common denominator is usually a project that needs strong visual problem-solving across 3D, motion, visualization, compositing or interactive work.",
+    "Brands, agencies, production companies and in-house creative teams. RVA3D can lead a project or handle a defined part of your production.",
   ],
   [
     "What happens after I get in touch?",
-    "Start with a conversation about the problem, deliverables, audience, timeline and any existing assets or constraints. From there RVA3D can define the scope, estimate, schedule and useful review points before production begins.",
+    "We’ll discuss what you need to make, when you need it and what you already have. From there, we can define the scope, estimate and review plan.",
   ],
   [
     "How are projects priced?",
@@ -53,20 +53,28 @@ export const buyerFaqs = [
   ],
   [
     "Does RVA3D use AI?",
-    `Yes. We use AI as a utility... not as a replacement for creativity, judgment, or craft.
-
-This website is actually a good example. AI helped us write code and build things that would have been impractical for a tiny studio to create otherwise. But every page, interaction, visual, word, and decision was directed, reviewed, tested, revised, and occasionally wrestled back onto the rails by an actual human.
-
-That’s how we think about AI in general.
-
-Computers have always expanded what creative people can do. You can’t 3D animate with a pencil. AI is another incredibly powerful tool, and pretending otherwise would be silly. But powerful tools still need someone at the helm who understands the work and knows why they’re making it.
-
-We don’t use AI as an excuse not to think, and we don’t want to contribute to replacing artists with thoughtless, soulless output. Our use of AI remains firmly on the utility side of the equation.
-
-It’s a complicated subject with real implications, and we’re happy to talk about it. We’re not hiding anything.`,
+    "Yes. We use AI for practical tasks such as coding and prototyping. This website is one example: AI helped build it; a human directed, reviewed and tested the work. Creative judgment and responsibility stay with RVA3D. We’re happy to discuss its use on your project.",
   ],
   [
     "What happens if a project needs more hands?",
     "RVA3D is intentionally senior-led and hands-on. When a project benefits from additional capacity or specialist expertise, RVA3D can bring in trusted freelance artists or production partners while remaining the client’s point of accountability.",
   ],
 ] as const;
+
+// Copy audit 2026-09-16: replaced passages retained for editorial rollback.
+// Start with the problem, audience, deliverables, timing, existing materials, constraints, and what success needs to look like.
+// RVA3D turns that conversation into a clear scope, estimate, schedule, deliverables, and review plan before production begins.
+// Concepting, design, visualization, animation, compositing, interactive development, or whatever combination the project actually requires.
+// RVA3D works directly with brands and internal creative or marketing teams, and also partners with agencies, production companies and other creative studios. The common denominator is usually a project that needs strong visual problem-solving across 3D, motion, visualization, compositing or interactive work.
+// Start with a conversation about the problem, deliverables, audience, timeline and any existing assets or constraints. From there RVA3D can define the scope, estimate, schedule and useful review points before production begins.
+//     `Yes. We use AI as a utility... not as a replacement for creativity, judgment, or craft.
+//
+// This website is actually a good example. AI helped us write code and build things that would have been impractical for a tiny studio to create otherwise. But every page, interaction, visual, word, and decision was directed, reviewed, tested, revised, and occasionally wrestled back onto the rails by an actual human.
+//
+// That’s how we think about AI in general.
+//
+// Computers have always expanded what creative people can do. You can’t 3D animate with a pencil. AI is another incredibly powerful tool, and pretending otherwise would be silly. But powerful tools still need someone at the helm who understands the work and knows why they’re making it.
+//
+// We don’t use AI as an excuse not to think, and we don’t want to contribute to replacing artists with thoughtless, soulless output. Our use of AI remains firmly on the utility side of the equation.
+//
+// It’s a complicated subject with real implications, and we’re happy to talk about it. We’re not hiding anything.`

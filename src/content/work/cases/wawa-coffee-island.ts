@@ -1,4 +1,5 @@
-import type { WorkCaseStudy } from "../types";
+import additions from "../../site/case-refinement-20260916.generated.json" with { type: "json" };
+import type { WorkCaseStudy, WorkVideoMedia } from "../types";
 
 const hero = {
   kind: "image",
@@ -20,7 +21,7 @@ const wawaCoffeeIslandLegacy = {
   indexSummary:
     "Supplied fixture CAD became a fully stocked, photoreal retail environment designed to support multiple configurations, stills, and motion.",
   summary:
-    "Pak-It Displays designed the Coffee Island as a modular fixture for different footprints and coffee programs. Showing that flexibility meant visualizing it in multiple configurations, fully stocked and convincing in both stills and motion. Deven handled the complete 3D visualization and production.",
+    "Pak-It Displays needed to show its modular Wawa Coffee Island in different configurations. We turned the supplied fixture CAD into a fully stocked 3D scene for stills and animation, down to the cups, packets and coffee bags.",
   problem:
     "The supplied CAD established the engineered fixture but not the dense, familiar environment around it. The work needed to hold up from wide views of the complete island to closeups tight enough to read individual products and materials.",
   approach:
@@ -28,9 +29,9 @@ const wawaCoffeeIslandLegacy = {
   result:
     "One production scene supported wide establishing views, close product details, animation, alternate camera angles, and multiple Coffee Island configurations without rebuilding the environment for each deliverable.",
   value:
-    "The visualization mirrored the product it presented: a flexible system designed to reconfigure across layouts and deliverables.",
+    "Pak-It Displays could show new layouts, camera angles and product details using the same scene, without rebuilding the environment for each deliverable.",
   authorship:
-    "Deven Langston handled CAD cleanup, scene construction, product and packaging reconstruction, scan- and photography-based texture creation, look development, dressing, lighting, rendering, animation, and compositing.",
+    "Complete 3D visualization: CAD cleanup, product reconstruction, materials, scene dressing, lighting, rendering, animation and compositing.",
   role: [
     "CAD cleanup and scene construction",
     "Product and packaging reconstruction",
@@ -182,7 +183,7 @@ const wawaCoffeeIslandBeforeSafetyAudit = {
   heroMedia: { ...wawaCoffeeIslandLegacy.heroMedia, caption: "The fully stocked Wawa Coffee Island, visualized in 3D." },
   editorial: {
     brand: "Wawa",
-    heading: "Build it once. Rearrange the possibilities.",
+    heading: "People can be very particular about their coffee.",
     context: "Wawa / Retail visualization",
     productionLabel: "Client",
     productionRole: "Pak-It Displays",
@@ -225,14 +226,14 @@ const wawaCoffeeIslandFinalOnlyAudit = {
     ],
   },
   credits: [...wawaCoffeeIslandLegacy.credits, { name: "Pak-It Displays", role: "Fixture design and commissioning client" }],
-  seo: { ...wawaCoffeeIslandLegacy.seo, description: "Deven Langston's retail visualization for Pak-It Displays: a fully stocked Wawa Coffee Island, developed from supplied fixture CAD." },
+  seo: { ...wawaCoffeeIslandLegacy.seo, description: "Wawa Coffee Island visualization for Pak-It Displays: supplied fixture CAD becomes a stocked 3D scene for multiple layouts, stills and animation." },
 } satisfies WorkCaseStudy;
 
 // Project-specific public authorization, 2026-09-15. Rich media restored;
 // the corrected contribution, known credits, summary and SEO remain authoritative.
 export const wawaCoffeeIsland = {
   ...wawaCoffeeIslandFinalOnlyAudit,
-  heroMedia: wawaCoffeeIslandBeforeSafetyAudit.heroMedia,
+  heroMedia: additions.wawaHero as WorkVideoMedia,
   galleryMedia: wawaCoffeeIslandBeforeSafetyAudit.galleryMedia,
   processChapters: wawaCoffeeIslandBeforeSafetyAudit.processChapters,
   // Previous sequence is preserved in wawaCoffeeIslandBeforeSafetyAudit.
@@ -254,3 +255,15 @@ export const wawaCoffeeIsland = {
     ],
   },
 } satisfies WorkCaseStudy;
+
+// Copy audit 2026-09-16: replaced passages retained for editorial rollback.
+// Pak-It Displays designed the Coffee Island as a modular fixture for different footprints and coffee programs. Showing that flexibility meant visualizing it in multiple configurations, fully stocked and convincing in both stills and motion. Deven handled the complete 3D visualization and production.
+// Deven Langston handled CAD cleanup, scene construction, product and packaging reconstruction, scan- and photography-based texture creation, look development, dressing, lighting, rendering, animation, and compositing.
+// The visualization mirrored the product it presented: a flexible system designed to reconfigure across layouts and deliverables.
+// Deven Langston's retail visualization for Pak-It Displays: a fully stocked Wawa Coffee Island, developed from supplied fixture CAD.
+
+// Case refinement 2026-09-16: prior active selection.
+//   heroMedia: wawaCoffeeIslandBeforeSafetyAudit.heroMedia,
+
+// Case refinement 2026-09-16: previous content retained for rollback.
+// Build it once. Rearrange the possibilities.

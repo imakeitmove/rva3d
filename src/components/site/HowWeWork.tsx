@@ -45,7 +45,7 @@ export function HowWeWork() {
                 src={mediaUrl(processMedia.wide.src)}
                 width={processMedia.wide.width}
                 height={processMedia.wide.height}
-                alt="A hands-on build and technical visualization from Deven Langston’s experience behind RVA3D."
+                alt="A physical build alongside its 3D technical visualization."
                 // Keep the finished fixture in view within the existing shallow image band.
                 style={{ objectPosition: "50% 28%" }}
                 unoptimized
@@ -334,3 +334,6 @@ export function HowWeWork() {
 //
 //
 //               <p>The version, the question and the feedback or approval needed to move forward.</p>
+
+// Copy audit 2026-09-16: replaced passages retained for editorial rollback.
+// A hands-on build and technical visualization from Deven Langston’s experience behind RVA3D.

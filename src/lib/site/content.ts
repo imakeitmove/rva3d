@@ -5,9 +5,10 @@
 // Public-safety audit 2026-09-15; previous wording retained for reference:
 // "authorship: \"Selected RVA3D technical-visualization work.\""
 import "server-only";
+import additions from "@/content/site/case-refinement-20260916.generated.json";
 import { workRecords } from "@/content/work/records";
 import { portfolioWorkSlugs } from "@/content/work/records";
-import type { WorkCaseStudy, WorkMedia } from "@/content/work/types";
+import type { WorkCaseStudy, WorkMedia, WorkImageMedia, WorkVideoMedia } from "@/content/work/types";
 import urls from "@/content/site/media-urls.generated.json";
 export const mediaUrl = (src: string) => {
   // An empty URL previously hid missing registry dependencies in otherwise valid HTML.
@@ -35,28 +36,34 @@ export const desmiReview: WorkCaseStudy = {
   value: "Together, the views give us a clearer way to discuss the mechanism: where the parts sit and what changes when the pump is moving.",
   // Previous private-review wording retained here for provenance.
   // authorship: "Selected RVA3D technical-visualization work, presented here for private review.",
-  authorship: "Selected technical visualization and animation from Deven Langston’s prior professional work.",
+  authorship: "Technical visualization and animation revealing the pump’s internal mechanism.",
   role: ["Technical visualization", "Animation"],
   capabilities: ["Product and Technical Visualization", "3D Animation"],
   // Previous heroMedia: desmiCutaway; motion now opens the short technical article.
   indexMedia: desmiCutaway, heroMedia: { ...desmiFilm, caption: "DESMI ROTAN chocolate-pump animation." }, galleryMedia: [desmiFilm],
   processChapters: [
-    { label: "Cutaway", title: "Open the housing. Keep the relationship.", summary: "The blue housing stays recognizable while the cutaway reveals the rotor and internal assembly. We can see the product and its mechanism in the same view.", media: [desmiCutaway] },
+    { label: "Cutaway", title: "Cut away without taking away.", summary: "The blue housing stays recognizable while the cutaway reveals the rotor and internal assembly. We can see the product and its mechanism in the same view.", media: [desmiCutaway] },
     { label: "In motion", title: "Follow the chocolate through the pump.", summary: "The animated example adds movement to the explanation. Paired with the cutaway, it lets us move from identifying the parts to watching the pump in action.", media: [desmiFilm] },
   ],
-  credits: [],
+  credits: [{ name: "Deven Langston", role: "Technical visualization and animation" }],
   editorial: {
-    heroHeading: "Pump animation", heading: "Make the inner workings visible.",
+    heroHeading: "Pump animation", heading: "Show us your insides.",
     context: "DESMI / Technical visualization", productionLabel: "Assignment",
     productionRole: "Cutaway imagery and pump animation",
-    contribution: "Technical visualization and animation by Deven Langston",
+    contribution: "Technical visualization and animation",
     sections: [
-      { id: "cutaway", kind: "media", heading: "Open the housing. Keep the relationship.",
+      { id: "cutaway", kind: "media", heading: "Cut away without taking away.",
         copy: "The blue housing stays recognizable while the cutaway reveals the rotor and internal assembly. We can see the product and its mechanism in the same view.",
         media: { ...desmiCutaway, caption: "A cutaway reveals the rotor and housing." } },
 // Earlier editorial wording retained; consolidated to avoid repeating the premise.
 //       { id: "in-motion", kind: "text", heading: "Connect the parts to the movement.",
 //         copy: "The animated chocolate-pump example adds movement to the explanation. Paired with the cutaway, it lets us move from identifying the parts to watching the pump in action." },
+      { id: "fluid-research", kind: "media", heading: "Work out how the material moves.",
+        copy: "The R&D reel moves through fluid tests, simplified views and shaded previews. We can examine the movement through the rotor separately from the finished product presentation.",
+        media: additions.desmiFluid as WorkVideoMedia },
+      { id: "model-preparation", kind: "details", heading: "From geometry to a readable cutaway",
+        copy: "The triangulated model and cutaway study show how the internal assembly becomes easier to read when the casing opens up.",
+        media: [additions.desmiGeometry as WorkImageMedia, additions.desmiCutaway as WorkImageMedia] },
       // The existing closing now supplies this comparison immediately after the cutaway.
     ],
     closing: { heading: "A clearer way to discuss the mechanism.",
@@ -92,7 +99,7 @@ export const context: Record<string, string> = {
   "cable-snake": "Twist Wireless / Spang · Dotted Line",
   "amsoil-xpd-wind-grease": "AMSOIL / Technical visualization",
   "capri-sun": "Capri Sun / Agency: Candy Factory",
-  "axe-whaxe-lil-baby": "AXE / SuperJoy / Selected founder experience",
+  "axe-whaxe-lil-baby": "AXE / SuperJoy",
   "wawa-coffee-island": "Wawa / Client: Pak-It Displays",
 };
 export function protectedMedia(media: WorkMedia): WorkMedia {
@@ -107,3 +114,13 @@ export function protectedMedia(media: WorkMedia): WorkMedia {
     ...(media.sources ? { sources: media.sources.map(source => ({ ...source, src: mediaUrl(source.src) })) } : {}),
   };
 }
+
+// Copy audit 2026-09-16: replaced passages retained for editorial rollback.
+// Selected technical visualization and animation from Deven Langston’s prior professional work.
+// Technical visualization and animation by Deven Langston
+// AXE / SuperJoy / Selected founder experience
+
+// Copy audit follow-up: previous wording retained.
+//   credits: [],
+
+// Case refinement previous headings: Make the inner workings visible. / Open the housing. Keep the relationship.

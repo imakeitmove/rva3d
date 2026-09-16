@@ -10,32 +10,32 @@ import type { CapabilitySlug } from "@/content/capabilities/types";
 export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy: string; uses: string[]; proof: string }> = {
   "3d-animation": {
     // Previous: "Imagine anything. Then make it real."
-    "promise": "Imaging anything you can imagine.",
-    "copy": "Build a product world with control over every camera move, material and moment. From supplied ingredients to finished animation, RVA3D develops the visual treatment, movement and lighting around the idea. Use it for a complete film or a few carefully made shots.",
+    "promise": "Give the impossible a convincing performance.",
+    "copy": "Show a product before it exists, give a character personality or take the camera somewhere it cannot go. RVA3D develops the models, look and movement for a complete film or a few demanding shots.",
     "uses": [
       "Product launches",
       "Character animation",
       "Impossible camera moves"
     ],
     // Previous proof described AXE WHAXE; the selected review example is now Five Below.
-    "proof": "From Deven Langston’s prior work: a Five Below zig-zag retail display brought into motion, making its shape and arrangement easy to follow."
+    "proof": "Five Below: an animated retail display makes its shape and arrangement easy to follow."
   },
   "product-technical-visualization": {
     // Previous: "Really get in there good!"
     // Previous approved punctuation: "No detail is too small!"
     "promise": "No detail is too small.",
-    "copy": "Show the inside of a mechanism while it’s running, explain a product, or visualize a space that’s still just an idea. Starting with CAD and physical references, RVA3D turns technical information into clear stills, cutaways and sequences. Keep the useful detail. Find the view that makes the explanation click.",
+    "copy": "Show how a mechanism works or visualize a space before it is built. We turn CAD, physical references or incomplete source material into stills, cutaways and animation that make the important details clear.",
     "uses": [
       "Technical explainers",
       "Product cutaways",
       "Spaces & configurations"
     ],
-    "proof": "DESMI ROTAN CHD: technical visualization and animation from Deven Langston’s prior work bring the pump’s inner workings into view."
+    "proof": "DESMI ROTAN CHD: technical visualization and animation reveal the pump’s inner workings."
   },
   "motion-design": {
     // Previous: "Make messages move with intent."
     "promise": "Moving messages make moving messages.",
-    "copy": "Use design in motion to draw attention and make a message stick. From short brand moments to fleshed-out explainer sequences, RVA3D animates type, graphics and 3D elements to tell compelling visual stories.",
+    "copy": "Turn a script, supplied boards or brand direction into motion. Type, graphics and 3D work together in campaign films, titles and explainers, with timing and transitions shaped around the message.",
     "uses": [
       "Brand moments",
       "Explainer sequences",
@@ -46,30 +46,30 @@ export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy
   },
   "vfx-compositing": {
     // Previous: "Make it belong in the shot."
-    "promise": "Wait what did you change?",
+    "promise": "Wait, what did you change?",
     "copy": "Replace a branded surface, integrate a new element into an existing shot or make an unwanted detail disappear. RVA3D handles compositing and shot work that keeps the finished image believable.\n\nBring the footage or production question; we’ll work out the rest!",
     "uses": [
       "Surface replacement",
       "CG in live action",
       "Cleanup & finishing"
     ],
-    "proof": "Bud Light Seltzer: Deven Langston replaced the truck-side wrap across several live-action shots. The breakdown shows original footage beside the finished effect."
+    "proof": "Bud Light Seltzer: the truck-side wrap was replaced across several live-action shots. The comparison shows how the new surface follows the original camera movement and light."
   },
   "interactive-3d": {
     "promise": "Sometimes the picture needs to do something.",
-    "copy": "RVA3D also experiments with browser interactions, prototypes, creative tools and media people can explore rather than only watch. A secondary part of the practice, shaped around a useful question.",
+    "copy": "Explore a product or test an interaction in the browser. RVA3D’s experiments include interactive media, prototypes and creative tools; this site offers a working example.",
     "uses": [],
     "proof": "The interactive gallery on this site is a current, self-initiated RVA3D example."
   },
   "creative-production-support": {
     "promise": "Bring in the render-enforcements!",
-    "copy": "An established team may need help moving a difficult asset, shot or sequence forward. RVA3D brings creative and technical support across the making process: interpreting rough inputs, working through the missing pieces and finishing the agreed contribution. A focused addition to the team when the work needs it.",
+    "copy": "Add senior creative and technical support to your agency or in-house team. RVA3D can take ownership of a difficult asset, shot or sequence, working with your existing files, creative direction and review process through delivery.",
     "uses": [
       "Production gaps",
       "Specialist collaboration",
       "Difficult shots & assets"
     ],
-    "proof": "Fool Me Twice: animation controls beside the finished paper-cut character, from Deven Langston’s title-animation work on a 48-hour film project."
+    "proof": "Fool Me Twice: animation controls beside the finished paper-cut character, created for the titles of a 48-hour film project."
   }
 };
 // V1 copy retained for restoration; V2 reduces volume and replaces proof.
@@ -124,3 +124,16 @@ export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy
 // Make everything belong in the same shot.
 // Replace a branded surface, integrate a new element or make an unwanted detail disappear. RVA3D handles compositing and shot work that keeps the finished image believable. Bring the footage or the production question; we’ll work out what the shot needs and how to get there.
 // Bring in someone who can own the problem.
+
+// Copy audit 2026-09-16: replaced passages retained for editorial rollback.
+// Imaging anything you can imagine.
+// Build a product world with control over every camera move, material and moment. From supplied ingredients to finished animation, RVA3D develops the visual treatment, movement and lighting around the idea. Use it for a complete film or a few carefully made shots.
+// From Deven Langston’s prior work: a Five Below zig-zag retail display brought into motion, making its shape and arrangement easy to follow.
+// Show the inside of a mechanism while it’s running, explain a product, or visualize a space that’s still just an idea. Starting with CAD and physical references, RVA3D turns technical information into clear stills, cutaways and sequences. Keep the useful detail. Find the view that makes the explanation click.
+// DESMI ROTAN CHD: technical visualization and animation from Deven Langston’s prior work bring the pump’s inner workings into view.
+// Use design in motion to draw attention and make a message stick. From short brand moments to fleshed-out explainer sequences, RVA3D animates type, graphics and 3D elements to tell compelling visual stories.
+// Bud Light Seltzer: Deven Langston replaced the truck-side wrap across several live-action shots. The breakdown shows original footage beside the finished effect.
+// RVA3D also experiments with browser interactions, prototypes, creative tools and media people can explore rather than only watch. A secondary part of the practice, shaped around a useful question.
+// An established team may need help moving a difficult asset, shot or sequence forward. RVA3D brings creative and technical support across the making process: interpreting rough inputs, working through the missing pieces and finishing the agreed contribution. A focused addition to the team when the work needs it.
+// Fool Me Twice: animation controls beside the finished paper-cut character, from Deven Langston’s title-animation work on a 48-hour film project.
+// Wait what did you change?

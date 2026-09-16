@@ -43,7 +43,7 @@ function EditorialSection({ section }: { section: WorkEditorialSection }) {
   if (section.kind === "details") {
     return <details className={styles.details} id={section.id}>
       <summary>{section.heading}</summary>
-      <p><BrandText text={section.copy} /></p>
+      {section.copy && <p><BrandText text={section.copy} /></p>}
       <CaseMediaGroup media={section.media} />
     </details>;
   }
@@ -62,6 +62,15 @@ function EditorialSection({ section }: { section: WorkEditorialSection }) {
     {section.kind === "composition" && <CaseMediaColumns columns={section.columns} emphasis={section.emphasis} />}
     {section.kind === "group" && <CaseMediaGroup media={section.media} emphasis={section.emphasis} layout={section.layout} />}
   </section>;
+}
+
+function ProjectCredits({ study }: { study: WorkCaseStudy }) {
+  return study.credits.length > 0 ? <details className={styles.details}>
+    <summary>Project credits</summary>
+    {study.credits.map(credit => <p key={`${credit.name}-${credit.role}`}>
+      <strong>{credit.name}</strong> — {credit.role}{credit.organization ? ` · ${credit.organization}` : ""}
+    </p>)}
+  </details> : null;
 }
 
 // Opt-in composition: existing cases continue through the original chapter renderer.
@@ -83,7 +92,7 @@ export function EditorialCasePage({ study, editorial, next, permissionReview = f
     <section className="case-opening" data-tone="paper">
       <div className="v-frame">
         {!permissionReview && <a className="editorial-link" href={siteHref(`/work#${study.slug}`)}>← Back to Work</a>}
-        <p className="label">{editorial.context} · Prior work by Deven Langston</p>
+        <p className="label">{editorial.context}</p>
         <h1>{editorial.heading}</h1>
         <p className="editorial-lead">{study.summary}</p>
       </div>
@@ -98,8 +107,9 @@ export function EditorialCasePage({ study, editorial, next, permissionReview = f
         {/* <div><dt>Brand / Year</dt><dd>{study.client} / {study.year}</dd></div> */}
         <div><dt>{study.year ? "Brand / Year" : "Brand"}</dt><dd>{editorial.brand ?? study.client}{study.year ? ` / ${study.year}` : ""}</dd></div>
         <div><dt>{editorial.productionLabel ?? "Production role"}</dt><dd>{editorial.productionRole}</dd></div>
-        <div className="facts-contribution"><dt>{editorial.contributionLabel ?? "Deven’s contribution"}</dt><dd>{editorial.contribution}</dd></div>
+        <div className="facts-contribution"><dt>{editorial.contributionLabel ?? "Our contribution"}</dt><dd>{editorial.contribution}</dd></div>
       </dl>
+      {study.slug !== "geico-geckos-cereal-box" && <ProjectCredits study={study} />}
     </section>
     <div className={`v-broad ${styles.wide} ${styles.sections}`} data-tone="paper">
       {/* Previously all sections rendered here; the closing still now shares the conclusion surface. */}
@@ -112,6 +122,7 @@ export function EditorialCasePage({ study, editorial, next, permissionReview = f
     <section className={`v-frame delivery ${styles.closing}`} data-tone="paper">
       <h2>{editorial.closing.heading}</h2>
       <p><BrandText text={editorial.closing.copy} /></p>
+      {study.slug === "geico-geckos-cereal-box" && <ProjectCredits study={study} />}
       {/* Previously adjacent CTA content; the scoped wrapper now adds an editorial pause. */}
       {!permissionReview && <><div className={styles.contactCta}>
       <p>{editorial.closing.ctaText}</p>
@@ -128,3 +139,20 @@ export function EditorialCasePage({ study, editorial, next, permissionReview = f
     </nav>}
   </article></PageShell>;
 }
+
+// Copy audit 2026-09-16: replaced passages retained for editorial rollback.
+// <p className="label">{editorial.context} · Prior work by Deven Langston</p>
+// editorial.contributionLabel ?? "Deven’s contribution"
+//       </dl>
+//     </section>
+
+// Case refinement 2026-09-16: previous content retained for rollback.
+// <p><BrandText text={section.copy} /></p>
+
+// Previous inline credits block, extracted to place GEICO credits after the result.
+//       {study.credits.length > 0 && <details className={styles.details}>
+//         <summary>Project credits</summary>
+//         {study.credits.map(credit => <p key={`${credit.name}-${credit.role}`}>
+//           <strong>{credit.name}</strong> — {credit.role}{credit.organization ? ` · ${credit.organization}` : ""}
+//         </p>)}
+//       </details>}

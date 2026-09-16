@@ -24,19 +24,19 @@ export const metadata: Metadata = {
   referrer: "no-referrer",
   title: "RVA3D | 3D Visualization, Animation and Motion Design",
   description:
-    "Senior-led 3D visualization and animation, motion design, VFX, and interactive media that add depth, movement, and visual possibility to products, campaigns, and ideas.",
+    "Senior-led 3D animation, product visualization, motion design and VFX. Work directly with RVA3D’s creative lead, from early ideas through final delivery.",
   openGraph: {
     type: "website",
     siteName: "RVA3D",
     title: "RVA3D | 3D Visualization, Animation and Motion Design",
     description:
-      "Senior-led 3D visualization and animation, motion design, VFX, and interactive media that add depth, movement, and visual possibility to products, campaigns, and ideas.",
+      "Senior-led 3D animation, product visualization, motion design and VFX. Work directly with RVA3D’s creative lead, from early ideas through final delivery.",
   },
   twitter: {
     card: "summary_large_image",
     title: "RVA3D | 3D Visualization, Animation and Motion Design",
     description:
-      "Senior-led 3D visualization and animation, motion design, VFX, and interactive media that add depth, movement, and visual possibility to products, campaigns, and ideas.",
+      "Senior-led 3D animation, product visualization, motion design and VFX. Work directly with RVA3D’s creative lead, from early ideas through final delivery.",
   },
 };
 
@@ -72,3 +72,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     </html>
   );
 }
+
+// Copy audit 2026-09-16: replaced passages retained for editorial rollback.
+// Senior-led 3D visualization and animation, motion design, VFX, and interactive media that add depth, movement, and visual possibility to products, campaigns, and ideas.

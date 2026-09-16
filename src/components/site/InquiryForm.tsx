@@ -18,8 +18,8 @@ export function InquiryForm({ testMode = false, sendingEnabled = false }: { test
     finally { sending.current = false; setPending(false); }
   }
   const field = (name: keyof typeof initial) => ({ name, value: values[name], onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => setValues(v => ({ ...v, [name]: event.target.value })), "aria-invalid": !!result.fieldErrors?.[name as keyof NonNullable<ContactFormState["fieldErrors"]>] });
-  return <BrandCopy><div className="v-contact-form"><h2>Ready to say hello?</h2><form id="inquiry" onSubmit={submit} aria-describedby="form-notice">
-    <p id="form-notice" className="form-notice">{testMode ? "Controlled delivery test — sends only to the configured RVA3D destination." : sendingEnabled ? "Tell us what you are making and where RVA3D can help." : "Protected preview — submissions are checked, but no message is sent."}</p>
+  return <BrandCopy><div className="v-contact-form"><h2>Tell us what you’re making.</h2><form id="inquiry" onSubmit={submit} aria-describedby="form-notice">
+    <p id="form-notice" className="form-notice">{testMode ? "Controlled delivery test — sends only to the configured RVA3D destination." : sendingEnabled ? "Share the goal, timing and any materials you already have. A finished brief is welcome, but not required." : "Protected preview — submissions are checked, but no message is sent."}</p>
     <div className="form-row"><label>Name<input {...field("name")} autoComplete="name" required maxLength={100} /></label><label>Email<input {...field("email")} type="email" autoComplete="email" required maxLength={254} /></label></div>
     <div className="form-row"><label>Company <span>(optional)</span><input {...field("company")} autoComplete="organization" maxLength={150} /></label><label>What can we help with?<select {...field("inquiryType")} required><option value="">Select one</option><option value="visualization">3D visualization</option><option value="animation">Product or technical animation</option><option value="motion">Motion design or VFX</option><option value="support">Production support</option><option value="other">Something else</option></select></label></div>
     <label>Message<textarea {...field("message")} rows={3} minLength={10} maxLength={5000} required /></label>
@@ -31,3 +31,7 @@ export function InquiryForm({ testMode = false, sendingEnabled = false }: { test
 
   </form></div></BrandCopy>;
 }
+
+// Copy audit 2026-09-16: replaced passages retained for editorial rollback.
+// Ready to say hello?
+// Tell us what you are making and where RVA3D can help.

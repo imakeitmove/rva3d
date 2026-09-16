@@ -1,0 +1,106 @@
+{
+  "cableHero": {
+    "kind": "video",
+    "src": "/media/work/refinement-20260916/cableHero-v001.mp4",
+    "width": 1600,
+    "height": 900,
+    "mimeType": "video/mp4",
+    "alt": "Cable Snake in the Twist Broadband Cable Bill commercial.",
+    "caption": "Cable Bill: the finished 30-second commercial.",
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/refinement-20260916/cableHero-poster-v001.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Cable Snake in the Twist Broadband Cable Bill commercial."
+    },
+    "presentation": "controls",
+    "hasAudio": true
+  },
+  "wawaHero": {
+    "kind": "video",
+    "src": "/media/work/refinement-20260916/wawaHero-v001.mp4",
+    "width": 1600,
+    "height": 900,
+    "mimeType": "video/mp4",
+    "alt": "Wawa coffee island presentation, from fixture structure to fully stocked display.",
+    "caption": "Fixture presentation: structure, merchandising and stocked configurations.",
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/refinement-20260916/wawaHero-poster-v001.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Wawa coffee island presentation, from fixture structure to fully stocked display."
+    },
+    "presentation": "controls",
+    "hasAudio": true
+  },
+  "whaxeWip": {
+    "kind": "video",
+    "src": "/media/work/refinement-20260916/whaxeWip-v001.mp4",
+    "width": 1600,
+    "height": 900,
+    "mimeType": "video/mp4",
+    "alt": "WHAXE viewport animation showing product motion and camera framing before finished rendering.",
+    "caption": "Viewport WIP: product movement and camera timing before the finished lighting and materials.",
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/refinement-20260916/whaxeWip-poster-v001.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "WHAXE viewport animation showing product motion and camera framing before finished rendering."
+    },
+    "presentation": "controls",
+    "hasAudio": true
+  },
+  "desmiFluid": {
+    "kind": "video",
+    "src": "/media/work/refinement-20260916/desmiFluid-v001.mp4",
+    "width": 1600,
+    "height": 900,
+    "mimeType": "video/mp4",
+    "alt": "DESMI fluid simulation research, progressing from tests to chocolate flowing through the cutaway pump.",
+    "caption": "Fluid-simulation R&D: test views and shaded previews of material moving through the rotor.",
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/refinement-20260916/desmiFluid-poster-v001.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "DESMI fluid simulation research, progressing from tests to chocolate flowing through the cutaway pump."
+    },
+    "presentation": "controls",
+    "hasAudio": true
+  },
+  "whaxeGeometry": {
+    "kind": "image",
+    "src": "/media/work/refinement-20260916/whaxeGeometry-v001.webp",
+    "width": 1384,
+    "height": 1014,
+    "alt": "Wireframe gemstones arranged around the WHAXE container.",
+    "caption": "Gem placement around the product, before the reflective finish."
+  },
+  "whaxeMaterial": {
+    "kind": "image",
+    "src": "/media/work/refinement-20260916/whaxeMaterial-v001.webp",
+    "width": 1440,
+    "height": 809,
+    "alt": "WHAXE material and lighting preview with gemstones and toothbrush.",
+    "caption": "A material preview shows how the stones and metal respond to the light."
+  },
+  "desmiGeometry": {
+    "kind": "image",
+    "src": "/media/work/refinement-20260916/desmiGeometry-v001.webp",
+    "width": 1280,
+    "height": 720,
+    "alt": "Triangulated DESMI pump geometry before the presentation treatment.",
+    "caption": "The pump as triangulated geometry."
+  },
+  "desmiCutaway": {
+    "kind": "image",
+    "src": "/media/work/refinement-20260916/desmiCutaway-v001.webp",
+    "width": 1440,
+    "height": 810,
+    "alt": "DESMI pump cutaway with the front housing removed and internal assembly visible.",
+    "caption": "A cutaway study opens the housing while retaining the surrounding assembly."
+  }
+}

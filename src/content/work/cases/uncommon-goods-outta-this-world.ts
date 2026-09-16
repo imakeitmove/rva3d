@@ -13,7 +13,7 @@ export const uncommonGoodsOuttaThisWorld = {
   "client": "Uncommon Goods",
   "year": 2023,
   "productionPartner": "Spang TV",
-  "eyebrow": "A different animation problem in every scene.",
+  "eyebrow": "Simple doesn't mean boring.",
   "indexSummary": "Detailed supplied boards and mixed product assets brought into one flowing commercial.",
   "summary": "For Uncommon Goods and Spang TV, detailed boards and a mixed collection of product assets had to become one flowing commercial. Deven handled the motion-design execution... preparing scenes, building animation, shaping transitions and using 3D selectively when a shot called for it.",
   "problem": "Turn detailed supplied boards and mixed product assets into a coherent commercial.",
@@ -56,10 +56,10 @@ export const uncommonGoodsOuttaThisWorld = {
   "editorial": {
     "closingBand": { "sectionId": "shorter-route", "tone": "cool-guy-gray" },
     "heroHeading": "Commercial edit — :30",
-    "heading": "A different animation problem in every scene.",
+    "heading": "Simple doesn't mean boring.",
     "context": "Uncommon Goods / Motion design & animation",
     "productionLabel": "Production",
-    "contributionLabel": "Deven’s contribution",
+    "contributionLabel": "Our contribution",
     "productionRole": "Through Spang TV",
     "contribution": "Motion design, animation, compositing, source adaptation, editorial timing and transition construction, with selective 3D",
     "sections": [
@@ -107,15 +107,15 @@ export const uncommonGoodsOuttaThisWorld = {
       {
         "id": "shorter-route",
         "kind": "media",
-        "heading": "A shorter route through the same world.",
-        "copy": "The :15 wasn't a :30 with half the shots blindly removed. Its route changes. The astronaut sequence connects directly into the mug, bypassing the puzzle and accordion lamp before the spot races toward the same finish. Compressing the idea meant finding a different sequence of visual handoffs that still felt intentional.",
+        "heading": "Here's more of less.",
+        "copy": "The 15-second edit needed its own route. Connecting the astronaut directly to the mug kept the spot moving toward the same finish, with transitions rebuilt around the shorter running time.",
         "media": (media.M6 as WorkVideoMedia)
       }
 
     ],
     "closing": {
-      "heading": "Bring the plan into motion.",
-      "copy": "A detailed storyboard can define what should happen. There is still a lot of creative work between that document and a finished commercial: preparing the assets, finding the timing, building the motion, solving the transitions and knowing when something simply feels right.",
+      "heading": "Let's set things in motion.",
+      "copy": "Asset preparation, animation and carefully timed transitions turned the supplied boards into two finished commercial edits.",
       "ctaText": "Have the boards? We can take it from there."
     }
   }
@@ -135,23 +135,23 @@ export const uncommonGoodsOuttaThisWorldPublic = {
   indexSummary: "Supplied creative direction brought into a flowing commercial through motion design, animation and compositing.",
   // Previous summary listed every discipline; the contribution row retains that detail.
   // summary: "Working through Spang TV, Deven Langston turned supplied creative direction and product assets into a flowing Uncommon Goods commercial, handling motion design, animation, compositing, transitions and selective 3D.",
-  summary: "Working through Spang TV, Deven Langston brought supplied creative direction and product assets into motion for Uncommon Goods, connecting a different animation challenge in every scene.",
-  authorship: "Deven Langston handled motion-design execution through Spang TV within the supplied creative framework.",
+  summary: "Working through Spang TV, we turned supplied creative direction and product assets into an Uncommon Goods commercial, solving a different animation challenge in every scene.",
+  authorship: "Motion design, animation and compositing through Spang TV, working within the supplied creative direction.",
   credits: [
     { name: "Deven Langston", role: "Motion design, animation and compositing" },
     { name: "Spang TV", role: "Production" },
   ],
-  seo: { ...uncommonGoodsOuttaThisWorld.seo, description: "Motion design, animation and compositing by Deven Langston through Spang TV for Uncommon Goods, working from supplied creative direction." },
+  seo: { ...uncommonGoodsOuttaThisWorld.seo, description: "Uncommon Goods motion design through Spang TV: supplied direction and product assets become connected 30- and 15-second commercial edits." },
   editorial: {
     ...uncommonGoodsOuttaThisWorld.editorial,
     sections: [
 // Earlier editorial wording retained; consolidated to avoid repeating the premise.
 //       { id: "supplied-direction", kind: "text", heading: "Bring the supplied direction into motion.",
 //         copy: "The supplied creative direction established the products, visual world and key actions. Deven prepared scenes, developed timing and built transitions that connected those ideas within the edit." },
-//       { id: "motion-design", kind: "text", heading: "A different animation problem in every scene.",
+//       { id: "motion-design", kind: "text", heading: "Simple doesn't mean boring.",
 //         copy: "The work combined 2D motion design, compositing and selective 3D. Deven adapted the approach to each scene while maintaining a consistent graphic language across the commercial." },
       { id: "supplied-direction", kind: "text", heading: "One graphic world. Different ways to move.",
-        copy: "Supplied creative direction established the products, visual world and key actions. Deven combined 2D motion design, compositing and selective 3D, adapting the technique to each scene and building the timing and transitions that hold the edit together." },
+        copy: "The supplied direction established the products, visual world and key actions. We combined 2D animation, compositing and selective 3D to connect the scenes with consistent timing and transitions." },
       uncommonGoodsOuttaThisWorld.editorial.sections[4],
     ],
   },
@@ -164,3 +164,17 @@ export const uncommonGoodsPermissionReview = {
   processChapters: uncommonGoodsOuttaThisWorld.processChapters,
   editorial: uncommonGoodsOuttaThisWorld.editorial,
 } satisfies WorkCaseStudy;
+
+// Copy audit 2026-09-16: replaced passages retained for editorial rollback.
+// Working through Spang TV, Deven Langston brought supplied creative direction and product assets into motion for Uncommon Goods, connecting a different animation challenge in every scene.
+// Deven Langston handled motion-design execution through Spang TV within the supplied creative framework.
+// Motion design, animation and compositing by Deven Langston through Spang TV for Uncommon Goods, working from supplied creative direction.
+// Deven’s contribution
+// Supplied creative direction established the products, visual world and key actions. Deven combined 2D motion design, compositing and selective 3D, adapting the technique to each scene and building the timing and transitions that hold the edit together.
+// The :15 wasn't a :30 with half the shots blindly removed. Its route changes. The astronaut sequence connects directly into the mug, bypassing the puzzle and accordion lamp before the spot races toward the same finish. Compressing the idea meant finding a different sequence of visual handoffs that still felt intentional.
+// A detailed storyboard can define what should happen. There is still a lot of creative work between that document and a finished commercial: preparing the assets, finding the timing, building the motion, solving the transitions and knowing when something simply feels right.
+
+// Case refinement 2026-09-16: previous content retained for rollback.
+// A different animation problem in every scene.
+// A shorter route through the same world.
+// Bring the plan into motion.

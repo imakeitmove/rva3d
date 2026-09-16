@@ -3,7 +3,7 @@
 // COMPLETE SITE CANDIDATE
 export { WorkIndex as default } from "@/components/site/WorkPages";
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Work | RVA3D", description: "Selected prior work by Deven Langston: 3D animation, product visualization, motion design and VFX from the experience behind RVA3D." };
+export const metadata = { title: "Work | RVA3D", description: "Explore RVA3D case studies in 3D animation, product visualization, motion design and VFX: the challenge, our contribution and the finished work." };
 /* Previous implementation retained for restoration. Replaced only in the isolated complete-site candidate.
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -146,3 +146,6 @@ export default async function WorkPage() {
 }
 
 */
+
+// Copy audit 2026-09-16: replaced passages retained for editorial rollback.
+// Selected prior work by Deven Langston: 3D animation, product visualization, motion design and VFX from the experience behind RVA3D.

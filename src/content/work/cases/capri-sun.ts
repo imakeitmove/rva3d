@@ -20,9 +20,9 @@ const capriSunLegacy = {
   productionPartner: "Candy Factory",
   eyebrow: "One pouch \u00b7 Three campaign problems",
   indexSummary:
-    "A photoreal pouch foundation adapted across macro product imagery, an exaggerated form, and reference-driven character animation.",
+    "One photoreal pouch adapted for close-up product imagery, exaggerated proportions and comic animation.",
   summary:
-    "Across Noise Tech, Solstice, and Trick & Treat, Deven Langston built and adapted a photoreal Capri Sun pouch, handling 3D modeling, texturing, lighting, animation, rendering, and compositing as each assignment turned the familiar silver package into a different visual joke.",
+    "Three Capri Sun campaigns needed the familiar silver pouch to carry three different jokes. Working within Candy Factory’s production, we built a photoreal 3D pouch and adapted its shape, packaging and performance for each idea.",
   problem:
     "Each campaign needed the same recognizable package to solve a different visual problem while remaining convincing from extreme closeups through deliberately exaggerated proportions and motion.",
   approach:
@@ -32,7 +32,7 @@ const capriSunLegacy = {
   value:
     "A reusable asset reduced repeated setup while preserving the flexibility to treat each campaign as its own creative and technical problem.",
   authorship:
-    "Deven Langston handled the 3D modeling, materials, texturing, artwork adaptation, lighting, rendering, animation, filmed performance reference, and compositing described in this selected-work case.",
+    "3D modeling, materials, packaging artwork adaptation, lighting, rendering, animation, performance reference and compositing.",
   role: [
     "3D modeling",
     "Materials and texturing",
@@ -78,7 +78,7 @@ const capriSunLegacy = {
       label: "Solstice",
       title: "A new shape required a new build.",
       summary:
-        "The pouch was stretched absurdly tall for the longest day of the year. The joke required revised geometry, rebuilt UVW mapping, and taller artwork rather than a simple scale change.",
+        "An absurdly tall pouch marked the longest day of the year. We rebuilt the shape and remapped the packaging artwork so the stretched product still looked real.",
       media: [
         {
           kind: "image",
@@ -165,7 +165,7 @@ export const capriSun = {
   ...capriSunBeforeSafetyAudit,
   processChapters: capriSunLegacy.processChapters.map((chapter, index) => index === 0 ? { ...chapter, media: [chapter.media[0]] } : chapter),
   editorial: { ...capriSunBeforeSafetyAudit.editorial, sections: capriSunBeforeSafetyAudit.editorial.sections.filter(section => section.id !== "closer-look") },
-  seo: { ...capriSunLegacy.seo, description: "Deven Langston's 3D product visualization and animation for Capri Sun through Candy Factory, across three campaign assignments." },
+  seo: { ...capriSunLegacy.seo, description: "Three Capri Sun campaigns through Candy Factory, using a reusable 3D pouch for product imagery, exaggerated proportions and animation." },
 } satisfies WorkCaseStudy;
 
 // Used only by the authenticated, project-scoped clearance presentation.
@@ -175,3 +175,10 @@ export const capriSunPermissionReview = {
   processChapters: capriSunBeforeSafetyAudit.processChapters,
   editorial: capriSunBeforeSafetyAudit.editorial,
 } satisfies WorkCaseStudy;
+
+// Copy audit 2026-09-16: replaced passages retained for editorial rollback.
+// Across Noise Tech, Solstice, and Trick & Treat, Deven Langston built and adapted a photoreal Capri Sun pouch, handling 3D modeling, texturing, lighting, animation, rendering, and compositing as each assignment turned the familiar silver package into a different visual joke.
+// Deven Langston handled the 3D modeling, materials, texturing, artwork adaptation, lighting, rendering, animation, filmed performance reference, and compositing described in this selected-work case.
+// The pouch was stretched absurdly tall for the longest day of the year. The joke required revised geometry, rebuilt UVW mapping, and taller artwork rather than a simple scale change.
+// A photoreal pouch foundation adapted across macro product imagery, an exaggerated form, and reference-driven character animation.
+// Deven Langston's 3D product visualization and animation for Capri Sun through Candy Factory, across three campaign assignments.

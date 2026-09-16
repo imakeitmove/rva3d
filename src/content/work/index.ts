@@ -121,7 +121,10 @@ function validateCaseStudy(study: WorkCaseStudy) {
       if (!/^[a-z][a-z0-9-]*$/.test(section.id) || sectionIds.has(section.id)) throw new Error(study.slug + " invalid or duplicate editorial section ID");
       sectionIds.add(section.id);
       if (section.heading) assertNonEmpty(section.heading, section.id + " heading");
-      if (section.kind === "text" || section.kind === "details") assertNonEmpty(section.copy, section.id + " copy");
+      // Previous: if (section.kind === "text" || section.kind === "details") assertNonEmpty(section.copy, section.id + " copy");
+      // Caption-only disclosures omit prose; supplied copy must remain non-empty.
+      if (section.kind === "text") assertNonEmpty(section.copy, section.id + " copy");
+      if (section.kind === "details" && section.copy !== undefined) assertNonEmpty(section.copy, section.id + " copy");
       if (section.kind === "media") validateMedia(section.media, section.id);
       if (section.kind === "media" && section.supporting) {
         if (section.supporting.length !== 2) throw new Error(section.id + " needs two supporting stills");

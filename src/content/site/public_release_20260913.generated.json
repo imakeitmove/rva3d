@@ -12,10 +12,10 @@
     "desmi-rotan-pump",
     "uncommon-goods-outta-this-world"
   ],
-  "assets": 145,
-  "logicalUrls": 208,
-  "registryDigest": "38a5e3ebd47137ef3adeb78d3b068a8b0ae5d283291c3ee6674942878d06ac46",
-  "urlsDigest": "5e068244f86194546c5db248125d0ad4d418b7d6cb420653bcaaa0c350e3280e",
+  "assets": 157,
+  "logicalUrls": 220,
+  "registryDigest": "ec3c9593a52e493f5d65cde97edb1a15512cd9b889fe47e2afffb0579f683616",
+  "urlsDigest": "86d960c10297ae1b8f4bf279915869a4df29d8150022886214f039a4d6ef64b5",
   "previous93RegistryDigest": "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8",
   "previous157UrlsDigest": "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f",
   "excludedKeys": [
@@ -127,12 +127,32 @@
     "384bfbf8c8b0dc6f7f35.webp",
     "e0cd670cb72c66ad769a.webp",
     "b5583981e3154102ea55.mp4",
-    "07046a9ab42ce82969be.mp4"
+    "07046a9ab42ce82969be.mp4",
+    "4184539dd78a247efac5.webp",
+    "b7796dc75b2a46f33efd.mp4",
+    "2995f5a88e3d5f298973.webp",
+    "6acb13358c0cd59ba0a2.mp4",
+    "3344a4d6c250ea525ad1.webp",
+    "c755fa76db47fe877eb9.mp4",
+    "7b36892ea08318da1647.webp",
+    "7114aa1cb8055f753928.mp4",
+    "23d6e04c8935d3287326.webp",
+    "73db00e430a554ba929d.webp",
+    "4b91b646d88f022018cb.webp",
+    "f71ea0d1d8e5e835b9d0.webp"
   ],
   "approvedDates": [
     "2026-09-12",
     "2026-09-13",
-    "2026-09-15"
+    "2026-09-15",
+    "2026-09-16"
   ],
-  "audit": "2026-09-15 project-specific authorization: restore richer public content except Capri Sun and Uncommon Goods process media; preserve corrected attribution."
+  "audit": "2026-09-16 explicit production deployment authorization for the reviewed September 16 worktree, including the 12 case-refinement media derivatives.",
+  "previousSeptember15Release": {
+    "assets": 145,
+    "logicalUrls": 208,
+    "registryDigest": "38a5e3ebd47137ef3adeb78d3b068a8b0ae5d283291c3ee6674942878d06ac46",
+    "urlsDigest": "5e068244f86194546c5db248125d0ad4d418b7d6cb420653bcaaa0c350e3280e",
+    "audit": "2026-09-15 project-specific authorization: restore richer public content except Capri Sun and Uncommon Goods process media; preserve corrected attribution."
+  }
 }

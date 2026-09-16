@@ -127,8 +127,8 @@ export function AboutEditorial() {
             </h1>
             <p className="editorial-lead">
               <Brand /> is a Richmond-based creative studio led by Deven Langston.
-              His experience across motion design, 3D animation, visual effects and
-              production predates the studio name and spans nearly 20 years.
+              His 20 years in motion design, 3D animation, visual effects and
+              production connect creative direction with hands-on execution.
             </p>
             <p className="editorial-lead about-kicker">
               Got a graphics challenge? We’ll figure it out!
@@ -172,9 +172,9 @@ export function AboutEditorial() {
               to show it.
             </p>
             <p>
-              Then Deven takes responsibility for making it happen: sharing meaningful
-              progress while decisions are easy to change, keeping the next step clear
-              and raising problems while there are still good options.
+              You’ll see progress while there’s room to shape it, know what needs your
+              decision and hear about changes to scope or timing while there are
+              still good options.
             </p>
           </div>
         </section>
@@ -224,3 +224,10 @@ export function AboutEditorial() {
 
 // Previous V1 communication section retained for restoration; V2 moves it after process.
 //     <section className="review-story editorial-width" data-tone="paper" aria-labelledby="review-story-title"><div className="review-intro"><p className="label">Communication with a purpose</p><h2 id="review-story-title">No mystery<br />in the middle.</h2><p>You’ll receive meaningful updates during production and a focused review when a decision needs your attention.</p><p className="review-intent">Reviews are designed to stay organized in one place instead of disappearing into scattered email threads.</p></div><div className="communication-types" aria-label="Two kinds of project communication"><article><p className="label">An update keeps you in the loop</p><h3>Here’s where we are.</h3><ul><li>What changed.</li><li>What happens next.</li><li>Whether you need to do anything.</li></ul><p className="communication-purpose">Context, without another task on your list.</p></article><article><p className="label">A review asks for a decision</p><h3>Here’s what to look at.</h3><ul><li>The version you are reviewing.</li><li>Exactly what to evaluate.</li><li>Where to give feedback or approve the next step.</li></ul><p className="communication-purpose">A clear question. A useful moment to steer.</p></article></div></section>
+
+// Copy audit 2026-09-16: replaced passages retained for editorial rollback.
+// His experience across motion design, 3D animation, visual effects and
+//               production predates the studio name and spans nearly 20 years.
+// Then Deven takes responsibility for making it happen: sharing meaningful
+//               progress while decisions are easy to change, keeping the next step clear
+//               and raising problems while there are still good options.
