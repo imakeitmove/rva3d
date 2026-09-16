@@ -1,8 +1,8 @@
 # RVA3D favicon package
 
-Canonical artwork: `W:\PROJECTS\_ACTIVE\2026_RVA3D_LogoDesign\output\RVA3D_favicon_R10_V001.png`.
+Canonical artwork: `W:\PROJECTS\_ACTIVE\2026_RVA3D_LogoDesign\output\RVA3D_favicon_R10B_V001.png`.
 
-Source SHA-256: `043c6817cdc3930fbfa792b6b72b9e00f904361f749c402ba9740dc57669b0ea`.
+Source SHA-256: `80004db8dc2bf7974720a7f649eb6a996e9de68221ea126382153000bfa5f3f2`.
 
 The supplied image is a 64×64 sRGB PNG without an alpha channel. Its dark background is part of the artwork. The master is unchanged. Generated files use proportional Lanczos resampling, preserving the entire square canvas and any alpha supplied by future inputs; no crop, recoloring, sharpening, redrawing, or generated detail is applied. Editor metadata is omitted from the served PNGs.
 
@@ -19,7 +19,7 @@ Next.js App Router file-based metadata generates the icon links. Do not add dupl
 From the repository root:
 
 ```powershell
-node scripts/generate-site-icons.mjs "W:/PROJECTS/_ACTIVE/2026_RVA3D_LogoDesign/output/RVA3D_favicon_R10_V001.png"
+node scripts/generate-site-icons.mjs "W:/PROJECTS/_ACTIVE/2026_RVA3D_LogoDesign/output/RVA3D_favicon_R10B_V001.png"
 ```
 
 The generator uses the existing Sharp dependency and requires square PNG input. No new dependency is needed.
