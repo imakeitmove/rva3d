@@ -21,7 +21,10 @@ const resize = (size) => sharp(source)
 
 // Modern ICO containers support PNG frames; all frames preserve source alpha.
 const sizes = [16, 32, 48];
-const frames = await Promise.all(sizes.map(resize));
+// Turbopack requires RGBA PNG frames in an ICO, including for opaque artwork.
+const frames = await Promise.all(sizes.map(async (size) =>
+  sharp(await resize(size)).ensureAlpha().png().toBuffer(),
+));
 const directory = Buffer.alloc(6 + 16 * frames.length);
 directory.writeUInt16LE(1, 2);
 directory.writeUInt16LE(frames.length, 4);
@@ -31,7 +34,7 @@ frames.forEach((frame, index) => {
   directory[entry] = sizes[index];
   directory[entry + 1] = sizes[index];
   directory.writeUInt16LE(1, entry + 4);
-  directory.writeUInt16LE(metadata.hasAlpha ? 32 : 24, entry + 6);
+  directory.writeUInt16LE(32, entry + 6);
   directory.writeUInt32LE(frame.length, entry + 8);
   directory.writeUInt32LE(offset, entry + 12);
   offset += frame.length;
