@@ -23,7 +23,9 @@ export function proxy(request: NextRequest) {
   const finishPrivate = (response: NextResponse) => finish(response, privateHeaders);
   const finishPublic = (response: NextResponse) => finish(response, isPublicProduction() ? publicHeaders : previewPublicHeaders);
 
-  // Code, approved buyer pages, allowlisted media keys, fonts, metadata and the neutral favicon are public.
+  // Exact App Router icon routes only; all other publication boundaries remain unchanged.
+  if (pathname === "/icon.png" || pathname === "/apple-icon.png") return finishPublic(NextResponse.next());
+  // Code, approved buyer pages, allowlisted media keys, fonts, metadata and the site favicon are public.
   if (pathname.startsWith("/_next/static/") || pathname.startsWith("/site-assets/") || pathname.startsWith("/fonts/Geist/") || pathname.startsWith("/fonts/Geist_Mono/") || pathname === "/favicon.ico") return NextResponse.next();
   if (publicRoutePattern.test(pathname) || pathname === "/sitemap.xml") return finishPublic(NextResponse.next());
   if (publicMediaPattern.test(pathname)) return finishPublic(NextResponse.next());
