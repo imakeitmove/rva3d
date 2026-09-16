@@ -1,8 +1,8 @@
 # RVA3D favicon package
 
-Canonical artwork: `W:\PROJECTS\_ACTIVE\2026_RVA3D_LogoDesign\output\RVA3D_favicon_R10B_V001.png`.
+Canonical artwork: `W:\PROJECTS\_ACTIVE\2026_RVA3D_LogoDesign\output\RVA3D_favicon_R10B_V003.png`.
 
-Source SHA-256: `80004db8dc2bf7974720a7f649eb6a996e9de68221ea126382153000bfa5f3f2`.
+Source SHA-256: `d23488420277aab40749c0d8274f0fc34bcd02022ce5d8a2ee78ccadc6e143fa`.
 
 The supplied image is a 64×64 sRGB PNG without an alpha channel. Its dark background is part of the artwork. The master is unchanged. Generated files use proportional Lanczos resampling, preserving the entire square canvas and any alpha supplied by future inputs; no crop, recoloring, sharpening, redrawing, or generated detail is applied. Editor metadata is omitted from the served PNGs.
 
@@ -19,13 +19,13 @@ Next.js App Router file-based metadata generates the icon links. Do not add dupl
 From the repository root:
 
 ```powershell
-node scripts/generate-site-icons.mjs "W:/PROJECTS/_ACTIVE/2026_RVA3D_LogoDesign/output/RVA3D_favicon_R10B_V001.png"
+node scripts/generate-site-icons.mjs "W:/PROJECTS/_ACTIVE/2026_RVA3D_LogoDesign/output/RVA3D_favicon_R10B_V003.png"
 ```
 
 The generator uses the existing Sharp dependency and requires square PNG input. No new dependency is needed.
 
 ## Size limitations and caching
 
-At 16px the brand silhouette and green 3D mark remain identifiable, but the small RVA lettering loses fine detail. The 32px and 48px marks are more readable. The 180px and 512px files are enlargements of the 64px master, so softness is expected; they do not contain additional detail. A larger canonical export would be required for sharper large icons without redesign.
+At 16px the green 3D mark remains identifiable, but its inset and shadow details become less distinct. The 32px and 48px marks are more readable. The 180px and 512px files are enlargements of the 64px master, so softness is expected; they do not contain additional detail. A larger canonical export would be required for sharper large icons without redesign.
 
 Next generates versioned PNG icon URLs. Browsers can cache `/favicon.ico` separately from page resources. Verify with a fresh browser profile/origin; an existing tab may need closing/reopening, a hard refresh, or site-cache clearing after a future deployment. This package does not add a PWA manifest or change application behavior.
