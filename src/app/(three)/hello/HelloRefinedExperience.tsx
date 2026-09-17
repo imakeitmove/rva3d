@@ -6,8 +6,9 @@ import { useRouter } from "next/navigation";
 import { Component, useCallback, useEffect, useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from "react";
 
 import { Brand } from "@/components/site/Brand";
-import { HELLO_V3 as C, HELLO_V3_MODEL, V3_TITLES, mix, unit, v3Background, type LogoDrag, type V3Metrics } from "./hello_timeline_v3";
+import { HELLO_V3 as C, HELLO_V3_MODEL, mix, unit, v3Background, type LogoDrag, type V3Metrics } from "./hello_timeline_v3";
 import { COMPOSITION as T } from "./hello_compositions";
+import { BRIEF as B, BRIEF_COPY, WELCOME_BEAT, createWelcomeResolve, advanceWelcome } from "./hello_brief_timeline";
 import styles from "./hello_refined.module.css";
 
 const DepthScene = dynamic(() => import("./HelloRefinedScene"), { ssr: false });
@@ -31,6 +32,7 @@ export default function HelloRefinedExperience({ modelUrl }: { modelUrl: string 
   const progressRef = useRef(0);
   const settledRef = useRef(0);
   const resolveRef = useRef(0);
+  const welcomeRef = useRef(createWelcomeResolve());
   const dragRef = useRef<LogoDrag>({ yaw: 0, pitch: 0, velocity: 0, dragging: false });
   const gesture = useRef<Gesture | null>(null);
   const metricsRef = useRef<V3Metrics>({ introTime: 0, introDuration: 3, clip: C.logoIntro.clip, logoOpacity: 1, yaw: 0, pitch: 0, dots: 0, purple: 0, youHighlight: 0, greenHighlight: 0, maxExtrusion: 0, settled: 0 });
@@ -109,22 +111,41 @@ export default function HelloRefinedExperience({ modelUrl }: { modelUrl: string 
         root.current.dataset.helloFrame = JSON.stringify(metricsRef.current);
         lastMetrics = now;
       }
+      const welcome = welcomeRef.current;
+      if (welcome.committed) advanceWelcome(welcome, dt);
       if (!time.started) {
-        if (mode === "simple") time.reading += dt;
-        const atEnd = mode === "simple" ? time.reading >= C.reducedReadMs
-          : ready && progressRef.current >= C.finalThreshold && settledRef.current >= C.finalThreshold - 0.003;
-        time.stable = atEnd ? time.stable + dt : 0;
-        if (time.stable >= C.finalStableMs) { time.started = true; setEnding(true); router.prefetch("/"); }
+        if (mode === "simple") {
+          time.reading += dt;
+          if (time.reading >= B.reducedReadMs || welcome.committed) {
+            time.started = true; setEnding(true); router.prefetch("/");
+          }
+        } else if (!welcome.committed) {
+          const rendered = metricsRef.current.compositions?.["welcome:0"];
+          const threshold = WELCOME_BEAT.focus - B.welcome.armProgressTolerance;
+          const landed = ready && progressRef.current >= threshold && settledRef.current >= threshold
+            && !!rendered && Math.abs(rendered.z) <= B.welcome.settledZTolerance && rendered.opacity > 0.98;
+          // A fleeting threshold crossing never takes control. Reverse before
+          // the entire readable/arming interval cancels this accumulated dwell.
+          time.stable = landed ? time.stable + dt : 0;
+          if (time.stable >= B.welcome.readableDwellMs + B.welcome.armDelayMs && rendered) {
+            welcome.committed = true; welcome.startZ = rendered.z; welcome.z = rendered.z;
+            welcome.opacity = rendered.opacity; router.prefetch("/");
+          }
+        } else if (welcome.elapsed >= B.welcome.departureMs - B.welcome.loaderOverlapMs) {
+          time.started = true; setEnding(true);
+        }
       } else {
         time.loading += dt;
         resolveRef.current = unit(time.loading / C.resolveMs);
-        const landing = unit((time.loading - C.loaderDelayMs) / C.loaderLandingMs);
-        const loaderStart = C.loaderDelayMs + C.loaderLandingMs;
+        const landing = unit((time.loading - B.loader.delayMs) / B.loader.landingMs);
+        const loaderStart = B.loader.delayMs + B.loader.landingMs;
         if (endCard.current) endCard.current.style.transform = `scale(${mode === "simple" ? C.loaderScaleEnd : mix(C.loaderScaleStart, C.loaderScaleEnd, 1 - (1 - landing) ** 3)})`;
-        const amount = unit((time.loading - loaderStart) / C.loaderMs);
+        const amount = unit((time.loading - loaderStart) / B.loader.barMs);
         if (bar.current) bar.current.style.transform = `scaleX(${1 - (1 - amount) ** 2})`;
-        if (time.loading >= loaderStart + C.loaderMs + C.fullHoldMs) { finish(); return; }
+        if (time.loading >= loaderStart + B.loader.barMs + B.loader.holdMs) { finish(); return; }
       }
+      metricsRef.current.welcomePhase = time.started ? "loader" : welcome.committed ? "departing" : time.stable > 0 ? "armed" : "scroll";
+      metricsRef.current.welcomeElapsed = welcome.elapsed;
       frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);
@@ -161,13 +182,13 @@ export default function HelloRefinedExperience({ modelUrl }: { modelUrl: string 
   };
   const simple = mode === "simple";
   const customStyle = {
-    "--phone-track": `${C.runway.phone + 100}svh`, "--desktop-track": `${C.runway.desktop + 100}svh`,
-    "--resolve-time": `${C.resolveMs}ms`, "--loader-scale": C.loaderScaleStart, "--loader-delay": `${C.loaderDelayMs}ms`,
+    "--phone-track": `${B.runway.phone + 100}svh`, "--desktop-track": `${B.runway.desktop + 100}svh`,
+    "--resolve-time": `${C.resolveMs}ms`, "--loader-scale": C.loaderScaleStart, "--loader-delay": `${B.loader.delayMs}ms`,
     "--loader-logo-size": `clamp(${4 * C.loaderLogoScale}rem, ${19 * C.loaderLogoScale}vw, ${7.5 * C.loaderLogoScale}rem)`,
   } as CSSProperties;
 
   return <main ref={root} style={customStyle} className={`${styles.page} ${simple ? styles.simplePage : ""}`}
-    data-hello-version="3" data-hello-mode={mode} data-hello-ready={ready} data-hello-ending={ending}
+    data-hello-version="3.2" data-hello-mode={mode} data-hello-ready={ready} data-hello-ending={ending}
     data-hello-model={HELLO_V3_MODEL} aria-label="A short introduction to RVA3D">
     <div ref={stage} className={styles.stage}>
       <div ref={background} className={styles.purple} aria-hidden="true" />
@@ -176,7 +197,7 @@ export default function HelloRefinedExperience({ modelUrl }: { modelUrl: string 
       </Link>
       {!simple && <div className={styles.scene} data-ending={ending} aria-hidden="true">
         {mode === "scene" && <SceneBoundary onFailure={fail}>
-          <DepthScene modelUrl={modelUrl} progressRef={progressRef} resolveRef={resolveRef} settledRef={settledRef} dragRef={dragRef} metricsRef={metricsRef}
+          <DepthScene modelUrl={modelUrl} progressRef={progressRef} resolveRef={resolveRef} welcomeRef={welcomeRef} settledRef={settledRef} dragRef={dragRef} metricsRef={metricsRef}
             active={visible} onReady={sceneReady} onFailure={fail} />
         </SceneBoundary>}
       </div>}
@@ -184,11 +205,13 @@ export default function HelloRefinedExperience({ modelUrl }: { modelUrl: string 
         onPointerDown={beginDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag} onLostPointerCapture={endDrag} />}
       {simple ? <div className={styles.simpleCopy} data-ending={ending}>
         <div className={styles.simpleBrand}><Brand accent /></div>
-        <h1>Hello!</h1><p>It was very nice to meet you.</p>
-        <p className={styles.aside}>Or...<br />If you found our card on the ground...</p>
-        <p>That&apos;s cool too.</p><p className={styles.welcome}>Welcome.</p>
+        {/* V3.1 used an unbroken sentence here; V3.2 shares the two-line composition. */}
+        <h1>Hello!</h1><p>It was very<br />nice to meet you.</p>
+        {/* Previous V3.1 aside: Or... If you found our card on the ground... */}
+        <p className={styles.aside}>Or if we didn&#8217;t<br />actually meet...</p>
+        {/* Previous V3.1 payoff: That&apos;s cool too. */}<p>We can fix that.</p><p className={styles.welcome}>Welcome.</p>
       </div> : <div className={styles.srOnly}>
-        <h1>Hello!</h1><p>{V3_TITLES.slice(1).map((title) => title.copy).join(" ")}</p>
+        <h1>Hello!</h1><p>{BRIEF_COPY.slice("Hello! ".length)}</p>
         <p>Scroll through this introduction, then continue automatically to our homepage. You can also skip the intro.</p>
       </div>}
       <div ref={endCard} className={styles.endCard} data-visible={ending} aria-hidden={!ending}>
@@ -201,3 +224,22 @@ export default function HelloRefinedExperience({ modelUrl }: { modelUrl: string 
     </div>
   </main>;
 }
+
+/* Previous V3.1 end-of-runway clock, retained for rollback. V3.2 commits at a settled Welcome instead.
+      if (!time.started) {
+        if (mode === "simple") time.reading += dt;
+        const atEnd = mode === "simple" ? time.reading >= C.reducedReadMs
+          : ready && progressRef.current >= C.finalThreshold && settledRef.current >= C.finalThreshold - 0.003;
+        time.stable = atEnd ? time.stable + dt : 0;
+        if (time.stable >= C.finalStableMs) { time.started = true; setEnding(true); router.prefetch("/"); }
+      } else {
+        time.loading += dt;
+        resolveRef.current = unit(time.loading / C.resolveMs);
+        const landing = unit((time.loading - C.loaderDelayMs) / C.loaderLandingMs);
+        const loaderStart = C.loaderDelayMs + C.loaderLandingMs;
+        if (endCard.current) endCard.current.style.transform = `scale(${mode === "simple" ? C.loaderScaleEnd : mix(C.loaderScaleStart, C.loaderScaleEnd, 1 - (1 - landing) ** 3)})`;
+        const amount = unit((time.loading - loaderStart) / C.loaderMs);
+        if (bar.current) bar.current.style.transform = `scaleX(${1 - (1 - amount) ** 2})`;
+        if (time.loading >= loaderStart + C.loaderMs + C.fullHoldMs) { finish(); return; }
+      }
+*/

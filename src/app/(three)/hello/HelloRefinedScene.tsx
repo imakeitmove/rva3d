@@ -7,13 +7,16 @@ import { MathUtils } from "three";
 import HelloLogoLayer from "./HelloLogoLayer";
 // Original independent phrase stream remains intact for rollback.
 // import HelloTypographyStream from "./HelloTypographyStream";
-import HelloTypographyStream from "./HelloSentenceStream";
+// V3.1: import HelloTypographyStream from "./HelloSentenceStream";
+import HelloTypographyStream from "./HelloBriefStream";
+import type { WelcomeResolve } from "./hello_brief_timeline";
 import { HELLO_V3 as C, type LogoDrag, type V3Metrics } from "./hello_timeline_v3";
 
 type Props = {
   modelUrl: string;
   progressRef: MutableRefObject<number>;
   resolveRef: MutableRefObject<number>;
+  welcomeRef: MutableRefObject<WelcomeResolve>;
   settledRef: MutableRefObject<number>;
   dragRef: MutableRefObject<LogoDrag>;
   metricsRef: MutableRefObject<V3Metrics>;
