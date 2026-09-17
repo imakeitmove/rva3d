@@ -1,3 +1,5 @@
+> Historical implementation notes. The obsolete intro entry shells, fake endings, and their styles were removed on September 17. Restore them from Git history if needed; the verification commands now run the current `/hello` suite.
+
 # QR introduction at `/hello`
 
 The route is a short native-scroll R3F title sequence followed by an automatic

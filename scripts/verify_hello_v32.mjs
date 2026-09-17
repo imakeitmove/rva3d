@@ -29,6 +29,7 @@ assert(easeHighlight(.1)<.01);assert(easeHighlight(.9)>.99);
 // put all extra phone distance into readable dwells rather than transitions.
 assert.equal(T.runway.desktop, 390);
 assert.equal(T.runway.phone, 580);
+assert.equal(T.welcome.readableDwellMs + T.welcome.armDelayMs, 450);
 let previousPhone = -1;
 for (let i = 0; i <= 1000; i++) {
  const p = i / 1000, phone = briefProgressFromScroll(p, true);
@@ -118,12 +119,13 @@ for(const [width,height] of [[360,800],[393,852],[768,1024],[1440,900]]){
  evaluate("window.scrollTo(0,(document.querySelector('main').offsetHeight-document.querySelector('main>div').offsetHeight)*"+nativeProgress(welcome.focus+.01)+");setTimeout(()=>window.scrollTo(0,0),100)");
  wait(1600);assert.equal(state().path,"/hello");assert.equal(metrics().welcomePhase,"scroll");
  // Stop completely at Welcome: all subsequent motion and navigation must be automatic.
- scroll(welcome.focus+.001);wait(500);capture(width+"_welcome_focus");
+ assert(evaluate("!document.body.textContent.includes('Fake loading bar just for funsies.') && !document.querySelector('[role=status]')"));
+ scroll(welcome.focus+.001);wait(300);capture(width+"_welcome_focus");
  browser("wait","--fn","JSON.parse(document.querySelector('main')?.dataset.helloFrame||'{}').welcomeElapsed >= 170");capture(width+"_welcome_auto_early");
  const early=metrics();assert(early.compositions['welcome:0'].z<0);assert(Math.abs(early.welcomeYaw)>0);
  browser("wait","--fn","JSON.parse(document.querySelector('main')?.dataset.helloFrame||'{}').welcomeElapsed >= 650");capture(width+"_welcome_auto_late");
- browser("wait","--fn","document.querySelector('main')?.dataset.helloEnding === 'true'");wait(350);capture(width+"_loader_landing");
- assert.equal(metrics().compositions['welcome:0'].opacity,0);wait(450);capture(width+"_loader_rest");home();
+ home();
+ assert(evaluate("!document.body.textContent.includes('Fake loading bar just for funsies.')"));
  results.push({width,height,twoLineLayouts:"pass",easedHighlights:"pass",largeWheelHighlightInterpolation:"pass",welcomeExtrusion:"pass",reverseBeforeCommit:"pass",noInputAutoplay:"pass",currentHomepage:"pass"});console.log("Verified "+width+" x "+height);
 }
 // Use the existing agent-browser-owned Chrome connection for genuine touch events.

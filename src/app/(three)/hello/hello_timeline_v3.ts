@@ -42,18 +42,7 @@ export const HELLO_V3 = {
   groundEllipsis: [0.724, 0.773],
   greenHighlight: [0.824, 0.842],
   highlightPadding: { x: 0.085, y: 0.045 },
-  finalThreshold: 0.986,
-  finalStableMs: 700,
-  resolveMs: 420,
   endResolveTravel: 0.23,
-  loaderDelayMs: 180,
-  loaderLandingMs: 360,
-  loaderScaleStart: 1.16,
-  loaderScaleEnd: 1,
-  loaderLogoScale: 0.50,
-  loaderMs: 1350,
-  fullHoldMs: 220,
-  reducedReadMs: 8000,
 } as const;
 
 export const HELLO_V3_FONT = "/fonts/Geist/static/Geist-Medium.ttf";

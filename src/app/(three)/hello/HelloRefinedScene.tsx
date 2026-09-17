@@ -15,7 +15,6 @@ import { HELLO_V3 as C, type LogoDrag, type V3Metrics } from "./hello_timeline_v
 type Props = {
   modelUrl: string;
   progressRef: MutableRefObject<number>;
-  resolveRef: MutableRefObject<number>;
   welcomeRef: MutableRefObject<WelcomeResolve>;
   settledRef: MutableRefObject<number>;
   dragRef: MutableRefObject<LogoDrag>;

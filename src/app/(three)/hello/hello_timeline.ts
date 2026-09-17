@@ -19,8 +19,6 @@ export const HELLO_DIRECTION = {
   finalThreshold: 0.986,
   finalStableMs: 700,
   resolveMs: 380,
-  loaderMs: 1350,
-  fullHoldMs: 220,
   reducedReadMs: 8000,
 } as const;
 

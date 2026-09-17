@@ -1,3 +1,5 @@
+> Historical implementation notes. The obsolete intro entry shells, fake endings, and their styles were removed on September 17. Restore them from Git history if needed; the verification commands now run the current `/hello` suite.
+
 # Hello V2 — a continuous stream of flat typography
 
 Worktree: `qa-runtime/hello-current-production-20260916`.

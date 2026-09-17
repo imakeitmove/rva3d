@@ -610,7 +610,8 @@ Previous reference metrics: RVA 600/900; suffix 1.062em x .708em; stroke 3.6.
    The original 1.96 picture ratio above remains for smaller screens/restoration. */
 @media(min-width:1000px){
  .complete-site .v-hero-firstview .v-hero-stage .v-picture:not(:fullscreen){
-  aspect-ratio:2.4;
-  max-height:calc(100svh - 330px);
+  /* Restore picture height; the tagline and introduction remain in normal flow. */
+  aspect-ratio:2;
+  max-height:calc(100svh - 280px);
  }
 }
