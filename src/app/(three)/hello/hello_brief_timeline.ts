@@ -23,7 +23,7 @@ export const BRIEF = {
     loaderOverlapMs: 180,
   },
   loader: { delayMs: C.loaderDelayMs, landingMs: C.loaderLandingMs, barMs: C.loaderMs, holdMs: C.fullHoldMs },
-  layout: { width: 0.82, phoneHeight: 0.31, desktopHeight: 0.34, phoneSentenceSize: 1.15, desktopSentenceSize: 1.45 },
+  layout: { landedScale: 0.8, width: 0.82, phoneHeight: 0.31, desktopHeight: 0.34, phoneSentenceSize: 1.15, desktopSentenceSize: 1.45 },
   depth: { drift: -0.45, opacityDistance: 10, fadeStart: 0.48, fadeEnd: 0.95 },
   reducedReadMs: 5000,
 } as const;
@@ -61,6 +61,13 @@ export function highlightProgress(p: number, beat: BriefBeat) {
   const delay = beat.id === "meet" ? T.highlight.meetDelay : T.highlight.greenDelay;
   const duration = beat.id === "meet" ? T.highlight.meetDuration : T.highlight.greenDuration;
   return easeHighlight((p - beat.focus - delay) / duration);
+}
+/** Keep the original near-camera size; shrink only XY toward the readable plane.
+ * The former constant scale of 1 is restored by setting landedScale to 1.
+ * Z travel and world-space extrusion remain independent of this adjustment.
+ */
+export function textScaleAtDepth(z: number) {
+  return mix(T.layout.landedScale, 1, easeHighlight(range(z, 0, C.camera.z)));
 }
 export function sampleBrief(p: number, beat: BriefBeat, index: number, out: V3Pose) {
   const enter = beat.enter + index * beat.stagger;

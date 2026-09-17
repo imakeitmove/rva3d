@@ -5,7 +5,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { Text } from "@react-three/drei/core/Text";
 import { Group, MathUtils, Mesh, MeshBasicMaterial } from "three";
 import { HELLO_V3 as C, HELLO_V3_FONT, type V3Metrics, type V3Pose } from "./hello_timeline_v3";
-import { BRIEF as T, BRIEF_BEATS, WELCOME_BEAT, entranceExtrusion, highlightProgress, sampleBrief, type BriefBeat, type WelcomeResolve } from "./hello_brief_timeline";
+import { BRIEF as T, BRIEF_BEATS, WELCOME_BEAT, entranceExtrusion, highlightProgress, sampleBrief, textScaleAtDepth, type BriefBeat, type WelcomeResolve } from "./hello_brief_timeline";
 
 type FlatText = Mesh & {
   fillOpacity: number; outlineOpacity: number; outlineBlur: number;
@@ -57,6 +57,8 @@ function Word({ beat, index, layoutRef, progressRef, welcomeRef, metricsRef, onS
     state.extrusion = entranceExtrusion(state.z, welcome);
     const layout = layoutRef.current, position = layout.positions[index];
     rig.current.position.set(0, 0, state.z);
+    const textScale = textScaleAtDepth(state.z);
+    rig.current.scale.set(textScale, textScale, 1);
     glyphRig.current.scale.setScalar(layout.scale);
     glyphRig.current.position.set(position.x - ownOrigin.current.x * layout.scale, position.y - ownOrigin.current.y * layout.scale, 0);
     const cleared = !welcome && p >= beat.leave + beat.departure;
@@ -109,8 +111,11 @@ function Highlight({ beat, layoutRef, progressRef, settledRef, welcomeRef, metri
     state.opacity = MathUtils.damp(state.opacity, target.current.opacity, C.damping * 1.8, dt);
     const draw = highlightProgress(drawProgress, beat), r = layout.rectangle;
     const width = (r.right - r.left) * draw;
-    rig.current.position.set(layout.x, layout.y, state.z);
-    rig.current.scale.setScalar(layout.scale);
+    // Previously: position.set(layout.x, layout.y, state.z); scale.setScalar(layout.scale).
+    // Scale the shared measured origin and bounds together, exactly like the words.
+    const textScale = textScaleAtDepth(state.z);
+    rig.current.position.set(layout.x * textScale, layout.y * textScale, state.z);
+    rig.current.scale.set(layout.scale * textScale, layout.scale * textScale, layout.scale);
     rig.current.visible = draw > 0 && p < beat.leave + beat.departure && state.opacity > 0.0005;
     block.current.position.set(r.left + width / 2, (r.top + r.bottom) / 2, -0.012);
     block.current.scale.set(width, r.top - r.bottom, 1);
