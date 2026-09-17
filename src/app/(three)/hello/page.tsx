@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 
-import HelloIntro from "./HelloIntro";
+// V1 remains intact for comparison and rollback; V2 replaces its choreography.
+// import HelloIntro from "./HelloIntro";
+import HelloExperience from "./HelloExperience";
+import { mediaUrl } from "@/lib/site/content";
+import { HELLO_MODEL_SOURCE } from "./hello_timeline";
 
 // Keep the QR destination and metadata from the previous /hello review page.
 export const metadata: Metadata = {
@@ -17,7 +21,8 @@ export const metadata: Metadata = {
 };
 
 export default function HelloPage() {
-  return <HelloIntro />;
+  // return <HelloIntro />; // Preserved V1 entry point.
+  return <HelloExperience modelUrl={mediaUrl(HELLO_MODEL_SOURCE)} />;
 }
 
 // Production landing page preserved for rollback; the intro replaces its presentation.
