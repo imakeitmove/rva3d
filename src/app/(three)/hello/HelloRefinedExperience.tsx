@@ -8,7 +8,7 @@ import { Component, useCallback, useEffect, useRef, useState, type CSSProperties
 import { Brand } from "@/components/site/Brand";
 import { HELLO_V3 as C, HELLO_V3_MODEL, mix, unit, v3Background, type LogoDrag, type V3Metrics } from "./hello_timeline_v3";
 import { COMPOSITION as T } from "./hello_compositions";
-import { BRIEF as B, BRIEF_COPY, WELCOME_BEAT, createWelcomeResolve, advanceWelcome } from "./hello_brief_timeline";
+import { BRIEF as B, BRIEF_COPY, WELCOME_BEAT, createWelcomeResolve, advanceWelcome, briefProgressFromScroll } from "./hello_brief_timeline";
 import styles from "./hello_refined.module.css";
 
 const DepthScene = dynamic(() => import("./HelloRefinedScene"), { ssr: false });
@@ -82,7 +82,9 @@ export default function HelloRefinedExperience({ modelUrl }: { modelUrl: string 
     const read = () => {
       if (!root.current || !stage.current) return;
       const travel = root.current.offsetHeight - stage.current.offsetHeight;
-      progressRef.current = unit(-root.current.getBoundingClientRect().top / Math.max(1, travel));
+      // Previously all viewports used normalized scroll directly. Desktop still does.
+      const scroll = unit(-root.current.getBoundingClientRect().top / Math.max(1, travel));
+      progressRef.current = briefProgressFromScroll(scroll, window.innerWidth < B.phonePacing.breakpoint);
       if (hint.current) hint.current.style.opacity = String(1 - unit(progressRef.current / 0.045));
       if (hit.current) hit.current.style.pointerEvents = progressRef.current < 0.045 ? "auto" : "none";
       if (progressRef.current >= 0.045) { dragRef.current.dragging = false; gesture.current = null; }

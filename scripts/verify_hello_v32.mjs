@@ -19,12 +19,28 @@ const { HELLO_V3: C } = timeline;
 const compiledBrief = ts.transpileModule(await fs.readFile("src/app/(three)/hello/hello_brief_timeline.ts", "utf8"), { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText;
 const brief = {};
 new Function("exports", "require", compiledBrief)(brief, () => timeline);
-const { BRIEF: T, BRIEF_BEATS: beats, WELCOME_BEAT: welcome, sampleBrief, easeHighlight, entranceExtrusion, createWelcomeResolve, advanceWelcome } = brief;
+const { BRIEF: T, BRIEF_BEATS: beats, WELCOME_BEAT: welcome, sampleBrief, easeHighlight, entranceExtrusion, createWelcomeResolve, advanceWelcome, briefProgressFromScroll, briefScrollFromProgress } = brief;
 assert.deepEqual(beats.map(b=>b.copy), ["Hello!", "It was very\nnice to meet you.", "Or if we didn’t\nactually meet...", "We can fix that.", "Welcome."]);
 assert(beats[1].enter < beats[0].leave + beats[0].departure);
 assert(beats[3].leave + beats[3].departure < welcome.enter);
 assert.equal(easeHighlight(0),0);assert.equal(easeHighlight(1),1);assert.equal(easeHighlight(.5),.5);
 assert(easeHighlight(.1)<.01);assert(easeHighlight(.9)>.99);
+// The native distance map must be reversible, preserve desktop exactly, and
+// put all extra phone distance into readable dwells rather than transitions.
+assert.equal(T.runway.desktop, 390);
+assert.equal(T.runway.phone, 580);
+let previousPhone = -1;
+for (let i = 0; i <= 1000; i++) {
+ const p = i / 1000, phone = briefProgressFromScroll(p, true);
+ assert.equal(briefProgressFromScroll(p, false), p);
+ assert(phone > previousPhone); previousPhone = phone;
+ assert(Math.abs(briefScrollFromProgress(phone, true) - p) < 1e-10);
+}
+for (const [index, weight] of T.phonePacing.dwellWeights.entries()) {
+ const beat = beats[index];
+ const travel = (briefScrollFromProgress(beat.leave, true) - briefScrollFromProgress(beat.focus, true)) * T.runway.phone;
+ assert(Math.abs(travel - ((beat.leave - beat.focus) * 360 + 220 * weight)) < 1e-9);
+}
 let samples=0;
 for(const beat of beats) for(let i=0;i<beat.words.length;i++){
  let last=Infinity;
@@ -34,7 +50,9 @@ assert(entranceExtrusion(7,true)>entranceExtrusion(7,false)*2.7);assert.equal(en
 const auto=createWelcomeResolve();auto.committed=true;advanceWelcome(auto,200);const early=auto.z;advanceWelcome(auto,200);const middle=auto.z;advanceWelcome(auto,200);const late=auto.z;
 assert(middle-early>late-middle,"Welcome backward speed increases");assert(auto.yaw!==0 && auto.roll!==0);
 const results=[{samples,zOnlyUntilAutoplay:"pass",highlightSmootherstep:"pass",helloOverlap:"pass",fixClearsBeforeWelcome:"pass",welcomeAcceleration:"pass"}];
+let phoneViewport = false;
 function browser(...args) {
+  if (args[0] === "set" && args[1] === "viewport") phoneViewport = Number(args[2]) < T.phonePacing.breakpoint;
   const result = spawnSync(process.execPath, [cli, "--session", "hello-v32-verify", "--json", ...args], {
     encoding: "utf8", windowsHide: true, timeout: 45000, maxBuffer: 4 * 1024 * 1024,
   });
@@ -47,7 +65,8 @@ const evaluate = (code) => browser("eval", code).result;
 const wait = (ms) => browser("wait", String(ms));
 const state = () => evaluate("({path:location.pathname,...document.querySelector('main')?.dataset,overflow:document.documentElement.scrollWidth>innerWidth})");
 const metrics = () => JSON.parse(state().helloFrame);
-const scroll = (p) => evaluate(`window.scrollTo({top:(document.querySelector('main').offsetHeight-document.querySelector('main>div').offsetHeight)*${p},behavior:'instant'})`);
+const nativeProgress = (p) => briefScrollFromProgress(p, phoneViewport);
+const scroll = (p) => evaluate(`window.scrollTo({top:(document.querySelector('main').offsetHeight-document.querySelector('main>div').offsetHeight)*${nativeProgress(p)},behavior:'instant'})`);
 const ready = () => browser("wait", "--fn", "document.querySelector('main')?.dataset.helloReady === 'true'");
 const settled = () => browser("wait", "--fn", "JSON.parse(document.querySelector('main')?.dataset.helloFrame || '{}').introTime >= 3");
 const capture = (name) => browser("screenshot", path.join(output, `${name}.png`));
@@ -63,7 +82,7 @@ browser("set", "media", "dark");
 
 function sampleHighlightStroke(from, to, key) {
  scroll(from);wait(600);
- return evaluate("new Promise(resolve=>{const main=document.querySelector('main'),travel=main.offsetHeight-main.querySelector(':scope>div').offsetHeight;window.scrollTo(0,travel*"+to+");const start=performance.now(),values=[];function tick(){values.push(JSON.parse(main.dataset.helloFrame||'{}')["+JSON.stringify(key)+"]);if(performance.now()-start<700)requestAnimationFrame(tick);else resolve(values)}requestAnimationFrame(tick)})");
+ return evaluate("new Promise(resolve=>{const main=document.querySelector('main'),travel=main.offsetHeight-main.querySelector(':scope>div').offsetHeight;window.scrollTo(0,travel*"+nativeProgress(to)+");const start=performance.now(),values=[];function tick(){values.push(JSON.parse(main.dataset.helloFrame||'{}')["+JSON.stringify(key)+"]);if(performance.now()-start<700)requestAnimationFrame(tick);else resolve(values)}requestAnimationFrame(tick)})");
 }
 for(const [width,height] of [[360,800],[393,852],[768,1024],[1440,900]]){
  browser("set","viewport",String(width),String(height));browser("open",base+"/hello");ready();settled();
@@ -96,7 +115,7 @@ for(const [width,height] of [[360,800],[393,852],[768,1024],[1440,900]]){
  }
  scroll(beats[1].focus+T.highlight.meetDelay+T.highlight.meetDuration/2);wait(750);assert(Math.abs(metrics().youHighlight-.5)<.03);
  for(const p of [.6,.4,.2,0,.4,.6,.75]){scroll(p);wait(120);}
- evaluate("window.scrollTo(0,(document.querySelector('main').offsetHeight-document.querySelector('main>div').offsetHeight)*"+(welcome.focus+.01)+");setTimeout(()=>window.scrollTo(0,0),100)");
+ evaluate("window.scrollTo(0,(document.querySelector('main').offsetHeight-document.querySelector('main>div').offsetHeight)*"+nativeProgress(welcome.focus+.01)+");setTimeout(()=>window.scrollTo(0,0),100)");
  wait(1600);assert.equal(state().path,"/hello");assert.equal(metrics().welcomePhase,"scroll");
  // Stop completely at Welcome: all subsequent motion and navigation must be automatic.
  scroll(welcome.focus+.001);wait(500);capture(width+"_welcome_focus");

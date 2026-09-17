@@ -2,7 +2,10 @@ import { HELLO_V3 as C, mix, range, unit, type V3Pose } from "./hello_timeline_v
 
 /** V3.2: five connected beats. V3.1 remains in hello_compositions.ts. */
 export const BRIEF = {
-  runway: { desktop: 390, phone: 360 }, // Scroll travel in svh; stage adds 100svh.
+  runway: { desktop: 390, phone: 580 }, // Scroll travel in svh; stage adds 100svh.
+  // Previous phone runway: 360svh. Added travel belongs to readable beats,
+  // not the opening, transitions, or Welcome. Weights sum to one.
+  phonePacing: { breakpoint: 700, originalRunway: 360, dwellWeights: [60 / 220, 55 / 220, 65 / 220, 40 / 220] },
   hello: { enter: 0.045, approach: 0.075, dwell: 0.040, departure: 0.090, overlap: 0.070 },
   meet: { approach: 0.100, wordStagger: 0.0015, zStagger: 0.025, dwell: 0.115, departure: 0.100, overlapNext: 0.075 },
   setup: { approach: 0.085, wordStagger: 0.0015, zStagger: 0.025, dwell: 0.065, departure: 0.090, overlapNext: 0.065 },
@@ -48,6 +51,32 @@ export const BRIEF_BEATS = [
   { id: "fix", copy: "We can fix that.", words: ["We can fix that."], enter: fixEnter, focus: fixFocus, leave: fixLeave, departure: T.fix.departure, approach: T.fix.approach, stagger: 0, zStagger: 0 },
   { id: "welcome", copy: "Welcome.", words: ["Welcome."], enter: welcomeEnter, focus: welcomeEnter + T.welcome.approach, leave: 2, departure: 1, approach: T.welcome.approach, stagger: 0, zStagger: 0 },
 ] as const;
+// A continuous, reversible distance map preserves the existing animation poses,
+// overlap, and easing. No scroll events are canceled and no section is snapped.
+const phoneProgressPoints = [{ timeline: 0, scroll: 0 }];
+let addedPhoneTravel = 0;
+T.phonePacing.dwellWeights.forEach((weight, index) => {
+  const beat = BRIEF_BEATS[index];
+  phoneProgressPoints.push({ timeline: beat.focus, scroll: (beat.focus * T.phonePacing.originalRunway + addedPhoneTravel) / T.runway.phone });
+  addedPhoneTravel += (T.runway.phone - T.phonePacing.originalRunway) * weight;
+  phoneProgressPoints.push({ timeline: beat.leave, scroll: (beat.leave * T.phonePacing.originalRunway + addedPhoneTravel) / T.runway.phone });
+});
+phoneProgressPoints.push({ timeline: 1, scroll: 1 });
+function mapPhoneProgress(progress: number, from: "scroll" | "timeline", to: "scroll" | "timeline") {
+  const p = unit(progress);
+  for (let i = 1; i < phoneProgressPoints.length; i++) {
+    const a = phoneProgressPoints[i - 1], b = phoneProgressPoints[i];
+    if (p <= b[from]) return mix(a[to], b[to], (p - a[from]) / (b[from] - a[from]));
+  }
+  return 1;
+}
+export function briefProgressFromScroll(progress: number, phone: boolean) {
+  return phone ? mapPhoneProgress(progress, "scroll", "timeline") : progress;
+}
+// Inverse used by browser verification to address the same authored beat on both runways.
+export function briefScrollFromProgress(progress: number, phone: boolean) {
+  return phone ? mapPhoneProgress(progress, "timeline", "scroll") : progress;
+}
 export type BriefBeat = typeof BRIEF_BEATS[number];
 export const WELCOME_BEAT = BRIEF_BEATS[4];
 export const BRIEF_COPY = BRIEF_BEATS.map((beat) => beat.copy.replaceAll("\n", " ")).join(" ");
