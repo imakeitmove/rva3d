@@ -136,7 +136,8 @@ const capriSunBeforeSafetyAudit = {
   ...capriSunLegacy,
   heroMedia: { ...capriSunLegacy.heroMedia, caption: "Noise Tech: a close view of the digital pouch and foil surface." },
   editorial: {
-    heading: "One familiar pouch. Three different jokes.",
+    // Previous heading: One familiar pouch. Three different jokes.
+    heading: "Can't be a grouch when you have the pouch.",
     context: "Capri Sun / Reusable product assets",
     productionLabel: "Agency / production",
     productionRole: "Candy Factory",

@@ -170,7 +170,7 @@ test("release registry pins eight owner-approved cases and the exact selectively
   // Previous review packages contained 0 or 17 derivatives. This local pass adds 12.
   assert([undefined, 0, 12, 17, 29].includes(reviewAssets));
   // Previous approved selection: 145 assets / 208 logical URLs.
-  assert.deepEqual(publicResult, { status: "PASS", studies: 8, assets: 157, logicalUrls: 220, seoDimensionsVerified: false });
+  assert.deepEqual(publicResult, { status: "PASS", studies: 8, assets: 199, logicalUrls: 262, seoDimensionsVerified: false });
 });
 
 // GEICO Phase 2 covers the editorial contract and prevents approval drift in shared media.

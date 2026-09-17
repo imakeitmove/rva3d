@@ -10,7 +10,7 @@ import type { CapabilitySlug } from "@/content/capabilities/types";
 export const capabilityEditorial: Record<CapabilitySlug, { promise: string; copy: string; uses: string[]; proof: string }> = {
   "3d-animation": {
     // Previous: "Imagine anything. Then make it real."
-    "promise": "Give the impossible a convincing performance.",
+    "promise": "Show them exactly what you mean.",
     "copy": "Show a product before it exists, give a character personality or take the camera somewhere it cannot go. RVA3D develops the models, look and movement for a complete film or a few demanding shots.",
     "uses": [
       "Product launches",

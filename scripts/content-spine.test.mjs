@@ -410,7 +410,15 @@ test.skip("retired with the dormant React homepage: authored lockup geometry", a
 test("V008 gallery serializes only the curated, public-approved selection", async () => {
   const data = JSON.parse(await readFile(resolve(projectRoot, "src/content/site/home.generated.json"), "utf8"));
   const manifest = JSON.parse(await readFile(resolve(projectRoot, "src/content/site/media.generated.json"), "utf8"));
-  assert.ok(data.ribbon.length > 5);
+  // Previously the nine-item selection only required more than five items.
+  const selection = JSON.parse(await readFile(resolve(projectRoot, "src/content/site/ribbon-selection-20260917.generated.json"), "utf8"));
+  assert.equal(data.ribbon.length, 45);
+  assert.equal(new Set(data.ribbon.map(item => item.src)).size, 45);
+  assert.deepEqual(data.ribbon.map(item => item.src), selection.images.map(item => item.src));
+  assert.deepEqual(data.ribbon.map(item => item.id), selection.images.map(item => "top:final:" + item.file));
+  for (const image of selection.images) {
+    assert.equal(manifest[image.src.split("/").at(-1)].sha256, image.sha256);
+  }
   assert.equal(new Set(data.ribbon.map(item => item.id)).size, data.ribbon.length);
   for (const media of [...data.ribbon, ...data.hero]) {
     assert.ok(media.src.startsWith("/media/"));
@@ -1039,7 +1047,7 @@ test("buyer-confidence copy and distinct project interaction contracts stay scop
   assert.doesNotMatch(activeWork,/Selected work \/ 01/);
   assert(activeWork.includes("Products to explain. Characters to animate. Shots to solve."));
   assert(activeWork.includes("See what each project needed, what we contributed and how it came together."));
-  for (const copy of ["Give the impossible a convincing performance.","No detail is too small.","Moving messages make moving messages.","Wait, what did you change?","Bring in the render-enforcements!"]) assert(activeCap.includes(copy));
+  for (const copy of ["Show them exactly what you mean.","No detail is too small.","Moving messages make moving messages.","Wait, what did you change?","Bring in the render-enforcements!"]) assert(activeCap.includes(copy));
   assert(activeCap.includes("Turn a script, supplied boards or brand direction into motion."));
   assert(activeCap.includes("Bring the footage or production question; we’ll work out the rest!"));
   assert.match(editorial,/WE ARE ON YOUR TEAM/); assert.match(editorial,/We&#8217;ll help you/);

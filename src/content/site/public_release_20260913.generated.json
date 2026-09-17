@@ -12,10 +12,10 @@
     "desmi-rotan-pump",
     "uncommon-goods-outta-this-world"
   ],
-  "assets": 157,
-  "logicalUrls": 220,
-  "registryDigest": "ec3c9593a52e493f5d65cde97edb1a15512cd9b889fe47e2afffb0579f683616",
-  "urlsDigest": "86d960c10297ae1b8f4bf279915869a4df29d8150022886214f039a4d6ef64b5",
+  "assets": 199,
+  "logicalUrls": 262,
+  "registryDigest": "d52c65636e5a3e38ffe5f2c79bd0ab7fe71e0cfd8ae4dbdeed61b1b34c9643ab",
+  "urlsDigest": "b335cb25a679a88131ec2bce2ea7605235add25bbd3c575c1489098a343e21b7",
   "previous93RegistryDigest": "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8",
   "previous157UrlsDigest": "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f",
   "excludedKeys": [
@@ -145,14 +145,22 @@
     "2026-09-12",
     "2026-09-13",
     "2026-09-15",
-    "2026-09-16"
+    "2026-09-16",
+    "2026-09-17"
   ],
-  "audit": "2026-09-16 explicit production deployment authorization for the reviewed September 16 worktree, including the 12 case-refinement media derivatives.",
+  "audit": "2026-09-17 explicit owner approval to publish all 45 current portfolio ribbon images with the finished hello experience and site refinements.",
   "previousSeptember15Release": {
     "assets": 145,
     "logicalUrls": 208,
     "registryDigest": "38a5e3ebd47137ef3adeb78d3b068a8b0ae5d283291c3ee6674942878d06ac46",
     "urlsDigest": "5e068244f86194546c5db248125d0ad4d418b7d6cb420653bcaaa0c350e3280e",
     "audit": "2026-09-15 project-specific authorization: restore richer public content except Capri Sun and Uncommon Goods process media; preserve corrected attribution."
+  },
+  "previousSeptember16Release": {
+    "assets": 157,
+    "logicalUrls": 220,
+    "registryDigest": "ec3c9593a52e493f5d65cde97edb1a15512cd9b889fe47e2afffb0579f683616",
+    "urlsDigest": "86d960c10297ae1b8f4bf279915869a4df29d8150022886214f039a4d6ef64b5",
+    "audit": "2026-09-16 explicit production deployment authorization for the reviewed September 16 worktree, including the 12 case-refinement media derivatives."
   }
 }
