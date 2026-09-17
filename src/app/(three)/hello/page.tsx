@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 
 // V1 remains intact for comparison and rollback; V2 replaces its choreography.
 // import HelloIntro from "./HelloIntro";
-import HelloExperience from "./HelloExperience";
+// V2 remains intact at 5623e596 and safety/hello-v2-5623e596.
+// import HelloExperience from "./HelloExperience";
+import HelloRefinedExperience from "./HelloRefinedExperience";
 import { mediaUrl } from "@/lib/site/content";
 import { HELLO_MODEL_SOURCE } from "./hello_timeline";
 
@@ -22,7 +24,8 @@ export const metadata: Metadata = {
 
 export default function HelloPage() {
   // return <HelloIntro />; // Preserved V1 entry point.
-  return <HelloExperience modelUrl={mediaUrl(HELLO_MODEL_SOURCE)} />;
+  // return <HelloExperience modelUrl={mediaUrl(HELLO_MODEL_SOURCE)} />; // V2 rollback.
+  return <HelloRefinedExperience modelUrl={mediaUrl(HELLO_MODEL_SOURCE)} />;
 }
 
 // Production landing page preserved for rollback; the intro replaces its presentation.
