@@ -7,6 +7,7 @@ import { Component, useCallback, useEffect, useRef, useState, type CSSProperties
 
 import { Brand } from "@/components/site/Brand";
 import { HELLO_V3 as C, HELLO_V3_MODEL, V3_TITLES, mix, unit, v3Background, type LogoDrag, type V3Metrics } from "./hello_timeline_v3";
+import { COMPOSITION as T } from "./hello_compositions";
 import styles from "./hello_refined.module.css";
 
 const DepthScene = dynamic(() => import("./HelloRefinedScene"), { ssr: false });
@@ -146,7 +147,7 @@ export default function HelloRefinedExperience({ modelUrl }: { modelUrl: string 
       event.currentTarget.setPointerCapture(event.pointerId);
       dragRef.current.dragging = true;
     }
-    const yaw = (event.clientX - g.lastX) * C.dragRotationStrength;
+    const yaw = (event.clientX - g.lastX) * T.logo3DDragStrength;
     dragRef.current.yaw += yaw;
     dragRef.current.pitch = Math.max(-C.dragPitchLimit, Math.min(C.dragPitchLimit, dragRef.current.pitch + (event.clientY - g.lastY) * C.dragPitchStrength));
     dragRef.current.velocity = Math.max(-C.dragMaxVelocity, Math.min(C.dragMaxVelocity, yaw / Math.max(0.008, (event.timeStamp - g.time) / 1000)));

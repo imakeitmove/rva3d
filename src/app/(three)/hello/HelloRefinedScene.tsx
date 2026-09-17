@@ -5,7 +5,9 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { MathUtils } from "three";
 
 import HelloLogoLayer from "./HelloLogoLayer";
-import HelloTypographyStream from "./HelloTypographyStream";
+// Original independent phrase stream remains intact for rollback.
+// import HelloTypographyStream from "./HelloTypographyStream";
+import HelloTypographyStream from "./HelloSentenceStream";
 import { HELLO_V3 as C, type LogoDrag, type V3Metrics } from "./hello_timeline_v3";
 
 type Props = {

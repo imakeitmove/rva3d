@@ -5,7 +5,8 @@ export const HELLO_V3 = {
   camera: { z: 8, phoneFov: 43, desktopFov: 38, near: 0.08, far: 100 },
   logoScale: 0.70, // Exact multiplier of the V2 presentation scale, never the asset.
   logoIntro: { clip: "animation_0", playbackRate: 1, idleBlendSeconds: 0.4 },
-  logoFade: { start: 0.026, end: 0.14, farZ: -25 },
+  // Previous fade tail: logoFade: { start: 0.026, end: 0.14, farZ: -25 },
+  logoFade: { start: 0.026, end: 0.12, farZ: -25 },
   logoFraming: { phoneWidth: 0.76, desktopWidth: 0.59, maxHeight: 0.25 },
   logoIdle: { pitch: -0.035, yaw: -0.11, amplitude: 0.012, frequency: 0.3 },
   logoSurface: { roughness: 0.26, metalness: 0.12 },
@@ -114,4 +115,4 @@ export function groundDots(p: number) {
   return Math.min(3, Math.max(0, Math.floor((p - start) / ((end - start) / 3)) + 1));
 }
 export type LogoDrag = { yaw: number; pitch: number; velocity: number; dragging: boolean };
-export type V3Metrics = { introTime: number; introDuration: number; clip: string; logoOpacity: number; yaw: number; pitch: number; dots: number; purple: number; youHighlight: number; greenHighlight: number; maxExtrusion: number; settled: number };
+export type V3Metrics = { dotsOpacity?: number; dotsPhase?: string; dotsPlays?: number; rvaRotation?: number[]; compositions?: Record<string, { z: number; opacity: number; x: number; y: number }>; introTime: number; introDuration: number; clip: string; logoOpacity: number; yaw: number; pitch: number; dots: number; purple: number; youHighlight: number; greenHighlight: number; maxExtrusion: number; settled: number };

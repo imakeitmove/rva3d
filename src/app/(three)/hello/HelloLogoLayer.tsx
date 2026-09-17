@@ -8,6 +8,8 @@ import { AnimationMixer, Box3, Color, Group, LoopOnce, MathUtils, Mesh, MeshStan
 
 import { HELLO_V3 as C, range, type LogoDrag, type V3Metrics } from "./hello_timeline_v3";
 
+import { COMPOSITION as T } from "./hello_compositions";
+
 type Props = {
   modelUrl: string;
   progressRef: MutableRefObject<number>;
@@ -19,7 +21,8 @@ export default function HelloLogoLayer({ modelUrl, progressRef, dragRef, metrics
   const gltf = useGLTF(modelUrl);
   const { gl, camera, size, viewport } = useThree();
   const scrollRig = useRef<Group>(null);
-  const dragRig = useRef<Group>(null);
+  // Whole-logo drag rig retired; interaction now lives beneath the named 3D node.
+  // const dragRig = useRef<Group>(null);
   const composite = useRef<Mesh>(null);
   const material = useRef<ShaderMaterial>(null);
   const elapsed = useRef(0);
@@ -69,9 +72,26 @@ export default function HelloLogoLayer({ modelUrl, progressRef, dragRef, metrics
     const center = box.getCenter(new Vector3());
     const extent = box.getSize(new Vector3());
     model.position.sub(center);
+    // Named siblings: RVA_Logo_Ai8 stays authored; only 3D_text gets a pivot.
+    // Measure in the finished pose before rewinding the animation. Converting
+    // the world center into the parent frame keeps the insertion pose-neutral.
+    const dimensional = model.getObjectByName("3D_text");
+    const rva = model.getObjectByName("RVA_Logo_Ai8");
+    const interaction = new Group();
+    interaction.name = "hello_3D_interaction_pivot";
+    if (dimensional?.parent) {
+      model.updateMatrixWorld(true);
+      const parent = dimensional.parent;
+      const pivot = new Box3().setFromObject(dimensional).getCenter(new Vector3());
+      parent.worldToLocal(pivot);
+      interaction.position.copy(pivot);
+      parent.add(interaction);
+      interaction.add(dimensional);
+      dimensional.position.sub(pivot);
+    }
     action?.reset().play();
     mixer.setTime(0);
-    return { model, materials, mixer, action, clip, width: extent.x, height: extent.y };
+    return { model, interaction, rva, materials, mixer, action, clip, width: extent.x, height: extent.y };
   }, [gltf]);
 
   useEffect(() => () => {
@@ -79,7 +99,7 @@ export default function HelloLogoLayer({ modelUrl, progressRef, dragRef, metrics
   }, [runtime]);
 
   useFrame((_, delta) => {
-    if (!scrollRig.current || !dragRig.current || !composite.current || !material.current) return;
+    if (!scrollRig.current || !composite.current || !material.current) return;
     const dt = Math.min(delta, 0.05);
     elapsed.current += dt;
     const duration = runtime.clip?.duration ?? 0;
@@ -96,12 +116,16 @@ export default function HelloLogoLayer({ modelUrl, progressRef, dragRef, metrics
     const v2Scale = Math.min(width * (size.width < 700 ? C.logoFraming.phoneWidth : C.logoFraming.desktopWidth) / runtime.width, viewport.height * C.logoFraming.maxHeight / runtime.height);
     scrollRig.current.scale.setScalar(v2Scale * C.logoScale);
     scrollRig.current.position.set(0, 0, state.z);
-    scrollRig.current.rotation.set(C.logoIdle.pitch, C.logoIdle.yaw + Math.sin(elapsed.current * C.logoIdle.frequency) * C.logoIdle.amplitude * idle, 0);
+    // Replaced whole-logo idle with the named 3D pivot; retained for restoration.
+    // scrollRig.current.rotation.set(C.logoIdle.pitch, C.logoIdle.yaw + Math.sin(elapsed.current * C.logoIdle.frequency) * C.logoIdle.amplitude * idle, 0);
+    scrollRig.current.rotation.set(0, 0, 0);
 
     const drag = dragRef.current;
     const recenter = range(p, C.dragRecenter.start, C.dragRecenter.end);
     if (!drag.dragging) {
-      drag.velocity *= Math.exp(-C.dragDamping * dt);
+      drag.velocity *= Math.exp(-T.logo3DDragDamping * dt);
+      drag.yaw = MathUtils.damp(drag.yaw, 0, T.logo3DReturn, dt);
+      drag.pitch = MathUtils.damp(drag.pitch, 0, T.logo3DReturn, dt);
       drag.yaw += drag.velocity * dt;
     }
     if (recenter > 0) {
@@ -109,17 +133,24 @@ export default function HelloLogoLayer({ modelUrl, progressRef, dragRef, metrics
       drag.pitch = MathUtils.damp(drag.pitch, 0, C.dragDamping * recenter, dt);
       drag.velocity *= Math.exp(-C.dragDamping * recenter * dt);
     }
-    dragRig.current.rotation.set(
-      MathUtils.damp(dragRig.current.rotation.x, drag.pitch * (1 - recenter), C.dragFollow, dt),
-      MathUtils.damp(dragRig.current.rotation.y, drag.yaw * (1 - recenter), C.dragFollow, dt),
+    // Previous whole-logo interaction, retained for restoration:
+    // dragRig.current.rotation.set(
+    //   MathUtils.damp(dragRig.current.rotation.x, drag.pitch * (1 - recenter), C.dragFollow, dt),
+    //   MathUtils.damp(dragRig.current.rotation.y, drag.yaw * (1 - recenter), C.dragFollow, dt),
+    //   0,
+    // );
+    runtime.interaction.rotation.set(
+      MathUtils.damp(runtime.interaction.rotation.x, (drag.pitch + Math.sin(elapsed.current * T.logo3DIdleSpeed * 0.71) * T.logo3DIdlePitch * idle) * (1 - recenter) * idle, C.dragFollow, dt),
+      MathUtils.damp(runtime.interaction.rotation.y, (drag.yaw + Math.sin(elapsed.current * T.logo3DIdleSpeed) * T.logo3DIdleYaw * idle) * (1 - recenter) * idle, C.dragFollow, dt),
       0,
     );
     metricsRef.current.introTime = introTime;
     metricsRef.current.introDuration = duration;
     metricsRef.current.clip = runtime.clip?.name ?? "none";
     metricsRef.current.logoOpacity = state.opacity;
-    metricsRef.current.yaw = dragRig.current.rotation.y;
-    metricsRef.current.pitch = dragRig.current.rotation.x;
+    metricsRef.current.yaw = runtime.interaction.rotation.y;
+    metricsRef.current.pitch = runtime.interaction.rotation.x;
+    metricsRef.current.rvaRotation = runtime.rva ? [runtime.rva.rotation.x, runtime.rva.rotation.y, runtime.rva.rotation.z] : [];
     composite.current.visible = state.opacity > 0.0005;
     material.current.uniforms.opacity.value = state.opacity;
     if (!composite.current.visible) return;
@@ -141,7 +172,8 @@ export default function HelloLogoLayer({ modelUrl, progressRef, dragRef, metrics
       <directionalLight position={[2, 4, 7]} intensity={2.5} color={C.colors.paper} />
       <directionalLight position={[-4, -1, 3]} intensity={0.65} color={C.colors.paper} />
       <group ref={scrollRig} dispose={null}>
-        <group ref={dragRig}><primitive object={runtime.model} /></group>
+        {/* Previous wrapper: <group ref={dragRig}><primitive object={runtime.model} /></group> */}
+        <primitive object={runtime.model} />
       </group>
     </>, logoScene)}
     <mesh ref={composite} frustumCulled={false} renderOrder={-100}>
