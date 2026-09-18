@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/next";
 import { publicRobotsPolicy } from "@/lib/site/runtime-environment";
 
 import "./globals.css";
@@ -62,6 +63,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>{["composition", "v003", "v004", "v005", "v006", "v007", "v008", "complete-site"].map(name => <link key={name} rel="stylesheet" href={`/site-assets/${name}.css`} />)}</head>
       <body className={`${geistSans.variable} ${geistMono.variable} v003 v004 v005 v006 v007 v008 complete-site`}>
         {children}
+        <Analytics />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
