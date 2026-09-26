@@ -4,6 +4,7 @@ import type { WorkCredit, WorkMedia } from "@/content/work/types";
 import { protectedMedia, studies, headline } from "@/lib/site/content";
 import { siteHref } from "@/lib/site/paths";
 import { Shell } from "./Shell";
+import { RolloutPlayback } from "./RolloutPlayback";
 import { SiteMedia } from "./SiteMedia";
 import { GeicoExperience, GeicoVideo } from "./GeicoMedia";
 import house from "./GeicoCase.module.css";
@@ -25,7 +26,7 @@ export function CaseBeat({ children, id, pair = false, row = false, centered = f
 export function RolloutCase({ slug, title, intro, hero, children, credits, nextSlug }: { slug: string; title: string; intro: ReactNode; hero: WorkMedia; children: ReactNode; credits: readonly WorkCredit[]; nextSlug?: string }) {
   const index = studies.findIndex(study => study.slug === slug);
   const next = nextSlug ? studies.find(study => study.slug === nextSlug)! : studies[(index + 1) % studies.length];
-  return <Shell><article className={[house.case, finishing.finish, styles.case].join(" ")} data-editorial-case={slug} data-tone="paper"><GeicoExperience>
+  return <Shell><article className={[house.case, finishing.finish, styles.case].join(" ")} data-editorial-case={slug} data-tone="paper"><GeicoExperience><RolloutPlayback>
     <header className={house.opening}><Link className="editorial-link" href={siteHref("/work#" + slug)}>← Back to Work</Link>
       <h1>{title}</h1><div className={house.intro}><p className={house.lead}>{intro}</p></div>
     </header>
@@ -35,5 +36,5 @@ export function RolloutCase({ slug, title, intro, hero, children, credits, nextS
       <h2 id="credits-heading">Credits</h2><div className={[house.creditGrid, whaxe.credits].join(" ")}><dl>{credits.map(credit => <div key={credit.role}><dt>{credit.role}</dt><dd>{credit.url ? <a href={credit.url}>{credit.name}</a> : credit.name}</dd></div>)}</dl></div>
     </section>
     <nav className="v-broad case-next" aria-label="More projects" data-tone="paper"><div><p className="label">Next project</p><a href={siteHref("/work/" + next.slug)}>{headline[next.slug]} ↗</a></div><a className="editorial-link" href={siteHref("/work#" + slug)}>← Back to Work</a></nav>
-  </GeicoExperience></article></Shell>;
+  </RolloutPlayback></GeicoExperience></article></Shell>;
 }

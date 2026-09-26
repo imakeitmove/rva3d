@@ -243,6 +243,10 @@ const cableSnakeFinalOnlyAudit = {
 // the corrected contribution, known credits, summary and SEO remain authoritative.
 export const cableSnake = {
   ...cableSnakeFinalOnlyAudit,
+  // September 26 brief corrects the brand name; earlier copy is retained above.
+  client: "Twist Broadband",
+  summary: "For Twist Broadband’s Cable is a Snake campaign, we built and animated a digital counterpart to the practical puppet for Spang and Dotted Line’s live-action production.",
+  seo: { ...cableSnakeFinalOnlyAudit.seo, description: "A practical puppet recreated in 3D for Twist Broadband: character modeling, animation and compositing within a Spang and Dotted Line production." },
   heroMedia: additions.cableHero as WorkVideoMedia,
   galleryMedia: cableSnakeBeforeSafetyAudit.galleryMedia,
   processChapters: cableSnakeBeforeSafetyAudit.processChapters,

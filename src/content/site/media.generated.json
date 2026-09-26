@@ -3045,5 +3045,22 @@
     "approvalSource": "direct-owner-approval",
     "clearanceBasis": "Frame extraction from already approved full 30-second commercial.",
     "recipe": "Frame at 18.4 seconds, uncropped WebP, no enlargement"
+  },
+  "733a554e35eee87ec5d5.webp": {
+    "file": "private-media/733a554e35eee87ec5d5.webp",
+    "type": "image/webp",
+    "bytes": 81856,
+    "sha256": "733a554e35eee87ec5d532d415f494151bb6b2c1735b85f52563b0eb8b4dc47a",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/rva3d/qa-runtime/geico_refresh_20260926/private-media/802b4d6a35cbbbd255b6.mp4",
+    "sourceSha256": "802b4d6a35cbbbd255b6ef2644e91426e0bac9788374c16759eee637b3c22268",
+    "width": 1600,
+    "height": 900,
+    "publication": "public-approved",
+    "approvedAt": "2026-09-26",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval",
+    "clearanceBasis": "Frame extraction from already approved full 30-second commercial.",
+    "recipe": "Frame at 6.5 seconds, uncropped WebP, no enlargement"
   }
 }

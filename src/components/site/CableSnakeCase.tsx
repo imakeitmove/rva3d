@@ -1,9 +1,12 @@
 import { cableSnake } from "@/content/work/cases/cable-snake";
+import { hasPrivateReviewSession } from "@/lib/private_review_auth";
 import media from "@/content/work/rollout_media.generated.json";
 import type { WorkImageMedia } from "@/content/work/types";
 import { CaseBeat, CaseMedia, RolloutCase } from "./RolloutCase";
 
-export function CableSnakeCase({ privatePlacements = false }: { privatePlacements?: boolean }) {
+export async function CableSnakeCase({ privatePlacements = false }: { privatePlacements?: boolean }) {
+  // The existing /review/site adapter forwards its authenticated session to this composition.
+  const showPlacements = privatePlacements || await hasPrivateReviewSession();
   return <RolloutCase slug="cable-snake" title="Same puppet animated two different ways."
     intro="Twist Broadband’s cable-company villain was made from an actual coaxial cable. Working with Spang on Dotted Line’s campaign, we built its digital counterpart for the moments a practical puppet couldn’t easily perform."
     hero={cableSnake.heroMedia} nextSlug="axe-whaxe-lil-baby" credits={[
@@ -23,6 +26,6 @@ export function CableSnakeCase({ privatePlacements = false }: { privatePlacement
     <CaseBeat id="behind-the-scenes"><CaseMedia media={cableSnake.processChapters[0].media[0]} /></CaseBeat>
     <CaseBeat id="campaign" centered><h2>From cable bills to billboards.</h2><p>The snake didn’t stay in the living room. We also created the character renders for Twist’s billboards and bus wraps in San Jose.</p><p>According to <a href="https://dottedline.agency/work/twist">Dotted Line ↗</a>, the wider campaign generated more than 113 million media impressions in four months and exceeded its market-trial target by over 20%. Twist extended the trial for another three months.</p></CaseBeat>
     {/* Newly selected photos stay in the existing authenticated review route until cleared. */}
-    {privatePlacements && <CaseBeat id="final-stills" pair><CaseMedia media={media.cable_billboard as WorkImageMedia} /><CaseMedia media={media.cable_bus as WorkImageMedia} /></CaseBeat>}
+    {showPlacements && <CaseBeat id="final-stills" pair><CaseMedia media={media.cable_billboard as WorkImageMedia} /><CaseMedia media={media.cable_bus as WorkImageMedia} /></CaseBeat>}
   </RolloutCase>;
 }

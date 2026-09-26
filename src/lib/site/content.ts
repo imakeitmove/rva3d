@@ -86,7 +86,8 @@ export const headline: Record<string, string> = {
   "uncommon-goods-outta-this-world": "Bringing supplied direction into motion for Uncommon Goods.",
   "desmi-rotan-pump": "Making the inner workings visible for DESMI.",
   "geico-geckos-cereal-box": "Bringing a cereal box to life for GEICO.",
-  "cable-snake": "Recreating a stop-motion cable snake in 3D for Twist Wireless.",
+  // Previous brand wording retained: Recreating a stop-motion cable snake in 3D for Twist Wireless.
+  "cable-snake": "Recreating a practical cable snake in 3D for Twist Broadband.",
   "amsoil-xpd-wind-grease": "Going inside a wind turbine for AMSOIL.",
   // Previous combined title: "3D juice pouches created and animated for Capri Sun."
   "capri-sun": "Capri Sun Noise Tech.",
@@ -99,7 +100,8 @@ export const context: Record<string, string> = {
   "uncommon-goods-outta-this-world": "Uncommon Goods / Through Spang TV",
   "desmi-rotan-pump": "DESMI / Technical visualization",
   "geico-geckos-cereal-box": "GEICO / VFX supervision and lead animation",
-  "cable-snake": "Twist Wireless / Spang · Dotted Line",
+  // Previous context: Twist Wireless / Spang · Dotted Line
+  "cable-snake": "Twist Broadband / Spang · Dotted Line",
   "amsoil-xpd-wind-grease": "AMSOIL / Technical visualization",
   // Previous combined credit: "Capri Sun / Agency: Candy Factory"
   "capri-sun": "Capri Sun / Noise Tech",
