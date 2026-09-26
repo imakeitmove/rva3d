@@ -1,6 +1,8 @@
 "use client";
 
 import { Component, useCallback, useEffect, useRef, useState, type ReactNode, type KeyboardEvent } from "react";
+import { useMediaChrome } from "@/hooks/useMediaChrome";
+import { MediaExpandIcon } from "./MediaExpandIcon";
 import { createPortal } from "react-dom";
 import { WorkMedia } from "@/components/work/WorkMedia";
 import type { WorkImageMedia } from "@/content/work/types";
@@ -14,6 +16,7 @@ class ViewerBoundary extends Component<{ children: ReactNode; fallback: ReactNod
 }
 export default function GeicoPanoramaModal({ source, preview, onClose }: { source: string; preview: WorkImageMedia; onClose: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
+  useMediaChrome(dialog, { viewer: true });
   const closeButton = useRef<HTMLButtonElement>(null);
   const actions = useRef<PanoramaActions | null>(null);
   const [ready, setReady] = useState(false);
@@ -69,14 +72,14 @@ export default function GeicoPanoramaModal({ source, preview, onClose }: { sourc
       <ViewerBoundary fallback={fallback}><GeicoPanoramaScene source={source} onReady={onReady} /></ViewerBoundary>
     </div>
     <div className={styles.viewerControls}>
-      <button type="button" aria-label="Look left" disabled={!ready} onClick={() => actions.current?.move(.16, 0)}>←</button>
-      <button type="button" aria-label="Look right" disabled={!ready} onClick={() => actions.current?.move(-.16, 0)}>→</button>
-      <button type="button" aria-label="Look up" disabled={!ready} onClick={() => actions.current?.move(0, -.16)}>↑</button>
-      <button type="button" aria-label="Look down" disabled={!ready} onClick={() => actions.current?.move(0, .16)}>↓</button>
-      <button type="button" aria-label="Zoom in" disabled={!ready} onClick={() => actions.current?.zoom(-5)}>+</button>
-      <button type="button" aria-label="Zoom out" disabled={!ready} onClick={() => actions.current?.zoom(5)}>−</button>
-      {document.fullscreenEnabled && <button type="button" aria-label={full ? "Exit panorama fullscreen" : "Enter panorama fullscreen"} onClick={() => void fullscreen()}>↗</button>}
-      <button ref={closeButton} type="button" className={styles.close} aria-label="Close panorama" onClick={() => void close()}>×</button>
+      <button data-media-control type="button" aria-label="Look left" disabled={!ready} onClick={() => actions.current?.move(.16, 0)}>←</button>
+      <button data-media-control type="button" aria-label="Look right" disabled={!ready} onClick={() => actions.current?.move(-.16, 0)}>→</button>
+      <button data-media-control type="button" aria-label="Look up" disabled={!ready} onClick={() => actions.current?.move(0, -.16)}>↑</button>
+      <button data-media-control type="button" aria-label="Look down" disabled={!ready} onClick={() => actions.current?.move(0, .16)}>↓</button>
+      <button data-media-control type="button" aria-label="Zoom in" disabled={!ready} onClick={() => actions.current?.zoom(-5)}>+</button>
+      <button data-media-control type="button" aria-label="Zoom out" disabled={!ready} onClick={() => actions.current?.zoom(5)}>−</button>
+      {document.fullscreenEnabled && <button data-media-control type="button" aria-label={full ? "Exit panorama fullscreen" : "Enter panorama fullscreen"} onClick={() => void fullscreen()}><MediaExpandIcon expanded={full} /></button>}
+      <button data-media-control data-media-persistent ref={closeButton} type="button" className={styles.close} aria-label="Close panorama" onClick={() => void close()}>×</button>
     </div>
     {fullscreenFailure && <p className={styles.srOnly} role="status">Fullscreen is unavailable. The panorama remains available in this dialog.</p>}
   </dialog>, document.body);

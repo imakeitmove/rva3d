@@ -40,9 +40,9 @@ export function GeicoSetSlideshow({ slides }: { slides: WorkImageMedia[] }) {
       </div>)}
       <CapabilityFullscreen targetRef={root} kind="image" variant="homepage" />
       <div className={styles.slideControls}>
-        <button className="custom-control" type="button" onClick={() => step(-1)} aria-label="Previous set photograph"><span aria-hidden="true">‹</span></button>
-        <button className="custom-control" type="button" onClick={() => setPaused(previous => !previous)} disabled={reduced} aria-label={reduced ? "Slideshow autoplay disabled by reduced motion" : paused ? "Play set slideshow" : "Pause set slideshow"}><span aria-hidden="true">{paused || reduced ? "▶" : "Ⅱ"}</span></button>
-        <button className="custom-control" type="button" onClick={() => step(1)} aria-label="Next set photograph"><span aria-hidden="true">›</span></button>
+        <button data-media-control className="custom-control" type="button" onClick={() => step(-1)} aria-label="Previous set photograph"><span aria-hidden="true">‹</span></button>
+        <button data-media-control className="custom-control" type="button" onClick={() => setPaused(previous => !previous)} disabled={reduced} aria-label={reduced ? "Slideshow autoplay disabled by reduced motion" : paused ? "Play set slideshow" : "Pause set slideshow"}><span aria-hidden="true">{paused || reduced ? "▶" : "Ⅱ"}</span></button>
+        <button data-media-control className="custom-control" type="button" onClick={() => step(1)} aria-label="Next set photograph"><span aria-hidden="true">›</span></button>
       </div>
     </div>
   </div>;

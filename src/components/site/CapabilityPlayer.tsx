@@ -28,7 +28,7 @@ function CoordinatedCapabilityPlayer({ media, playback: { videoRef, videoProps, 
   return <div className="v-player ready" data-paused={!playing}>
     <div className="v-picture" ref={picture}>
       <video ref={videoRef} muted playsInline preload="none" poster={media.poster.src} width={media.width} height={media.height} aria-label={media.alt} {...videoProps} />
-      <button className="v-play custom-control" type="button" data-action="play" disabled={suspended} onClick={toggle} aria-label={`${playing ? "Pause" : "Play"} ${media.alt}`} dangerouslySetInnerHTML={{ __html: icon(playing ? "pause" : "play") }} />
+      <button data-media-control className="v-play custom-control" type="button" data-action="play" disabled={suspended} onClick={toggle} aria-label={`${playing ? "Pause" : "Play"} ${media.alt}`} dangerouslySetInnerHTML={{ __html: icon(playing ? "pause" : "play") }} />
       <CapabilityFullscreen targetRef={picture} kind="video" variant="homepage" />
     </div>
   </div>;
@@ -55,7 +55,7 @@ function AutomaticCapabilityPlayer({ media, destination }: { media: WorkVideoMed
     return () => { cancelled = true; dispose?.(); };
   }, [media]);
   return <div className="capability-player v-player" ref={root}>
-    <div className="v-picture" ref={picture}><video muted loop playsInline preload="none" poster={media.poster.src} width={media.width} height={media.height} aria-label={media.alt}><source src={media.src} type={media.mimeType} /></video>{destination && <a className="capability-media-destination" href={destination.href} aria-label={destination.label} />}<button className="v-play custom-control" type="button" data-action="play" aria-label={`Play ${media.alt}`}><span aria-hidden="true">▶</span></button><CapabilityFullscreen targetRef={picture} kind="video" /><p className="v-player-status" role="status" /></div>
+    <div className="v-picture" ref={picture}><video muted loop playsInline preload="none" poster={media.poster.src} width={media.width} height={media.height} aria-label={media.alt}><source src={media.src} type={media.mimeType} /></video>{destination && <a className="capability-media-destination" href={destination.href} aria-label={destination.label} />}<button data-media-control className="v-play custom-control" type="button" data-action="play" aria-label={`Play ${media.alt}`}><span aria-hidden="true">▶</span></button><CapabilityFullscreen targetRef={picture} kind="video" /><p className="v-player-status" role="status" /></div>
   </div>;
 }
 

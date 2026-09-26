@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { useMediaChrome } from "@/hooks/useMediaChrome";
+import { MediaExpandIcon } from "./MediaExpandIcon";
 import type { WorkMedia as Media } from "@/content/work/types";
 import styles from "./SiteMedia.module.css";
 import { CapabilityFullscreen } from "./CapabilityFullscreen";
@@ -8,6 +10,7 @@ import { WorkMedia } from "@/components/work/WorkMedia";
 // Previous signature: export function SiteMedia({ media, priority = false, capabilityFullscreen = false }: { media: Media; priority?: boolean; capabilityFullscreen?: boolean }) {
 export function SiteMedia({ media, priority = false, capabilityFullscreen = false, sizes }: { media: Media; priority?: boolean; capabilityFullscreen?: boolean; sizes?: string }) {
   const root = useRef<HTMLDivElement>(null);
+  useMediaChrome(root, { enabled: !capabilityFullscreen });
   const [full, setFull] = useState(false), [failure, setFailure] = useState(false), [retry, setRetry] = useState(0);
   useEffect(() => { const update = () => setFull(document.fullscreenElement === root.current); document.addEventListener("fullscreenchange", update); return () => document.removeEventListener("fullscreenchange", update); }, []);
   useEffect(() => {
@@ -28,7 +31,7 @@ export function SiteMedia({ media, priority = false, capabilityFullscreen = fals
     <WorkMedia key={retry} media={media} privateDelivery priority={priority} sizes={full ? "100vw" : sizes} />
     {full && media.statusLabel && <p className={styles.status} data-fullscreen-status>{media.statusLabel}</p>}
     {/* Legacy case-study control remains the default; capabilities share their video control. */}
-    {capabilityFullscreen ? <CapabilityFullscreen targetRef={root} kind={media.kind === "video" ? "video" : "image"} /> : (<button type="button" className="site-fullscreen" onClick={fullscreen} aria-label={full ? "Exit media fullscreen" : "Enter media fullscreen"}><span aria-hidden="true">{full ? "↙" : "↗"}</span></button>)}
+    {capabilityFullscreen ? <CapabilityFullscreen targetRef={root} kind={media.kind === "video" ? "video" : "image"} /> : (<button data-media-control type="button" className="site-fullscreen" onClick={fullscreen} aria-label={full ? "Exit media fullscreen" : "Enter media fullscreen"}><MediaExpandIcon expanded={full} /></button>)}
     {failure && <p role="status" className="site-media-error">Media could not be displayed. <button type="button" onClick={() => { setFailure(false); setRetry(retry + 1); }}>Retry media</button></p>}
   </div>;
 }

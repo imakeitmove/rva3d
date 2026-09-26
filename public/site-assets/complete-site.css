@@ -615,3 +615,30 @@ Previous reference metrics: RVA 600/900; suffix 1.062em x .708em; stroke 3.6.
   max-height:calc(100svh - 280px);
  }
 }
+/* Case-study media: progressively enhanced, quiet at rest; existing non-case controls stay unchanged. */
+body.complete-site [data-media-chrome] [data-media-control] {
+ opacity:0!important;pointer-events:none!important;
+ background:radial-gradient(circle at center,rgb(8 10 9/.5) 0 16px,transparent 16.5px)!important;
+ color:#fff!important;border:0!important;box-shadow:none!important;text-shadow:0 1px 2px rgb(0 0 0/.65);
+ transition:opacity .18s ease,filter .18s ease;
+}
+body.complete-site [data-media-chrome] [data-media-control] svg {
+ display:block;width:20px;height:20px;margin:auto;filter:drop-shadow(0 1px 1px rgb(0 0 0/.55));
+}
+body.complete-site [data-media-chrome] [data-media-control]:is(:hover,:active) {
+ background:radial-gradient(circle at center,rgb(8 10 9/.7) 0 17px,transparent 17.5px)!important;
+}
+body.complete-site [data-media-chrome] [data-media-control]:focus-visible {
+ outline:2px solid #fff!important;outline-offset:1px;box-shadow:0 0 0 3px #171717!important;
+}
+body.complete-site [data-media-chrome][data-media-intent="active"] [data-media-control],
+body.complete-site [data-media-chrome]:has(:focus-visible) [data-media-control],
+body.complete-site [data-media-chrome] [data-media-persistent] { opacity:1!important;pointer-events:auto!important; }
+@media (hover:hover) and (pointer:fine) {
+ body.complete-site [data-media-chrome]:not([data-media-viewer]):not([data-media-pointer="touch"]):hover [data-media-control] { opacity:1!important;pointer-events:auto!important; }
+}
+@media (prefers-reduced-motion:reduce) {
+ body.complete-site [data-media-chrome] [data-media-control] { transition:none; }
+}
+
+body.complete-site [data-media-chrome] [data-media-control]:disabled { cursor:default;filter:opacity(.5); }
