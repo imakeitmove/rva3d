@@ -34,7 +34,8 @@
 .comparison > p { margin-bottom: clamp(52px, 5vw, 68px); }
 
 /* Final owner polish: compact transition, equal link treatment and a noninteractive result line. */
-.finish .comparison { margin-top: clamp(42px, 4.5vw, 66px); }
+/* Owner restored the established section spacing above the GEICO logo.
+.finish .comparison { margin-top: clamp(42px, 4.5vw, 66px); } */
 .campaignLead, .campaignQualifier { display: block; }
 .comparison .campaignResult { display: block; margin: 14px 0 8px; font-size: clamp(30px, 4.2vw, 58px); line-height: 1.1; letter-spacing: -.035em; color: var(--ink, #171717); font-weight: 600; }
 .comparison .campaignLink { color: inherit; font-weight: 600; text-decoration: none; }
