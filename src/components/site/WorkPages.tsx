@@ -15,6 +15,7 @@ import { SiteMedia } from "./SiteMedia";
 import { ProjectCard } from "./ProjectCard";
 import { EditorialCasePage } from "./EditorialCasePage";
 import { GeicoCase } from "./GeicoCase";
+import { WhaxeCase } from "./WhaxeCase";
 type Props = { params: Promise<{ slug: string }> };
 export function WorkIndex() {
   const initialCount = Math.min(4, studies.length);
@@ -53,6 +54,7 @@ export async function CasePage({ params }: Props) {
   const next = studies[(index + 1) % studies.length];
   // GEICO opts into its refreshed composition; the prior renderer remains intact.
   if (slug === "geico-geckos-cereal-box") return <GeicoCase />;
+  if (slug === "axe-whaxe-lil-baby") return <WhaxeCase />;
   if (study.editorial) return <EditorialCasePage study={study} editorial={study.editorial} next={next} />;
   const chapters = slug === "cable-snake" ? [study.processChapters[1], study.processChapters[3]] : slug === "amsoil-xpd-wind-grease" ? [study.processChapters[0], study.processChapters[2]] : slug === "wawa-coffee-island" ? [study.processChapters[0], study.processChapters[1], study.processChapters[3]] : study.processChapters.slice(0, 3).filter(chapter => chapter.media.length > 0);
   const related = capabilities.filter(item => study.capabilities.includes(item.title));

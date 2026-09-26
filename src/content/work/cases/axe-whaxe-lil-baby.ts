@@ -1,3 +1,4 @@
+import { whaxeCredits } from "../whaxe_refresh.ts";
 import additions from "../../site/case-refinement-20260916.generated.json" with { type: "json" };
 import type { WorkCaseStudy, WorkImageMedia, WorkVideoMedia, WorkEditorialSection } from "../types";
 
@@ -188,7 +189,8 @@ const axeWhaxeLilBabyFinalOnlyAudit = {
 
 // Project-specific public authorization, 2026-09-15. Rich media restored;
 // the corrected contribution, known credits, summary and SEO remain authoritative.
-export const axeWhaxeLilBaby = {
+// Preserved September 16 selection; superseded by the focused September 26 article.
+const axeWhaxeLilBabyBeforeRefresh = {
   ...axeWhaxeLilBabyFinalOnlyAudit,
   heroMedia: axeWhaxeLilBabyBeforeSafetyAudit.heroMedia,
   galleryMedia: axeWhaxeLilBabyBeforeSafetyAudit.galleryMedia,
@@ -226,3 +228,15 @@ export const axeWhaxeLilBaby = {
 
 // Case refinement 2026-09-16: prior active selection.
 //   editorial: { ...axeWhaxeLilBabyBeforeSafetyAudit.editorial },
+
+// September 26 local review: preserve listing copy and publication boundaries.
+// The dedicated article uses the owner's complete short narrative; the prior
+// editorial record remains above for restoration, without rendering its extra copy.
+export const axeWhaxeLilBaby = {
+  ...axeWhaxeLilBabyBeforeRefresh,
+  credits: whaxeCredits,
+  seo: {
+    ...axeWhaxeLilBabyBeforeRefresh.seo,
+    description: "AXE WHAXE × Lil Baby product film, produced through SuperJoy: diamond-covered look development, lighting and 3D animation by Deven Langston.",
+  },
+} satisfies WorkCaseStudy;

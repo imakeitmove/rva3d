@@ -2599,5 +2599,64 @@
     "approvedBy": "Deven Langston",
     "approvalAuthority": "RVA3D owner",
     "approvalSource": "direct-owner-approval"
+  },
+  "e73102394b26e8bfdc19.mp4": {
+    "file": "private-media/e73102394b26e8bfdc19.mp4",
+    "type": "video/mp4",
+    "bytes": 281747,
+    "sha256": "e73102394b26e8bfdc195177a66aa4f313217c345e618a9216b9130361eff46f",
+    "source": "artifacts/whaxe_refresh_20260926/whaxe_look_development_v001.mp4",
+    "publication": "public-approved",
+    "approvedAt": "2026-09-16",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval",
+    "width": 1280,
+    "height": 720,
+    "recipe": "Three 3-second fixed frames: approved geometry, material preview, isolated render at 5s; H.264 1280x720 24fps CRF23; silent",
+    "derivedFrom": [
+      "23d6e04c8935d328732637d1b9df10b59561a4791e281608f2b5c14fd7b718d2",
+      "73db00e430a554ba929d5b115b189bbcb1c317be6cb59970cb75d870700f6316",
+      "f7267c31df2ed327c8772ccd9cddca00074c1a33a3fe705e834e3d4459288541"
+    ],
+    "derivativeAuthorization": "Owner WHAXE local-review brief, 2026-09-26: cuts, poster extraction and web encodes of approved material"
+  },
+  "0aa78671d6818688ae12.webp": {
+    "file": "private-media/0aa78671d6818688ae12.webp",
+    "type": "image/webp",
+    "bytes": 79498,
+    "sha256": "0aa78671d6818688ae125270904b2c5a37f03d42e842132c29d951bfa3e79f37",
+    "source": "artifacts/whaxe_refresh_20260926/whaxe_look_development_poster_v001.webp",
+    "publication": "public-approved",
+    "approvedAt": "2026-09-16",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval",
+    "width": 1280,
+    "height": 720,
+    "recipe": "First frame of the look-development edit; uncropped padded 1280x720 WebP",
+    "derivedFrom": [
+      "23d6e04c8935d328732637d1b9df10b59561a4791e281608f2b5c14fd7b718d2"
+    ],
+    "derivativeAuthorization": "Owner WHAXE local-review brief, 2026-09-26: cuts, poster extraction and web encodes of approved material"
+  },
+  "a34724d1828bb03779ec.mp4": {
+    "file": "private-media/a34724d1828bb03779ec.mp4",
+    "type": "video/mp4",
+    "bytes": 4648426,
+    "sha256": "a34724d1828bb03779ecf998e2141bd3f8779af243365c63216ee7458aac3110",
+    "source": "artifacts/whaxe_refresh_20260926/whaxe_animation_tests_v001.mp4",
+    "publication": "public-approved",
+    "approvedAt": "2026-09-16",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval",
+    "width": 1280,
+    "height": 720,
+    "recipe": "Full V04 viewport animation, original timing, 1280x720 H.264 CRF24; audio omitted for muted process loop",
+    "derivedFrom": [
+      "c755fa76db47fe877eb92c90baef51b48668717e1cd3dec88a76b59a7f38bcf5"
+    ],
+    "derivativeAuthorization": "Owner WHAXE local-review brief, 2026-09-26: cuts, poster extraction and web encodes of approved material"
   }
 }
