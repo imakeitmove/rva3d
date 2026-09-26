@@ -73,7 +73,7 @@ export function GeicoCase() {
           <div className="site-media"><WorkMedia media={image(geicoRefresh.printed)} privateDelivery sizes="(max-width: 760px) calc(100vw - 40px), 58vw" /></div>
         </div>
         <div className={`${styles.exploration} ${refinement.referenceRow}`} data-geico-reveal>
-          <p>and we captured the lighting setup using a <strong>360-degree panorama rig</strong> for use in the 3D software.</p>
+          <p>and we captured the lighting setup using a <strong>360-degree panorama rig</strong> for use in our 3D software.</p>
           <GeicoPanorama preview={image(geicoRefresh.panorama)} source={protectedMedia({ kind: "image", ...interactions.panorama, alt: "Panorama of the practical kitchen set" } as WorkImageMedia).src} />
         </div>
       </section>
