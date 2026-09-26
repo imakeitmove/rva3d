@@ -2,6 +2,7 @@ import type { WorkImageMedia, WorkVideoMedia } from "./types";
 import original from "../site/geico.generated.json" with { type: "json" };
 import process from "../site/geico_phase_2.generated.json" with { type: "json" };
 import reference from "../site/geico_review_refinements.generated.json" with { type: "json" };
+import interactions from "./geico_interactions.generated.json" with { type: "json" };
 import printed from "../site/geico_printed_artwork.generated.json" with { type: "json" };
 
 // Existing approved media keys and publication records stay authoritative.
@@ -18,7 +19,9 @@ export const geicoRefresh = {
   //  viewport: { ...reference.perspective, caption: "Digital set recreation for shadows and reflections — perspective viewport still.", statusLabel: "Static perspective viewport; not a matching side-view animation capture." } as WorkImageMedia,
   viewport: { kind: "video", src: "/media/work/geico_refinement_20260926/geico_viewport_arc_v001.mp4", width: 1280, height: 800, mimeType: "video/mp4", presentation: "loop", hasAudio: false, poster: { kind: "image", src: "/media/work/geico_refinement_20260926/geico_viewport_arc_poster_v001.webp", width: 1280, height: 800, alt: "Digital breakfast table and box during the viewport camera arc." }, alt: "Viewport camera arc around the digital cereal-box and table setup", caption: "digital set recreation to capture shadows and reflections", statusLabel: "Original-speed 5.1-second viewport capture; visible reset when repeated." } as WorkVideoMedia,
   physical: { ...process.physical, caption: "Real on-set box reference", statusLabel: "Photograph of the physical box." } as WorkImageMedia,
-  composite: { ...original.hero, poster: process.hero, presentation: "loop", hasAudio: false, alt: "Animated CG box moving among the photographed breakfast props, before final color.", caption: "CG box integrated with the live-action plate — before final color.", statusLabel: "Pre-color commercial excerpt, repeated for presentation." } as WorkVideoMedia,
+  // Prior timeupdate-driven commercial excerpt retained for provenance:
+  //  composite: { ...original.hero, poster: process.hero, presentation: "loop", hasAudio: false, alt: "Animated CG box moving among the photographed breakfast props, before final color.", caption: "CG box integrated with the live-action plate — before final color.", statusLabel: "Pre-color commercial excerpt, repeated for presentation." } as WorkVideoMedia,
+  composite: { ...original.hero, src: interactions.result, poster: process.hero, presentation: "loop", hasAudio: false, alt: "Animated CG box moving among the photographed breakfast props, before final color.", caption: "CG box integrated with the live-action plate — before final color.", statusLabel: "Original-speed pre-color excerpt, encoded separately for native continuous looping." } as WorkVideoMedia,
   // Original-speed excerpt, not synthetic motion or an asserted seamless broadcast loop.
   compositeSegment: [10.6, 14.85] as const,
 };

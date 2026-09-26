@@ -1,0 +1,28 @@
+﻿.slideshow { min-width: 0; }
+.slides { position: relative; overflow: hidden; }
+.slide { position: absolute; inset: 0; opacity: 0; transition: opacity 420ms ease; pointer-events: none; }
+.slide[data-current="true"] { opacity: 1; }
+.slide figure { margin: 0; height: 100%; }
+.slide img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.slideControls { position: absolute; right: 12px; bottom: 12px; display: flex; gap: 8px; }
+.slideControls button, .viewerControls button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: #080a09d9; color: #f3f1e9; cursor: pointer; font-size: 25px; line-height: 1; }
+.slideControls button:nth-child(2) { font-size: 16px; }
+.slideControls button:disabled { opacity: .55; cursor: default; }
+.slideControls button:focus-visible, .viewerControls button:focus-visible, .view:focus-visible { outline: 3px solid #c5f828; outline-offset: 3px; }
+.panoramaPreview { min-width: 0; }
+.panoramaPreview > button { margin-top: 12px; background: none; border: 0; padding: 0; text-align: left; cursor: pointer; }
+.status { font-size: 16px; line-height: 1.4; }
+.dialog { position: fixed; inset: 0; box-sizing: border-box; width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: #080a09; color: #f3f1e9; overscroll-behavior: contain; }
+.dialog::backdrop { background: #080a09; }
+.view { position: absolute; inset: 0; touch-action: none; overscroll-behavior: contain; }
+.view canvas { touch-action: none; }
+.viewerControls { position: absolute; z-index: 2; left: max(20px, env(safe-area-inset-left)); right: max(20px, env(safe-area-inset-right)); top: max(20px, env(safe-area-inset-top)); display: flex; gap: 8px; flex-wrap: wrap; pointer-events: none; }
+.viewerControls button { pointer-events: auto; }
+.viewerControls .close { margin-left: auto; }
+.fallback { display: grid; place-content: center; height: 100%; }
+.fallback figure { margin: 0; }
+.fallback img { max-width: 100%; max-height: 85dvh; object-fit: contain; }
+.fallback p { font-size: 16px; text-align: center; }
+.srOnly { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+@media (max-width: 480px) { .viewerControls { gap: 5px; left: 12px; right: 12px; } .viewerControls button { width: 40px; height: 44px; } }
+@media (prefers-reduced-motion: reduce) { .slide { transition: none; } }

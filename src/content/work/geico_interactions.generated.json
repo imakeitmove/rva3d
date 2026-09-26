@@ -1,0 +1,85 @@
+{
+  "slides": [
+    {
+      "kind": "image",
+      "src": "/media/work/geico_polish_20260926/IMG_4468_camera_setup_on_set_cropped_w1600.webp",
+      "width": 1600,
+      "height": 1169,
+      "sources": [
+        {
+          "src": "/media/work/geico_polish_20260926/IMG_4468_camera_setup_on_set_cropped_w640.webp",
+          "width": 640,
+          "height": 468
+        },
+        {
+          "src": "/media/work/geico_polish_20260926/IMG_4468_camera_setup_on_set_cropped_w1000.webp",
+          "width": 1000,
+          "height": 731
+        },
+        {
+          "src": "/media/work/geico_polish_20260926/IMG_4468_camera_setup_on_set_cropped_w1600.webp",
+          "width": 1600,
+          "height": 1169
+        }
+      ],
+      "alt": "Camera and lighting setup on the practical kitchen set."
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/geico_polish_20260926/IMG_4608_camera_and_box_on_set_w1600.webp",
+      "width": 1600,
+      "height": 1067,
+      "sources": [
+        {
+          "src": "/media/work/geico_polish_20260926/IMG_4608_camera_and_box_on_set_w640.webp",
+          "width": 640,
+          "height": 427
+        },
+        {
+          "src": "/media/work/geico_polish_20260926/IMG_4608_camera_and_box_on_set_w1000.webp",
+          "width": 1000,
+          "height": 667
+        },
+        {
+          "src": "/media/work/geico_polish_20260926/IMG_4608_camera_and_box_on_set_w1600.webp",
+          "width": 1600,
+          "height": 1067
+        }
+      ],
+      "alt": "Camera beside the physical cereal box on the breakfast table."
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/geico_polish_20260926/IMG_4613_OTS_DP_view_w1600.webp",
+      "width": 1600,
+      "height": 1067,
+      "sources": [
+        {
+          "src": "/media/work/geico_polish_20260926/IMG_4613_OTS_DP_view_w640.webp",
+          "width": 640,
+          "height": 427
+        },
+        {
+          "src": "/media/work/geico_polish_20260926/IMG_4613_OTS_DP_view_w1000.webp",
+          "width": 1000,
+          "height": 667
+        },
+        {
+          "src": "/media/work/geico_polish_20260926/IMG_4613_OTS_DP_view_w1600.webp",
+          "width": 1600,
+          "height": 1067
+        }
+      ],
+      "alt": "Over-the-shoulder view of the director of photography and kitchen set."
+    }
+  ],
+  "panorama": {
+    "src": "/media/work/geico_polish_20260926/geico_panorama_viewer_w4096.webp",
+    "width": 4096,
+    "height": 2048,
+    "projection": "equirectangular",
+    "horizontalCoverage": 360,
+    "verticalCoverage": 180
+  },
+  "result": "/media/work/geico_polish_20260926/geico_cg_result_excerpt_v001.mp4"
+}

@@ -174,7 +174,9 @@ test("release registry pins eight owner-approved cases and the exact selectively
   //  assert.deepEqual(publicResult, { status: "PASS", studies: 8, assets: 199, logicalUrls: 262, seoDimensionsVerified: false });
   // Before owner-supplied GEICO arc and poster: 202 assets / 265 URLs.
   //  assert.deepEqual(publicResult, { status: "PASS", studies: 8, assets: 202, logicalUrls: 265, seoDimensionsVerified: false });
-  assert.deepEqual(publicResult, { status: "PASS", studies: 8, assets: 204, logicalUrls: 267, seoDimensionsVerified: false });
+  // Previous GEICO refinement count retained; exact owner-selected derivatives are added below.
+  //  assert.deepEqual(publicResult, { status: "PASS", studies: 8, assets: 204, logicalUrls: 267, seoDimensionsVerified: false });
+  assert.deepEqual(publicResult, { status: "PASS", studies: 8, assets: 215, logicalUrls: 278, seoDimensionsVerified: false });
 });
 
 // GEICO Phase 2 covers the editorial contract and prevents approval drift in shared media.

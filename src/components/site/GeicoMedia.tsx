@@ -6,9 +6,12 @@ import { WorkVideo } from "@/components/work/WorkVideo";
 import { CapabilityPlayer } from "./CapabilityPlayer";
 import styles from "./GeicoCase.module.css";
 
-const Playback = createContext<{ mainPlaying: boolean; setMainPlaying: (playing: boolean) => void }>({ mainPlaying: false, setMainPlaying: () => {} });
+// Modal suspension is opt-in for GEICO; existing consumers (including WHAXE) keep false.
+const Playback = createContext<{ mainPlaying: boolean; setMainPlaying: (playing: boolean) => void; modalOpen: boolean; setModalOpen: (open: boolean) => void }>({ mainPlaying: false, setMainPlaying: () => {}, modalOpen: false, setModalOpen: () => {} });
+export const useGeicoPlayback = () => useContext(Playback);
 
-export function GeicoExperience({ children }: { children: ReactNode }) {
+export function GeicoExperience({ children, interactive = false }: { children: ReactNode; interactive?: boolean }) {
+  const [modalOpen, setModalOpen] = useState(false);
   const [mainPlaying, setMainPlaying] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -30,7 +33,7 @@ export function GeicoExperience({ children }: { children: ReactNode }) {
     preference.addEventListener("change", stop);
     return () => { observer.disconnect(); animations.forEach(animation => animation.cancel()); preference.removeEventListener("change", stop); };
   }, []);
-  return <Playback.Provider value={{ mainPlaying, setMainPlaying }}><div ref={root}>{children}</div></Playback.Provider>;
+  return <Playback.Provider value={{ mainPlaying, setMainPlaying, modalOpen: interactive && modalOpen, setModalOpen }}><div ref={root}>{children}</div></Playback.Provider>;
 }
 
 export function GeicoVideo({ media, main = false, segment }: { media: WorkVideoMedia; main?: boolean; segment?: readonly [number, number] }) {
@@ -39,7 +42,7 @@ export function GeicoVideo({ media, main = false, segment }: { media: WorkVideoM
   const inView = useRef(false);
   const deliberatePause = useRef(false);
   const requestedPlay = useRef(false);
-  const { mainPlaying, setMainPlaying } = useContext(Playback);
+  const { mainPlaying, setMainPlaying, modalOpen } = useContext(Playback);
   const [armed, setArmed] = useState(main);
   const [playing, setPlaying] = useState(false);
   const [failure, setFailure] = useState(false);
@@ -47,12 +50,13 @@ export function GeicoVideo({ media, main = false, segment }: { media: WorkVideoM
   useEffect(() => {
     const video = frame.current?.querySelector("video");
     if (!video || !main) return;
+    if (modalOpen) video.pause();
     {
       const visibility = () => { if (document.hidden) video.pause(); };
       document.addEventListener("visibilitychange", visibility);
       return () => { document.removeEventListener("visibilitychange", visibility); setMainPlaying(false); };
     }
-  }, [main, setMainPlaying]);
+  }, [main, setMainPlaying, modalOpen]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -60,7 +64,7 @@ export function GeicoVideo({ media, main = false, segment }: { media: WorkVideoM
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
     const sync = () => {
-      const shouldPlay = inView.current && !document.hidden && !mainPlaying && !deliberatePause.current && (requestedPlay.current || (typeof IntersectionObserver !== "undefined" && !reduced.matches && !connection?.saveData));
+      const shouldPlay = inView.current && !document.hidden && !mainPlaying && !modalOpen && !deliberatePause.current && (requestedPlay.current || (typeof IntersectionObserver !== "undefined" && !reduced.matches && !connection?.saveData));
       if (!shouldPlay) { video.pause(); return; }
       setArmed(true);
       if (armed) void video.play().catch(() => { /* Native restrictions leave the visible Play control available. */ });
@@ -71,7 +75,7 @@ export function GeicoVideo({ media, main = false, segment }: { media: WorkVideoM
     reduced.addEventListener("change", sync);
     sync();
     return () => { observer?.disconnect(); document.removeEventListener("visibilitychange", sync); reduced.removeEventListener("change", sync); video.pause(); };
-  }, [main, mainPlaying, armed, setMainPlaying]);
+  }, [main, mainPlaying, modalOpen, armed, setMainPlaying]);
 
 
   async function toggle() {
@@ -90,7 +94,7 @@ export function GeicoVideo({ media, main = false, segment }: { media: WorkVideoM
 
   return <div className={styles.video} data-geico-video="process">
     <CapabilityPlayer media={media} playback={{
-      videoRef, playing, suspended: mainPlaying, toggle,
+      videoRef, playing, suspended: mainPlaying || modalOpen, toggle,
       videoProps: {
         src: armed ? media.src : undefined,
         loop: !segment,
