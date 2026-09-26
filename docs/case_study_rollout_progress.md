@@ -10,7 +10,7 @@ Full local evidence: ../../artifacts/case_study_rollout_20260926/README.md. Read
 | Noise Tech | Implemented | /work/capri-sun retained; approved package/macro final pair. Close-package candidate absent; package repeats hero. |
 | Solstice | Implemented with required media gaps | /work/capri-sun-solstice-pouch; approved portrait still fallback. Finished film and distinct final pair absent; no duplicate padding. |
 | Trick & Treat | Implemented with required media gaps | /work/capri-sun-trick-and-treat; approved final still fallback. Released film and second distinct final not established; alternates omitted. |
-| Wawa | Pending | Compose approved media |
+| Wawa | Implemented | Existing full registered presentation; stocked-display detail; overall/detail final pair. Mark Oakley confirmed; production year unresolved. |
 | DESMI | Pending | Match maintenance sequence; year unresolved |
 | Uncommon Goods | Pending | Restore cleared source-to-final imagery |
 
