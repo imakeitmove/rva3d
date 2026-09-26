@@ -2,7 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 // Previous thumbnail navigation used: import Image from "next/image";
 import { preload } from "react-dom";
-import { WorkMedia } from "@/components/work/WorkMedia";
+// Used only by the preserved earlier layout below:
+// import { WorkMedia } from "@/components/work/WorkMedia";
 import { siteHref } from "@/lib/site/paths";
 import { geicoCredits, geicoRefresh } from "@/content/work/geico_refresh";
 import type { WorkImageMedia, WorkVideoMedia } from "@/content/work/types";
@@ -108,7 +109,8 @@ export function GeicoCase() {
         {/* Previous owner-approved wording retained as research history.
         <p className={styles.setCopy}>As part of GEICO’s <a href="https://www.ryanraab.com/legendofthelizard"><strong>Legend of the Lizard</strong></a> campaign, the spot aired during <a href="https://www.christopherfrendo.com/">Super Bowl LVIII’s pregame</a>. Creative director Ryan Raab reports more than a <strong className={refinement.campaignResult}>billion impressions</strong> for the wider campaign.</p>
         */}
-        <p className={styles.setCopy}><span className={refinement.campaignLead}>As part of GEICO’s <a className={refinement.campaignLink} href="https://www.ryanraab.com/legendofthelizard">Legend of the Lizard<span aria-hidden="true"> ↗</span></a> campaign, the spot aired during<br /><a className={refinement.campaignLink} href="https://www.christopherfrendo.com/">Super Bowl LVIII’s pregame<span aria-hidden="true"> ↗</span></a> and generated more than</span>{" "}<strong className={refinement.campaignResult}>one billion impressions</strong>{" "}<span className={refinement.campaignQualifier}>for the wider campaign.</span></p>
+        {/* Previous linked pregame treatment retained for restoration: <a className={refinement.campaignLink} href="https://www.christopherfrendo.com/">Super Bowl LVIII’s pregame<span aria-hidden="true"> ↗</span></a> */}
+        <p className={styles.setCopy}><span className={refinement.campaignLead}>As part of GEICO’s <a className={refinement.campaignLink} href="https://www.ryanraab.com/legendofthelizard">Legend of the Lizard<span aria-hidden="true"> ↗</span></a> campaign, the spot aired during<br />Super Bowl LVIII’s pregame and generated more than</span>{" "}<strong className={refinement.campaignResult}>one billion impressions</strong>{" "}<span className={refinement.campaignQualifier}>for the wider campaign.</span></p>
         <div className={styles.pair}>
           <SiteMedia media={image(geicoRefresh.physical, "Real on-set box reference")} sizes="(max-width: 760px) calc(100vw - 40px), 46vw" />
           <figure className={styles.result}><GeicoVideo media={video(geicoRefresh.composite)} /><figcaption>Final cgi render</figcaption></figure>

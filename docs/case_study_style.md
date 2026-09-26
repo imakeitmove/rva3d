@@ -119,11 +119,11 @@ Link collaborators/studios only to verified relevant pages, using restrained tex
 
 ## External links and campaign results
 
-Use real, verified destinations and meaningful linked text. Keep equivalent links consistent in weight and affordance. GEICO's results links use equal weight, a restrained northeast arrow and underline on hover/focus instead of a default resting underline. Preserve visible focus treatment and actual link semantics.
+Use real, verified destinations and meaningful linked text. Keep equivalent links consistent in weight and affordance. GEICO's remaining campaign link uses a restrained northeast arrow and underline on hover/focus instead of a default resting underline. At the owner's request, “Super Bowl LVIII’s pregame” is regular, unlinked text without bold link styling or an arrow. Preserve visible focus treatment and actual link semantics.
 
 Separate a film's contribution from the broader campaign's results. Retain the “wider campaign” qualification when that is what the evidence supports. Keep verification in project research/data and retain useful source links; do not invent a metric or imply the film alone caused the full campaign total.
 
-Attribution can be natural visible copy when useful (WHAXE's campaign-team link), or supported by linked context and background research (GEICO). Do not impose awkward “X reports” phrasing on every result. GEICO's current sentence includes the deliberate break before the pregame link and “and generated more than,” followed by the larger ink-colored “one billion impressions” line and its qualification. The emphasis is not a link, counter or mandatory metric module for other projects.
+Attribution can be natural visible copy when useful (WHAXE's campaign-team link), or supported by linked context and background research (GEICO). Do not impose awkward “X reports” phrasing on every result. GEICO's current sentence includes the deliberate break before the pregame phrase and “and generated more than,” followed by the larger ink-colored “one billion impressions” line and its qualification. The emphasis is not a link, counter or mandatory metric module for other projects.
 
 ## NEXT PROJECT and Back to Work
 
