@@ -1,0 +1,83 @@
+.case { color: var(--ink, #171717); background: var(--paper, #f3f1e9); }
+.case a { text-underline-offset: .2em; }
+.case button, .case a { -webkit-tap-highlight-color: transparent; }
+.case :is(a, button):focus-visible { outline: 3px solid #6230c0; outline-offset: 5px; }
+.wide { width: calc(100% - 96px); max-width: 1504px; margin-inline: auto; }
+.opening { width: calc(100% - 96px); max-width: 1320px; margin-inline: auto; padding: 56px 0 44px; }
+.eyebrow { font-size: 12px; letter-spacing: .085em; text-transform: uppercase; font-weight: 550; }
+.opening h1 { font-size: clamp(42px, 5.8vw, 88px); font-weight: 500; line-height: .99; letter-spacing: -.055em; margin: 30px 0 0; max-width: 1200px; }
+.intro { margin-top: 28px; }
+.lead { max-width: 700px; font-size: clamp(18px, 1.55vw, 24px); line-height: 1.45; margin: 0; }
+.case :global(.site-media) { background: transparent; }
+.case :global(.site-media) figure { margin: 0; }
+.case :global(.site-media) img { display: block; width: 100%; height: auto; max-height: none; object-fit: contain; }
+.case :global(.site-media) figcaption { font-size: 12px; line-height: 1.5; padding-top: 10px; color: #171717; background: transparent; opacity: .75; }
+.hero :global(.site-media) img { aspect-ratio: 16 / 9; }
+.film { max-width: 1180px; margin-top: 56px; }
+.beat { margin-top: clamp(70px, 8vw, 130px); }
+.setCopy { max-width: 780px; font-size: clamp(18px, 1.65vw, 24px); line-height: 1.5; margin: 0 0 35px; }
+.setGrid { display: grid; grid-template-columns: 1.55fr 1fr; gap: 30px; align-items: start; }
+.setAside { display: grid; gap: 24px; }
+.setAside :global(.site-media) img { aspect-ratio: 2.55; object-fit: cover; object-position: center 54%; }
+.setAside :global(.site-media):fullscreen img { aspect-ratio: auto; object-fit: contain; max-height: 90vh; }
+.setLead :global(.site-media) img { aspect-ratio: 3 / 2; object-fit: cover; }
+.exploration { display: grid; grid-template-columns: .75fr 1.25fr; gap: 70px; align-items: center; }
+.case :is(.exploration, .credits) h2 { font-size: clamp(30px, 3.2vw, 49px); line-height: 1.1; letter-spacing: -.035em; font-weight: 500; margin: 0 0 24px; }
+.pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+.setupPair :global(.site-media) img { aspect-ratio: 3 / 2; object-fit: contain; background: #e3e2dd; }
+.resultBand { padding: 68px 0; background: #e4e6e8; }
+.resultBand h3 { font-size: 13px; font-weight: 500; letter-spacing: .03em; margin: 0 0 14px; }
+.resultBand :global(.site-media) img { aspect-ratio: 16 / 9; object-fit: contain; }
+.credits { padding: clamp(70px, 8vw, 125px) 0 70px; text-align: center; }
+.credits > h2 { margin: 16px 0 50px; }
+.creditGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 50px 60px; max-width: 1160px; margin-inline: auto; }
+.creditGrid > section:first-child { grid-column: 1 / -1; max-width: 600px; margin-inline: auto; }
+.creditGrid > section:last-child { grid-column: 1 / -1; }
+.creditGrid h3 { font-weight: 500; font-size: 13px; letter-spacing: .07em; text-transform: uppercase; margin: 0 0 25px; }
+.creditGrid dl { margin: 0; }
+.creditGrid dl > div { margin-bottom: 23px; }
+.creditGrid dt { font-size: 12px; line-height: 1.5; opacity: .7; margin: 0 0 6px; }
+.creditGrid dd { font-size: 18px; line-height: 1.4; margin: 0; }
+.creditGrid dd a { text-decoration-thickness: 1px; }
+.related { padding: 40px 0 70px; border-top: 1px solid #bdbcb7; }
+.related h2 { text-align: center; }
+.related a { display: flex; align-items: center; gap: 20px; text-decoration: none; }
+.related img { width: 120px; height: 80px; flex-shrink: 0; object-fit: cover; }
+.related h3 { font-weight: 500; font-size: clamp(18px, 1.6vw, 24px); line-height: 1.25; letter-spacing: -.025em; margin: 0; }
+.related a:hover h3 { color: #6230c0; }
+.video { margin: 0; min-width: 0; }
+.result { margin: 0; }
+.result figcaption { font-size: 12px; line-height: 1.5; padding-top: 10px; opacity: .75; }
+.exploration p { font-size: 18px; line-height: 1.6; max-width: 540px; }
+.video video { display: block; width: 100%; height: 100%; aspect-ratio: 16 / 9; object-fit: contain; }
+@media (max-width: 1000px) {
+  .setGrid { gap: 20px; }
+  .exploration { gap: 35px; }
+  .creditGrid { gap: 40px 25px; }
+}
+@media (max-width: 760px) {
+  .wide, .opening { width: calc(100% - 40px); }
+  .opening { padding: 35px 0 30px; }
+  .opening h1 { font-size: clamp(38px, 8.3vw, 60px); line-height: 1.04; }
+  .intro { display: block; margin-top: 22px; }
+  .hero { width: 100%; }
+  .hero :global(.site-media) figcaption { padding-inline: 20px; }
+  .film { margin-top: 36px; }
+  .setGrid, .exploration, .pair { grid-template-columns: 1fr; gap: 30px; }
+  .related img { width: 90px; height: 60px; }
+  .setAside { gap: 30px; }
+  .setAside :global(.site-media) img { aspect-ratio: 2; }
+  .setAside :global(.site-media):last-child img { aspect-ratio: 3 / 2; }
+  .exploration p { margin-bottom: 0; }
+  .resultBand { padding-block: 45px; }
+  .creditGrid { grid-template-columns: 1fr 1fr; gap: 35px 20px; }
+  .creditGrid > section:first-child, .creditGrid > section:last-child { grid-column: 1 / -1; }
+  .creditGrid dd { font-size: 16px; }
+}
+@media (max-width: 480px) {
+  .creditGrid { grid-template-columns: 1fr; }
+  .creditGrid dd { font-size: 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .case *, .case *::before, .case *::after { scroll-behavior: auto; }
+}

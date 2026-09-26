@@ -1,11 +1,40 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type RefObject, type VideoHTMLAttributes } from "react";
+import { icon } from "../../../public/site-assets/v004_icons.js";
 import { CapabilityFullscreen } from "./CapabilityFullscreen";
 import type { WorkVideoMedia } from "@/content/work/types";
 
 type CapabilityDestination = { href: string; label: string };
 
-export function CapabilityPlayer({ media, destination }: { media: WorkVideoMedia; destination?: CapabilityDestination }) {
+// Previous public signature is retained by the default automatic variant below.
+type CoordinatedPlayback = {
+  videoRef: RefObject<HTMLVideoElement | null>;
+  videoProps: VideoHTMLAttributes<HTMLVideoElement>;
+  playing: boolean;
+  suspended: boolean;
+  toggle: () => void;
+};
+
+export function CapabilityPlayer({ media, destination, playback }: {
+  media: WorkVideoMedia;
+  destination?: CapabilityDestination;
+  playback?: CoordinatedPlayback;
+}) {
+  return playback ? <CoordinatedCapabilityPlayer media={media} playback={playback} /> : <AutomaticCapabilityPlayer media={media} destination={destination} />;
+}
+
+function CoordinatedCapabilityPlayer({ media, playback: { videoRef, videoProps, playing, suspended, toggle } }: { media: WorkVideoMedia; playback: CoordinatedPlayback }) {
+  const picture = useRef<HTMLDivElement>(null);
+  return <div className="v-player ready" data-paused={!playing}>
+    <div className="v-picture" ref={picture}>
+      <video ref={videoRef} muted playsInline preload="none" poster={media.poster.src} width={media.width} height={media.height} aria-label={media.alt} {...videoProps} />
+      <button className="v-play custom-control" type="button" data-action="play" disabled={suspended} onClick={toggle} aria-label={`${playing ? "Pause" : "Play"} ${media.alt}`} dangerouslySetInnerHTML={{ __html: icon(playing ? "pause" : "play") }} />
+      <CapabilityFullscreen targetRef={picture} kind="video" variant="homepage" />
+    </div>
+  </div>;
+}
+
+function AutomaticCapabilityPlayer({ media, destination }: { media: WorkVideoMedia; destination?: CapabilityDestination }) {
   const root = useRef<HTMLDivElement>(null);
   const picture = useRef<HTMLDivElement>(null);
   useEffect(() => {

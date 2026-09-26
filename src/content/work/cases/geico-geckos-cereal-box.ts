@@ -1,3 +1,4 @@
+import { geicoCredits } from "../geico_refresh.ts";
 import type { WorkCaseStudy, WorkImageMedia, WorkVideoMedia } from "../types";
 import registered from "../../site/geico.generated.json" with { type: "json" };
 import cameraTrack from "../../site/geico_camera_track_test.generated.json" with { type: "json" };
@@ -173,7 +174,7 @@ const geicoGeckosCerealBoxBeforeSafetyAudit = {
 // // Authoritative portfolio: https://app.notion.com/p/3e44a6a9518a4e05b972497ca5d8c0ef
 // // Protected candidate only. Permission Recommended / Candidate is not public clearance.
 // // Partner and final Flame artist remain unnamed; final Flame work is not credited to Deven.
-// export const geicoGeckosCerealBox = {
+// const geicoGeckosCerealBoxBeforeSeptemberRefresh = {
 //   "slug": "geico-geckos-cereal-box",
 //   "title": "GEICO GeckO’s Cereal Box",
 //   "client": "GEICO",
@@ -417,7 +418,7 @@ const geicoGeckosCerealBoxFinalOnlyAudit = {
 
 // Project-specific public authorization, 2026-09-15. Rich media restored;
 // the corrected contribution, known credits, summary and SEO remain authoritative.
-export const geicoGeckosCerealBox = {
+const geicoGeckosCerealBoxBeforeSeptemberRefresh = {
   ...geicoGeckosCerealBoxFinalOnlyAudit,
   heroMedia: geicoGeckosCerealBoxBeforeSafetyAudit.heroMedia,
   galleryMedia: geicoGeckosCerealBoxBeforeSafetyAudit.galleryMedia,
@@ -469,3 +470,17 @@ export const geicoGeckosCerealBox = {
 
 // Case refinement 2026-09-16: previous active composition retained.
 //   editorial: { ...geicoGeckosCerealBoxBeforeSafetyAudit.editorial, sections: geicoGeckosCerealBoxBeforeSafetyAudit.editorial.sections.map(section => section.id === "performance" ? { ...section, copy: "A hop, a turn, a little flex: each changes the box’s personality. We explored entrances and reactions in rough animation so the performance could be reviewed before detailed lighting and compositing." } : section.id === "integration" ? { ...section, copy: "Digital stand-ins for the bowl, glass and milk bottle supplied reflections and contact shading. We matched the lighting and brought the renders into the initial composite so the animated box sat naturally among the photographed objects." } : section), contribution: geicoGeckosCerealBoxFinalOnlyAudit.authorship, closing: { ...geicoGeckosCerealBoxBeforeSafetyAudit.editorial.closing, copy: geicoGeckosCerealBoxFinalOnlyAudit.editorial.closing.copy } },
+
+// Previous composition and copy remain above for restoration. Index content and
+// existing publication provenance remain intact; approved media are reused.
+export const geicoGeckosCerealBox = {
+  ...geicoGeckosCerealBoxBeforeSeptemberRefresh,
+  authorship: "Deven Langston worked freelance with SuperJoy on on-set VFX supervision, digital box development, animation, lighting, rendering and initial compositing. A separate Flame artist, Paul Wiederholt, handled final finishing; packaging design is credited separately.",
+  credits: geicoCredits.flatMap(group => group.credits),
+  seo: {
+    ...geicoGeckosCerealBoxBeforeSeptemberRefresh.seo,
+    image: { ...geicoGeckosCerealBoxBeforeSeptemberRefresh.seo.image, alt: "GeckO’s cereal box in the photographed breakfast setup." },
+    title: "GEICO GeckO’s — Cereal Box Animation & VFX | RVA3D",
+    description: "Behind the bouncing GeckO’s cereal box: on-set reference, character animation and CG integration by Deven Langston, working freelance with SuperJoy.",
+  },
+} satisfies WorkCaseStudy;

@@ -14,6 +14,7 @@ import { Shell } from "./Shell";
 import { SiteMedia } from "./SiteMedia";
 import { ProjectCard } from "./ProjectCard";
 import { EditorialCasePage } from "./EditorialCasePage";
+import { GeicoCase } from "./GeicoCase";
 type Props = { params: Promise<{ slug: string }> };
 export function WorkIndex() {
   const initialCount = Math.min(4, studies.length);
@@ -40,6 +41,7 @@ export async function caseMetadata({ params }: Props): Promise<Metadata> {
   if (!study) notFound();
   // Previous private-review metadata set robots to noindex/noarchive.
   return { title: study.seo.title, description: study.seo.description,
+    ...(slug === "geico-geckos-cereal-box" && process.env.NODE_ENV === "development" ? { robots: { index: false, follow: false } } : {}),
     alternates: { canonical: `https://www.rva3d.com/work/${study.slug}` },
     openGraph: { title: study.seo.title, description: study.seo.description, images: [protectedMedia(study.seo.image).src] },
     twitter: { card: "summary_large_image", title: study.seo.title, description: study.seo.description, images: [protectedMedia(study.seo.image).src] },
@@ -49,6 +51,8 @@ export async function CasePage({ params }: Props) {
   const { slug } = await params, index = studies.findIndex(item => item.slug === slug), study = studies[index];
   if (!study) notFound();
   const next = studies[(index + 1) % studies.length];
+  // GEICO opts into its refreshed composition; the prior renderer remains intact.
+  if (slug === "geico-geckos-cereal-box") return <GeicoCase />;
   if (study.editorial) return <EditorialCasePage study={study} editorial={study.editorial} next={next} />;
   const chapters = slug === "cable-snake" ? [study.processChapters[1], study.processChapters[3]] : slug === "amsoil-xpd-wind-grease" ? [study.processChapters[0], study.processChapters[2]] : slug === "wawa-coffee-island" ? [study.processChapters[0], study.processChapters[1], study.processChapters[3]] : study.processChapters.slice(0, 3).filter(chapter => chapter.media.length > 0);
   const related = capabilities.filter(item => study.capabilities.includes(item.title));
@@ -84,5 +88,6 @@ export async function CasePage({ params }: Props) {
 
 // Copy audit follow-up: previous wording retained.
 //   return { title: study.seo.title, description: study.seo.description,
+//     ...(slug === "geico-geckos-cereal-box" && process.env.NODE_ENV === "development" ? { robots: { index: false, follow: false } } : {}),
 //     alternates: { canonical: `https://www.rva3d.com/work/${study.slug}` },
 //   };
