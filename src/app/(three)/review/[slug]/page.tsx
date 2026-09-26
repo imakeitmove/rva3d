@@ -7,7 +7,9 @@ import { AmsoilPreview } from "@/app/(three)/preview/work/[slug]/page";
 import { WawaCoffeeIslandPreview } from "@/app/(three)/preview/work/[slug]/WawaCoffeeIslandPreview";
 import { requirePrivateReviewSession } from "@/lib/private_review_auth";
 
-import { CableSnakeReview } from "./CableSnakeReview";
+// Previous article retained in CableSnakeReview.tsx.
+// import { CableSnakeReview } from "./CableSnakeReview";
+import { CableSnakeCase } from "@/components/site/CableSnakeCase";
 import { VfxCapabilityReview } from "./VfxCapabilityReview";
 
 type PrivateReviewCasePageProps = {
@@ -78,7 +80,8 @@ export default async function PrivateReviewCasePage({
     case "wawa-coffee-island":
       return <WawaCoffeeIslandPreview audience="private-review" />;
     case "cable-snake":
-      return <CableSnakeReview />;
+      // Previous: return <CableSnakeReview />;
+      return <CableSnakeCase privatePlacements />;
     case "vfx-compositing":
       return <VfxCapabilityReview />;
     default:

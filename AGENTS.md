@@ -167,6 +167,8 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
+Read `docs/case_study_style.md` before changing case-study layout, copy, media, credits, or navigation.
+
 ## RVA3D copy voice
 
 Use collaborative we/our for RVA3D + the client + the client's team solving, exploring, deciding, building, refining, and finishing together. This does not imply multiple RVA3D employees. Never invent our designers, animation team, producers, staff, or departments. Describe studio structure and experience factually using Deven Langston or RVA3D singularly. Let collaboration shape natural copy; do not add an explanation of this philosophy to the website. Homepage experience copy and About closing copy are separate.

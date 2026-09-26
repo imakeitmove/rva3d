@@ -1,0 +1,16 @@
+{
+  "cable_billboard": {
+    "kind": "image",
+    "src": "/media/work/rollout_20260926/cable_billboard.webp",
+    "width": 720,
+    "height": 426,
+    "alt": "Twist Cable Snake billboard photographed above a roadside setting."
+  },
+  "cable_bus": {
+    "kind": "image",
+    "src": "/media/work/rollout_20260926/cable_bus.webp",
+    "width": 718,
+    "height": 427,
+    "alt": "A city bus carrying Twist Cable Snake campaign artwork on a San Jose street."
+  }
+}

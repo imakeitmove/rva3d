@@ -2883,5 +2883,31 @@
     "height": 720,
     "recipe": "Original-speed 10.6–14.85s approved pre-color commercial excerpt; encoded as self-contained native-loop clip, no synthetic frames",
     "derivativeAuthorization": "Owner GEICO finishing brief 2026-09-26: exact named slideshow photos, lazy original panorama viewer, and continuous existing CG-result excerpt; local implementation only, no deployment"
+  },
+  "993e84ea58f4fee4558b.webp": {
+    "file": "private-media/993e84ea58f4fee4558b.webp",
+    "type": "image/webp",
+    "bytes": 43538,
+    "sha256": "993e84ea58f4fee4558b0a60ee0c0de4a73a051c79280a8d6383d0cb699d433a",
+    "source": "T:/BIG_BACKUP/24_SPANG_0829_Cable_Snake/output/twist_cable_snake_billboard_onLocation.jpg",
+    "sourceSha256": "75c53d404fd5bd210287c22406c36d9d79a3bb0167714c238095188c4a3d0f34",
+    "width": 720,
+    "height": 426,
+    "publication": "private-review-only",
+    "clearanceBasis": "Not included in the documented nine-file Cable Snake approval. Authorized for local authenticated review only; owner release decision pending.",
+    "recipe": "Uncropped WebP, no enlargement"
+  },
+  "663a629f0c8ed278c20b.webp": {
+    "file": "private-media/663a629f0c8ed278c20b.webp",
+    "type": "image/webp",
+    "bytes": 83226,
+    "sha256": "663a629f0c8ed278c20b5b076cb7da43ec9bf29a970fbf3d8a83f2b27a4fcf46",
+    "source": "T:/BIG_BACKUP/24_SPANG_0829_Cable_Snake/output/twist_cable_snake_billboard_onBusB.jpg",
+    "sourceSha256": "8798850bc97763b47b1d42db852675a5b8f1663e537ce61d86b533e714b6903d",
+    "width": 718,
+    "height": 427,
+    "publication": "private-review-only",
+    "clearanceBasis": "Not included in the documented nine-file Cable Snake approval. Authorized for local authenticated review only; owner release decision pending.",
+    "recipe": "Uncropped WebP, no enlargement"
   }
 }
