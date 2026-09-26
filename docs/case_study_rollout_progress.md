@@ -5,8 +5,8 @@ Full local evidence: ../../artifacts/case_study_rollout_20260926/README.md. Read
 
 | Page | Status | Remaining |
 | --- | --- | --- |
-| Cable Snake | Implemented; validating | Two placement photos restricted to authenticated /review/cable-snake pending release clearance |
-| WHAXE | Pending | Lower verified 2022 year; preserve article/media |
+| Cable Snake | Checkpoint 9b329449; type/lint/assets/review gate passed | Two placement photos restricted to authenticated /review/cable-snake pending release clearance |
+| WHAXE | Aligned | Added verified 2022 lower credit only; article, final stills, V04 and GEICO destination preserved |
 | Noise Tech | Pending | Independent routing and Work entry |
 | Solstice | Pending | Finished film and distinct final detail absent from staging |
 | Trick & Treat | Pending | Released film and second distinct final not established |

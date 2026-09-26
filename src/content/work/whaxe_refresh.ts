@@ -1,4 +1,4 @@
-﻿import additions from "../site/case-refinement-20260916.generated.json" with { type: "json" };
+import additions from "../site/case-refinement-20260916.generated.json" with { type: "json" };
 import type { WorkCredit, WorkVideoMedia } from "./types";
 
 // September 26, 2026: primary portfolios confirm these film-specific credits.
@@ -8,6 +8,7 @@ export const whaxeCredits = [
   { role: "Production", name: "SuperJoy", url: "https://wearesuperjoy.com/work/" },
   { role: "Post Producer", name: "Catherine De Haan", url: "https://www.catherinedehaan.com/" },
   { role: "Lead CG Artist / 3D Animator", name: "Deven Langston" },
+  { role: "Production year", name: "2022" },
 ] as const satisfies readonly WorkCredit[];
 
 const prefix = "/media/work/whaxe_refresh_20260926/";
