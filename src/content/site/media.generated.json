@@ -2658,5 +2658,43 @@
       "c755fa76db47fe877eb92c90baef51b48668717e1cd3dec88a76b59a7f38bcf5"
     ],
     "derivativeAuthorization": "Owner WHAXE local-review brief, 2026-09-26: cuts, poster extraction and web encodes of approved material"
+  },
+  "87da251129f80574d945.mp4": {
+    "file": "private-media/87da251129f80574d945.mp4",
+    "type": "video/mp4",
+    "bytes": 607296,
+    "sha256": "87da251129f80574d9451ca266c70a4eea8f39ee2deac6bb1a8c7749f104ca27",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/geico_geckos/process_loops/geico_geckos_introshot_viewport_arc.mp4",
+    "publication": "public-approved",
+    "approvedAt": "2026-09-26",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval",
+    "width": 1280,
+    "height": 800,
+    "derivedFrom": [
+      "c1c3071e95bc465423124b511c554041288a215263838bbef0b186c51bc9ae88"
+    ],
+    "recipe": "Full original 5.1s 10fps camera arc; H.264 CRF23 faststart, silent AAC track omitted",
+    "derivativeAuthorization": "Direct owner GEICO refinement brief 2026-09-26: exact supplied viewport arc and efficient web encode/poster for local candidate; no deployment authorized"
+  },
+  "9eb917e97efc58743dca.webp": {
+    "file": "private-media/9eb917e97efc58743dca.webp",
+    "type": "image/webp",
+    "bytes": 20692,
+    "sha256": "9eb917e97efc58743dca7eb94ec67a178c95a439ff333f3427de5415abaaf316",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/geico_geckos/process_loops/geico_geckos_introshot_viewport_arc.mp4",
+    "publication": "public-approved",
+    "approvedAt": "2026-09-26",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval",
+    "width": 1280,
+    "height": 800,
+    "derivedFrom": [
+      "c1c3071e95bc465423124b511c554041288a215263838bbef0b186c51bc9ae88"
+    ],
+    "recipe": "Uncropped 1280x800 WebP poster at 1.5s from viewport arc",
+    "derivativeAuthorization": "Direct owner GEICO refinement brief 2026-09-26: exact supplied viewport arc and efficient web encode/poster for local candidate; no deployment authorized"
   }
 }

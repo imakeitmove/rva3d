@@ -172,7 +172,9 @@ test("release registry pins eight owner-approved cases and the exact selectively
   // Previous approved selection: 145 assets / 208 logical URLs.
   // Before WHAXE: 199 assets / 262 URLs. Three authorized derivatives are now pinned.
   //  assert.deepEqual(publicResult, { status: "PASS", studies: 8, assets: 199, logicalUrls: 262, seoDimensionsVerified: false });
-  assert.deepEqual(publicResult, { status: "PASS", studies: 8, assets: 202, logicalUrls: 265, seoDimensionsVerified: false });
+  // Before owner-supplied GEICO arc and poster: 202 assets / 265 URLs.
+  //  assert.deepEqual(publicResult, { status: "PASS", studies: 8, assets: 202, logicalUrls: 265, seoDimensionsVerified: false });
+  assert.deepEqual(publicResult, { status: "PASS", studies: 8, assets: 204, logicalUrls: 267, seoDimensionsVerified: false });
 });
 
 // GEICO Phase 2 covers the editorial contract and prevents approval drift in shared media.

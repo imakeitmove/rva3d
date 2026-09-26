@@ -1,0 +1,8 @@
+/* GEICO-only geometry; the shared WHAXE/GEICO house styles stay unchanged. */
+.referenceRow + .referenceRow { margin-top: clamp(40px, 5vw, 70px); }
+.referenceRow p { margin: 0; }
+.setupPair :global(.site-media) img { aspect-ratio: 8 / 5; object-fit: contain; }
+.setupPair :global(.v-picture), .setupPair video { aspect-ratio: 8 / 5; }
+.comparison :global(.site-media) img { aspect-ratio: 16 / 9; object-fit: contain; }
+.comparison > p a { text-decoration: underline; }
+.comparison :global(.site-media) figcaption, .setupPair :global(.site-media) figcaption { margin-top: 0; }

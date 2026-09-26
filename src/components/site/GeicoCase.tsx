@@ -1,5 +1,8 @@
 import Link from "next/link";
-import Image from "next/image";
+// Previous thumbnail navigation used: import Image from "next/image";
+import { preload } from "react-dom";
+import { WorkMedia } from "@/components/work/WorkMedia";
+import { siteHref } from "@/lib/site/paths";
 import { geicoCredits, geicoRefresh } from "@/content/work/geico_refresh";
 import type { WorkImageMedia, WorkVideoMedia } from "@/content/work/types";
 import { protectedMedia, studies, headline } from "@/lib/site/content";
@@ -7,14 +10,19 @@ import { Shell } from "./Shell";
 import { SiteMedia } from "./SiteMedia";
 import { GeicoExperience, GeicoVideo } from "./GeicoMedia";
 import styles from "./GeicoCase.module.css";
+import refinement from "./GeicoRefinement.module.css";
 
 // Public captions are owner-supplied; source stages remain in the private asset map.
 const image = (media: WorkImageMedia, caption?: string) => protectedMedia({ ...media, alt: media === geicoRefresh.hero ? "CG GeckO’s cereal box among photographed breakfast objects in a kitchen" : media.alt, caption, statusLabel: undefined }) as WorkImageMedia;
 const video = (media: WorkVideoMedia) => protectedMedia({ ...media, alt: media === geicoRefresh.commercial ? "GeckO’s cereal commercial" : media === geicoRefresh.composite ? "Animated CG box among the breakfast props" : media.alt, caption: undefined, statusLabel: undefined }) as WorkVideoMedia;
-const wideSizes = "(max-width: 760px) calc(100vw - 40px), (max-width: 1600px) calc(100vw - 96px), 1504px";
+// Former separate hero sizes retained for restoration:
+// const wideSizes = "(max-width: 760px) calc(100vw - 40px), (max-width: 1600px) calc(100vw - 96px), 1504px";
 
 export function GeicoCase() {
-  const related = studies.filter(study => ["cable-snake", "axe-whaxe-lil-baby"].includes(study.slug));
+  // Previous related selection: studies.filter(study => ["cable-snake", "axe-whaxe-lil-baby"].includes(study.slug));
+  const next = studies.find(study => study.slug === "axe-whaxe-lil-baby")!;
+  const film = video(geicoRefresh.commercial);
+  preload(film.poster.src, { as: "image", fetchPriority: "high" });
   return <Shell><article className={styles.case} data-editorial-case="geico-geckos-cereal-box" data-tone="paper">
     <GeicoExperience>
       <header className={styles.opening}>
@@ -24,6 +32,7 @@ export function GeicoCase() {
           <p className={styles.lead}>A spoof of a Saturday-morning kids’ cereal commercial that needed a real cereal box to come to life.</p>
         </div>
       </header>
+      {/* Previous separate hero / narrow film / combined set layout retained for restoration.
       <div className={`${styles.wide} ${styles.hero}`} id="hero"><SiteMedia media={image(geicoRefresh.hero)} priority sizes={wideSizes} /></div>
       <section className={`${styles.wide} ${styles.film}`} id="commercial" aria-label="Commercial edit" data-geico-reveal>
         <GeicoVideo media={video(geicoRefresh.commercial)} main />
@@ -38,16 +47,30 @@ export function GeicoCase() {
           </div>
         </div>
       </section>
+      */}
+      <div className={styles.wide} id="commercial"><GeicoVideo media={film} main /></div>
+      <section className={`${styles.wide} ${styles.beat}`} id="on-set" aria-label="On the practical set">
+        {[
+          { text: "The commercial was shot on a live set", media: geicoRefresh.set },
+          { text: "with a real printed box for a reference", media: geicoRefresh.printed },
+          { text: "and we captured the lighting setup using a 360-degree panorama rig for use in the 3D software.", media: geicoRefresh.panorama },
+        ].map(row => <div className={`${styles.exploration} ${refinement.referenceRow}`} key={row.text} data-geico-reveal>
+          <p>{row.text}</p>
+          <div className="site-media"><WorkMedia media={image(row.media)} privateDelivery sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1000px) 60vw, 58vw" /></div>
+        </div>)}
+      </section>
       <section className={`${styles.wide} ${styles.exploration} ${styles.beat}`} id="animation" aria-labelledby="animation-heading" data-geico-reveal>
         <div><h2 id="animation-heading">How many takes does it take until it takes?</h2><p>We explored a few animation options for the entrance before settling on the bounce.</p></div>
         <GeicoVideo media={video(geicoRefresh.blocking)} />
       </section>
       <section className={`${styles.wide} ${styles.beat}`} id="reconstruction" aria-label="Physical and digital table setup" data-geico-reveal>
-        <div className={`${styles.pair} ${styles.setupPair}`}>
+        <div className={`${styles.pair} ${refinement.setupPair}`}>
           <SiteMedia media={image(geicoRefresh.table, "A side view of the table setup")} sizes="(max-width: 760px) calc(100vw - 40px), 46vw" />
-          <SiteMedia media={image(geicoRefresh.viewport, "digital set recreation to capture shadows and reflections")} sizes="(max-width: 760px) calc(100vw - 40px), 46vw" />
+          {/* Former perspective still: <SiteMedia media={image(geicoRefresh.viewport, "digital set recreation to capture shadows and reflections")} /> */}
+          <figure className={styles.result}><GeicoVideo media={video(geicoRefresh.viewport)} /><figcaption>digital set recreation to capture shadows and reflections</figcaption></figure>
         </div>
       </section>
+      {/* Previous gray comparison band and uneven label placement retained for restoration.
       <section className={`${styles.resultBand} ${styles.beat}`} id="comparison" aria-label="Physical reference and CG result" data-geico-reveal>
         <div className={styles.wide}>
           <div className={styles.pair}>
@@ -56,12 +79,22 @@ export function GeicoCase() {
           </div>
         </div>
       </section>
+      */}
+      <section className={`${styles.wide} ${styles.beat} ${refinement.comparison}`} id="comparison" aria-label="Physical reference and CG result" data-geico-reveal>
+        <p className={styles.setCopy}>As part of GEICO’s <a href="https://www.ryanraab.com/legendofthelizard">Legend of the Lizard</a> campaign, the spot aired during <a href="https://www.christopherfrendo.com/">Super Bowl LVIII’s pregame</a>. Creative director Ryan Raab reports more than a billion impressions for the wider campaign.</p>
+        <div className={styles.pair}>
+          <SiteMedia media={image(geicoRefresh.physical, "Real on-set box reference")} sizes="(max-width: 760px) calc(100vw - 40px), 46vw" />
+          <figure className={styles.result}><GeicoVideo media={video(geicoRefresh.composite)} segment={geicoRefresh.compositeSegment} /><figcaption>Final cgi render</figcaption></figure>
+        </div>
+      </section>
       <section className={`${styles.wide} ${styles.credits}`} id="credits" aria-labelledby="credits-heading" data-geico-reveal>
-        <p className={styles.eyebrow}>GEICO | 2024</p><h2 id="credits-heading">Credits</h2>
+        {/* Owner removed the separate metadata marker: <p className={styles.eyebrow}>GEICO | 2024</p> */}
+        <h2 id="credits-heading">Credits</h2>
         <div className={styles.creditGrid}>{geicoCredits.map(group => <section key={group.heading}>
           <h3>{group.heading}</h3><dl>{group.credits.map(credit => <div key={credit.role}><dt>{credit.role}</dt><dd>{"url" in credit ? <a href={credit.url}>{credit.name}</a> : credit.name}</dd></div>)}</dl>
         </section>)}</div>
       </section>
+      {/* Previous related thumbnail navigation retained for restoration.
       <nav className={`${styles.wide} ${styles.related}`} aria-label="Related work">
         <div className="chapter-text"><h2>More work</h2></div>
         <div className={styles.pair}>{related.map(study => {
@@ -71,6 +104,11 @@ export function GeicoCase() {
             <h3>{headline[study.slug]} <span aria-hidden="true">↗</span></h3>
           </Link>;
         })}</div>
+      </nav>
+      */}
+      <nav className="v-broad case-next" aria-label="More projects" data-tone="paper">
+        <div><p className="label">Next project</p><a href={siteHref(`/work/${next.slug}`)}>{headline[next.slug]} ↗</a></div>
+        <a className="editorial-link" href={siteHref("/work#geico-geckos-cereal-box")}>← Back to Work</a>
       </nav>
     </GeicoExperience>
   </article></Shell>;
