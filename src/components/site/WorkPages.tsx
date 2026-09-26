@@ -19,6 +19,7 @@ import { WhaxeCase } from "./WhaxeCase";
 import { CableSnakeCase } from "./CableSnakeCase";
 import { WawaCase } from "./WawaCase";
 import { DesmiCase } from "./DesmiCase";
+import { UncommonGoodsCase } from "./UncommonGoodsCase";
 import { NoiseTechCase, SolsticeCase, TrickTreatCase } from "./CapriSunCases";
 type Props = { params: Promise<{ slug: string }> };
 export function WorkIndex() {
@@ -62,6 +63,7 @@ export async function CasePage({ params }: Props) {
   if (slug === "cable-snake") return <CableSnakeCase />;
   if (slug === "wawa-coffee-island") return <WawaCase />;
   if (slug === "desmi-rotan-pump") return <DesmiCase />;
+  if (slug === "uncommon-goods-outta-this-world") return <UncommonGoodsCase />;
   if (slug === "capri-sun") return <NoiseTechCase />;
   if (slug === "capri-sun-solstice-pouch") return <SolsticeCase />;
   if (slug === "capri-sun-trick-and-treat") return <TrickTreatCase />;

@@ -40,5 +40,33 @@
     "width": 1280,
     "height": 720,
     "alt": "Finished close-up through the pump housing showing the shaft and internal assembly."
+  },
+  "ug_client_nasa": {
+    "kind": "image",
+    "src": "/media/work/rollout_20260926/ug_client_nasa.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Client storyboard frame showing the NASA space-suit product against a plain cream background."
+  },
+  "ug_nasa_final": {
+    "kind": "image",
+    "src": "/media/work/rollout_20260926/ug_nasa_final.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Finished NASA space-suit scene with illustrated rocket and planetary motion around the product."
+  },
+  "ug_mug_final": {
+    "kind": "image",
+    "src": "/media/work/rollout_20260926/ug_mug_final.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Finished Yellowstone mug scene with illustrated mountains and a camper."
+  },
+  "ug_music_final": {
+    "kind": "image",
+    "src": "/media/work/rollout_20260926/ug_music_final.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Finished musical construction-kit scene with illustrated notes above the instruments."
   }
 }

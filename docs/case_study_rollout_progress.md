@@ -5,14 +5,14 @@ Full local evidence: ../../artifacts/case_study_rollout_20260926/README.md. Read
 
 | Page | Status | Remaining |
 | --- | --- | --- |
-| Cable Snake | Checkpoint 9b329449; type/lint/assets/review gate passed | Two placement photos restricted to authenticated /review/cable-snake pending release clearance |
+| Cable Snake | Checkpoint 9b329449; type/lint/assets/review gate passed | Two placement photos restricted to authenticated /review/site/work/cable-snake pending release clearance |
 | WHAXE | Aligned | Added verified 2022 lower credit only; article, final stills, V04 and GEICO destination preserved |
 | Noise Tech | Implemented | /work/capri-sun retained; approved package/macro final pair. Close-package candidate absent; package repeats hero. |
 | Solstice | Implemented with required media gaps | /work/capri-sun-solstice-pouch; approved portrait still fallback. Finished film and distinct final pair absent; no duplicate padding. |
 | Trick & Treat | Implemented with required media gaps | /work/capri-sun-trick-and-treat; approved final still fallback. Released film and second distinct final not established; alternates omitted. |
 | Wawa | Implemented | Existing full registered presentation; stocked-display detail; overall/detail final pair. Mark Oakley confirmed; production year unresolved. |
 | DESMI | Implemented | Current registered 15-second hero retained; maintenance at 3.05s of approved sizzle; final overall/detail frames. Production year unresolved. |
-| Uncommon Goods | Pending | Restore cleared source-to-final imagery |
+| Uncommon Goods | Implemented | Restored client artboards/OTW-FramesNASA_suit.jpg.jpg under explicit September 26 folder clearance, beside matching final :30 frame at 4s. Full :15 follows; final mug/music frames then credits/year 2023. |
 
 Cable selection: twist_cable_snake_billboard_onLocation.jpg (720×426) and twist_cable_snake_billboard_onBusB.jpg (718×427), documented T:/BIG_BACKUP/24_SPANG_0829_Cable_Snake/output source. BusB shows a distinct street setting. No crop/enlargement. Source hashes and derivative keys are in the private evidence index. Photos were not among nine restored September 15 files; no approval inferred. Strict production release must reject private derivatives.
 Pre-publication task: Deven to confirm practical puppet/stop-motion artist and applicable crew with Maggie; do not contact. Jordan Rodericks (Director/DP) and Chris Hagen (Flame) confirmed by rollout prompt. 2024 supported by latest brief's production-record reconciliation.
