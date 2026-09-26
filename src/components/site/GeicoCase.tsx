@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 // Previous thumbnail navigation used: import Image from "next/image";
 import { preload } from "react-dom";
 import { WorkMedia } from "@/components/work/WorkMedia";
@@ -98,7 +99,11 @@ export function GeicoCase() {
       </section>
       */}
       <section className={`${styles.wide} ${styles.beat} ${refinement.comparison}`} id="comparison" aria-label="Physical reference and CG result" data-geico-reveal>
+        {/* Previous full-phrase emphasis retained for restoration at the owner's request.
         <p className={styles.setCopy}>As part of GEICO’s <a href="https://www.ryanraab.com/legendofthelizard"><strong>Legend of the Lizard</strong></a> campaign, the spot aired during <a href="https://www.christopherfrendo.com/">Super Bowl LVIII’s pregame</a>. Creative director Ryan Raab reports <strong className={refinement.campaignResult}>more than a billion impressions for the wider campaign</strong>.</p>
+        */}
+        <Image className={refinement.campaignLogo} src="/site-assets/geico-logo.webp" alt="GEICO" width={252} height={44} unoptimized />
+        <p className={styles.setCopy}>As part of GEICO’s <a href="https://www.ryanraab.com/legendofthelizard"><strong>Legend of the Lizard</strong></a> campaign, the spot aired during <a href="https://www.christopherfrendo.com/">Super Bowl LVIII’s pregame</a>. Creative director Ryan Raab reports more than a <strong className={refinement.campaignResult}>billion impressions</strong> for the wider campaign.</p>
         <div className={styles.pair}>
           <SiteMedia media={image(geicoRefresh.physical, "Real on-set box reference")} sizes="(max-width: 760px) calc(100vw - 40px), 46vw" />
           <figure className={styles.result}><GeicoVideo media={video(geicoRefresh.composite)} /><figcaption>Final cgi render</figcaption></figure>
