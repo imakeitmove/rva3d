@@ -87,7 +87,7 @@ export function GeicoCase() {
           {/* Removed the obvious table caption; the photograph carries the context. */}
           <SiteMedia media={image(geicoRefresh.table)} sizes="(max-width: 760px) calc(100vw - 40px), 46vw" />
           {/* Former perspective still: <SiteMedia media={image(geicoRefresh.viewport, "digital set recreation to capture shadows and reflections")} /> */}
-          <figure className={styles.result}><GeicoVideo media={video(geicoRefresh.viewport)} /><figcaption>Viewport playblast</figcaption></figure>
+          <figure className={styles.result}><GeicoVideo media={video(geicoRefresh.viewport)} />{/* Caption removed at owner request: <figcaption>Viewport playblast</figcaption> */}</figure>
         </div>
       </section>
       {/* Previous gray comparison band and uneven label placement retained for restoration.
