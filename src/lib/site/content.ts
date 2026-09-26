@@ -88,7 +88,10 @@ export const headline: Record<string, string> = {
   "geico-geckos-cereal-box": "Bringing a cereal box to life for GEICO.",
   "cable-snake": "Recreating a stop-motion cable snake in 3D for Twist Wireless.",
   "amsoil-xpd-wind-grease": "Going inside a wind turbine for AMSOIL.",
-  "capri-sun": "3D juice pouches created and animated for Capri Sun.",
+  // Previous combined title: "3D juice pouches created and animated for Capri Sun."
+  "capri-sun": "Capri Sun Noise Tech.",
+  "capri-sun-solstice-pouch": "Capri Sun Solstice Pouch.",
+  "capri-sun-trick-and-treat": "Capri Sun Trick & Treat.",
   "axe-whaxe-lil-baby": "A high-gloss product film for AXE WHAXE × Lil Baby.",
   "wawa-coffee-island": "Turning fixture CAD into a fully stocked Wawa Coffee Island.",
 };
@@ -98,7 +101,10 @@ export const context: Record<string, string> = {
   "geico-geckos-cereal-box": "GEICO / VFX supervision and lead animation",
   "cable-snake": "Twist Wireless / Spang · Dotted Line",
   "amsoil-xpd-wind-grease": "AMSOIL / Technical visualization",
-  "capri-sun": "Capri Sun / Agency: Candy Factory",
+  // Previous combined credit: "Capri Sun / Agency: Candy Factory"
+  "capri-sun": "Capri Sun / Noise Tech",
+  "capri-sun-solstice-pouch": "Capri Sun / Solstice Pouch",
+  "capri-sun-trick-and-treat": "Capri Sun / Trick & Treat",
   "axe-whaxe-lil-baby": "AXE / SuperJoy",
   "wawa-coffee-island": "Wawa / Client: Pak-It Displays",
 };

@@ -7,9 +7,9 @@ Full local evidence: ../../artifacts/case_study_rollout_20260926/README.md. Read
 | --- | --- | --- |
 | Cable Snake | Checkpoint 9b329449; type/lint/assets/review gate passed | Two placement photos restricted to authenticated /review/cable-snake pending release clearance |
 | WHAXE | Aligned | Added verified 2022 lower credit only; article, final stills, V04 and GEICO destination preserved |
-| Noise Tech | Pending | Independent routing and Work entry |
-| Solstice | Pending | Finished film and distinct final detail absent from staging |
-| Trick & Treat | Pending | Released film and second distinct final not established |
+| Noise Tech | Implemented | /work/capri-sun retained; approved package/macro final pair. Close-package candidate absent; package repeats hero. |
+| Solstice | Implemented with required media gaps | /work/capri-sun-solstice-pouch; approved portrait still fallback. Finished film and distinct final pair absent; no duplicate padding. |
+| Trick & Treat | Implemented with required media gaps | /work/capri-sun-trick-and-treat; approved final still fallback. Released film and second distinct final not established; alternates omitted. |
 | Wawa | Pending | Compose approved media |
 | DESMI | Pending | Match maintenance sequence; year unresolved |
 | Uncommon Goods | Pending | Restore cleared source-to-final imagery |

@@ -17,6 +17,7 @@ import { EditorialCasePage } from "./EditorialCasePage";
 import { GeicoCase } from "./GeicoCase";
 import { WhaxeCase } from "./WhaxeCase";
 import { CableSnakeCase } from "./CableSnakeCase";
+import { NoiseTechCase, SolsticeCase, TrickTreatCase } from "./CapriSunCases";
 type Props = { params: Promise<{ slug: string }> };
 export function WorkIndex() {
   const initialCount = Math.min(4, studies.length);
@@ -57,6 +58,9 @@ export async function CasePage({ params }: Props) {
   if (slug === "geico-geckos-cereal-box") return <GeicoCase />;
   if (slug === "axe-whaxe-lil-baby") return <WhaxeCase />;
   if (slug === "cable-snake") return <CableSnakeCase />;
+  if (slug === "capri-sun") return <NoiseTechCase />;
+  if (slug === "capri-sun-solstice-pouch") return <SolsticeCase />;
+  if (slug === "capri-sun-trick-and-treat") return <TrickTreatCase />;
   if (study.editorial) return <EditorialCasePage study={study} editorial={study.editorial} next={next} />;
   const chapters = slug === "cable-snake" ? [study.processChapters[1], study.processChapters[3]] : slug === "amsoil-xpd-wind-grease" ? [study.processChapters[0], study.processChapters[2]] : slug === "wawa-coffee-island" ? [study.processChapters[0], study.processChapters[1], study.processChapters[3]] : study.processChapters.slice(0, 3).filter(chapter => chapter.media.length > 0);
   const related = capabilities.filter(item => study.capabilities.includes(item.title));

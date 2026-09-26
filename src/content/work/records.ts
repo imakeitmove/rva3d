@@ -3,7 +3,8 @@ import { geicoGeckosCerealBox } from "./cases/geico-geckos-cereal-box.ts";
 import { amsoilXpdWindGrease } from "./cases/amsoil-xpd-wind-grease.ts";
 import { axeWhaxeLilBaby } from "./cases/axe-whaxe-lil-baby.ts";
 import { cableSnake } from "./cases/cable-snake.ts";
-import { capriSun } from "./cases/capri-sun.ts";
+// Historical combined entry: import { capriSun } from "./cases/capri-sun.ts";
+import { capriSunNoiseTech as capriSun, capriSunSolstice, capriSunTrickTreat } from "./cases/capri_sun_standalone.ts";
 import { wawaCoffeeIsland } from "./cases/wawa-coffee-island.ts";
 
 // The array order is deliberately independent from the portfolio order below.
@@ -12,6 +13,8 @@ export const workRecords = [
   cableSnake,
   amsoilXpdWindGrease,
   capriSun,
+  capriSunSolstice,
+  capriSunTrickTreat,
   axeWhaxeLilBaby,
   wawaCoffeeIsland,
   geicoGeckosCerealBox,
@@ -22,6 +25,8 @@ export const portfolioWorkSlugs = [
   "cable-snake",
   "axe-whaxe-lil-baby",
   "capri-sun",
+  "capri-sun-solstice-pouch",
+  "capri-sun-trick-and-treat",
   "amsoil-xpd-wind-grease",
   "wawa-coffee-island",
   "geico-geckos-cereal-box",

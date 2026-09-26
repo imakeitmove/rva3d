@@ -16,6 +16,8 @@ const expectedSlugs = [
   "cable-snake",
   "amsoil-xpd-wind-grease",
   "capri-sun",
+  "capri-sun-solstice-pouch",
+  "capri-sun-trick-and-treat",
   "axe-whaxe-lil-baby",
   "wawa-coffee-island",
   "desmi-rotan-pump",

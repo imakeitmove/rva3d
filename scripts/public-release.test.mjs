@@ -168,7 +168,8 @@ test("release registry pins eight owner-approved cases and the exact selectively
   const result = await verifyPublicApprovedRelease(root, { verifyDimensions: false, allowReviewAssets: true });
   const { reviewAssets, ...publicResult } = result;
   // Previous review packages contained 0 or 17 derivatives. This local pass adds 12.
-  assert([undefined, 0, 12, 17, 29].includes(reviewAssets));
+  // Before rollout: assert([undefined, 0, 12, 17, 29].includes(reviewAssets));
+  assert.equal(reviewAssets, 2); // Two uncleared Cable Snake placement photographs.
   // Previous approved selection: 145 assets / 208 logical URLs.
   // Before WHAXE: 199 assets / 262 URLs. Three authorized derivatives are now pinned.
   //  assert.deepEqual(publicResult, { status: "PASS", studies: 8, assets: 199, logicalUrls: 262, seoDimensionsVerified: false });
@@ -176,7 +177,8 @@ test("release registry pins eight owner-approved cases and the exact selectively
   //  assert.deepEqual(publicResult, { status: "PASS", studies: 8, assets: 202, logicalUrls: 265, seoDimensionsVerified: false });
   // Previous GEICO refinement count retained; exact owner-selected derivatives are added below.
   //  assert.deepEqual(publicResult, { status: "PASS", studies: 8, assets: 204, logicalUrls: 267, seoDimensionsVerified: false });
-  assert.deepEqual(publicResult, { status: "PASS", studies: 8, assets: 215, logicalUrls: 278, seoDimensionsVerified: false });
+  // Prior combined Capri Sun catalogue: eight cases.
+  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 215, logicalUrls: 278, seoDimensionsVerified: false });
 });
 
 // GEICO Phase 2 covers the editorial contract and prevents approval drift in shared media.
