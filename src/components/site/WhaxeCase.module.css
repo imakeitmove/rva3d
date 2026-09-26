@@ -1,19 +1,23 @@
-﻿/* Opt-in WHAXE composition; credits inherit the approved GEICO role/name styling. */
+/* Opt-in WHAXE composition; credits inherit the approved GEICO role/name styling. */
 .case { padding-bottom: 0; }
 .closing { max-width: 900px; text-align: center; }
 .closing h2 { font-size: clamp(30px, 3.2vw, 49px); line-height: 1.1; letter-spacing: -.035em; font-weight: 500; margin: 0 0 24px; }
 .closing p { max-width: 700px; margin: 0 auto; font-size: clamp(18px, 1.55vw, 24px); line-height: 1.5; }
 .credits { display: block; max-width: 800px; }
 .credits dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 60px; }
+/* Superseded More work rules retained for restoration.
 .related { padding-block: 36px 100px; }
-/* Existing editorial section-heading scale, with space before the quiet exit links. */
+   Existing editorial section-heading scale, with space before the quiet exit links.
 .related h2 { font-size: clamp(28px, 3vw, 42px); line-height: 1.15; letter-spacing: -.03em; font-weight: 510; margin: 0 0 40px; }
 .related > div { display: flex; flex-wrap: wrap; gap: 24px 64px; }
+*/
 @media (max-width: 760px) {
   .credits dl { gap: 28px 20px; }
+  /* Superseded mobile More work rules:
   .related { padding-block: 30px 70px; }
   .related h2 { margin-bottom: 32px; }
   .related > div { flex-direction: column; align-items: flex-start; gap: 24px; }
+  */
 }
 @media (max-width: 480px) {
   .credits dl { grid-template-columns: 1fr; }
