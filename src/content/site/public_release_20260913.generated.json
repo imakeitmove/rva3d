@@ -14,10 +14,10 @@
     "desmi-rotan-pump",
     "uncommon-goods-outta-this-world"
   ],
-  "assets": 215,
-  "logicalUrls": 278,
-  "registryDigest": "ab36aa47c6a3c5d0cb2f7b60dbdf3065ceb7309eef1e28088c4b4946c489a104",
-  "urlsDigest": "ff26f1c27d0c09dcad932fcdf74c18460c54750d6c8c7608273b6a1396c4ebc5",
+  "assets": 219,
+  "logicalUrls": 282,
+  "registryDigest": "839eef48b6dd0bbd81467ac5db82f8bf0b7b63a7d0b946159d8edf97d522988b",
+  "urlsDigest": "24deb3acc740be14ded14311278a50d9aac633aa7c9146373d1e255b5e894e01",
   "previous93RegistryDigest": "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8",
   "previous157UrlsDigest": "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f",
   "excludedKeys": [

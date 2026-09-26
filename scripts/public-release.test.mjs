@@ -178,7 +178,7 @@ test("release registry pins eight owner-approved cases and the exact selectively
   // Previous GEICO refinement count retained; exact owner-selected derivatives are added below.
   //  assert.deepEqual(publicResult, { status: "PASS", studies: 8, assets: 204, logicalUrls: 267, seoDimensionsVerified: false });
   // Prior combined Capri Sun catalogue: eight cases.
-  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 215, logicalUrls: 278, seoDimensionsVerified: false });
+  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 219, logicalUrls: 282, seoDimensionsVerified: false });
 });
 
 // GEICO Phase 2 covers the editorial contract and prevents approval drift in shared media.

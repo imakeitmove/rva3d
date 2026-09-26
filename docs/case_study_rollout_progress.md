@@ -11,7 +11,7 @@ Full local evidence: ../../artifacts/case_study_rollout_20260926/README.md. Read
 | Solstice | Implemented with required media gaps | /work/capri-sun-solstice-pouch; approved portrait still fallback. Finished film and distinct final pair absent; no duplicate padding. |
 | Trick & Treat | Implemented with required media gaps | /work/capri-sun-trick-and-treat; approved final still fallback. Released film and second distinct final not established; alternates omitted. |
 | Wawa | Implemented | Existing full registered presentation; stocked-display detail; overall/detail final pair. Mark Oakley confirmed; production year unresolved. |
-| DESMI | Pending | Match maintenance sequence; year unresolved |
+| DESMI | Implemented | Current registered 15-second hero retained; maintenance at 3.05s of approved sizzle; final overall/detail frames. Production year unresolved. |
 | Uncommon Goods | Pending | Restore cleared source-to-final imagery |
 
 Cable selection: twist_cable_snake_billboard_onLocation.jpg (720×426) and twist_cable_snake_billboard_onBusB.jpg (718×427), documented T:/BIG_BACKUP/24_SPANG_0829_Cable_Snake/output source. BusB shows a distinct street setting. No crop/enlargement. Source hashes and derivative keys are in the private evidence index. Photos were not among nine restored September 15 files; no approval inferred. Strict production release must reject private derivatives.

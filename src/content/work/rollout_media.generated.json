@@ -12,5 +12,33 @@
     "width": 718,
     "height": 427,
     "alt": "A city bus carrying Twist Cable Snake campaign artwork on a San Jose street."
+  },
+  "desmi_flow": {
+    "kind": "image",
+    "src": "/media/work/rollout_20260926/desmi_flow.webp",
+    "width": 1280,
+    "height": 720,
+    "alt": "Chocolate flowing through the finished ROTAN pump cutaway."
+  },
+  "desmi_maintenance": {
+    "kind": "image",
+    "src": "/media/work/rollout_20260926/desmi_maintenance.webp",
+    "width": 1280,
+    "height": 720,
+    "alt": "The ROTAN rotating assembly sliding backwards out of the pump housing for maintenance."
+  },
+  "desmi_overall": {
+    "kind": "image",
+    "src": "/media/work/rollout_20260926/desmi_overall.webp",
+    "width": 1280,
+    "height": 720,
+    "alt": "Overall DESMI ROTAN chocolate pump with motor and base in the delivered product film."
+  },
+  "desmi_detail": {
+    "kind": "image",
+    "src": "/media/work/rollout_20260926/desmi_detail.webp",
+    "width": 1280,
+    "height": 720,
+    "alt": "Finished close-up through the pump housing showing the shaft and internal assembly."
   }
 }
