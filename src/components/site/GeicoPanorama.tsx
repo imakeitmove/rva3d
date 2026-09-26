@@ -1,6 +1,6 @@
 "use client";
 
-import { Component, lazy, Suspense, useCallback, useRef, useState, type ReactNode } from "react";
+import { Component, lazy, Suspense, useCallback, useRef, useState, type ReactNode, type MouseEvent } from "react";
 import { WorkMedia } from "@/components/work/WorkMedia";
 import type { WorkImageMedia } from "@/content/work/types";
 import { useGeicoPlayback } from "./GeicoMedia";
@@ -21,9 +21,10 @@ export function GeicoPanorama({ preview, source }: { preview: WorkImageMedia; so
   const { setModalOpen } = useGeicoPlayback();
   const close = useCallback(() => { setOpen(false); setModalOpen(false); requestAnimationFrame(() => trigger.current?.focus({ preventScroll: true })); }, [setModalOpen]);
   const fail = useCallback(() => { setFailed(true); close(); }, [close]);
+  function show(event: MouseEvent<HTMLButtonElement>) { trigger.current = event.currentTarget; setFailed(false); setModalOpen(true); setOpen(true); }
   return <div className={styles.panoramaPreview}>
-    <div className="site-media"><WorkMedia media={preview} privateDelivery sizes="(max-width: 760px) calc(100vw - 40px), 58vw" /></div>
-    <button ref={trigger} type="button" className="editorial-link" onClick={() => { setFailed(false); setModalOpen(true); setOpen(true); }} aria-haspopup="dialog" aria-expanded={open}>Explore the set in 360°</button>
+    <div className="site-media"><WorkMedia media={preview} privateDelivery sizes="(max-width: 760px) calc(100vw - 40px), 58vw" /><button type="button" className="site-fullscreen" onClick={show} aria-label="Explore the set in 360 degrees" aria-haspopup="dialog" aria-expanded={open}><span aria-hidden="true">↗</span></button></div>
+    <button type="button" className="editorial-link" onClick={show} aria-haspopup="dialog" aria-expanded={open}>Explore the set in 360°<span aria-hidden="true">↗</span></button>
     {failed && <p role="status" className={styles.status}>The interactive view is unavailable. The panorama preview is still available above.</p>}
     {open && <LoadBoundary onFailure={fail}><Suspense fallback={<span role="status" className={styles.status}>Loading panorama…</span>}><PanoramaModal source={source} preview={preview} onClose={close} /></Suspense></LoadBoundary>}
   </div>;

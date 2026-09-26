@@ -3,10 +3,12 @@
 .referenceRow p { margin: 0; }
 /* Previous 8:5 contain frame letterboxed the 3:2 photo and left its caption protruding.
 .setupPair :global(.site-media) img { aspect-ratio: 8 / 5; object-fit: contain; } */
-.setupPair :global(.site-media) img { aspect-ratio: auto; height: auto; }
+/* Previous uncropped geometry: .setupPair :global(.site-media) img { aspect-ratio: auto; height: auto; } */
+/* Owner approved an 8:5 crop taken only from the bottom. */
+.setupPair :global(.site-media) img { aspect-ratio: 8 / 5; height: auto; object-fit: cover; object-position: center top; }
 .setupPair :global(.v-picture), .setupPair video { aspect-ratio: 8 / 5; }
 .comparison :global(.site-media) img { aspect-ratio: 16 / 9; object-fit: contain; }
-.comparison > p a { text-decoration: underline; }
+/* Previous always-underlined campaign links: .comparison > p a { text-decoration: underline; } */
 .comparison :global(.site-media) figcaption, .setupPair :global(.site-media) figcaption { margin-top: 0; }
 .comparison > p { margin-inline: auto; text-align: center; }
 
@@ -15,7 +17,7 @@
 .referenceRow > p, .entrance p { font-size: clamp(22px, 1.9vw, 28px); line-height: 1.38; max-width: 30ch; }
 .referenceRow strong, .comparison strong { font-weight: 600; }
 .comparison > p { max-width: 820px; font-size: clamp(20px, 1.65vw, 24px); line-height: 1.45; }
-.campaignResult { color: var(--rva-purple, #6230c0); }
+/* Previous inline purple emphasis: .campaignResult { color: var(--rva-purple, #6230c0); } */
 @media (max-width: 1000px) { .referenceRow { column-gap: 35px; } }
 @media (max-width: 760px) {
   .referenceRow { row-gap: 22px; }
@@ -30,3 +32,20 @@
 /* Owner campaign finishing edit: logo above and more room before the comparison. */
 .campaignLogo { display: block; width: clamp(150px, 14vw, 180px); height: auto; margin: 0 auto 28px; filter: brightness(0); }
 .comparison > p { margin-bottom: clamp(52px, 5vw, 68px); }
+
+/* Final owner polish: compact transition, equal link treatment and a noninteractive result line. */
+.finish .comparison { margin-top: clamp(42px, 4.5vw, 66px); }
+.campaignLead, .campaignQualifier { display: block; }
+.comparison .campaignResult { display: block; margin: 14px 0 8px; font-size: clamp(30px, 4.2vw, 58px); line-height: 1.1; letter-spacing: -.035em; color: var(--ink, #171717); font-weight: 600; }
+.comparison .campaignLink { color: inherit; font-weight: 600; text-decoration: none; }
+.campaignLink > span { display: inline-block; margin-left: .15em; font-size: .8em; }
+.comparison .campaignLink:is(:hover, :focus-visible) { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+/* Reuse the same top-right utility affordance for all GEICO media. */
+.finish :global([data-geico-video="commercial"]) { position: relative; }
+.finish :is(:global(.v-fullscreen), :global(.site-fullscreen)) { position: absolute; top: 12px; right: 12px; bottom: auto; width: 44px; height: 44px; font-size: 26px; z-index: 3; color: #fff !important; }
+.finish :global(.site-media):fullscreen { background: #080a09; }
+.finish :global(.site-media):fullscreen figure { width: 100%; height: 100%; }
+.finish :global(.site-media):fullscreen img { width: 100%; height: 100%; max-height: 100dvh; aspect-ratio: auto; object-fit: contain; object-position: center; }
+.finish :global([data-geico-video="commercial"]):fullscreen { width: 100vw; height: 100dvh; background: #080a09; }
+.finish :global([data-geico-video="commercial"]):fullscreen > div { width: 100%; height: 100%; aspect-ratio: auto; }
+.finish :global([data-geico-video="commercial"]):fullscreen video { aspect-ratio: auto; object-fit: contain; }

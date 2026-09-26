@@ -27,7 +27,7 @@ export function GeicoCase() {
   const next = studies.find(study => study.slug === "axe-whaxe-lil-baby")!;
   const film = video(geicoRefresh.commercial);
   preload(film.poster.src, { as: "image", fetchPriority: "high" });
-  return <Shell><article className={styles.case} data-editorial-case="geico-geckos-cereal-box" data-tone="paper">
+  return <Shell><article className={`${styles.case} ${refinement.finish}`} data-editorial-case="geico-geckos-cereal-box" data-tone="paper">
     <GeicoExperience interactive>
       <header className={styles.opening}>
         <Link className="editorial-link" href="/work#geico-geckos-cereal-box">← Back to Work</Link>
@@ -52,7 +52,7 @@ export function GeicoCase() {
         </div>
       </section>
       */}
-      <div className={styles.wide} id="commercial"><GeicoVideo media={film} main /></div>
+      <div className={styles.wide} id="commercial"><GeicoVideo media={film} main expandable /></div>
       <section className={`${styles.wide} ${styles.beat}`} id="on-set" aria-label="On the practical set">
         {/* Previous uniform static rows retained for restoration.
         {[
@@ -70,7 +70,8 @@ export function GeicoCase() {
         </div>
         <div className={`${styles.exploration} ${refinement.referenceRow}`} data-geico-reveal>
           <p>with a <strong>real printed box</strong> for a reference</p>
-          <div className="site-media"><WorkMedia media={image(geicoRefresh.printed)} privateDelivery sizes="(max-width: 760px) calc(100vw - 40px), 58vw" /></div>
+          {/* Previous static-only printed reference: <div className="site-media"><WorkMedia media={image(geicoRefresh.printed)} privateDelivery sizes="(max-width: 760px) calc(100vw - 40px), 58vw" /></div> */}
+          <SiteMedia media={image(geicoRefresh.printed)} sizes="(max-width: 760px) calc(100vw - 40px), 58vw" />
         </div>
         <div className={`${styles.exploration} ${refinement.referenceRow}`} data-geico-reveal>
           <p>and we captured the lighting setup using a <strong>360-degree panorama rig</strong> for use in our 3D software.</p>
@@ -83,9 +84,10 @@ export function GeicoCase() {
       </section>
       <section className={`${styles.wide} ${styles.beat}`} id="reconstruction" aria-label="Physical and digital table setup" data-geico-reveal>
         <div className={`${styles.pair} ${refinement.setupPair}`}>
-          <SiteMedia media={image(geicoRefresh.table, "A side view of the table setup")} sizes="(max-width: 760px) calc(100vw - 40px), 46vw" />
+          {/* Removed the obvious table caption; the photograph carries the context. */}
+          <SiteMedia media={image(geicoRefresh.table)} sizes="(max-width: 760px) calc(100vw - 40px), 46vw" />
           {/* Former perspective still: <SiteMedia media={image(geicoRefresh.viewport, "digital set recreation to capture shadows and reflections")} /> */}
-          <figure className={styles.result}><GeicoVideo media={video(geicoRefresh.viewport)} /><figcaption>digital set recreation to capture shadows and reflections</figcaption></figure>
+          <figure className={styles.result}><GeicoVideo media={video(geicoRefresh.viewport)} /><figcaption>Viewport playblast</figcaption></figure>
         </div>
       </section>
       {/* Previous gray comparison band and uneven label placement retained for restoration.
@@ -103,7 +105,10 @@ export function GeicoCase() {
         <p className={styles.setCopy}>As part of GEICO’s <a href="https://www.ryanraab.com/legendofthelizard"><strong>Legend of the Lizard</strong></a> campaign, the spot aired during <a href="https://www.christopherfrendo.com/">Super Bowl LVIII’s pregame</a>. Creative director Ryan Raab reports <strong className={refinement.campaignResult}>more than a billion impressions for the wider campaign</strong>.</p>
         */}
         <Image className={refinement.campaignLogo} src="/site-assets/geico-logo.webp" alt="GEICO" width={252} height={44} unoptimized />
+        {/* Previous owner-approved wording retained as research history.
         <p className={styles.setCopy}>As part of GEICO’s <a href="https://www.ryanraab.com/legendofthelizard"><strong>Legend of the Lizard</strong></a> campaign, the spot aired during <a href="https://www.christopherfrendo.com/">Super Bowl LVIII’s pregame</a>. Creative director Ryan Raab reports more than a <strong className={refinement.campaignResult}>billion impressions</strong> for the wider campaign.</p>
+        */}
+        <p className={styles.setCopy}><span className={refinement.campaignLead}>As part of GEICO’s <a className={refinement.campaignLink} href="https://www.ryanraab.com/legendofthelizard">Legend of the Lizard<span aria-hidden="true"> ↗</span></a> campaign, the spot aired during <a className={refinement.campaignLink} href="https://www.christopherfrendo.com/">Super Bowl LVIII’s pregame<span aria-hidden="true"> ↗</span></a> with more than</span>{" "}<strong className={refinement.campaignResult}>one billion impressions</strong>{" "}<span className={refinement.campaignQualifier}>for the wider campaign.</span></p>
         <div className={styles.pair}>
           <SiteMedia media={image(geicoRefresh.physical, "Real on-set box reference")} sizes="(max-width: 760px) calc(100vw - 40px), 46vw" />
           <figure className={styles.result}><GeicoVideo media={video(geicoRefresh.composite)} /><figcaption>Final cgi render</figcaption></figure>

@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
+import { CapabilityFullscreen } from "./CapabilityFullscreen";
 import { WorkMedia } from "@/components/work/WorkMedia";
 import type { WorkImageMedia } from "@/content/work/types";
 import { useGeicoPlayback } from "./GeicoMedia";
@@ -37,10 +38,11 @@ export function GeicoSetSlideshow({ slides }: { slides: WorkImageMedia[] }) {
       {slides.map((media, slide) => (slide === 0 || visible || slide === index) && <div className={styles.slide} key={media.src} aria-hidden={slide !== index} data-current={slide === index} role="group" aria-roledescription="slide" aria-label={`${slide + 1} of ${slides.length}`}>
         <WorkMedia media={media} privateDelivery sizes="(max-width: 760px) calc(100vw - 40px), 58vw" />
       </div>)}
+      <CapabilityFullscreen targetRef={root} kind="image" variant="homepage" />
       <div className={styles.slideControls}>
-        <button type="button" onClick={() => step(-1)} aria-label="Previous set photograph"><span aria-hidden="true">‹</span></button>
-        <button type="button" onClick={() => setPaused(previous => !previous)} disabled={reduced} aria-label={reduced ? "Slideshow autoplay disabled by reduced motion" : paused ? "Play set slideshow" : "Pause set slideshow"}><span aria-hidden="true">{paused || reduced ? "▶" : "Ⅱ"}</span></button>
-        <button type="button" onClick={() => step(1)} aria-label="Next set photograph"><span aria-hidden="true">›</span></button>
+        <button className="custom-control" type="button" onClick={() => step(-1)} aria-label="Previous set photograph"><span aria-hidden="true">‹</span></button>
+        <button className="custom-control" type="button" onClick={() => setPaused(previous => !previous)} disabled={reduced} aria-label={reduced ? "Slideshow autoplay disabled by reduced motion" : paused ? "Play set slideshow" : "Pause set slideshow"}><span aria-hidden="true">{paused || reduced ? "▶" : "Ⅱ"}</span></button>
+        <button className="custom-control" type="button" onClick={() => step(1)} aria-label="Next set photograph"><span aria-hidden="true">›</span></button>
       </div>
     </div>
   </div>;

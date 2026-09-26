@@ -17,7 +17,7 @@ export const geicoRefresh = {
   table: { ...reference.tableSide, caption: "A side view of the table setup." } as WorkImageMedia,
   // Previous still substitute retained for restoration; source remains registered.
   //  viewport: { ...reference.perspective, caption: "Digital set recreation for shadows and reflections — perspective viewport still.", statusLabel: "Static perspective viewport; not a matching side-view animation capture." } as WorkImageMedia,
-  viewport: { kind: "video", src: "/media/work/geico_refinement_20260926/geico_viewport_arc_v001.mp4", width: 1280, height: 800, mimeType: "video/mp4", presentation: "loop", hasAudio: false, poster: { kind: "image", src: "/media/work/geico_refinement_20260926/geico_viewport_arc_poster_v001.webp", width: 1280, height: 800, alt: "Digital breakfast table and box during the viewport camera arc." }, alt: "Viewport camera arc around the digital cereal-box and table setup", caption: "digital set recreation to capture shadows and reflections", statusLabel: "Original-speed 5.1-second viewport capture; visible reset when repeated." } as WorkVideoMedia,
+  viewport: { kind: "video", src: "/media/work/geico_refinement_20260926/geico_viewport_arc_v001.mp4", width: 1280, height: 800, mimeType: "video/mp4", presentation: "loop", hasAudio: false, poster: { kind: "image", src: "/media/work/geico_refinement_20260926/geico_viewport_arc_poster_v001.webp", width: 1280, height: 800, alt: "Digital breakfast table and box during the viewport camera arc." }, alt: "Viewport camera arc around the digital cereal-box and table setup", caption: "Viewport playblast", statusLabel: "Original-speed 5.1-second viewport capture; visible reset when repeated." } as WorkVideoMedia,
   physical: { ...process.physical, caption: "Real on-set box reference", statusLabel: "Photograph of the physical box." } as WorkImageMedia,
   // Prior timeupdate-driven commercial excerpt retained for provenance:
   //  composite: { ...original.hero, poster: process.hero, presentation: "loop", hasAudio: false, alt: "Animated CG box moving among the photographed breakfast props, before final color.", caption: "CG box integrated with the live-action plate — before final color.", statusLabel: "Pre-color commercial excerpt, repeated for presentation." } as WorkVideoMedia,
@@ -29,6 +29,7 @@ export const geicoRefresh = {
 export const geicoCredits = [
   { heading: "Cereal-spot production", credits: [
     { role: "Brand", name: "GEICO" },
+    { role: "Production year", name: "2024" },
     { role: "Agency", name: "The Martin Agency" },
     { role: "Production", name: "SuperJoy", url: "https://wearesuperjoy.com/" },
     { role: "Lead CG Artist / 3D Animator", name: "Deven Langston" },

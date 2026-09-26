@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import type { WorkVideoMedia } from "@/content/work/types";
 import { WorkVideo } from "@/components/work/WorkVideo";
+import { CapabilityFullscreen } from "./CapabilityFullscreen";
 import { CapabilityPlayer } from "./CapabilityPlayer";
 import styles from "./GeicoCase.module.css";
 
@@ -36,7 +37,7 @@ export function GeicoExperience({ children, interactive = false }: { children: R
   return <Playback.Provider value={{ mainPlaying, setMainPlaying, modalOpen: interactive && modalOpen, setModalOpen }}><div ref={root}>{children}</div></Playback.Provider>;
 }
 
-export function GeicoVideo({ media, main = false, segment }: { media: WorkVideoMedia; main?: boolean; segment?: readonly [number, number] }) {
+export function GeicoVideo({ media, main = false, segment, expandable = false }: { media: WorkVideoMedia; main?: boolean; segment?: readonly [number, number]; expandable?: boolean }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const frame = useRef<HTMLDivElement>(null);
   const inView = useRef(false);
@@ -90,6 +91,7 @@ export function GeicoVideo({ media, main = false, segment }: { media: WorkVideoM
   if (main) return <div ref={frame} className={styles.video} data-geico-video="commercial"
     onPlayCapture={() => setMainPlaying(true)} onPauseCapture={() => setMainPlaying(false)} onEndedCapture={() => setMainPlaying(false)}>
     <WorkVideo media={media} privateDelivery />
+    {expandable && <CapabilityFullscreen targetRef={frame} kind="video" variant="homepage" />}
   </div>;
 
   return <div className={styles.video} data-geico-video="process">
