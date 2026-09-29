@@ -1,0 +1,120 @@
+﻿.ribbon {
+  --ink: var(--rva-void, #080a09);
+  --muted: #5d5b55;
+  --accent: var(--rva-purple, #6236c9);
+  min-width: 0;
+  width: 100%;
+  margin-inline: 0;
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.heading h2,
+.pause {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+}
+
+.heading h2 {
+  text-transform: uppercase;
+}
+
+.pause {
+  flex: none;
+  min-height: 2.75rem;
+  padding: 0.5rem 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.pause:hover {
+  color: var(--ink);
+}
+
+.pause:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* Same two-copy track geometry and gesture surface as the homepage ribbon,
+   with open spacing in place of photographic tiles. */
+.viewport {
+  overflow: hidden;
+  padding-block: 0.65rem;
+  /* Previous interactive cursor: grab. The restored ribbon is passive. */
+  touch-action: pan-y pinch-zoom;
+  user-select: none;
+  -webkit-user-select: none;
+  /* Previous edge fades removed by request.
+  mask-image: linear-gradient(to right, transparent, black 1rem, black calc(100% - 1rem), transparent);
+  */
+}
+
+/* Previous drag cursor retained for reference:
+.viewport:active { cursor: grabbing; } */
+
+.track {
+  display: flex;
+  width: max-content;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+.sequence {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: clamp(2.75rem, 5vw, 5rem);
+  padding-right: clamp(2.75rem, 5vw, 5rem);
+}
+
+.logo {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  height: 5rem;
+}
+
+.logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 4.5rem;
+  object-fit: contain;
+  /* Reuse the prepared alpha artwork unchanged on the existing paper page. */
+  filter: brightness(0);
+  opacity: 0.82;
+  pointer-events: none;
+}
+
+@media (max-width: 800px) {
+  .heading { margin-bottom: 0.75rem; }
+  .logo { height: 4.5rem; }
+  .logo img { max-height: 4rem; }
+}
+
+@media (max-width: 640px) {
+  /* Outrank the existing .v004 .v-broad full-bleed rule only here. */
+  /* Previous inset removed for edge-to-edge presentation at every width.
+  section.ribbon[data-brand-ribbon] { width: calc(100% - 40px); }
+  */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pause { display: none; }
+  .track { will-change: auto; }
+}

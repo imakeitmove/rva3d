@@ -95,3 +95,15 @@ test("the guide distinguishes pushing main from releasing Production", async () 
   assert(guide.includes("Preview-artifact promotion is forbidden"));
   assert(guide.includes("npm run release:production"));
 });
+import { selectProductionMedia } from "./production-media-selection.mjs";
+
+test("production selection excludes private assets without mutating review records", () => {
+  const approved = "aaaaaaaaaaaaaaaaaaaa.webp", privateKey = "bbbbbbbbbbbbbbbbbbbb.webp";
+  const manifest = { [approved]: { publication: "public-approved" }, [privateKey]: { publication: "private-review-only" } };
+  const urls = { "/public": `/media/${approved}`, "/private": `/review/assets/${privateKey}` };
+  const before = JSON.stringify({ manifest, urls });
+  assert.deepEqual(selectProductionMedia(manifest, urls), { manifest: { [approved]: manifest[approved] }, urls: { "/public": urls["/public"] } });
+  assert.equal(JSON.stringify({ manifest, urls }), before);
+  assert.throws(() => selectProductionMedia(manifest, { "/bad-public": `/media/${privateKey}` }), /Public route references non-public media/);
+  assert.throws(() => selectProductionMedia(manifest, { "/missing": "/media/dddddddddddddddddddd.webp" }), /Unregistered/);
+});

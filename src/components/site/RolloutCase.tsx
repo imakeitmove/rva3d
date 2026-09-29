@@ -23,7 +23,9 @@ export function CaseMedia({ media, priority = false, caption }: { media: WorkMed
 export function CaseBeat({ children, id, pair = false, row = false, centered = false }: { children: ReactNode; id?: string; pair?: boolean; row?: boolean; centered?: boolean }) {
   return <section id={id} className={[house.wide, house.beat, pair ? house.pair : "", row ? house.exploration : "", centered ? whaxe.closing : "", styles.beat].join(" ")} data-geico-reveal>{children}</section>;
 }
-export function RolloutCase({ slug, title, intro, hero, children, credits, nextSlug }: { slug: string; title: string; intro: ReactNode; hero: WorkMedia; children: ReactNode; credits: readonly WorkCredit[]; nextSlug?: string }) {
+// Optional post-credit copy preserves the Noise Tech sheet order without changing other cases.
+// Previous signature: export function RolloutCase({ slug, title, intro, hero, children, credits, nextSlug }: { slug: string; title: string; intro: ReactNode; hero: WorkMedia; children: ReactNode; credits: readonly WorkCredit[]; nextSlug?: string }) {
+export function RolloutCase({ slug, title, intro, hero, children, credits, nextSlug, afterCredits }: { slug: string; title: string; intro: ReactNode; hero: WorkMedia; children: ReactNode; credits: readonly WorkCredit[]; nextSlug?: string; afterCredits?: ReactNode }) {
   const index = studies.findIndex(study => study.slug === slug);
   const next = nextSlug ? studies.find(study => study.slug === nextSlug)! : studies[(index + 1) % studies.length];
   return <Shell><article className={[house.case, finishing.finish, styles.case].join(" ")} data-editorial-case={slug} data-tone="paper"><GeicoExperience><RolloutPlayback>
@@ -35,6 +37,7 @@ export function RolloutCase({ slug, title, intro, hero, children, credits, nextS
     <section className={[house.wide, house.credits].join(" ")} id="credits" aria-labelledby="credits-heading" data-geico-reveal>
       <h2 id="credits-heading">Credits</h2><div className={[house.creditGrid, whaxe.credits].join(" ")}><dl>{credits.map(credit => <div key={credit.role}><dt>{credit.role}</dt><dd>{credit.url ? <a href={credit.url}>{credit.name}</a> : credit.name}</dd></div>)}</dl></div>
     </section>
+    {afterCredits}
     <nav className="v-broad case-next" aria-label="More projects" data-tone="paper"><div><p className="label">Next project</p><a href={siteHref("/work/" + next.slug)}>{headline[next.slug]} ↗</a></div><a className="editorial-link" href={siteHref("/work#" + slug)}>← Back to Work</a></nav>
   </RolloutPlayback></GeicoExperience></article></Shell>;
 }

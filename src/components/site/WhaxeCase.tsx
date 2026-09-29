@@ -1,3 +1,5 @@
+import Image from "next/image";
+import editorial from "./CaseEditorial.module.css";
 import Link from "next/link";
 import { preload } from "react-dom";
 import { axeWhaxeLilBaby } from "@/content/work/cases/axe-whaxe-lil-baby";
@@ -39,9 +41,10 @@ export function WhaxeCase() {
         <p>With the look established, we designed a series of shots to tease the product release.</p>
         <CaseVideo media={video(whaxeAnimationTests)} />
       </section>
-      <section className={`${house.wide} ${house.beat} ${styles.closing}`} id="closing" aria-labelledby="closing-heading" data-geico-reveal>
-        <h2 id="closing-heading">Made for the drop.</h2>
-        <p>The wider WHAXE launch included a “Drop Your Verse” challenge that recorded 8.2M+ views and 200+ submissions, according to the <a href="https://www.emilydelius.com/lilbabyxaxe">campaign team</a>.</p>
+      <section className={`${house.wide} ${house.beat} ${styles.closing}`} id="closing" aria-label="AXE campaign results" data-geico-reveal>
+        {/* Previous section marker: <h2 id="closing-heading">Made for the drop.</h2> */}
+        <Image className={editorial.logo} src="/media/brand_logos/axe.webp" alt="AXE" width={216} height={48} style={{ width: 108 }} unoptimized />
+        <p>The wider WHAXE launch included a “<a href="https://www.emilydelius.com/lilbabyxaxe">Drop Your Verse</a>” challenge that recorded <strong className={editorial.impact}>8.2M+ views and 200+ submissions,</strong> according to the <a href="https://www.emilydelius.com/lilbabyxaxe">campaign team</a>.</p>
       </section>
       <div className={`${house.wide} ${house.beat} ${house.pair}`} id="final-stills" data-geico-reveal>
         {finalStills.map(media => <div className="site-media" key={media.src}>

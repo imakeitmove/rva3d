@@ -1,0 +1,18 @@
+/* Opt-in section marks and results; follows the established GEICO result scale. */
+.logo {
+  display: block;
+  max-width: 50vw;
+  height: auto;
+  margin: 0 auto 28px;
+  filter: brightness(0);
+}
+
+.impact {
+  display: block;
+  margin: 14px 0 8px;
+  font-size: clamp(30px, 4.2vw, 58px);
+  line-height: 1.1;
+  letter-spacing: -.035em;
+  color: var(--rva-purple, #6230c0);
+  font-weight: 600;
+}

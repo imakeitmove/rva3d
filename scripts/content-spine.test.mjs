@@ -1043,7 +1043,7 @@ test("buyer-confidence copy and distinct project interaction contracts stay scop
   assert.match(activeHome,/take ownership of a difficult asset, shot or sequence within your production workflow/);
   assert.match(activeHome,/class="v-frame v-tagline-unit"/);
   assert.match(activeWork,/data-project-mode="inventory"/); assert.match(activeWork,/data-project-load-more/);
-  assert.doesNotMatch(activeWork,/data-project-direction/); assert.match(activeWork,/Showing \{initialCount\} of \{studies.length\} projects/);
+  assert.doesNotMatch(activeWork,/data-project-direction/); assert.match(activeWork,/Showing \{initialCount\} of \{featuredStudies.length\} projects/);
   assert.doesNotMatch(activeWork,/Selected work \/ 01/);
   assert(activeWork.includes("Products to explain. Characters to animate. Shots to solve."));
   assert(activeWork.includes("See what each project needed, what we contributed and how it came together."));

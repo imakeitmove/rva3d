@@ -1,0 +1,105 @@
+.processCopy p {
+  max-width: 24ch;
+  margin: 0;
+  font-size: clamp(20px, 2vw, 30px);
+  line-height: 1.35;
+  letter-spacing: -.02em;
+}
+
+.outcomeLogo {
+  width: min(164px, 50vw);
+  margin: 0 auto 24px;
+}
+
+.outcomeLogo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: brightness(0);
+}
+
+.finalGallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.galleryFrame {
+  min-width: 0;
+  /* Previous gallery ratio: 4 / 3. Each row now follows its native media. */
+  overflow: hidden;
+  background: #e3e2dd;
+}
+
+.motionFrame { aspect-ratio: 16 / 9; }
+.stillFrame { aspect-ratio: 1; }
+
+.galleryFrame > div,
+.galleryFrame :global([data-geico-video]),
+.galleryFrame :global(.site-media),
+.galleryFrame :global(.site-media) figure,
+.galleryFrame :global(.v-player),
+.galleryFrame :global(.v-picture) {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.galleryFrame :global(.v-picture) {
+  aspect-ratio: auto;
+}
+
+.galleryFrame :global(.site-media) img,
+.galleryFrame :global(.v-picture) video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: center;
+}
+
+.processFrame :global(.site-media) img {
+  object-fit: contain;
+}
+
+.galleryFrame :global(.v-picture):fullscreen video,
+.galleryFrame :global(.site-media):fullscreen img {
+  object-fit: contain;
+}
+
+/* The final gallery is unique to Noise Tech, so its following credits can
+   use a quiet single-column treatment without changing shared case studies. */
+:global(section):has(> .finalGallery) ~ :global(#credits) {
+  text-align: center;
+}
+
+:global(section):has(> .finalGallery) ~ :global(#credits) > div {
+  display: block;
+  max-width: 560px;
+  margin-inline: auto;
+}
+
+:global(section):has(> .finalGallery) ~ :global(#credits) dl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  margin: 0;
+}
+
+:global(section):has(> .finalGallery) ~ :global(#credits) dl > div {
+  margin: 0;
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .processCopy p {
+    max-width: 28ch;
+  }
+
+  .finalGallery {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

@@ -1,3 +1,4 @@
+import { brandLogos } from "./components/work/brandLogos";
 import { NextRequest, NextResponse } from "next/server";
 import { verifyPrivateReviewToken, privateReviewTokenScope, PRIVATE_REVIEW_COOKIE } from "@/lib/private_review_auth";
 import { canReviewAsset, permissionReviewAvailable } from "@/lib/permission-review";
@@ -25,6 +26,12 @@ export function proxy(request: NextRequest) {
 
   // Exact App Router icon routes only; all other publication boundaries remain unchanged.
   if (pathname === "/icon.png" || pathname === "/apple-icon.png") return finishPublic(NextResponse.next());
+  // Noise Tech uses this exact processed public brand mark as its outcome-section label.
+  if (pathname === "/media/brand_logos/capri-sun.webp") return finishPublic(NextResponse.next());
+  // Exact processed marks used by the editorial case sections.
+  if (["/media/brand_logos/axe.webp", "/media/brand_logos/twist.webp", "/media/brand_logos/wawa.webp"].includes(pathname)) return finishPublic(NextResponse.next());
+  // Only the restored ribbon manifest and the supplied DESMI section mark.
+  if (pathname === "/media/brand_logos/desmi.webp" || brandLogos.some(logo => logo.src === pathname)) return finishPublic(NextResponse.next());
   // Code, approved buyer pages, allowlisted media keys, fonts, metadata and the site favicon are public.
   if (pathname.startsWith("/_next/static/") || pathname.startsWith("/site-assets/") || pathname.startsWith("/fonts/Geist/") || pathname.startsWith("/fonts/Geist_Mono/") || pathname === "/favicon.ico") return NextResponse.next();
   if (publicRoutePattern.test(pathname) || pathname === "/sitemap.xml") return finishPublic(NextResponse.next());

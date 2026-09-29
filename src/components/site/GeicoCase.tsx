@@ -25,7 +25,8 @@ const video = (media: WorkVideoMedia) => protectedMedia({ ...media, alt: media =
 
 export function GeicoCase() {
   // Previous related selection: studies.filter(study => ["cable-snake", "axe-whaxe-lil-baby"].includes(study.slug));
-  const next = studies.find(study => study.slug === "axe-whaxe-lil-baby")!;
+  // Previous next destination: axe-whaxe-lil-baby. Continue the portfolio sequence through Twist.
+  const next = studies.find(study => study.slug === "cable-snake")!;
   const film = video(geicoRefresh.commercial);
   preload(film.poster.src, { as: "image", fetchPriority: "high" });
   return <Shell><article className={`${styles.case} ${refinement.finish}`} data-editorial-case="geico-geckos-cereal-box" data-tone="paper">

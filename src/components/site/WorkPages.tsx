@@ -12,6 +12,7 @@ import { studies, headline, context, protectedMedia } from "@/lib/site/content";
 import { siteHref } from "@/lib/site/paths";
 import { Shell } from "./Shell";
 import { SiteMedia } from "./SiteMedia";
+import { BrandLogoRibbon } from "@/components/work/BrandLogoRibbon";
 import { ProjectCard } from "./ProjectCard";
 import { EditorialCasePage } from "./EditorialCasePage";
 import { GeicoCase } from "./GeicoCase";
@@ -23,16 +24,20 @@ import { UncommonGoodsCase } from "./UncommonGoodsCase";
 import { NoiseTechCase, SolsticeCase, TrickTreatCase } from "./CapriSunCases";
 type Props = { params: Promise<{ slug: string }> };
 export function WorkIndex() {
-  const initialCount = Math.min(4, studies.length);
+  // Keep secondary Capri Sun routes in studies; feature only Noise Tech on Work.
+  // Previous catalogue used the full studies array, adding two sibling cards.
+  const featuredStudies = studies.filter(study => !["capri-sun-solstice-pouch", "capri-sun-trick-and-treat"].includes(study.slug));
+  const initialCount = Math.min(4, featuredStudies.length);
   return <Shell>
     <section className="editorial-opening work-index-opening" data-tone="paper"><div className="v-frame">
       {/* The unrequested top project counter was removed. Collection progress is announced to screen readers; the visible counter is removed. */}
       {/* Previous intro: Products to explore. Characters to believe. Ideas made visible. Find the work closest to what you have in mind. */}
       <h1>The proof<br />is in the <em>pixels.</em></h1><p className="editorial-lead work-intro-copy"><span>Products to explain. Characters to animate. Shots to solve.</span><span>See what each project needed, what we contributed and how it came together.</span></p>
     </div></section>
+    <BrandLogoRibbon />
     <section className="project-catalogue v-broad" data-tone="paper" aria-label="Case studies" data-project-gallery data-project-mode="inventory" data-project-group-size="4">
-      <div className="catalogue" data-project-cards>{studies.map((study, index) => <ProjectCard key={study.slug} study={study} hidden={index >= initialCount} />)}</div>
-      <div data-project-controls hidden><p className="label work-project-announcement" data-project-status role="status" aria-atomic="true">Showing {initialCount} of {studies.length} projects</p><button className="button" data-control-tone="purple" data-project-load-more type="button">Load more <span aria-hidden="true">↓</span></button></div>
+      <div className="catalogue" data-project-cards>{featuredStudies.map((study, index) => <ProjectCard key={study.slug} study={study} hidden={index >= initialCount} />)}</div>
+      <div data-project-controls hidden><p className="label work-project-announcement" data-project-status role="status" aria-atomic="true">Showing {initialCount} of {featuredStudies.length} projects</p><button className="button" data-control-tone="purple" data-project-load-more type="button">Load more <span aria-hidden="true">↓</span></button></div>
       <noscript><style>{'[data-project-mode="inventory"] [data-project-card][hidden]{display:block!important}'}</style><p>All projects are shown when JavaScript is unavailable.</p></noscript>
     </section>
     <section className="work-closing" data-tone="paper"><div className="v-frame"><h2><span className="work-closing-highlight">Your project</span> doesn’t have to look like any of these.</h2><div className="work-closing-copy"><p>Bring the product, story or shot you need to solve. We’ll work out what to make and how to get it finished.</p><a className={[navigation.link, navigation.greenCta].join(" ")} href={siteHref("/#contact")}>Tell us what you’re making <span aria-hidden="true">↗</span></a></div></div></section>

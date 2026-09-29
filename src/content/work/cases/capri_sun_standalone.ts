@@ -1,5 +1,6 @@
 import { capriSun as combinedReference } from "./capri-sun.ts";
-import type { WorkCaseStudy, WorkImageMedia } from "../types";
+import noiseTechMedia from "../noise_tech_media.generated.json" with { type: "json" };
+import type { WorkCaseStudy, WorkImageMedia, WorkVideoMedia } from "../types";
 
 // The previous combined record remains available to the historical permission review.
 // These separate entries retain the existing approval of the exact finished imagery;
@@ -18,16 +19,36 @@ const base = {
   role: ["3D Modeling", "Look Development", "Animation"],
   authorship: "3D product visualization and animation by Deven Langston.",
 };
+// September 28 owner-selected Noise Tech media; sibling campaign records remain unchanged.
+export const noiseTechSelection = {
+  hero: noiseTechMedia.hero as WorkVideoMedia,
+  alternate: noiseTechMedia.alternate as WorkImageMedia,
+  viewport: noiseTechMedia.viewport as WorkVideoMedia,
+  viewportStill: noiseTechMedia.viewportStill as WorkImageMedia,
+  viewportSetup: noiseTechMedia.viewportSetup as WorkImageMedia,
+  spin: noiseTechMedia.spin as WorkVideoMedia,
+  overview: noiseTechMedia.overview as WorkImageMedia,
+  shotsSample: noiseTechMedia.shotsSample as WorkVideoMedia,
+};
 export const capriSunNoiseTech: WorkCaseStudy = {
   ...base, slug: "capri-sun", title: "Capri Sun Noise Tech", eyebrow: "Kid noise-canceling juice.",
-  summary: "Capri Sun packaged a familiar parenting trick as premium noise-canceling technology: give the kids a pouch and enjoy a moment of quiet. We created the 3D product stills and animation for the campaign.",
+  // Previous opening retained for restoration; replaced by the September 28 Noise Tech editing sheet.
+  // summary: "Capri Sun packaged a familiar parenting trick as premium noise-canceling technology: give the kids a pouch and enjoy a moment of quiet. We created the 3D product stills and animation for the campaign.",
+  summary: "Capri Sun turned their pouches into a premium noise-cancelling product… Give kids a pouch and enjoy a moment of quiet! We created the 3D product stills and animation for the campaign.",
   indexSummary: "Product imagery presents a familiar parenting trick as premium noise-canceling technology.",
   problem: "Present a familiar parenting trick as premium technology.",
   approach: "Build and light the pouch and presentation box, down to the foil, folds and printed details.",
   result: "Finished 3D product imagery for Noise Tech.",
   value: "After Noise Tech, the team brought us back for Solstice Pouch and Trick & Treat.",
-  heroMedia: packageImage, indexMedia: packageImage, galleryMedia: [packageImage, macroImage],
-  credits: [{ role: "Brand", name: "Capri Sun" }, { role: "Agency", name: "Mischief @ No Fixed Address" }, { role: "Creative Director", name: "Hunter Fine" }, { role: "3D Modeling / Look Development / Animation", name: "Deven Langston" }],
+  // Previous still-only selection retained for restoration.
+  // heroMedia: packageImage, indexMedia: packageImage, galleryMedia: [packageImage, macroImage],
+  heroMedia: noiseTechSelection.hero, indexMedia: packageImage,
+  // Previous first gallery item: noiseTechSelection.viewportSetup. BOX_OPEN now uses the existing loop player.
+  galleryMedia: [{ ...noiseTechSelection.hero, presentation: "loop" }, noiseTechSelection.shotsSample, noiseTechSelection.alternate, macroImage],
+  year: 2023,
+  // Previous credits retained; the latest sheet confirms the production year.
+  // credits: [{ role: "Brand", name: "Capri Sun" }, { role: "Agency", name: "Mischief @ No Fixed Address" }, { role: "Creative Director", name: "Hunter Fine" }, { role: "3D Modeling / Look Development / Animation", name: "Deven Langston" }],
+  credits: [{ role: "Brand", name: "Capri Sun" }, { role: "Agency", name: "Mischief @ No Fixed Address" }, { role: "Creative Director", name: "Hunter Fine" }, { role: "3D Modeling / Look Development / Animation", name: "Deven Langston" }, { role: "Production year", name: "2023" }],
   seo: { title: "Capri Sun Noise Tech | RVA3D", description: "3D product imagery for Capri Sun Noise Tech: pouches and presentation packaging made for a premium-technology joke.", image: packageImage },
 };
 export const capriSunSolstice: WorkCaseStudy = {

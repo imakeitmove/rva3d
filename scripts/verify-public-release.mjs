@@ -1,3 +1,4 @@
+import { selectProductionMedia } from "./production-media-selection.mjs";
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -25,7 +26,11 @@ const expectedSlugs = [
 ];
 
 export async function verifyPublicApprovedRelease(root = process.cwd(), options = {}) {
-  const { manifest, urls } = await readRegistry(root);
+  const registry = await readRegistry(root);
+  // Source audits check the production selection; sealed packages stay strict.
+  const { manifest, urls } = options.selectProductionMedia
+    ? selectProductionMedia(registry.manifest, registry.urls)
+    : registry;
   const records = [...workRecords];
   for (const study of records) {
     assert(isPublicApprovedCaseStudy(study), `${study.slug} is not public-approved`);
@@ -113,5 +118,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   const mediaRootIndex = process.argv.indexOf("--media-root");
   const mediaRoot = mediaRootIndex >= 0 ? process.argv[mediaRootIndex + 1] : undefined;
   assert(mediaRootIndex < 0 || mediaRoot, "--media-root needs a directory");
-  console.log(await verifyPublicApprovedRelease(process.cwd(), { mediaRoot, allowReviewAssets: process.argv.includes("--allow-review-assets") }));
+  const sealed = await fs.stat(path.join(process.cwd(), ".preview-release.json")).catch(() => null);
+  const allowReviewAssets = process.argv.includes("--allow-review-assets");
+  console.log(await verifyPublicApprovedRelease(process.cwd(), { mediaRoot, allowReviewAssets, selectProductionMedia: !sealed && !allowReviewAssets }));
 }

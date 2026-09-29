@@ -1,3 +1,4 @@
+import { selectProductionMedia } from "./production-media-selection.mjs";
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -81,7 +82,7 @@ if (releaseTarget === "production") {
 }
 const temporary = await fs.mkdtemp(path.join(os.tmpdir(), "rva3d-source-export-"));
 const archive = path.join(temporary, "source.tar");
-const roots = ["src", "prisma", "public/site-assets", "public/fonts", "scripts",
+const roots = ["src", "prisma", "public/site-assets", "public/fonts", "public/media/brand_logos", "scripts",
   "package.json", "package-lock.json", "tsconfig.json", "next.config.ts", "postcss.config.mjs",
   "eslint.config.mjs", ".nvmrc", "docs/preview-release.md", "docs/rocky-preview-handoff.md",
   "docs/public-media-policy-followup.md", "docs/production-release.md"];
@@ -96,6 +97,14 @@ try {
 } finally {
   await fs.unlink(archive).catch(() => {});
   await fs.rmdir(temporary);
+}
+// Project only exported registries; review files and derivatives remain intact.
+if (releaseTarget === "production") {
+  const registry = await readRegistry(output);
+  const selected = selectProductionMedia(registry.manifest, registry.urls);
+  for (const [file, value] of [["media.generated.json", selected.manifest], ["media-urls.generated.json", selected.urls]]) {
+    await fs.writeFile(path.join(output, "src/content/site", file), JSON.stringify(value, null, 2) + "\n");
+  }
 }
 const sourceFiles = {};
 for (const file of included) sourceFiles[file] = digest(await fs.readFile(path.join(output, file)));
@@ -141,7 +150,8 @@ if (args["project-file"]) {
 }
 await fs.writeFile(path.join(output, ".vercelignore"), [
   ".env*", ".git", ".next", "node_modules", "qa-runtime", "scripts/runtime",
-  "public/media", "public/models", "public/project-media", "*.log", "",
+  // Keep all other public media excluded; reviewed logo derivatives are sealed source files.
+  "public/media/*", "!public/media/brand_logos/", "public/models", "public/project-media", "*.log", "",
 ].join("\n"));
 if (releaseTarget === "production") {
   // The marker is intentionally written last. Earlier packages did not seal

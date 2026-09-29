@@ -14,10 +14,10 @@
     "desmi-rotan-pump",
     "uncommon-goods-outta-this-world"
   ],
-  "assets": 224,
-  "logicalUrls": 286,
-  "registryDigest": "6af59cabfe543aee3c150e4fadc9e13884c992aada09a85a8c3565678aa91202",
-  "urlsDigest": "9f911d230b09f812c10fabdb02c6871ad83c08f4dfb1ec87ac4a4dbb87d902f2",
+  "assets": 236,
+  "logicalUrls": 298,
+  "registryDigest": "6f7f64ed46c9b8098daa7fe2812985984f3bd67b702cc07d6f55189d4047c541",
+  "urlsDigest": "27e69f7193df5013885f76f1d498cb95a840fa86b6b2dd2414eed2b07f19da5b",
   "previous93RegistryDigest": "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8",
   "previous157UrlsDigest": "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f",
   "excludedKeys": [
@@ -149,7 +149,8 @@
     "2026-09-15",
     "2026-09-16",
     "2026-09-17",
-    "2026-09-26"
+    "2026-09-26",
+    "2026-09-28"
   ],
   "audit": "2026-09-17 explicit owner approval to publish all 45 current portfolio ribbon images with the finished hello experience and site refinements.",
   "previousSeptember15Release": {
@@ -183,5 +184,10 @@
   "caseStudyRollout20260926": {
     "authorization": "Local candidate only. Existing approved-source derivatives and the specifically owner-cleared Uncommon Goods client-source imagery. New uncleared sources remain private-review-only.",
     "evidence": "docs/case_study_rollout_progress.md"
+  },
+  "noiseTechRevision20260928": {
+    "authorization": "Owner-selected media for local Noise Tech review only; no push, publication or deployment authorized.",
+    "sheet": "https://app.notion.com/p/3e8a9ba2f25880c49ed3ff623bd37928",
+    "mediaMap": "src/content/work/noise_tech_media.generated.json"
   }
 }

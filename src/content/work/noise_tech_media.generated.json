@@ -1,0 +1,98 @@
+{
+  "hero": {
+    "kind": "video",
+    "src": "/media/work/noise-tech-20260928/box-open.mp4",
+    "width": 1920,
+    "height": 1080,
+    "mimeType": "video/mp4",
+    "alt": "The Noise Tech presentation box opens to reveal two Capri Sun pouches.",
+    "presentation": "controls",
+    "hasAudio": false,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/noise-tech-20260928/box-open-poster.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "The Noise Tech presentation box opens to reveal two Capri Sun pouches."
+    }
+  },
+  "spin": {
+    "kind": "video",
+    "src": "/media/work/noise-tech-20260928/spin.mp4",
+    "width": 1920,
+    "height": 1080,
+    "mimeType": "video/mp4",
+    "alt": "A Capri Sun Noise Tech pouch rotates in the finished product scene.",
+    "presentation": "loop",
+    "hasAudio": false,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/noise-tech-20260928/spin-poster.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "A Capri Sun Noise Tech pouch rotates in the finished product scene."
+    }
+  },
+  "viewport": {
+    "kind": "video",
+    "src": "/media/work/noise-tech-20260928/viewport.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "alt": "Cinema 4D viewport animation of the Noise Tech pouch and presentation box.",
+    "presentation": "loop",
+    "hasAudio": false,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/noise-tech-20260928/viewport-poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Cinema 4D viewport animation of the Noise Tech pouch and presentation box."
+    }
+  },
+  "alternate": {
+    "kind": "image",
+    "src": "/media/work/noise-tech-20260928/land-closeup.webp",
+    "width": 1800,
+    "height": 1800,
+    "alt": "Close view of the Capri Sun pouches and fitted foam inside the Noise Tech presentation box."
+  },
+  "viewportStill": {
+    "kind": "image",
+    "src": "/media/work/noise-tech-20260928/viewport-2026.webp",
+    "width": 1369,
+    "height": 792,
+    "alt": "Noise Tech scene shown in the Cinema 4D viewport."
+  },
+  "viewportSetup": {
+    "kind": "image",
+    "src": "/media/work/noise-tech-20260928/viewport-2024.webp",
+    "width": 1800,
+    "height": 1008,
+    "alt": "Cinema 4D pouch and presentation-box scene with its material and object setup."
+  },
+  "overview": {
+    "kind": "image",
+    "src": "/media/work/noise-tech-20260928/land-overview.webp",
+    "width": 1800,
+    "height": 1800,
+    "alt": "Wide view of the open Noise Tech presentation box and its two Capri Sun pouches."
+  },
+  "shotsSample": {
+    "kind": "video",
+    "src": "/media/work/noise-tech-20260928/shots-sample.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "alt": "A sequence of finished Noise Tech product renders and package details.",
+    "presentation": "loop",
+    "hasAudio": false,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/noise-tech-20260928/shots-sample-poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "A sequence of finished Noise Tech product renders and package details."
+    }
+  }
+}

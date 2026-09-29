@@ -37,7 +37,7 @@
 /* Owner restored the established section spacing above the GEICO logo.
 .finish .comparison { margin-top: clamp(42px, 4.5vw, 66px); } */
 .campaignLead, .campaignQualifier { display: block; }
-.comparison .campaignResult { display: block; margin: 14px 0 8px; font-size: clamp(30px, 4.2vw, 58px); line-height: 1.1; letter-spacing: -.035em; color: var(--ink, #171717); font-weight: 600; }
+.comparison .campaignResult { display: block; margin: 14px 0 8px; font-size: clamp(30px, 4.2vw, 58px); line-height: 1.1; letter-spacing: -.035em; /* Previous result color: var(--ink, #171717). */ color: var(--rva-purple, #6230c0); font-weight: 600; }
 .comparison .campaignLink { color: inherit; font-weight: 600; text-decoration: none; }
 .campaignLink > span { display: inline-block; margin-left: .15em; font-size: .8em; }
 .comparison .campaignLink:is(:hover, :focus-visible) { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; }
