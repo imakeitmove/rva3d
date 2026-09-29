@@ -169,7 +169,9 @@ test("release registry pins eight owner-approved cases and the exact selectively
   const { reviewAssets, ...publicResult } = result;
   // Previous review packages contained 0 or 17 derivatives. This local pass adds 12.
   // Before rollout: assert([undefined, 0, 12, 17, 29].includes(reviewAssets));
-  assert.equal(reviewAssets, 2); // Two uncleared Cable Snake placement photographs.
+  const staged = await fs.readFile(path.join(root, ".preview-release.json"), "utf8").then(JSON.parse).catch(() => null);
+  // Source and authenticated Preview keep two private photographs; Production must contain neither.
+  assert.equal(reviewAssets, staged?.destination.target === "production" ? 0 : 2);
   // Previous approved selection: 145 assets / 208 logical URLs.
   // Before WHAXE: 199 assets / 262 URLs. Three authorized derivatives are now pinned.
   //  assert.deepEqual(publicResult, { status: "PASS", studies: 8, assets: 199, logicalUrls: 262, seoDimensionsVerified: false });
