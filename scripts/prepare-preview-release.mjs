@@ -150,8 +150,9 @@ if (args["project-file"]) {
 }
 await fs.writeFile(path.join(output, ".vercelignore"), [
   ".env*", ".git", ".next", "node_modules", "qa-runtime", "scripts/runtime",
-  // Keep all other public media excluded; reviewed logo derivatives are sealed source files.
-  "public/media/*", "!public/media/brand_logos/", "public/models", "public/project-media", "*.log", "",
+  // Only brand_logos is exported from public/media; the seal rejects any other files.
+  // Do not ignore that parent during upload: Vercel does not restore its excluded children.
+  "public/models", "public/project-media", "*.log", "",
 ].join("\n"));
 if (releaseTarget === "production") {
   // The marker is intentionally written last. Earlier packages did not seal
