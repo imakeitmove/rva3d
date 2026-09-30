@@ -3,6 +3,7 @@
 // Public-safety audit: previous content retained for reference.
 // "export const uncommonGoodsOuttaThisWorldPublic = {"
 import type { WorkCaseStudy, WorkImageMedia, WorkVideoMedia } from "../types";
+import refresh from "../../site/uncommon_goods_refresh.generated.json" with { type: "json" };
 import media from "../../site/uncommon_goods_phase_2.generated.json" with { type: "json" };
 
 // v002 retires the continuity excerpt and closing still from e82e16db; their original packages remain intact.
@@ -130,7 +131,7 @@ const uncommonGoodsOuttaThisWorldPublicBeforeSafetyAudit = {
 
 // September 15 supersedes the earlier owner publication decision for process media.
 // Final edits and accurate contribution remain public; source material stays above.
-export const uncommonGoodsOuttaThisWorldPublic = {
+const uncommonGoodsPublicBeforeMediaRefresh = {
   ...uncommonGoodsOuttaThisWorldPublicBeforeSafetyAudit,
   indexSummary: "Supplied creative direction brought into a flowing commercial through motion design, animation and compositing.",
   // Previous summary listed every discipline; the contribution row retains that detail.
@@ -153,6 +154,25 @@ export const uncommonGoodsOuttaThisWorldPublic = {
       { id: "supplied-direction", kind: "text", heading: "One graphic world. Different ways to move.",
         copy: "The supplied direction established the products, visual world and key actions. We combined 2D animation, compositing and selective 3D to connect the scenes with consistent timing and transitions." },
       uncommonGoodsOuttaThisWorld.editorial.sections[4],
+    ],
+  },
+} satisfies WorkCaseStudy;
+
+// The current card and editorial sequence match the September 30 owner selection.
+// Keep the prior records above for rollback; the commercial hero remains unchanged.
+export const uncommonGoodsOuttaThisWorldPublic = {
+  ...uncommonGoodsPublicBeforeMediaRefresh,
+  indexMedia: refresh.card as WorkImageMedia,
+  editorial: {
+    ...uncommonGoodsPublicBeforeMediaRefresh.editorial,
+    closingBand: undefined,
+    sections: [
+      // The page groups these canonical still records into the existing slideshow.
+      ...refresh.slides.map((media, index) => ({ id: `source-material-${index + 1}`, kind: "media" as const, media: media as WorkImageMedia })),
+      { id: "moving-source", kind: "group", media: [refresh.spinner, refresh.puzzle] as WorkVideoMedia[] },
+      { id: "process-rocket", kind: "media", heading: "Behind the scenes.", media: refresh.process as WorkVideoMedia },
+      { id: "final-samples", kind: "group", media: [refresh.flyup, refresh.zoomback] as WorkVideoMedia[] },
+      { id: "ending-still", kind: "media", media: refresh.ending as WorkImageMedia },
     ],
   },
 } satisfies WorkCaseStudy;

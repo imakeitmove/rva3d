@@ -1,0 +1,173 @@
+{
+  "card": {
+    "kind": "image",
+    "src": "/media/work/uncommon_goods_refresh/card.webp",
+    "width": 1440,
+    "height": 990,
+    "alt": "Illuminated accordion sun lamp against the illustrated Uncommon Goods setting."
+  },
+  "board": {
+    "kind": "image",
+    "src": "/media/work/uncommon_goods_refresh/board.webp",
+    "width": 1600,
+    "height": 936,
+    "alt": "Complete supplied Outta This World storyboard with product scenes and animation directions."
+  },
+  "musical": {
+    "kind": "image",
+    "src": "/media/work/uncommon_goods_refresh/musical.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Supplied musical-kit scene and illustrated musical notes."
+  },
+  "nasa": {
+    "kind": "image",
+    "src": "/media/work/uncommon_goods_refresh/nasa.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Supplied NASA spacesuit scene and illustrated rocket."
+  },
+  "park": {
+    "kind": "image",
+    "src": "/media/work/uncommon_goods_refresh/park.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Supplied park-themed product scene."
+  },
+  "accordion": {
+    "kind": "image",
+    "src": "/media/work/uncommon_goods_refresh/accordion.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Supplied accordion lamp scene."
+  },
+  "spinner": {
+    "kind": "video",
+    "src": "/media/work/uncommon_goods_refresh/spinner.mp4",
+    "width": 540,
+    "height": 540,
+    "mimeType": "video/mp4",
+    "alt": "Supplied mandala garden spinner in motion.",
+    "presentation": "loop",
+    "hasAudio": false,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/uncommon_goods_refresh/spinner_poster.webp",
+      "width": 540,
+      "height": 540,
+      "alt": "Supplied mandala garden spinner in motion."
+    }
+  },
+  "puzzle": {
+    "kind": "video",
+    "src": "/media/work/uncommon_goods_refresh/puzzle.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "alt": "Supplied Infinity Galaxy Puzzle in motion.",
+    "presentation": "loop",
+    "hasAudio": false,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/uncommon_goods_refresh/puzzle_poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Supplied Infinity Galaxy Puzzle in motion."
+    }
+  },
+  "process": {
+    "kind": "video",
+    "src": "/media/work/uncommon_goods_refresh/process.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "alt": "Rocket animation being developed in the 3D viewport.",
+    "presentation": "loop",
+    "hasAudio": false,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/uncommon_goods_refresh/process_poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Rocket animation being developed in the 3D viewport."
+    }
+  },
+  "flyup": {
+    "kind": "video",
+    "src": "/media/work/uncommon_goods_refresh/flyup.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "alt": "Finished Uncommon Goods rocket fly-up animation.",
+    "presentation": "loop",
+    "hasAudio": false,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/uncommon_goods_refresh/flyup_poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Finished Uncommon Goods rocket fly-up animation."
+    }
+  },
+  "zoomback": {
+    "kind": "video",
+    "src": "/media/work/uncommon_goods_refresh/zoomback.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "alt": "Finished Uncommon Goods pull-back animation.",
+    "presentation": "loop",
+    "hasAudio": false,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/uncommon_goods_refresh/zoomback_poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Finished Uncommon Goods pull-back animation."
+    }
+  },
+  "ending": {
+    "kind": "image",
+    "src": "/media/work/uncommon_goods_refresh/ending.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Moon lamp and illustrated rocket in the finished Uncommon Goods animation."
+  },
+  "slides": [
+    {
+      "kind": "image",
+      "src": "/media/work/uncommon_goods_refresh/board.webp",
+      "width": 1600,
+      "height": 936,
+      "alt": "Complete supplied Outta This World storyboard with product scenes and animation directions."
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/uncommon_goods_refresh/musical.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Supplied musical-kit scene and illustrated musical notes."
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/uncommon_goods_refresh/nasa.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Supplied NASA spacesuit scene and illustrated rocket."
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/uncommon_goods_refresh/park.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Supplied park-themed product scene."
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/uncommon_goods_refresh/accordion.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Supplied accordion lamp scene."
+    }
+  ]
+}

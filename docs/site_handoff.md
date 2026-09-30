@@ -102,3 +102,11 @@ These are ideas for gradual development, not a committed roadmap or deadlines. N
 ## Notion
 
 Project: [RVA3D.com](https://app.notion.com/p/282a9ba2f25880ac9d47cf948851d2f0). [September 30 release progress note](https://app.notion.com/p/3eba9ba2f2588170b527f229d2d47464) is also linked from the project's Latest website handoff pointer. Preserve historical notes; do not place internal release notes into website-rendered copy.
+
+## Uncommon Goods media refresh — local checkpoint, September 30
+
+Continues from `a099902` with the commercial hero, headline/intro, credits and Next Project preserved. Work/card art now uses the owner's sun-lamp still as a separate centered 16:11 WebP. The case continues with the five requested source stills in order, spinner + puzzle loops, rocket viewport loop, fly-up + zoom-back loops, and a single moon/rocket ending still. Reuses the house slideshow, loop players and RolloutCase; only the mixed square/wide source pair has scoped sizing. Prior composition remains commented for rollback.
+
+All twelve source files were found; the four requested JPEG artboards have `.jpg.jpg` suffixes. Source hashes, full paths and recipes are in `uncommon_goods_refresh_media_20260930.json`; `scripts/build_uncommon_goods_refresh.mjs` prepares seventeen hashed derivatives with the existing WebP/H.264 workflow. Originals and prior registry entries are preserved. Only these selected web derivatives are registered for the requested case; no source-master publication or deployment.
+
+Preview: `http://127.0.0.1:3027/work/uncommon-goods-outta-this-world` and `/work`. Verified 1440/1024/390 widths, complete frames, exact slideshow order, muted loops, card source, credits/navigation and no overflow. Quality checks: lint, TypeScript, content tests (60 pass / 11 existing skips), asset integrity (332 total), strict public-release validator (330 public assets), production build and whitespace checks. Local detailed evidence: ignored `scripts/runtime/ug_refresh/`. No push/deploy.

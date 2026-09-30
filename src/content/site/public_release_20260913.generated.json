@@ -14,10 +14,10 @@
     "desmi-rotan-pump",
     "uncommon-goods-outta-this-world"
   ],
-  "assets": 313,
-  "logicalUrls": 376,
-  "registryDigest": "801b69ff0fd1fde454f54ca77d4c16460dabafd6303d18b26aca1245d0f8d584",
-  "urlsDigest": "00db24a7ec7fd01f9d172a49ab4087c64b6b8ff70b317033c9328cbc0b48fc1a",
+  "assets": 330,
+  "logicalUrls": 393,
+  "registryDigest": "15ff5f3b09cc390e4be7594a0ca5fa5bc71679d57342ad04ad78c282b2f32f7f",
+  "urlsDigest": "f53cfa3d9589223f79658d27f9ac000c9c2e010bab3e2dbebd9ee8173e0ce2b0",
   "previous93RegistryDigest": "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8",
   "previous157UrlsDigest": "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f",
   "excludedKeys": [
@@ -370,5 +370,30 @@
       }
     ],
     "authorization": "Owner-selected About film slideshow; no deployment."
+  },
+  "uncommonGoodsRefresh20260930": {
+    "previousAssets": 313,
+    "previousUrls": 376,
+    "addedKeys": [
+      "45d6db2e465d26913a76.webp",
+      "26a9fe5edcb37d990217.webp",
+      "6b35814441d069c3450f.webp",
+      "a3bbc882262d9e414e01.webp",
+      "2432e09bc17226ed96f0.webp",
+      "39d7f57903289d5e2a02.webp",
+      "196501b5a3629c8daf43.mp4",
+      "4853956c6388a8b217de.webp",
+      "90f7e5edd7a188c55576.mp4",
+      "c21414e63eaa83323e57.webp",
+      "16cbb1b8fd1766c3c888.mp4",
+      "f7cd3a7b9d0234a717c2.webp",
+      "3808b8f2fcb540877802.mp4",
+      "d2fca2b90d6fcbe60729.webp",
+      "4f0ffae3b0fb0d5284f6.mp4",
+      "f1e25e0155acca02a533.webp",
+      "9574da93c882e62e5700.webp"
+    ],
+    "evidence": "docs/uncommon_goods_refresh_media_20260930.json",
+    "authorization": "Owner-selected case-study sequence and card derivatives; no push/deployment."
   }
 }

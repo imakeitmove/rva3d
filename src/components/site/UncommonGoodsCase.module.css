@@ -1,0 +1,4 @@
+/* Native square/wide source clips share a height without cropping either frame. */
+.sourceMotion { display: grid; grid-template-columns: 1fr 1.777778fr; gap: 28px; align-items: center; }
+.sourceMotion video, .sourceMotion :global(.v-picture) { aspect-ratio: auto; height: auto; }
+@media (max-width: 760px) { .sourceMotion { grid-template-columns: 1fr; gap: 30px; } }

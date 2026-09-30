@@ -185,7 +185,8 @@ test("release registry pins ten owner-approved cases and the exact selectively r
   // September 29 sealed selection: 236 assets / 298 URLs; audited additions: 4 About + 14 WHAXE.
   //assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 236, logicalUrls: 298, seoDimensionsVerified: false });
   // Prior selection: 254/316; Wawa added 24, featured images two, Five Below selected derivatives twenty-eight.
-  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 313, logicalUrls: 376, seoDimensionsVerified: false });
+  // Previous 313/376; seventeen exact Uncommon Goods derivatives and URLs added.
+  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 330, logicalUrls: 393, seoDimensionsVerified: false });
 });
 
 // GEICO Phase 2 covers the editorial contract and prevents approval drift in shared media.
@@ -389,8 +390,10 @@ test("GEICO and Uncommon Goods retain final edits and scoped historical attribut
   assert.doesNotMatch(JSON.stringify(geico.editorial), /RVA3D was hired|commissioned RVA3D|RVA3D team produced/);
   const uncommon = workRecords.find(item => item.slug === "uncommon-goods-outta-this-world");
   assert.match(uncommon.heroMedia.src, /commercial_30/);
-  assert.match(uncommon.editorial.sections.at(-1).media.src, /commercial_15/);
-  assert.equal(uncommon.editorial.closingBand.sectionId, "shorter-route");
+  // Previous ending: commercial_15 in the shorter-route closing band.
+  assert.match(uncommon.editorial.sections.at(-1).media.src, /uncommon_goods_refresh\/ending.webp/);
+  assert.equal(uncommon.editorial.closingBand, undefined);
+  assert.match(uncommon.indexMedia.src, /uncommon_goods_refresh\/card.webp/);
   assert(uncommon.credits.some(credit => credit.name === "Spang TV"));
   assert(!uncommon.credits.some(credit => credit.organization === "RVA3D"));
 });
@@ -483,4 +486,27 @@ test("Five Below remains a preview candidate with exact approved source order", 
   assert.deepEqual(sources(media.stills), ["five_below_TUBES_render_detail.jpg", "five_below_ZIGZAG_render_detail.jpg", "ZIG-ZAG_DISPLAY_V09_wide.jpg", "2-WAY_SOFTLINE_RACK_V02_wide.jpg", "TECH_FOURWAY_DISPLAY_V04 (00000).jpg", "VE_STYLE_CART_V04 (00042).jpg"]);
   assert.equal(media.hero.presentation, "controls"); assert.equal(media.hero.hasAudio, true);
   for (const item of [media.stocked, media.rotation, ...media.loops]) { assert.equal(item.presentation, "loop"); assert.equal(item.hasAudio, false); }
+});
+
+test("Uncommon Goods refresh preserves the exact source sequence and silent-loop contract", async () => {
+  const media = JSON.parse(await fs.readFile(path.join(root, "src/content/site/uncommon_goods_refresh.generated.json"), "utf8"));
+  const registry = JSON.parse(await fs.readFile(path.join(root, "src/content/site/media.generated.json"), "utf8"));
+  const urls = JSON.parse(await fs.readFile(path.join(root, "src/content/site/media-urls.generated.json"), "utf8"));
+  const source = item => registry[urls[item.src].split("/").at(-1)].source;
+  assert.deepEqual(media.slides.map(item => source(item).split("/").at(-1)), [
+    "uncommon_good_outa-this-world_storyboard.png", "OTW-FramesMusical.jpg.jpg",
+    "OTW-FramesNASA_suit.jpg.jpg", "OTW-FramesPark.jpg.jpg", "OTW-FramesAccordion.jpg.jpg",
+  ]);
+  for (const id of ["spinner", "puzzle", "process", "flyup", "zoomback"]) {
+    assert.equal(media[id].presentation, "loop");
+    assert.equal(media[id].hasAudio, false);
+    assert.equal(registry[urls[media[id].src].split("/").at(-1)].publication, "public-approved");
+  }
+  assert.match(source(media.card), /_UncommonGoods_OutaThisWorld_15_V06_sun_lamp.jpg$/);
+  assert.equal(media.card.width / media.card.height, 16 / 11);
+  assert.match(source(media.ending), /_UncommonGoods_OutaThisWorld_15_V06_moon_rocket.jpg$/);
+  const study = workRecords.find(item => item.slug === "uncommon-goods-outta-this-world");
+  assert.equal(study.indexMedia.src, media.card.src);
+  assert.notEqual(study.heroMedia.src, media.card.src);
+  assert.deepEqual(study.editorial.sections.slice(0, 5).map(section => section.media.src), media.slides.map(item => item.src));
 });

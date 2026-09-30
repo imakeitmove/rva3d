@@ -1,0 +1,155 @@
+[
+  {
+    "key": "45d6db2e465d26913a76.webp",
+    "logical": "/media/work/uncommon_goods_refresh/card.webp",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/selects/_UncommonGoods_OutaThisWorld_15_V06_sun_lamp.jpg",
+    "sourceSha256": "621a391b02093cca27201445d2c8b787b90a919a634ef98cbf6b496a48c8bb1b",
+    "recipe": "Separate centered 16:11 card crop 1440x990; sRGB WebP quality85 effort6; metadata stripped.",
+    "width": 1440,
+    "height": 990
+  },
+  {
+    "key": "26a9fe5edcb37d990217.webp",
+    "logical": "/media/work/uncommon_goods_refresh/board.webp",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/source_material_from_client/artboards/uncommon_good_outa-this-world_storyboard.png",
+    "sourceSha256": "aa197bd9ccffd3d401d05c4145ac48caf59aa5cea755c18a80c52ad17ef6e26c",
+    "recipe": "Uncropped max1600px; auto-oriented sRGB WebP quality85 effort6; metadata stripped.",
+    "width": 1600,
+    "height": 936
+  },
+  {
+    "key": "6b35814441d069c3450f.webp",
+    "logical": "/media/work/uncommon_goods_refresh/musical.webp",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/source_material_from_client/artboards/OTW-FramesMusical.jpg.jpg",
+    "sourceSha256": "3344d7a97523527b49d81dd4d3d554c23d1b55b173c0eb7018b850daf1ab2b60",
+    "recipe": "Uncropped max1600px; auto-oriented sRGB WebP quality85 effort6; metadata stripped.",
+    "width": 1600,
+    "height": 900
+  },
+  {
+    "key": "a3bbc882262d9e414e01.webp",
+    "logical": "/media/work/uncommon_goods_refresh/nasa.webp",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/source_material_from_client/artboards/OTW-FramesNASA_suit.jpg.jpg",
+    "sourceSha256": "da03e0a3136884f47f87c8592c0bb38267b82539bb30dabbef4b58f74458d3b0",
+    "recipe": "Uncropped max1600px; auto-oriented sRGB WebP quality85 effort6; metadata stripped.",
+    "width": 1600,
+    "height": 900
+  },
+  {
+    "key": "2432e09bc17226ed96f0.webp",
+    "logical": "/media/work/uncommon_goods_refresh/park.webp",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/source_material_from_client/artboards/OTW-FramesPark.jpg.jpg",
+    "sourceSha256": "1452dc7f938c6b26025b743b1206e4abd42bfb63c3eb34e6c35ee1d53690be15",
+    "recipe": "Uncropped max1600px; auto-oriented sRGB WebP quality85 effort6; metadata stripped.",
+    "width": 1600,
+    "height": 900
+  },
+  {
+    "key": "39d7f57903289d5e2a02.webp",
+    "logical": "/media/work/uncommon_goods_refresh/accordion.webp",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/source_material_from_client/artboards/OTW-FramesAccordion.jpg.jpg",
+    "sourceSha256": "0458d138d1e1a3fa960b61e0a1796fe67902c2c4bb3eaf7dfc5afed49cf2cb92",
+    "recipe": "Uncropped max1600px; auto-oriented sRGB WebP quality85 effort6; metadata stripped.",
+    "width": 1600,
+    "height": 900
+  },
+  {
+    "key": "196501b5a3629c8daf43.mp4",
+    "logical": "/media/work/uncommon_goods_refresh/spinner.mp4",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/source_material_from_client/7. GARDEN SPINNER/MandalaSpinner.mp4",
+    "sourceSha256": "6264b143eebdbf0234bc3b185ef35ba31dd695a1d216847b79dcc5c4bf8a8e5f",
+    "recipe": "Full duration/native cadence; H.264 CRF20 slow max1280px; yuv420p; faststart; silent loop; no crop; metadata stripped.",
+    "width": 540,
+    "height": 540
+  },
+  {
+    "key": "4853956c6388a8b217de.webp",
+    "logical": "/media/work/uncommon_goods_refresh/spinner_poster.webp",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/source_material_from_client/7. GARDEN SPINNER/MandalaSpinner.mp4",
+    "sourceSha256": "6264b143eebdbf0234bc3b185ef35ba31dd695a1d216847b79dcc5c4bf8a8e5f",
+    "recipe": "First processed frame; WebP quality85 effort6.",
+    "width": 540,
+    "height": 540
+  },
+  {
+    "key": "90f7e5edd7a188c55576.mp4",
+    "logical": "/media/work/uncommon_goods_refresh/puzzle.mp4",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/source_material_from_client/3. GALAXY PUZZLE/Infinity Galaxy Puzzle_51738_V1.mp4",
+    "sourceSha256": "73960b98eaae6fbbdbe9aa3bc1a8f230931c95792d1bcc29dcd695ee47278619",
+    "recipe": "Full duration/native cadence; H.264 CRF20 slow max1280px; yuv420p; faststart; silent loop; no crop; metadata stripped.",
+    "width": 1280,
+    "height": 720
+  },
+  {
+    "key": "c21414e63eaa83323e57.webp",
+    "logical": "/media/work/uncommon_goods_refresh/puzzle_poster.webp",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/source_material_from_client/3. GALAXY PUZZLE/Infinity Galaxy Puzzle_51738_V1.mp4",
+    "sourceSha256": "73960b98eaae6fbbdbe9aa3bc1a8f230931c95792d1bcc29dcd695ee47278619",
+    "recipe": "First processed frame; WebP quality85 effort6.",
+    "width": 1280,
+    "height": 720
+  },
+  {
+    "key": "16cbb1b8fd1766c3c888.mp4",
+    "logical": "/media/work/uncommon_goods_refresh/process.mp4",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/process/uncommon_goods_process_rocket.mp4",
+    "sourceSha256": "59cf213e1a57912b57b186e3901d338a184e283b019df39ff3df4ec08f6dbacf",
+    "recipe": "Full duration/native cadence; H.264 CRF20 slow max1280px; yuv420p; faststart; silent loop; no crop; metadata stripped.",
+    "width": 1280,
+    "height": 720
+  },
+  {
+    "key": "f7cd3a7b9d0234a717c2.webp",
+    "logical": "/media/work/uncommon_goods_refresh/process_poster.webp",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/process/uncommon_goods_process_rocket.mp4",
+    "sourceSha256": "59cf213e1a57912b57b186e3901d338a184e283b019df39ff3df4ec08f6dbacf",
+    "recipe": "First processed frame; WebP quality85 effort6.",
+    "width": 1280,
+    "height": 720
+  },
+  {
+    "key": "3808b8f2fcb540877802.mp4",
+    "logical": "/media/work/uncommon_goods_refresh/flyup.mp4",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/selects/_UncommonGoods_OutaThisWorld_15_V06_fkyup_loop.mp4",
+    "sourceSha256": "621eba2f1f7e927e93343b2443bc451180167a54e87ff92a492dc0bd4722f419",
+    "recipe": "Full duration/native cadence; H.264 CRF20 slow max1280px; yuv420p; faststart; silent loop; no crop; metadata stripped.",
+    "width": 1280,
+    "height": 720
+  },
+  {
+    "key": "d2fca2b90d6fcbe60729.webp",
+    "logical": "/media/work/uncommon_goods_refresh/flyup_poster.webp",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/selects/_UncommonGoods_OutaThisWorld_15_V06_fkyup_loop.mp4",
+    "sourceSha256": "621eba2f1f7e927e93343b2443bc451180167a54e87ff92a492dc0bd4722f419",
+    "recipe": "First processed frame; WebP quality85 effort6.",
+    "width": 1280,
+    "height": 720
+  },
+  {
+    "key": "4f0ffae3b0fb0d5284f6.mp4",
+    "logical": "/media/work/uncommon_goods_refresh/zoomback.mp4",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/selects/_UncommonGoods_OutaThisWorld_15_V06_zoomback_loop.mp4",
+    "sourceSha256": "7ab1ce2ac11337a96d6c90c0684c7b5a057c818c965c325feab7fe37d2482b74",
+    "recipe": "Full duration/native cadence; H.264 CRF20 slow max1280px; yuv420p; faststart; silent loop; no crop; metadata stripped.",
+    "width": 1280,
+    "height": 720
+  },
+  {
+    "key": "f1e25e0155acca02a533.webp",
+    "logical": "/media/work/uncommon_goods_refresh/zoomback_poster.webp",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/selects/_UncommonGoods_OutaThisWorld_15_V06_zoomback_loop.mp4",
+    "sourceSha256": "7ab1ce2ac11337a96d6c90c0684c7b5a057c818c965c325feab7fe37d2482b74",
+    "recipe": "First processed frame; WebP quality85 effort6.",
+    "width": 1280,
+    "height": 720
+  },
+  {
+    "key": "9574da93c882e62e5700.webp",
+    "logical": "/media/work/uncommon_goods_refresh/ending.webp",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/selects/_UncommonGoods_OutaThisWorld_15_V06_moon_rocket.jpg",
+    "sourceSha256": "22a68358b7186e372b9c348d2c284a82a22cba7ad712e8a2de39ea7e08695c6a",
+    "recipe": "Uncropped max1600px; auto-oriented sRGB WebP quality85 effort6; metadata stripped.",
+    "width": 1600,
+    "height": 900
+  }
+]
