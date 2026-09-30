@@ -4,6 +4,7 @@
 // "And advertised the hell out of things! We’d love to elevate your idea, too."
 // Public-safety audit 2026-09-15; previous wording retained for reference:
 // "We’ve brought characters to life. Made ideas memorable."
+import { curateWorkStudies, WORK_INITIAL_COUNT } from "@/content/work/work_curation";
 import navigation from "./EditorialNavigation.module.css";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -26,8 +27,9 @@ type Props = { params: Promise<{ slug: string }> };
 export function WorkIndex() {
   // Keep secondary Capri Sun routes in studies; feature only Noise Tech on Work.
   // Previous catalogue used the full studies array, adding two sibling cards.
-  const featuredStudies = studies.filter(study => !["capri-sun-solstice-pouch", "capri-sun-trick-and-treat"].includes(study.slug));
-  const initialCount = Math.min(4, featuredStudies.length);
+  // Previous Work-only selection/count retained: studies.filter(excluding Capri siblings), Math.min(4, length).
+  const featuredStudies = curateWorkStudies(studies);
+  const initialCount = Math.min(WORK_INITIAL_COUNT, featuredStudies.length);
   return <Shell>
     <section className="editorial-opening work-index-opening" data-tone="paper"><div className="v-frame">
       {/* The unrequested top project counter was removed. Collection progress is announced to screen readers; the visible counter is removed. */}
@@ -35,7 +37,7 @@ export function WorkIndex() {
       <h1>The proof<br />is in the <em>pixels.</em></h1><p className="editorial-lead work-intro-copy"><span>Products to explain. Characters to animate. Shots to solve.</span><span>See what each project needed, what we contributed and how it came together.</span></p>
     </div></section>
     <BrandLogoRibbon />
-    <section className="project-catalogue v-broad" data-tone="paper" aria-label="Case studies" data-project-gallery data-project-mode="inventory" data-project-group-size="4">
+    <section className="project-catalogue v-broad" data-tone="paper" aria-label="Case studies" data-project-gallery data-project-mode="inventory" data-project-group-size="4" data-project-initial-count={initialCount}>
       <div className="catalogue" data-project-cards>{featuredStudies.map((study, index) => <ProjectCard key={study.slug} study={study} hidden={index >= initialCount} />)}</div>
       <div data-project-controls hidden><p className="label work-project-announcement" data-project-status role="status" aria-atomic="true">Showing {initialCount} of {featuredStudies.length} projects</p><button className="button" data-control-tone="purple" data-project-load-more type="button">Load more <span aria-hidden="true">↓</span></button></div>
       <noscript><style>{'[data-project-mode="inventory"] [data-project-card][hidden]{display:block!important}'}</style><p>All projects are shown when JavaScript is unavailable.</p></noscript>

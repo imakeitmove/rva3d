@@ -66,7 +66,8 @@ export function initProjectGroups() {
       const size = Number(root.dataset.projectGroupSize) || 4;
       const loadMore = controls.querySelector("[data-project-load-more]");
       const status = controls.querySelector("[data-project-status]");
-      let count = Math.min(size, cards.length);
+      // Previously the batch size also determined the initial visible count.
+      let count = Math.min(Number(root.dataset.projectInitialCount) || size, cards.length);
       const render = () => {
         cards.forEach((card, index) => { card.hidden = index >= count; });
         status.textContent = `Showing ${count} of ${cards.length} projects`;

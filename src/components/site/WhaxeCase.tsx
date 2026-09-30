@@ -3,8 +3,8 @@ import editorial from "./CaseEditorial.module.css";
 import Link from "next/link";
 import { preload } from "react-dom";
 import { axeWhaxeLilBaby } from "@/content/work/cases/axe-whaxe-lil-baby";
-import { whaxeAnimationTests, whaxeCredits, whaxeLookDevelopment } from "@/content/work/whaxe_refresh";
-import type { WorkVideoMedia } from "@/content/work/types";
+import { whaxeAnimationTests, whaxeCredits } from "@/content/work/whaxe_refresh";
+import type { WorkImageMedia, WorkVideoMedia } from "@/content/work/types";
 import { protectedMedia, studies, headline } from "@/lib/site/content";
 import { Shell } from "./Shell";
 import { WorkMedia } from "@/components/work/WorkMedia";
@@ -14,6 +14,8 @@ import { siteHref } from "@/lib/site/paths";
 import { GeicoExperience as CaseExperience, GeicoVideo as CaseVideo } from "./GeicoMedia";
 import house from "./GeicoCase.module.css";
 import styles from "./WhaxeCase.module.css";
+import mediaUpdate from "@/content/site/whaxe-polish.generated.json";
+import { WhaxeProcessSlideshow } from "./WhaxeProcessSlideshow";
 
 const video = (media: WorkVideoMedia) => protectedMedia({ ...media, caption: undefined, statusLabel: undefined }) as WorkVideoMedia;
 
@@ -23,7 +25,9 @@ export function WhaxeCase() {
   // const related = studies.filter(study => ["geico-geckos-cereal-box", "cable-snake"].includes(study.slug));
   const next = studies.find(study => study.slug === "geico-geckos-cereal-box")!;
   // Approved finished detail and wider product compositions, both native 16:9.
-  const finalStills = axeWhaxeLilBaby.processChapters[0].media;
+  // Previous two-still selection retained for restoration:
+  // const finalStills = axeWhaxeLilBaby.processChapters[0].media;
+  const finalStills = mediaUpdate.stills as WorkImageMedia[];
   preload(film.poster.src, { as: "image", fetchPriority: "high" });
   return <Shell><article className={`${house.case} ${styles.case}`} data-editorial-case="axe-whaxe-lil-baby" data-tone="paper">
     <CaseExperience>
@@ -33,20 +37,24 @@ export function WhaxeCase() {
         <div className={house.intro}><p className={house.lead}>SuperJoy needed a product film for AXE’s WHAXE collaboration with Lil Baby. It had to be bedazzled in a hurry.</p></div>
       </header>
       <div className={house.wide} id="film"><CaseVideo media={film} main /></div>
-      <section className={`${house.wide} ${house.beat} ${house.exploration}`} id="look-development" aria-label="Look development" data-geico-reveal>
+      <section className={`${house.wide} ${house.beat} ${house.exploration} ${styles.narrative}`} id="look-development" aria-label="Look development" data-geico-reveal>
         <p>We textured the supplied CAD models, developed the diamond-covered finish, and shaped the lighting to make it shine.</p>
-        <CaseVideo media={video(whaxeLookDevelopment)} />
+        {/* Previous compiled look-development clip: <CaseVideo media={video(whaxeLookDevelopment)} /> */}
+        <WhaxeProcessSlideshow slides={(mediaUpdate.process as WorkImageMedia[]).map(media => protectedMedia(media) as WorkImageMedia)} />
       </section>
-      <section className={`${house.wide} ${house.beat} ${house.exploration}`} id="animation-tests" aria-label="Animation tests" data-geico-reveal>
+      <section className={`${house.wide} ${house.beat} ${house.exploration} ${styles.narrative}`} id="animation-tests" aria-label="Animation tests" data-geico-reveal>
         <p>With the look established, we designed a series of shots to tease the product release.</p>
         <CaseVideo media={video(whaxeAnimationTests)} />
       </section>
+      <div className={`${house.wide} ${house.pair} ${styles.collabLoops}`} id="freshest-collab" data-geico-reveal>
+        {(mediaUpdate.loops as WorkVideoMedia[]).map(media => <CaseVideo key={media.src} media={video(media)} />)}
+      </div>
       <section className={`${house.wide} ${house.beat} ${styles.closing}`} id="closing" aria-label="AXE campaign results" data-geico-reveal>
         {/* Previous section marker: <h2 id="closing-heading">Made for the drop.</h2> */}
         <Image className={editorial.logo} src="/media/brand_logos/axe.webp" alt="AXE" width={216} height={48} style={{ width: 108 }} unoptimized />
         <p>The wider WHAXE launch included a “<a href="https://www.emilydelius.com/lilbabyxaxe">Drop Your Verse</a>” challenge that recorded <strong className={editorial.impact}>8.2M+ views and 200+ submissions,</strong> according to the <a href="https://www.emilydelius.com/lilbabyxaxe">campaign team</a>.</p>
       </section>
-      <div className={`${house.wide} ${house.beat} ${house.pair}`} id="final-stills" data-geico-reveal>
+      <div className={`${house.wide} ${house.beat} ${house.pair} ${styles.finalStills}`} id="final-stills" data-geico-reveal>
         {finalStills.map(media => <div className="site-media" key={media.src}>
           <WorkMedia media={protectedMedia({ ...media, caption: undefined, statusLabel: undefined })} privateDelivery sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1600px) calc((100vw - 124px) / 2), 738px" />
         </div>)}

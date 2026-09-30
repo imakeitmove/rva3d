@@ -22,3 +22,17 @@
 @media (max-width: 480px) {
   .credits dl { grid-template-columns: 1fr; }
 }
+
+/* WHAXE-only continuation below the retained animation-test beat. */
+.collabLoops { margin-top: 28px; }
+.finalStills :global(.site-media) img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; }
+
+/* Match GEICO's active narrative hierarchy without importing its geometry.
+   Previously inherited house .exploration p: 18px / 1.6, max-width 540px. */
+.narrative > p { font-size: clamp(22px, 1.9vw, 28px); line-height: 1.38; max-width: 30ch; }
+/* Closing keeps WHAXE's approved centered measure and distinct impact styling. */
+.case .closing p { font-size: clamp(20px, 1.65vw, 24px); line-height: 1.45; }
+@media (max-width: 760px) {
+  .narrative > p { font-size: 21px; line-height: 1.4; max-width: 32ch; }
+  .case .closing p { font-size: 20px; }
+}

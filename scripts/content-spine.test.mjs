@@ -1022,6 +1022,30 @@ test("Work incrementally reveals inventory without replacing earlier projects", 
     assert.equal(count,total); assert.equal(nextInventoryCount(total,count,4),total);
   }
 });
+test("Work curation swaps only Wawa and Twist, excludes Capri siblings, and starts with up to ten", async () => {
+  const { curateWorkStudies, WORK_INITIAL_COUNT } = await import("../src/content/work/work_curation.ts");
+  const { nextInventoryCount } = await import("../public/site-assets/project-groups.js");
+  const original = ["geico-geckos-cereal-box", "cable-snake", "axe-whaxe-lil-baby", "capri-sun", "capri-sun-solstice-pouch", "capri-sun-trick-and-treat", "amsoil-xpd-wind-grease", "wawa-coffee-island", "desmi-rotan-pump", "uncommon-goods-outta-this-world"].map(slug => ({ slug }));
+  const snapshot = structuredClone(original);
+  assert.deepEqual(curateWorkStudies(original).map(x => x.slug), ["geico-geckos-cereal-box", "wawa-coffee-island", "axe-whaxe-lil-baby", "capri-sun", "amsoil-xpd-wind-grease", "cable-snake", "desmi-rotan-pump", "uncommon-goods-outta-this-world"]);
+  assert.deepEqual(original, snapshot, "navigation source must not be reordered");
+  assert.equal(WORK_INITIAL_COUNT, 10);
+  for (const total of [0, 3, 8, 10, 11, 19]) {
+    const cards = Array.from({ length: total }, (_, i) => ({ slug: `project-${i}` }));
+    const selected = curateWorkStudies(cards);
+    let count = Math.min(WORK_INITIAL_COUNT, selected.length);
+    assert.equal(count, Math.min(10, total));
+    const seen = selected.slice(0, count);
+    while (count < total) { const next = nextInventoryCount(total, count, 4); seen.push(...selected.slice(count, next)); count = next; }
+    assert.equal(new Set(seen.map(x => x.slug)).size, total);
+    assert.equal(nextInventoryCount(total, count, 4), total, "More has nothing left to reveal");
+  }
+  const work = await readFile("src/components/site/WorkPages.tsx", "utf8");
+  const interaction = await readFile("public/site-assets/project-groups.js", "utf8");
+  assert.match(work, /data-project-initial-count=\{initialCount\}/);
+  assert.match(interaction, /root.dataset.projectInitialCount/);
+  assert.match(interaction, /loadMore.hidden = count >= cards.length/);
+});
 test("buyer-confidence copy and distinct project interaction contracts stay scoped", async () => {
   const [home,work,cap,editorial,header,css,about,howWeWork,howWeWorkContent,contact,aboutCss,brand,fragments,proxy,sitemap] = await Promise.all([
     "src/lib/site/home-template.mjs","src/components/site/WorkPages.tsx",
