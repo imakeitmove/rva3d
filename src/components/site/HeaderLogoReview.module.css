@@ -1,6 +1,10 @@
 .slot { position: relative; display: inline-grid; vertical-align: baseline; }
 .fallback { display: inline-block; }
-.scene { position: absolute; inset: 0; pointer-events: none; }
+.scene { position: absolute; width: 108%; left: -4%; aspect-ratio: 1080 / 340; top: 50%; transform: translateY(-50%); overflow: hidden; pointer-events: none; }
+/* Fixed crop (450,195,1080,340) of the exported 1920x720 projection.
+   All 91 poses fit; the review composition is 8% larger, uniformly scaled.
+   The parent Home hit target and header geometry stay unchanged. */
+.viewport { position: absolute; width: 177.777778%; height: 211.764706%; left: -41.666667%; top: -57.352941%; }
 .scene canvas { display: block; width: 100%; height: 100%; }
 @media (prefers-reduced-motion: reduce) {
   .scene { display: none; }

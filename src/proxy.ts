@@ -24,6 +24,11 @@ export function proxy(request: NextRequest) {
   const finishPrivate = (response: NextResponse) => finish(response, privateHeaders);
   const finishPublic = (response: NextResponse) => finish(response, isPublicProduction() ? publicHeaders : previewPublicHeaders);
 
+  // One authored model for loopback-only header review; never open /models globally.
+  if (pathname === "/models/RVA_Logo_010_spin_loop_001.glb" && !isPublicProduction() &&
+      (process.env.NODE_ENV === "development" || process.env.RVA3D_HEADER_LOGO_REVIEW === "1") &&
+      /^(?:localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$/i.test(request.headers.get("host") || "")) return finishPrivate(NextResponse.next());
+
   // Exact App Router icon routes only; all other publication boundaries remain unchanged.
   if (pathname === "/icon.png" || pathname === "/apple-icon.png") return finishPublic(NextResponse.next());
   // Noise Tech uses this exact processed public brand mark as its outcome-section label.
