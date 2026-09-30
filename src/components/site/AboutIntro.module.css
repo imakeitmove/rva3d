@@ -26,3 +26,8 @@
 /* Restore the approved two-phrase emphasis and separate the short closing line. */
 .founder:global(.about-ground) h2 em { display: block; color: var(--rva-purple); font-style: normal; }
 .founder :global(.about-kicker) { margin-top: 1.25em; }
+
+/* Center only the founder copy within the existing portrait-led row. Mobile stays stacked. */
+@media (min-width: 701px) {
+  .founder > :global(.about-positioning) { align-self: center; }
+}
