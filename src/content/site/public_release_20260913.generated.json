@@ -14,10 +14,10 @@
     "desmi-rotan-pump",
     "uncommon-goods-outta-this-world"
   ],
-  "assets": 280,
-  "logicalUrls": 342,
-  "registryDigest": "d2f306f9403d9fd6a3de489d521b895b1c9e078a9ca255b7277fb933038c2493",
-  "urlsDigest": "36322b2fc161da455e51deee86869149ae2e73f97a31bdac56f837f74d227c86",
+  "assets": 308,
+  "logicalUrls": 370,
+  "registryDigest": "1458a5bf3241431734c0d17af8567071c1666755d436ef66b3ce53e1a2c151b3",
+  "urlsDigest": "23430d3471fd8f257f9a8d906fd58fea5f1fc3f869cf885f50bf448e16c54e14",
   "previous93RegistryDigest": "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8",
   "previous157UrlsDigest": "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f",
   "excludedKeys": [
@@ -278,5 +278,41 @@
     ],
     "evidence": "src/content/site/featured_images.generated.json",
     "authorization": "Owner-directed Wawa/AMSOIL Work covers and original RVA3D Capabilities spec render; no deployment."
+  },
+  "fiveBelowCandidate20260930": {
+    "previousAssets": 280,
+    "previousUrls": 342,
+    "addedKeys": [
+      "7f6bdd42c357f519e48e.mp4",
+      "769ad33f96af32172588.webp",
+      "a017cd819d494ec98872.mp4",
+      "2f89cbdc1f0098f946c9.webp",
+      "1c9c2940eaae580551fa.mp4",
+      "11639e1d745c9f837d40.webp",
+      "8a928c4556ead5682e42.mp4",
+      "d9af6ab72bdb07468282.webp",
+      "9f98efe1abe6c92f624b.mp4",
+      "b7e5ca33cfd803824fb5.webp",
+      "8b7f3c538d83da56a4c4.mp4",
+      "eb5769dc904b63441813.webp",
+      "a20c9a2c0298bf7b7a9a.mp4",
+      "e8c73e0a1c1bedded5fa.webp",
+      "a790a632674d69412822.webp",
+      "6fb13c0dcc0904c49437.webp",
+      "01215ef655adfbf7b6db.webp",
+      "428ff68a1fb62e1b8029.webp",
+      "5a2144304ce397e00118.webp",
+      "19a9f07bdd905987d3eb.webp",
+      "ae95c41017c12ed2cdfd.webp",
+      "6f1da392880dfd3d8a8a.webp",
+      "846dcd6eeeadc4090bd5.webp",
+      "09851bc624418379e735.webp",
+      "4ef1bc1fee9821c1246c.webp",
+      "fa678a95106f40bdfa9c.webp",
+      "d5632db0d5ed0ab76813.webp",
+      "b23ba76edd66a11452e1.webp"
+    ],
+    "evidence": "docs/five_below_media_audit_20260930.json",
+    "authorization": "Exact owner-selected derivatives; case remains a preview candidate, not approved for public production. No deployment."
   }
 }

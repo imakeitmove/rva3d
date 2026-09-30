@@ -1030,7 +1030,7 @@ test("Work curation swaps only Wawa and Twist, excludes Capri siblings, and star
   assert.deepEqual(curateWorkStudies(original).map(x => x.slug), ["geico-geckos-cereal-box", "wawa-coffee-island", "axe-whaxe-lil-baby", "capri-sun", "amsoil-xpd-wind-grease", "cable-snake", "desmi-rotan-pump", "uncommon-goods-outta-this-world"]);
   assert.deepEqual(original, snapshot, "navigation source must not be reordered");
   assert.equal(WORK_INITIAL_COUNT, 10);
-  for (const total of [0, 3, 8, 10, 11, 19]) {
+  for (const total of [0, 3, 8, 9, 10, 11, 19]) {
     const cards = Array.from({ length: total }, (_, i) => ({ slug: `project-${i}` }));
     const selected = curateWorkStudies(cards);
     let count = Math.min(WORK_INITIAL_COUNT, selected.length);

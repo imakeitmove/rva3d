@@ -1,0 +1,225 @@
+{
+  "process": [
+    {
+      "kind": "image",
+      "src": "/media/work/five_below/process_001.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Five Below fixture development view 1"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/five_below/process_002.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Five Below fixture development view 2"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/five_below/process_003.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Five Below fixture development view 3"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/five_below/process_004.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Five Below fixture development view 4"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/five_below/process_005.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Five Below fixture development view 5"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/five_below/process_006.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Five Below fixture development view 6"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/five_below/process_007.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Five Below fixture development view 7"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/five_below/process_008.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Five Below fixture development view 8"
+    }
+  ],
+  "loops": [
+    {
+      "kind": "video",
+      "src": "/media/work/five_below/loops_001.mp4",
+      "width": 1280,
+      "height": 720,
+      "mimeType": "video/mp4",
+      "alt": "Five Below softlines fixture turntable",
+      "presentation": "loop",
+      "hasAudio": false,
+      "poster": {
+        "kind": "image",
+        "src": "/media/work/five_below/loops_001_poster.webp",
+        "width": 1280,
+        "height": 720,
+        "alt": "Five Below softlines fixture turntable"
+      }
+    },
+    {
+      "kind": "video",
+      "src": "/media/work/five_below/loops_002.mp4",
+      "width": 1280,
+      "height": 720,
+      "mimeType": "video/mp4",
+      "alt": "Five Below tube fixture turntable",
+      "presentation": "loop",
+      "hasAudio": false,
+      "poster": {
+        "kind": "image",
+        "src": "/media/work/five_below/loops_002_poster.webp",
+        "width": 1280,
+        "height": 720,
+        "alt": "Five Below tube fixture turntable"
+      }
+    },
+    {
+      "kind": "video",
+      "src": "/media/work/five_below/loops_003.mp4",
+      "width": 1280,
+      "height": 720,
+      "mimeType": "video/mp4",
+      "alt": "Five Below Megatube candy display presentation",
+      "presentation": "loop",
+      "hasAudio": false,
+      "poster": {
+        "kind": "image",
+        "src": "/media/work/five_below/loops_003_poster.webp",
+        "width": 1280,
+        "height": 720,
+        "alt": "Five Below Megatube candy display presentation"
+      }
+    },
+    {
+      "kind": "video",
+      "src": "/media/work/five_below/loops_004.mp4",
+      "width": 1280,
+      "height": 720,
+      "mimeType": "video/mp4",
+      "alt": "Five Below VE style cart presentation",
+      "presentation": "loop",
+      "hasAudio": false,
+      "poster": {
+        "kind": "image",
+        "src": "/media/work/five_below/loops_004_poster.webp",
+        "width": 1280,
+        "height": 720,
+        "alt": "Five Below VE style cart presentation"
+      }
+    }
+  ],
+  "stills": [
+    {
+      "kind": "image",
+      "src": "/media/work/five_below/stills_001.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Five Below tube display product detail"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/five_below/stills_002.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Five Below zig-zag display product detail"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/five_below/stills_003.webp",
+      "width": 1600,
+      "height": 1600,
+      "alt": "Five Below zig-zag fixture wide view"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/five_below/stills_004.webp",
+      "width": 1600,
+      "height": 1600,
+      "alt": "Five Below two-way softline rack wide view"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/five_below/stills_005.webp",
+      "width": 1600,
+      "height": 1600,
+      "alt": "Five Below technology four-way display"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/five_below/stills_006.webp",
+      "width": 1600,
+      "height": 1600,
+      "alt": "Five Below VE style cart with stocked shelves"
+    }
+  ],
+  "hero": {
+    "kind": "video",
+    "src": "/media/work/five_below/hero_001.mp4",
+    "width": 1920,
+    "height": 1080,
+    "mimeType": "video/mp4",
+    "alt": "Pak-It Displays presentation film for Five Below retail fixtures",
+    "presentation": "controls",
+    "hasAudio": true,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/five_below/hero_001_poster.webp",
+      "width": 1920,
+      "height": 1080,
+      "alt": "Pak-It Displays presentation film for Five Below retail fixtures"
+    }
+  },
+  "stocked": {
+    "kind": "video",
+    "src": "/media/work/five_below/stocked_001.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "alt": "Five Below wheelbarrow display being stocked with store products",
+    "presentation": "loop",
+    "hasAudio": false,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/five_below/stocked_001_poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Five Below wheelbarrow display being stocked with store products"
+    }
+  },
+  "rotation": {
+    "kind": "video",
+    "src": "/media/work/five_below/rotation_001.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "alt": "Stocked Five Below wheelbarrow display turntable",
+    "presentation": "loop",
+    "hasAudio": false,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/five_below/rotation_001_poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Stocked Five Below wheelbarrow display turntable"
+    }
+  }
+}

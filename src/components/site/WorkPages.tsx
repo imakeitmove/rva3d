@@ -1,3 +1,6 @@
+import { isPortfolioPreviewBuild } from "@/content/work";
+import { fiveBelow } from "@/content/work/cases/five_below";
+import { FiveBelowCase } from "./FiveBelowCase";
 import featuredMedia from "@/content/site/featured_images.generated.json";
 import featuredStyles from "./FeaturedImages.module.css";
 import type { WorkImageMedia } from "@/content/work/types";
@@ -32,7 +35,7 @@ export function WorkIndex() {
   // Previous catalogue used the full studies array, adding two sibling cards.
   // Previous Work-only selection/count retained: studies.filter(excluding Capri siblings), Math.min(4, length).
   // Work-only cover overrides; canonical heroes and other page selections stay intact.
-  const featuredStudies = curateWorkStudies(studies).map(study => {
+  const featuredStudies = [...curateWorkStudies(studies), ...(isPortfolioPreviewBuild() ? [fiveBelow] : [])].map(study => {
     const cover = study.slug === "wawa-coffee-island" ? featuredMedia.wawa : study.slug === "amsoil-xpd-wind-grease" ? featuredMedia.amsoil : null;
     return cover ? { ...study, indexMedia: cover as WorkImageMedia } : study;
   });
@@ -57,10 +60,11 @@ export function WorkIndex() {
 //   return <Shell><section className="editorial-opening" data-tone="paper"><div className="v-frame"><p className="label">Selected work / 01—{String(studies.length).padStart(2, "0")}</p><h1>The proof<br />is in the <em>pixels.</em></h1><p className="editorial-lead">Products to explore. Characters to believe. Ideas made visible. Find the work closest to what you have in mind.</p></div></section><section className="project-catalogue v-broad" data-tone="paper" aria-label="Case studies" data-project-gallery data-project-group-size="4"><div className="catalogue" data-project-cards>{studies.map(study => <ProjectCard key={study.slug} study={study} />)}</div><nav data-project-controls aria-label="Project groups"><button type="button" data-project-direction="previous" aria-label="Previous project group" disabled><span aria-hidden="true">◀</span></button><p className="label" data-project-status role="status">Projects 1–4 of {studies.length}</p><button type="button" data-project-direction="next" aria-label="Next project group"><span aria-hidden="true">▶</span></button></nav><noscript><p>All projects are shown when JavaScript is unavailable.</p></noscript></section><section className="work-closing" data-tone="paper"><div className="v-frame">{/* Previous plain headline retained for restoration: Your project doesn’t have to look like any of these. */}<h2>Your project doesn’t have to look like any of these. It has to look like <span className="work-closing-highlight">your project.</span></h2><div className="work-closing-copy"><p>The work changes with the brief. A product to explain, a story to tell, a shot that needs something you can’t film... bring us the challenge. We’ll help figure out what to make and the best way to make it.</p><a className="editorial-link" href={siteHref("/about#how-we-work")}>How we work <span aria-hidden="true">↗</span></a></div></div></section></Shell>;
 // }
 export async function caseMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params, study = studies.find(item => item.slug === slug);
+  const { slug } = await params, study = studies.find(item => item.slug === slug) || (isPortfolioPreviewBuild() && slug === fiveBelow.slug ? fiveBelow : undefined);
   if (!study) notFound();
   // Previous private-review metadata set robots to noindex/noarchive.
   return { title: study.seo.title, description: study.seo.description,
+    ...(study.publication.status === "preview" ? { robots: { index: false, follow: false, noarchive: true } } : {}),
     ...(slug === "geico-geckos-cereal-box" && process.env.NODE_ENV === "development" ? { robots: { index: false, follow: false } } : {}),
     alternates: { canonical: `https://www.rva3d.com/work/${study.slug}` },
     openGraph: { title: study.seo.title, description: study.seo.description, images: [protectedMedia(study.seo.image).src] },
@@ -68,6 +72,7 @@ export async function caseMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 export async function CasePage({ params }: Props) {
+  if ((await params).slug === fiveBelow.slug && isPortfolioPreviewBuild()) return <FiveBelowCase />;
   const { slug } = await params, index = studies.findIndex(item => item.slug === slug), study = studies[index];
   if (!study) notFound();
   const next = studies[(index + 1) % studies.length];

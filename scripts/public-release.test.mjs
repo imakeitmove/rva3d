@@ -184,8 +184,8 @@ test("release registry pins ten owner-approved cases and the exact selectively r
   // assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 224, logicalUrls: 286, seoDimensionsVerified: false });
   // September 29 sealed selection: 236 assets / 298 URLs; audited additions: 4 About + 14 WHAXE.
   //assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 236, logicalUrls: 298, seoDimensionsVerified: false });
-  // Prior selection: 254/316; Wawa added 24. Featured-image refresh adds two (280/342).
-  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 280, logicalUrls: 342, seoDimensionsVerified: false });
+  // Prior selection: 254/316; Wawa added 24, featured images two, Five Below selected derivatives twenty-eight.
+  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 308, logicalUrls: 370, seoDimensionsVerified: false });
 });
 
 // GEICO Phase 2 covers the editorial contract and prevents approval drift in shared media.
@@ -462,4 +462,25 @@ test("Wawa media preserves the owner's exact 20-source order and playback roles"
   for (const loop of [media.test, ...media.loops]) { assert.equal(loop.presentation, "loop"); assert.equal(loop.hasAudio, false); }
   const renderer = (await fs.readFile(path.join(root, "src/components/site/WawaCase.tsx"), "utf8")).split("// Previous Wawa composition")[0];
   for (const text of ["Pak-It supplied CAD models for their wire rack system,", "and we recreated the cups, coffee bags, lids and packets", "that show the counter as it will be seen by customers.", "Pak-It won the contract and its fixtures were integrated across Wawa's entire chain of over 1,200 stores."] ) assert(renderer.includes(text));
+});
+
+
+test("Five Below remains a preview candidate with exact approved source order", async () => {
+  const { fiveBelow } = await import("../src/content/work/cases/five_below.ts");
+  const { workRecords } = await import("../src/content/work/records.ts");
+  const { isPortfolioPreviewBuild } = await import("../src/content/work/index.ts");
+  assert.equal(fiveBelow.publication.status, "preview");
+  assert(!workRecords.some(study => study.slug === fiveBelow.slug), "Candidate must not enter the public-approved registry");
+  const priorEnvironment = process.env.VERCEL_ENV;
+  try { process.env.VERCEL_ENV = "production"; assert.equal(isPortfolioPreviewBuild(), false); }
+  finally { if (priorEnvironment === undefined) delete process.env.VERCEL_ENV; else process.env.VERCEL_ENV = priorEnvironment; }
+  const media = JSON.parse(await fs.readFile(path.join(root, "src/content/site/five_below.generated.json"), "utf8"));
+  const registry = JSON.parse(await fs.readFile(path.join(root, "src/content/site/media.generated.json"), "utf8"));
+  const urls = JSON.parse(await fs.readFile(path.join(root, "src/content/site/media-urls.generated.json"), "utf8"));
+  const sources = items => items.map(item => path.posix.basename(registry[urls[item.src].split("/").at(-1)].source));
+  assert.deepEqual(sources(media.process), Array.from({ length: 8 }, (_, i) => `five_below_process_${String(i + 1).padStart(2, "0")}.jpg`));
+  assert.deepEqual(sources(media.loops), ["360_softlines.mp4", "360_tubes_V04.mp4", "MEGATUBE_CANDY_DISPLAY_V22.mp4", "VE_STYLE_CART_V22.mp4"]);
+  assert.deepEqual(sources(media.stills), ["five_below_TUBES_render_detail.jpg", "five_below_ZIGZAG_render_detail.jpg", "ZIG-ZAG_DISPLAY_V09_wide.jpg", "2-WAY_SOFTLINE_RACK_V02_wide.jpg", "TECH_FOURWAY_DISPLAY_V04 (00000).jpg", "VE_STYLE_CART_V04 (00042).jpg"]);
+  assert.equal(media.hero.presentation, "controls"); assert.equal(media.hero.hasAudio, true);
+  for (const item of [media.stocked, media.rotation, ...media.loops]) { assert.equal(item.presentation, "loop"); assert.equal(item.hasAudio, false); }
 });
