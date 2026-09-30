@@ -489,3 +489,6 @@
 .faq-direct p:not(.label) { max-width:52ch; }
 .faq-direct > img { width:100%; height:auto; }
 @media(max-width:700px){ .faq-direct {grid-template-columns:1fr; padding-block:38px 55px; gap:28px;} }
+
+/* About now starts with communication; retain the compact switcher within its dark opening. */
+.communication-switcher { margin-bottom: 48px; }

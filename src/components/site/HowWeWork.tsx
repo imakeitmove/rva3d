@@ -18,7 +18,7 @@ export function WorkingProcess() {
       <div className={`about-editorial how-we-work-editorial ${styles.page}`}>
         {/* V001 used a contained paper opening; V002 joins the blue intro, image and dark content. */}
         <section className="how-we-work-opening-v2" data-tone="paper">
-          <div className="editorial-width"><EditorialPageNav current="about" /></div>
+          <div className="editorial-width"><EditorialPageNav current="faq" /></div>
           {/* Restore the simplified opening from 8ddaa766. Regressed intro retained:
           <div className="editorial-width how-we-work-intro">
             Removed redundant kicker: <p className="label">Working with RVA3D</p>
@@ -116,12 +116,19 @@ export function WorkingProcess() {
           </div>
         </section>
 
+      </div>
+  );
+}
+
+// Communication remains the About opening; process now leads FAQ.
+export function AboutCommunication() { return <div className={`about-editorial how-we-work-editorial ${styles.page}`}>
         <section
           className="review-story-dark"
           id="communication"
           data-tone="void"
           aria-labelledby="review-story-title"
         >
+          <div className="editorial-width communication-switcher"><EditorialPageNav current="about" /></div>
           <div className="editorial-width review-dark-grid">
             <div className="review-intro">
               <p className="label">Communication with a purpose</p>
@@ -141,12 +148,7 @@ export function WorkingProcess() {
             </div>
           </div>
         </section>
-
-
-
-      </div>
-  );
-}
+</div>; }
 
 // Existing buyer answers retained intact, now composed only on /faq.
 export function BuyerFaq() { return (

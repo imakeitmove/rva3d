@@ -10,7 +10,7 @@ import styles from "./GeicoInteractions.module.css";
 // Reuse the reviewed timing, house transitions and coordinated playback.
 // The optional label lets other cases use the same gallery without WHAXE attribution.
 // Previous signature: ({ slides }: { slides: WorkImageMedia[] })
-export function WhaxeProcessSlideshow({ slides, label = "WHAXE material and lighting development", autoplay = true, fit = "cover" }: { slides: WorkImageMedia[]; label?: string; autoplay?: boolean; fit?: "cover" | "contain" }) {
+export function WhaxeProcessSlideshow({ slides, label = "WHAXE material and lighting development", autoplay = true, intervalMs = 2200, fit = "cover" }: { slides: WorkImageMedia[]; label?: string; autoplay?: boolean; intervalMs?: number; fit?: "cover" | "contain" }) {
   const root = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(false);
@@ -32,9 +32,9 @@ export function WhaxeProcessSlideshow({ slides, label = "WHAXE material and ligh
   const eligible = autoplay && visible && active && !paused && !reduced && !mainPlaying && !modalOpen;
   useEffect(() => {
     if (!eligible) return;
-    const timer = setTimeout(() => setIndex(previous => (previous + 1) % slides.length), 2200);
+    const timer = setTimeout(() => setIndex(previous => (previous + 1) % slides.length), intervalMs);
     return () => clearTimeout(timer);
-  }, [eligible, index, slides.length]);
+  }, [eligible, index, slides.length, intervalMs]);
   function step(direction: number) { setIndex(previous => (previous + direction + slides.length) % slides.length); }
   return <div ref={root} className={styles.slideshow} role="region" aria-roledescription="carousel" aria-label={label} data-image-fit={fit} data-active-slide={index} data-autoplay={eligible}>
     <div className={styles.slides} style={{ aspectRatio: `${slides[0].width} / ${slides[0].height}` }}>
@@ -43,9 +43,9 @@ export function WhaxeProcessSlideshow({ slides, label = "WHAXE material and ligh
       </div>)}
       <CapabilityFullscreen targetRef={root} kind="image" variant="homepage" />
       <div className={styles.slideControls}>
-        <button data-media-control className="custom-control" type="button" onClick={() => step(-1)} aria-label={autoplay ? "Previous process image" : "Previous photograph"}><span aria-hidden="true">‹</span></button>
+        <button data-media-control className="custom-control" type="button" onClick={() => step(-1)} aria-label={fit === "contain" ? "Previous photograph" : "Previous process image"}><span aria-hidden="true">‹</span></button>
         {autoplay && <button data-media-control className="custom-control" type="button" onClick={() => setPaused(previous => !previous)} disabled={reduced} aria-label={reduced ? "Slideshow autoplay disabled by reduced motion" : paused ? "Play process slideshow" : "Pause process slideshow"}><span aria-hidden="true">{paused || reduced ? "▶" : "Ⅱ"}</span></button>}
-        <button data-media-control className="custom-control" type="button" onClick={() => step(1)} aria-label={autoplay ? "Next process image" : "Next photograph"}><span aria-hidden="true">›</span></button>
+        <button data-media-control className="custom-control" type="button" onClick={() => step(1)} aria-label={fit === "contain" ? "Next photograph" : "Next process image"}><span aria-hidden="true">›</span></button>
       </div>
     </div>
   </div>;

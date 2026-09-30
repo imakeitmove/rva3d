@@ -2,8 +2,11 @@
 
 import { useEffect } from "react";
 
+// Preserve prior inbound anchors as the process moves back to FAQ.
 const movedFragments = new Map([
-  ["#how-we-work", "./about#process"],
+  ["#how-we-work", "./faq#process"],
+  ["#process", "./faq#process"],
+  ["#working-together", "./faq#working-together"],
   ["#faq", "./faq#faq"],
 ]);
 
@@ -12,7 +15,7 @@ export function MovedAboutFragments({ faq = false }: { faq?: boolean }) {
     const replaceMovedFragment = () => {
       // The permanent legacy redirect preserves its fragment in the browser.
       const destination = faq
-        ? (["#process", "#working-together", "#communication", "#how-we-work"].includes(window.location.hash) ? "./about" + (window.location.hash === "#how-we-work" ? "#process" : window.location.hash) : undefined)
+        ? (window.location.hash === "#communication" ? "./about#communication" : window.location.hash === "#how-we-work" ? "./faq#process" : undefined)
         : movedFragments.get(window.location.hash);
       if (destination) {
         window.location.replace(new URL(destination, window.location.href));
@@ -27,7 +30,7 @@ export function MovedAboutFragments({ faq = false }: { faq?: boolean }) {
   return (
     <noscript>
       <p className="moved-fragment-fallback">
-        Looking for <a href="./about#process">our process</a> or the{" "}
+        Looking for <a href="./faq#process">our process</a> or the{" "}
         <a href="./faq#faq">project FAQ</a>?
       </p>
     </noscript>

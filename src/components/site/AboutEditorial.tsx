@@ -5,7 +5,7 @@ import { Brand } from "./Brand";
 import { siteHref } from "@/lib/site/paths";
 import home from "@/content/site/home.generated.json";
 import editorial from "@/content/site/editorial.generated.json";
-import { WorkingProcess } from "./HowWeWork";
+import { AboutCommunication } from "./HowWeWork";
 import { WhaxeProcessSlideshow } from "./WhaxeProcessSlideshow";
 import filmSlides from "@/content/site/richmond_films.generated.json";
 import type { WorkImageMedia } from "@/content/work/types";
@@ -121,7 +121,7 @@ export function AboutEditorial() {
     <Shell>
       <div className="about-editorial about-navigation-v2 about-richmond-refresh">
         <MovedAboutFragments />
-        <WorkingProcess />
+        <AboutCommunication />
         <section className="about-ground editorial-width" data-tone="paper">
           <div className="about-positioning">
             {/* Previous text-only navigation: <EditorialPageNav current="about" /> */}
@@ -166,7 +166,6 @@ export function AboutEditorial() {
 
         <section className="richmond-history editorial-width" data-tone="paper" aria-label="Richmond filmmaking and studio practice">
           <div className="richmond-film-row">
-            <WhaxeProcessSlideshow slides={filmSlides as WorkImageMedia[]} label="Films made in Richmond" autoplay={false} fit="contain" />
             <div className="richmond-film-copy">
               <p>
                 <strong>Films made in Richmond.</strong> Deven created graphics and
@@ -177,7 +176,8 @@ export function AboutEditorial() {
               </p>
               <a className="richmond-films-link" href="https://vimeo.com/pixeldropfilms">Watch the films <span aria-hidden="true">↗</span></a>
             </div>
-            {/* Previous single film artwork replaced by the owner-selected six-photo slideshow. */}
+            {/* Previous order began with Deven; move that image to the end and return media to the right. */}
+            <WhaxeProcessSlideshow slides={[...filmSlides.slice(1), filmSlides[0]] as WorkImageMedia[]} label="Films made in Richmond" intervalMs={5000} fit="contain" />
           </div>
           {/* Direct by Design moved to FAQ with the requested introduction.
           <div className="richmond-studio-row">

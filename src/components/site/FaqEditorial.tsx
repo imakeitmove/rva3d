@@ -2,14 +2,13 @@ import Image from "next/image";
 import "./editorial-refinement.css";
 import media from "@/content/site/about-richmond.generated.json";
 import { Shell } from "./Shell";
-import { EditorialPageNav } from "./EditorialPageNav";
-import { BuyerFaq } from "./HowWeWork";
+import { BuyerFaq, WorkingProcess } from "./HowWeWork";
 import { MovedAboutFragments } from "./MovedAboutFragments";
 
 export function FaqEditorial() {
   return <Shell><div className="about-editorial faq-editorial">
     <MovedAboutFragments faq />
-    <div className="editorial-width about-page-switcher"><EditorialPageNav current="faq" /></div>
+    <WorkingProcess />
     <section className="faq-direct editorial-width" data-tone="paper" aria-labelledby="direct-title">
       <div><p className="label">Direct by design</p><h1 id="direct-title">A small studio with a clear point of contact.</h1>
         <p>RVA3D is built so the person you talk to stays close to the work. Deven leads the creative and production process from the first conversation through final delivery, keeping decisions direct and responsibility clear.</p>

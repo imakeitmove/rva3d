@@ -1086,10 +1086,10 @@ test("buyer-confidence copy and distinct project interaction contracts stay scop
   assert.match(howWeWork,/<summary data-brand-copy="plain">\{question\}<\/summary>/); assert.doesNotMatch(howWeWorkContent,/1\.5×|1\.5x/);
   assert.match(brand,/child\.type === "summary" && child\.props\["data-brand-copy"\] === "plain"/);
   assert.match(aboutCss,/\.faq-list summary\{[^}]*min-height:68px/);
-  assert(contact.includes('siteHref("/about#process")'));
+  assert(contact.includes('siteHref("/faq#process")'));
   assert(contact.includes('siteHref("/faq")'));
   assert(contact.includes('siteHref("/about#collaborate")'));
-  assert.match(fragments,/\["#how-we-work", "\.\/about#process"\]/);
+  assert.match(fragments,/\["#how-we-work", "\.\/faq#process"\]/);
   assert.match(fragments,/\["#faq", "\.\/faq#faq"\]/);
   assert.match(fragments,/window\.location\.replace/);
   assert.match(proxy,/how-we-work\\\/\?\$/);
