@@ -164,7 +164,7 @@ test("legacy approved gate retains Notion and exact 1200 by 630 requirements", a
 // });
 //
 //
-test("release registry pins eight owner-approved cases and the exact selectively restored public-media selection", async () => {
+test("release registry pins ten owner-approved cases and the exact selectively restored public-media selection", async () => {
   const result = await verifyPublicApprovedRelease(root, { verifyDimensions: false, allowReviewAssets: true });
   const { reviewAssets, ...publicResult } = result;
   // Previous review packages contained 0 or 17 derivatives. This local pass adds 12.
@@ -182,7 +182,9 @@ test("release registry pins eight owner-approved cases and the exact selectively
   // Prior combined Capri Sun catalogue: eight cases.
   // Prior rollout count retained; September 28 adds nine owner-selected Noise Tech derivatives.
   // assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 224, logicalUrls: 286, seoDimensionsVerified: false });
-  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 236, logicalUrls: 298, seoDimensionsVerified: false });
+  // September 29 sealed selection: 236 assets / 298 URLs; audited additions: 4 About + 14 WHAXE.
+  //assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 236, logicalUrls: 298, seoDimensionsVerified: false });
+  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 254, logicalUrls: 316, seoDimensionsVerified: false });
 });
 
 // GEICO Phase 2 covers the editorial contract and prevents approval drift in shared media.

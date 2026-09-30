@@ -1,0 +1,632 @@
+{
+  "cause": "Shared GeicoCase.module.css .exploration p was 18px / 1.6, max-width 540px. GEICO applied role-specific overrides; WHAXE did not.",
+  "fix": "WHAXE-only narrative and closing font rules. Existing grid, copy, impact weight, logo and media unchanged. Closing measure remains 700px, unlike GEICO 820px.",
+  "before": {
+    "axe-whaxe-lil-baby-1440": {
+      "lead": {
+        "text": "SuperJoy needed a product film for AXE’s WHAXE collaboration with Lil Baby. It had to be bedazzled in a hurry.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "22.32px",
+        "weight": "400",
+        "lineHeight": "32.364px",
+        "spacing": "normal",
+        "width": 700,
+        "maxWidth": "700px"
+      },
+      "process": {
+        "text": "We textured the supplied CAD models, developed the diamond-covered finish, and shaped the lighting to make it shine.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "lineHeight": "28.8px",
+        "spacing": "normal",
+        "width": 477.75,
+        "maxWidth": "540px"
+      },
+      "animation": {
+        "text": "With the look established, we designed a series of shots to tease the product release.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "lineHeight": "28.8px",
+        "spacing": "normal",
+        "width": 477.75,
+        "maxWidth": "540px"
+      },
+      "result": {
+        "text": "The wider WHAXE launch included a “Drop Your Verse” challenge that recorded 8.2M+ views and 200+ submissions, according to the campaign team.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "22.32px",
+        "weight": "400",
+        "lineHeight": "33.48px",
+        "spacing": "normal",
+        "width": 700,
+        "maxWidth": "700px"
+      },
+      "strong": {
+        "text": "8.2M+ views and 200+ submissions,",
+        "family": "Geist, Arial, sans-serif",
+        "size": "58px",
+        "weight": "600",
+        "lineHeight": "63.8px",
+        "spacing": "-2.03px",
+        "width": 700,
+        "maxWidth": "none"
+      }
+    },
+    "geico-geckos-cereal-box-1440": {
+      "lead": {
+        "text": "A spoof of a Saturday-morning kids’ cereal commercial that needed a real cereal box to come to life.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "22.32px",
+        "weight": "400",
+        "lineHeight": "32.364px",
+        "spacing": "normal",
+        "width": 700,
+        "maxWidth": "700px"
+      },
+      "process": {
+        "text": "The commercial was shot on a live set",
+        "family": "Geist, Arial, sans-serif",
+        "size": "27.36px",
+        "weight": "400",
+        "lineHeight": "37.7568px",
+        "spacing": "normal",
+        "width": 484.5,
+        "maxWidth": "544.19px"
+      },
+      "animation": {
+        "text": "We explored a few animation options for the entrance before settling on the bounce.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "27.36px",
+        "weight": "400",
+        "lineHeight": "37.7568px",
+        "spacing": "normal",
+        "width": 477.75,
+        "maxWidth": "544.19px"
+      },
+      "result": {
+        "text": "As part of GEICO’s Legend of the Lizard ↗ campaign, the spot aired duringSuper Bowl LVIII’s pregame and generated more than one billion impressions for the wider campaign.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "23.76px",
+        "weight": "400",
+        "lineHeight": "34.452px",
+        "spacing": "normal",
+        "width": 820,
+        "maxWidth": "820px"
+      },
+      "strong": {
+        "text": "one billion impressions",
+        "family": "Geist, Arial, sans-serif",
+        "size": "58px",
+        "weight": "600",
+        "lineHeight": "63.8px",
+        "spacing": "-2.03px",
+        "width": 820,
+        "maxWidth": "none"
+      }
+    },
+    "axe-whaxe-lil-baby-820": {
+      "lead": {
+        "text": "SuperJoy needed a product film for AXE’s WHAXE collaboration with Lil Baby. It had to be bedazzled in a hurry.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "lineHeight": "26.1px",
+        "spacing": "normal",
+        "width": 700,
+        "maxWidth": "700px"
+      },
+      "process": {
+        "text": "We textured the supplied CAD models, developed the diamond-covered finish, and shaped the lighting to make it shine.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "lineHeight": "28.8px",
+        "spacing": "normal",
+        "width": 258.375,
+        "maxWidth": "540px"
+      },
+      "animation": {
+        "text": "With the look established, we designed a series of shots to tease the product release.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "lineHeight": "28.8px",
+        "spacing": "normal",
+        "width": 258.375,
+        "maxWidth": "540px"
+      },
+      "result": {
+        "text": "The wider WHAXE launch included a “Drop Your Verse” challenge that recorded 8.2M+ views and 200+ submissions, according to the campaign team.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "lineHeight": "27px",
+        "spacing": "normal",
+        "width": 700,
+        "maxWidth": "700px"
+      },
+      "strong": {
+        "text": "8.2M+ views and 200+ submissions,",
+        "family": "Geist, Arial, sans-serif",
+        "size": "34.44px",
+        "weight": "600",
+        "lineHeight": "37.884px",
+        "spacing": "-1.2054px",
+        "width": 700,
+        "maxWidth": "none"
+      }
+    },
+    "geico-geckos-cereal-box-820": {
+      "lead": {
+        "text": "A spoof of a Saturday-morning kids’ cereal commercial that needed a real cereal box to come to life.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "lineHeight": "26.1px",
+        "spacing": "normal",
+        "width": 700,
+        "maxWidth": "700px"
+      },
+      "process": {
+        "text": "The commercial was shot on a live set",
+        "family": "Geist, Arial, sans-serif",
+        "size": "22px",
+        "weight": "400",
+        "lineHeight": "30.36px",
+        "spacing": "normal",
+        "width": 258.375,
+        "maxWidth": "437.58px"
+      },
+      "animation": {
+        "text": "We explored a few animation options for the entrance before settling on the bounce.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "22px",
+        "weight": "400",
+        "lineHeight": "30.36px",
+        "spacing": "normal",
+        "width": 258.375,
+        "maxWidth": "437.58px"
+      },
+      "result": {
+        "text": "As part of GEICO’s Legend of the Lizard ↗ campaign, the spot aired duringSuper Bowl LVIII’s pregame and generated more than one billion impressions for the wider campaign.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "20px",
+        "weight": "400",
+        "lineHeight": "29px",
+        "spacing": "normal",
+        "width": 724,
+        "maxWidth": "820px"
+      },
+      "strong": {
+        "text": "one billion impressions",
+        "family": "Geist, Arial, sans-serif",
+        "size": "34.44px",
+        "weight": "600",
+        "lineHeight": "37.884px",
+        "spacing": "-1.2054px",
+        "width": 724,
+        "maxWidth": "none"
+      }
+    },
+    "axe-whaxe-lil-baby-390": {
+      "lead": {
+        "text": "SuperJoy needed a product film for AXE’s WHAXE collaboration with Lil Baby. It had to be bedazzled in a hurry.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "lineHeight": "26.1px",
+        "spacing": "normal",
+        "width": 350,
+        "maxWidth": "700px"
+      },
+      "process": {
+        "text": "We textured the supplied CAD models, developed the diamond-covered finish, and shaped the lighting to make it shine.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "lineHeight": "28.8px",
+        "spacing": "normal",
+        "width": 350,
+        "maxWidth": "540px"
+      },
+      "animation": {
+        "text": "With the look established, we designed a series of shots to tease the product release.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "lineHeight": "28.8px",
+        "spacing": "normal",
+        "width": 350,
+        "maxWidth": "540px"
+      },
+      "result": {
+        "text": "The wider WHAXE launch included a “Drop Your Verse” challenge that recorded 8.2M+ views and 200+ submissions, according to the campaign team.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "lineHeight": "27px",
+        "spacing": "normal",
+        "width": 350,
+        "maxWidth": "700px"
+      },
+      "strong": {
+        "text": "8.2M+ views and 200+ submissions,",
+        "family": "Geist, Arial, sans-serif",
+        "size": "30px",
+        "weight": "600",
+        "lineHeight": "33px",
+        "spacing": "-1.05px",
+        "width": 350,
+        "maxWidth": "none"
+      }
+    },
+    "geico-geckos-cereal-box-390": {
+      "lead": {
+        "text": "A spoof of a Saturday-morning kids’ cereal commercial that needed a real cereal box to come to life.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "lineHeight": "26.1px",
+        "spacing": "normal",
+        "width": 350,
+        "maxWidth": "700px"
+      },
+      "process": {
+        "text": "The commercial was shot on a live set",
+        "family": "Geist, Arial, sans-serif",
+        "size": "21px",
+        "weight": "400",
+        "lineHeight": "29.4px",
+        "spacing": "normal",
+        "width": 350,
+        "maxWidth": "445.536px"
+      },
+      "animation": {
+        "text": "We explored a few animation options for the entrance before settling on the bounce.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "21px",
+        "weight": "400",
+        "lineHeight": "29.4px",
+        "spacing": "normal",
+        "width": 350,
+        "maxWidth": "445.536px"
+      },
+      "result": {
+        "text": "As part of GEICO’s Legend of the Lizard ↗ campaign, the spot aired duringSuper Bowl LVIII’s pregame and generated more than one billion impressions for the wider campaign.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "20px",
+        "weight": "400",
+        "lineHeight": "29px",
+        "spacing": "normal",
+        "width": 350,
+        "maxWidth": "820px"
+      },
+      "strong": {
+        "text": "one billion impressions",
+        "family": "Geist, Arial, sans-serif",
+        "size": "30px",
+        "weight": "600",
+        "lineHeight": "33px",
+        "spacing": "-1.05px",
+        "width": 350,
+        "maxWidth": "none"
+      }
+    }
+  },
+  "after": {
+    "axe-whaxe-lil-baby-1440": {
+      "lead": {
+        "text": "SuperJoy needed a product film for AXE’s WHAXE collaboration with Lil Baby. It had to be bedazzled in a hurry.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "22.32px",
+        "weight": "400",
+        "lineHeight": "32.364px",
+        "spacing": "normal",
+        "width": 700,
+        "maxWidth": "700px"
+      },
+      "process": {
+        "text": "We textured the supplied CAD models, developed the diamond-covered finish, and shaped the lighting to make it shine.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "27.36px",
+        "weight": "400",
+        "lineHeight": "37.7568px",
+        "spacing": "normal",
+        "width": 477.75,
+        "maxWidth": "544.19px"
+      },
+      "animation": {
+        "text": "With the look established, we designed a series of shots to tease the product release.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "27.36px",
+        "weight": "400",
+        "lineHeight": "37.7568px",
+        "spacing": "normal",
+        "width": 477.75,
+        "maxWidth": "544.19px"
+      },
+      "result": {
+        "text": "The wider WHAXE launch included a “Drop Your Verse” challenge that recorded 8.2M+ views and 200+ submissions, according to the campaign team.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "23.76px",
+        "weight": "400",
+        "lineHeight": "34.452px",
+        "spacing": "normal",
+        "width": 700,
+        "maxWidth": "700px"
+      },
+      "strong": {
+        "text": "8.2M+ views and 200+ submissions,",
+        "family": "Geist, Arial, sans-serif",
+        "size": "58px",
+        "weight": "600",
+        "lineHeight": "63.8px",
+        "spacing": "-2.03px",
+        "width": 700,
+        "maxWidth": "none"
+      }
+    },
+    "geico-geckos-cereal-box-1440": {
+      "lead": {
+        "text": "A spoof of a Saturday-morning kids’ cereal commercial that needed a real cereal box to come to life.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "22.32px",
+        "weight": "400",
+        "lineHeight": "32.364px",
+        "spacing": "normal",
+        "width": 700,
+        "maxWidth": "700px"
+      },
+      "process": {
+        "text": "The commercial was shot on a live set",
+        "family": "Geist, Arial, sans-serif",
+        "size": "27.36px",
+        "weight": "400",
+        "lineHeight": "37.7568px",
+        "spacing": "normal",
+        "width": 484.5,
+        "maxWidth": "544.19px"
+      },
+      "animation": {
+        "text": "We explored a few animation options for the entrance before settling on the bounce.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "27.36px",
+        "weight": "400",
+        "lineHeight": "37.7568px",
+        "spacing": "normal",
+        "width": 477.75,
+        "maxWidth": "544.19px"
+      },
+      "result": {
+        "text": "As part of GEICO’s Legend of the Lizard ↗ campaign, the spot aired duringSuper Bowl LVIII’s pregame and generated more than one billion impressions for the wider campaign.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "23.76px",
+        "weight": "400",
+        "lineHeight": "34.452px",
+        "spacing": "normal",
+        "width": 820,
+        "maxWidth": "820px"
+      },
+      "strong": {
+        "text": "one billion impressions",
+        "family": "Geist, Arial, sans-serif",
+        "size": "58px",
+        "weight": "600",
+        "lineHeight": "63.8px",
+        "spacing": "-2.03px",
+        "width": 820,
+        "maxWidth": "none"
+      }
+    },
+    "axe-whaxe-lil-baby-820": {
+      "lead": {
+        "text": "SuperJoy needed a product film for AXE’s WHAXE collaboration with Lil Baby. It had to be bedazzled in a hurry.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "lineHeight": "26.1px",
+        "spacing": "normal",
+        "width": 700,
+        "maxWidth": "700px"
+      },
+      "process": {
+        "text": "We textured the supplied CAD models, developed the diamond-covered finish, and shaped the lighting to make it shine.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "22px",
+        "weight": "400",
+        "lineHeight": "30.36px",
+        "spacing": "normal",
+        "width": 258.375,
+        "maxWidth": "437.58px"
+      },
+      "animation": {
+        "text": "With the look established, we designed a series of shots to tease the product release.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "22px",
+        "weight": "400",
+        "lineHeight": "30.36px",
+        "spacing": "normal",
+        "width": 258.375,
+        "maxWidth": "437.58px"
+      },
+      "result": {
+        "text": "The wider WHAXE launch included a “Drop Your Verse” challenge that recorded 8.2M+ views and 200+ submissions, according to the campaign team.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "20px",
+        "weight": "400",
+        "lineHeight": "29px",
+        "spacing": "normal",
+        "width": 700,
+        "maxWidth": "700px"
+      },
+      "strong": {
+        "text": "8.2M+ views and 200+ submissions,",
+        "family": "Geist, Arial, sans-serif",
+        "size": "34.44px",
+        "weight": "600",
+        "lineHeight": "37.884px",
+        "spacing": "-1.2054px",
+        "width": 700,
+        "maxWidth": "none"
+      }
+    },
+    "geico-geckos-cereal-box-820": {
+      "lead": {
+        "text": "A spoof of a Saturday-morning kids’ cereal commercial that needed a real cereal box to come to life.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "lineHeight": "26.1px",
+        "spacing": "normal",
+        "width": 700,
+        "maxWidth": "700px"
+      },
+      "process": {
+        "text": "The commercial was shot on a live set",
+        "family": "Geist, Arial, sans-serif",
+        "size": "22px",
+        "weight": "400",
+        "lineHeight": "30.36px",
+        "spacing": "normal",
+        "width": 258.375,
+        "maxWidth": "437.58px"
+      },
+      "animation": {
+        "text": "We explored a few animation options for the entrance before settling on the bounce.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "22px",
+        "weight": "400",
+        "lineHeight": "30.36px",
+        "spacing": "normal",
+        "width": 258.375,
+        "maxWidth": "437.58px"
+      },
+      "result": {
+        "text": "As part of GEICO’s Legend of the Lizard ↗ campaign, the spot aired duringSuper Bowl LVIII’s pregame and generated more than one billion impressions for the wider campaign.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "20px",
+        "weight": "400",
+        "lineHeight": "29px",
+        "spacing": "normal",
+        "width": 724,
+        "maxWidth": "820px"
+      },
+      "strong": {
+        "text": "one billion impressions",
+        "family": "Geist, Arial, sans-serif",
+        "size": "34.44px",
+        "weight": "600",
+        "lineHeight": "37.884px",
+        "spacing": "-1.2054px",
+        "width": 724,
+        "maxWidth": "none"
+      }
+    },
+    "axe-whaxe-lil-baby-390": {
+      "lead": {
+        "text": "SuperJoy needed a product film for AXE’s WHAXE collaboration with Lil Baby. It had to be bedazzled in a hurry.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "lineHeight": "26.1px",
+        "spacing": "normal",
+        "width": 350,
+        "maxWidth": "700px"
+      },
+      "process": {
+        "text": "We textured the supplied CAD models, developed the diamond-covered finish, and shaped the lighting to make it shine.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "21px",
+        "weight": "400",
+        "lineHeight": "29.4px",
+        "spacing": "normal",
+        "width": 350,
+        "maxWidth": "445.536px"
+      },
+      "animation": {
+        "text": "With the look established, we designed a series of shots to tease the product release.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "21px",
+        "weight": "400",
+        "lineHeight": "29.4px",
+        "spacing": "normal",
+        "width": 350,
+        "maxWidth": "445.536px"
+      },
+      "result": {
+        "text": "The wider WHAXE launch included a “Drop Your Verse” challenge that recorded 8.2M+ views and 200+ submissions, according to the campaign team.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "20px",
+        "weight": "400",
+        "lineHeight": "29px",
+        "spacing": "normal",
+        "width": 350,
+        "maxWidth": "700px"
+      },
+      "strong": {
+        "text": "8.2M+ views and 200+ submissions,",
+        "family": "Geist, Arial, sans-serif",
+        "size": "30px",
+        "weight": "600",
+        "lineHeight": "33px",
+        "spacing": "-1.05px",
+        "width": 350,
+        "maxWidth": "none"
+      }
+    },
+    "geico-geckos-cereal-box-390": {
+      "lead": {
+        "text": "A spoof of a Saturday-morning kids’ cereal commercial that needed a real cereal box to come to life.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "lineHeight": "26.1px",
+        "spacing": "normal",
+        "width": 350,
+        "maxWidth": "700px"
+      },
+      "process": {
+        "text": "The commercial was shot on a live set",
+        "family": "Geist, Arial, sans-serif",
+        "size": "21px",
+        "weight": "400",
+        "lineHeight": "29.4px",
+        "spacing": "normal",
+        "width": 350,
+        "maxWidth": "445.536px"
+      },
+      "animation": {
+        "text": "We explored a few animation options for the entrance before settling on the bounce.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "21px",
+        "weight": "400",
+        "lineHeight": "29.4px",
+        "spacing": "normal",
+        "width": 350,
+        "maxWidth": "445.536px"
+      },
+      "result": {
+        "text": "As part of GEICO’s Legend of the Lizard ↗ campaign, the spot aired duringSuper Bowl LVIII’s pregame and generated more than one billion impressions for the wider campaign.",
+        "family": "Geist, Arial, sans-serif",
+        "size": "20px",
+        "weight": "400",
+        "lineHeight": "29px",
+        "spacing": "normal",
+        "width": 350,
+        "maxWidth": "820px"
+      },
+      "strong": {
+        "text": "one billion impressions",
+        "family": "Geist, Arial, sans-serif",
+        "size": "30px",
+        "weight": "600",
+        "lineHeight": "33px",
+        "spacing": "-1.05px",
+        "width": 350,
+        "maxWidth": "none"
+      }
+    }
+  }
+}

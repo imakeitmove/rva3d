@@ -1,0 +1,245 @@
+{
+  "previousRevision": "17b7d850bb9db49df965f4a0c2a2d731ef8adc78",
+  "previousAssets": 236,
+  "currentAssets": 254,
+  "aboutAdditions": 4,
+  "whaxeAdditions": 14,
+  "removed": [],
+  "changedExisting": [],
+  "additions": [
+    {
+      "key": "072f8e8ff996f0ad4f5d.webp",
+      "owner": "/work/axe-whaxe-lil-baby",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/axe_whaxe_lil_baby/selected/Axe_9788AXUS22DS_Whaxe_3D_16x9_still_001.jpg",
+      "sourceSha256": "b4ada9584a27f4ec2a029b2c1cb34394d94bdde536f1a0ef2b0d356b1d8db7d8",
+      "derivative": "private-media/072f8e8ff996f0ad4f5d.webp",
+      "sha256": "072f8e8ff996f0ad4f5d4fb0556b58876d0c39027b211c5c7aa63f12ed272887",
+      "bytes": 85706,
+      "publication": "public-approved",
+      "logicalUrls": [
+        "/media/work/whaxe-polish/Axe_9788AXUS22DS_Whaxe_3D_16x9_still_001.webp"
+      ]
+    },
+    {
+      "key": "169b126ba23525a7f5d4.webp",
+      "owner": "/work/axe-whaxe-lil-baby",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/axe_whaxe_lil_baby/selected/freshest_collab_loop_001.mp4",
+      "sourceSha256": "cc7e40fa36963c672a1ab38bb4502dea91cd7bf7638def221346ccef2bc2d2ef",
+      "derivative": "private-media/169b126ba23525a7f5d4.webp",
+      "sha256": "169b126ba23525a7f5d4a523f75589202a1f58a1de41cb7bc64a204f87a16189",
+      "bytes": 26544,
+      "publication": "public-approved",
+      "logicalUrls": [
+        "/media/work/whaxe-polish/freshest_collab_loop_001_poster.webp"
+      ]
+    },
+    {
+      "key": "41c539109e2aebe8b83e.webp",
+      "owner": "/work/axe-whaxe-lil-baby",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/axe_whaxe_lil_baby/process/whaxe_process_002.jpg",
+      "sourceSha256": "cfc80217ebb065ee874e58416f89d1d5422952830f923f4c9afb2e87bda05b86",
+      "derivative": "private-media/41c539109e2aebe8b83e.webp",
+      "sha256": "41c539109e2aebe8b83e850d23e3d82cf11ba384eccf9cdb801967c803633d16",
+      "bytes": 187426,
+      "publication": "public-approved",
+      "logicalUrls": [
+        "/media/work/whaxe-polish/whaxe_process_002.webp"
+      ]
+    },
+    {
+      "key": "42f6c82ee7b3667ff0eb.webp",
+      "owner": "/work/axe-whaxe-lil-baby",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/axe_whaxe_lil_baby/process/whaxe_process_003.jpg",
+      "sourceSha256": "e387f4aa38f17690e3f474763058da9ad6556b0c94434e197d5d538bd64aef19",
+      "derivative": "private-media/42f6c82ee7b3667ff0eb.webp",
+      "sha256": "42f6c82ee7b3667ff0ebbbbbf1cab633ae89d13f1a52620f9db3695367948762",
+      "bytes": 177040,
+      "publication": "public-approved",
+      "logicalUrls": [
+        "/media/work/whaxe-polish/whaxe_process_003.webp"
+      ]
+    },
+    {
+      "key": "42ff99014b85898d19ec.webp",
+      "owner": "/work/axe-whaxe-lil-baby",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/axe_whaxe_lil_baby/process/whaxe_process_004.jpg",
+      "sourceSha256": "a8100406a47f7c6df86484bcb2d67830b42afb2e1eec9717b6131034cfe9e1d7",
+      "derivative": "private-media/42ff99014b85898d19ec.webp",
+      "sha256": "42ff99014b85898d19ecb178597bdbecd037b7b8097af47231682984350e8c75",
+      "bytes": 190884,
+      "publication": "public-approved",
+      "logicalUrls": [
+        "/media/work/whaxe-polish/whaxe_process_004.webp"
+      ]
+    },
+    {
+      "key": "43f0a912537db6e12e49.webp",
+      "owner": "/work/axe-whaxe-lil-baby",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/axe_whaxe_lil_baby/selected/Axe_9788AXUS22DS_Whaxe_3D_16x9_still_002.jpg",
+      "sourceSha256": "2c59dfecfa869c7ddf63a1d95c617c117cba7cea1b29efc2587a34b1877e6ea9",
+      "derivative": "private-media/43f0a912537db6e12e49.webp",
+      "sha256": "43f0a912537db6e12e4957e473b6e23676950d6fdb144ea3abd28ac6ffb04b49",
+      "bytes": 62466,
+      "publication": "public-approved",
+      "logicalUrls": [
+        "/media/work/whaxe-polish/Axe_9788AXUS22DS_Whaxe_3D_16x9_still_002.webp"
+      ]
+    },
+    {
+      "key": "51d9349e5ae898c3c2fe.webp",
+      "owner": "/work/axe-whaxe-lil-baby",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/axe_whaxe_lil_baby/selected/Axe_9788AXUS22DS_Whaxe_3D_16x9_still_003.jpg",
+      "sourceSha256": "bf74cc021aed526c27ea9c837ae3cde6192b672de562a5d389a021146fc3dfa4",
+      "derivative": "private-media/51d9349e5ae898c3c2fe.webp",
+      "sha256": "51d9349e5ae898c3c2fede70ad05fd3a03fcaa3c65d528fd6be4f2c72bf30b10",
+      "bytes": 156958,
+      "publication": "public-approved",
+      "logicalUrls": [
+        "/media/work/whaxe-polish/Axe_9788AXUS22DS_Whaxe_3D_16x9_still_003.webp"
+      ]
+    },
+    {
+      "key": "52351fdf45af2969e1c8.webp",
+      "owner": "/work/axe-whaxe-lil-baby",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/axe_whaxe_lil_baby/process/whaxe_process_001.jpg",
+      "sourceSha256": "cb7188e0e8d9b718949960ace775307c9e7f3a65540d54730a4de893e2d6f139",
+      "derivative": "private-media/52351fdf45af2969e1c8.webp",
+      "sha256": "52351fdf45af2969e1c8196e73b8faaeb4b6710bd381ae97a32e2544e17127cd",
+      "bytes": 139638,
+      "publication": "public-approved",
+      "logicalUrls": [
+        "/media/work/whaxe-polish/whaxe_process_001.webp"
+      ]
+    },
+    {
+      "key": "5415d214ec1eb740bf62.mp4",
+      "owner": "/work/axe-whaxe-lil-baby",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/axe_whaxe_lil_baby/selected/freshest_collab_loop_001.mp4",
+      "sourceSha256": "cc7e40fa36963c672a1ab38bb4502dea91cd7bf7638def221346ccef2bc2d2ef",
+      "derivative": "private-media/5415d214ec1eb740bf62.mp4",
+      "sha256": "5415d214ec1eb740bf62ede024d5652b95416d42c9a08487fb75d5df2268b639",
+      "bytes": 432800,
+      "publication": "public-approved",
+      "logicalUrls": [
+        "/media/work/whaxe-polish/freshest_collab_loop_001.mp4"
+      ]
+    },
+    {
+      "key": "57586022ea97c304dd55.webp",
+      "owner": "/work/axe-whaxe-lil-baby",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/axe_whaxe_lil_baby/selected/Axe_9788AXUS22DS_Whaxe_3D_16x9_still_004.jpg",
+      "sourceSha256": "f3337fecd83ff1efae903bb62e5ccbea45a7188775fd206b085b616b1bc3d624",
+      "derivative": "private-media/57586022ea97c304dd55.webp",
+      "sha256": "57586022ea97c304dd55de2a98ef02876dac3ee1ff8ff3044a0771638a85b9a7",
+      "bytes": 59024,
+      "publication": "public-approved",
+      "logicalUrls": [
+        "/media/work/whaxe-polish/Axe_9788AXUS22DS_Whaxe_3D_16x9_still_004.webp"
+      ]
+    },
+    {
+      "key": "5d2a217a49ea36aa33e2.webp",
+      "owner": "/work/axe-whaxe-lil-baby",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/axe_whaxe_lil_baby/process/whaxe_process_005.jpg",
+      "sourceSha256": "7fd2afe0e35486b668439d472081f2340ebff3cbcbdbba449671701fb3b6dcb4",
+      "derivative": "private-media/5d2a217a49ea36aa33e2.webp",
+      "sha256": "5d2a217a49ea36aa33e23942fac0bffd43ae3c2dc9d89641a9993bb0b999c7b5",
+      "bytes": 39776,
+      "publication": "public-approved",
+      "logicalUrls": [
+        "/media/work/whaxe-polish/whaxe_process_005.webp"
+      ]
+    },
+    {
+      "key": "5da9bd3bae4d621428f8.webp",
+      "owner": "/about",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/rooted_in_richmond/richmond city skyline_wide_001.jpg",
+      "sourceSha256": "dcf2abd7427f5f2d1e27b0f59f49b2cbc6e098dd7a432c453a96d3baa5b36a37",
+      "derivative": "private-media/5da9bd3bae4d621428f8.webp",
+      "sha256": "5da9bd3bae4d621428f8b3cf73d8837cbc597f7a580b58ca0cd758ab27c79c20",
+      "bytes": 123536,
+      "publication": "public-approved",
+      "logicalUrls": [
+        "/media/about-richmond/skylineDisplay-v001.webp"
+      ]
+    },
+    {
+      "key": "6018fdd9f65752ca39e1.webp",
+      "owner": "/about",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/rooted_in_richmond/fool_me_twice_cover_image_001.jpg",
+      "sourceSha256": "d7fb06a073c81b672d96c6e315b3e480590922e4179e7a4ba7e84b857b24b4f3",
+      "derivative": "private-media/6018fdd9f65752ca39e1.webp",
+      "sha256": "6018fdd9f65752ca39e1815f63efcef5aa118439d63859033dff156a68a4a4b5",
+      "bytes": 137304,
+      "publication": "public-approved",
+      "logicalUrls": [
+        "/media/about-richmond/film-v001.webp"
+      ]
+    },
+    {
+      "key": "7f9b170cbc2faba71694.webp",
+      "owner": "/about",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/rooted_in_richmond/richmond city skyline.jpg",
+      "sourceSha256": "64d06c100610902b0be39ce2464da6da85ce77f63d72ffccc7b3f06eaa9d477d",
+      "derivative": "private-media/7f9b170cbc2faba71694.webp",
+      "sha256": "7f9b170cbc2faba716943caf9de92fab433a13578334b81c9be30d7c239d34d1",
+      "bytes": 247172,
+      "publication": "public-approved",
+      "logicalUrls": [
+        "/media/about-richmond/skylineFull-v001.webp"
+      ]
+    },
+    {
+      "key": "8b9a25908d3466dd6bbf.webp",
+      "owner": "/about",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/rooted_in_richmond/deven_among_the_tools_cropped.jpg",
+      "sourceSha256": "26aa6e0f74124c491bff855bc22a211a45f07ec862bfad213f40f634bed1d1fc",
+      "derivative": "private-media/8b9a25908d3466dd6bbf.webp",
+      "sha256": "8b9a25908d3466dd6bbf85c868b2f861a9d07c3b9c6d56bd8c0789fc9953fc95",
+      "bytes": 249864,
+      "publication": "public-approved",
+      "logicalUrls": [
+        "/media/about-richmond/studio-v001.webp"
+      ]
+    },
+    {
+      "key": "ae42bff8f499f52c0fb1.webp",
+      "owner": "/work/axe-whaxe-lil-baby",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/axe_whaxe_lil_baby/process/whaxe_process_006.jpg",
+      "sourceSha256": "2b607221a83f106b75b43139ae995c4a99b4728bad58486846483076bb18566a",
+      "derivative": "private-media/ae42bff8f499f52c0fb1.webp",
+      "sha256": "ae42bff8f499f52c0fb1b2191336d225eb2ee0fb9942f4fe57e16d99e2ce9f56",
+      "bytes": 98560,
+      "publication": "public-approved",
+      "logicalUrls": [
+        "/media/work/whaxe-polish/whaxe_process_006.webp"
+      ]
+    },
+    {
+      "key": "b221e7516f79f54c21d1.mp4",
+      "owner": "/work/axe-whaxe-lil-baby",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/axe_whaxe_lil_baby/selected/freshest_collab_loop_002.mp4",
+      "sourceSha256": "d0398e43a63701dbd82982f4a9c7d41bcc49da9c1b3a9b2cdd72a553e35e886e",
+      "derivative": "private-media/b221e7516f79f54c21d1.mp4",
+      "sha256": "b221e7516f79f54c21d18a9a53df8ec4d15e16d6b577aed9f414681c3e125b13",
+      "bytes": 1449341,
+      "publication": "public-approved",
+      "logicalUrls": [
+        "/media/work/whaxe-polish/freshest_collab_loop_002.mp4"
+      ]
+    },
+    {
+      "key": "e552d93c4f00cc5ac0cf.webp",
+      "owner": "/work/axe-whaxe-lil-baby",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/axe_whaxe_lil_baby/selected/freshest_collab_loop_002.mp4",
+      "sourceSha256": "d0398e43a63701dbd82982f4a9c7d41bcc49da9c1b3a9b2cdd72a553e35e886e",
+      "derivative": "private-media/e552d93c4f00cc5ac0cf.webp",
+      "sha256": "e552d93c4f00cc5ac0cf790f9b86aff3f6436c44e24e5f36b44945e8df8ee6dc",
+      "bytes": 40756,
+      "publication": "public-approved",
+      "logicalUrls": [
+        "/media/work/whaxe-polish/freshest_collab_loop_002_poster.webp"
+      ]
+    }
+  ]
+}

@@ -80,3 +80,11 @@ unchanged.
 The release baseline is pinned in `src/content/site/public_release_20260913.generated.json`: eight articles, 162 assets and 226 logical media URLs. The original 93 public asset records and 157 mappings remain unchanged. The 69 additions are already-processed, selected GEICO (46), Uncommon Goods (20) and How We Work (3) derivatives. Deven explicitly cleared Uncommon Goods source materials during the rollout. Four unselected GEICO review derivatives are omitted from delivery; their files and historical registrations are preserved. No source masters are copied.
 
 The exact registry and URL digests are checked alongside the existing per-file hashes, source seal, canonical main revision, project identity and Production environment checks. New media still defaults to private review. This updates the approved release selection without relaxing any publication or target guard.
+
+## September 30 approved editorial release
+
+The current pinned selection is 254 public assets and 316 logical public URLs, across ten approved routes. The [asset audit](media_audit_20260930.json) compares the prior sealed production package by ID, source and derivative hash: exactly four About and fourteen WHAXE additions, no removed or changed prior public records. The historical 236-asset seal remains in the baseline's `editorialRelease20260930.previous` record and the previous production package.
+
+To reproduce the audited baseline from the retained previous package, run `node scripts/seal_editorial_release_20260930.mjs <previous-production-package-directory>`. This bounded generator requires the explicit eighteen approved IDs, unchanged existing records, source/derivative hashes, page references and the preserved private Twist exclusions. It grants no new permissions. Then follow the exact-commit packaging procedure above; source tests alone are not a sealed-package check.
+
+Current state and future work: [site_handoff.md](site_handoff.md). Exact production facts: [release_receipt_20260930.json](release_receipt_20260930.json). The September 13 section above is historical.

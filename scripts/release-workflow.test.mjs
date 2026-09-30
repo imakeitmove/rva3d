@@ -104,6 +104,8 @@ test("production selection excludes private assets without mutating review recor
   const before = JSON.stringify({ manifest, urls });
   assert.deepEqual(selectProductionMedia(manifest, urls), { manifest: { [approved]: manifest[approved] }, urls: { "/public": urls["/public"] } });
   assert.equal(JSON.stringify({ manifest, urls }), before);
+  assert.throws(() => selectProductionMedia({ [approved]: { publication: "unknown" } }, {}), /Unknown media publication status/);
+  assert.deepEqual(selectProductionMedia({ [privateKey]: { publication: "unapproved" } }, {}), { manifest: {}, urls: {} });
   assert.throws(() => selectProductionMedia(manifest, { "/bad-public": `/media/${privateKey}` }), /Public route references non-public media/);
   assert.throws(() => selectProductionMedia(manifest, { "/missing": "/media/dddddddddddddddddddd.webp" }), /Unregistered/);
 });

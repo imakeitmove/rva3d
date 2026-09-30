@@ -14,10 +14,10 @@
     "desmi-rotan-pump",
     "uncommon-goods-outta-this-world"
   ],
-  "assets": 236,
-  "logicalUrls": 298,
-  "registryDigest": "6f7f64ed46c9b8098daa7fe2812985984f3bd67b702cc07d6f55189d4047c541",
-  "urlsDigest": "27e69f7193df5013885f76f1d498cb95a840fa86b6b2dd2414eed2b07f19da5b",
+  "assets": 254,
+  "logicalUrls": 316,
+  "registryDigest": "d22b454271a41cebe4451e994e042ecacfd8d15966ad968e7a272734a3020ddf",
+  "urlsDigest": "acf3efd2c655be14b22d86aec6e9cc9a7c5a9c6f70b09e58367bf92f7c365b4f",
   "previous93RegistryDigest": "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8",
   "previous157UrlsDigest": "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f",
   "excludedKeys": [
@@ -150,7 +150,9 @@
     "2026-09-16",
     "2026-09-17",
     "2026-09-26",
-    "2026-09-28"
+    "2026-09-28",
+    "2026-09-29",
+    "2026-09-30"
   ],
   "audit": "2026-09-17 explicit owner approval to publish all 45 current portfolio ribbon images with the finished hello experience and site refinements.",
   "previousSeptember15Release": {
@@ -189,5 +191,45 @@
     "authorization": "Owner-selected media for local Noise Tech review only; no push, publication or deployment authorized.",
     "sheet": "https://app.notion.com/p/3e8a9ba2f25880c49ed3ff623bd37928",
     "mediaMap": "src/content/work/noise_tech_media.generated.json"
+  },
+  "editorialRelease20260930": {
+    "previous": {
+      "assets": 236,
+      "logicalUrls": 298,
+      "registryDigest": "6f7f64ed46c9b8098daa7fe2812985984f3bd67b702cc07d6f55189d4047c541",
+      "urlsDigest": "27e69f7193df5013885f76f1d498cb95a840fa86b6b2dd2414eed2b07f19da5b",
+      "approvedDates": [
+        "2026-09-12",
+        "2026-09-13",
+        "2026-09-15",
+        "2026-09-16",
+        "2026-09-17",
+        "2026-09-26",
+        "2026-09-28"
+      ]
+    },
+    "authorization": "Deven's September 30 release task explicitly approves the About refresh and new WHAXE media and authorizes production deployment after strict validation. Prior source/master and private-review exclusions remain unchanged.",
+    "previousRevision": "17b7d850bb9db49df965f4a0c2a2d731ef8adc78",
+    "addedKeys": [
+      "5da9bd3bae4d621428f8.webp",
+      "7f9b170cbc2faba71694.webp",
+      "6018fdd9f65752ca39e1.webp",
+      "8b9a25908d3466dd6bbf.webp",
+      "52351fdf45af2969e1c8.webp",
+      "41c539109e2aebe8b83e.webp",
+      "42f6c82ee7b3667ff0eb.webp",
+      "42ff99014b85898d19ec.webp",
+      "5d2a217a49ea36aa33e2.webp",
+      "ae42bff8f499f52c0fb1.webp",
+      "072f8e8ff996f0ad4f5d.webp",
+      "43f0a912537db6e12e49.webp",
+      "51d9349e5ae898c3c2fe.webp",
+      "57586022ea97c304dd55.webp",
+      "5415d214ec1eb740bf62.mp4",
+      "169b126ba23525a7f5d4.webp",
+      "b221e7516f79f54c21d1.mp4",
+      "e552d93c4f00cc5ac0cf.webp"
+    ],
+    "evidence": "docs/media_audit_20260930.json"
   }
 }

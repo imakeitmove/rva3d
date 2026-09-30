@@ -1,6 +1,10 @@
 ﻿# RVA3D case-study style guide
 
-This is a flexible visual and editorial system, not a page template. It records the GEICO and WHAXE local review direction at the September 26, 2026 GEICO checkpoint (`7df738f`), including the owner's later copy, caption and spacing corrections. The shared media-control refinement is implemented and tested in that checkpoint; local review is not publication approval.
+This is a flexible visual and editorial system, not a fixed page template. The September 26 GEICO checkpoint (`7df738f`) is historical; the current rules incorporate Deven's September 30 approved WHAXE direction. Read [the current handoff](site_handoff.md) for release state.
+
+> The revised WHAXE case study is the preferred layout reference for new case studies when sufficient supporting media exists. GEICO remains the reference for the established typography and house styling.
+
+Keep the experience work-first, concise, premium and restrained. WHAXE's reusable rhythm is finished work early; short, specific narrative beats beside process media; a slideshow when a real sequence explains the work; complementary motion pieces; concise supported campaign context when useful; a strong final gallery; centered credits; established Next Project navigation. A still-only project, vertical film, technical explainer or project with less process material can use a simpler or different arrangement. Never invent media, duplicate weak images or add filler copy to imitate a section count.
 
 ## How to use this guide
 
@@ -38,7 +42,7 @@ Some files retain superseded markup in comments and unused historical selectors 
 
 Start with a restrained Back to Work link, a confident project-specific headline and a short introduction. Let the work appear early: both current cases lead with the finished film. A still-only project can lead with its strongest finished image.
 
-Develop the story through a small number of meaningful visual beats. Short prose explains a decision, contribution or relationship that the imagery cannot explain alone. Alternate broad media, copy beside media, and paired media where those arrangements serve the story. Avoid mechanically repeating the same module or adding a heading to every image.
+Develop the story through a small number of meaningful visual beats. Preserve owner-approved wording without unsolicited marketing rewrites. Short prose explains a decision, contribution or relationship that the imagery cannot explain alone. Alternate broad media, copy beside media, and paired media where those arrangements serve the story. Avoid mechanically repeating the same module or adding a heading to every image.
 
 Finish the visual story, then move into centered credits and established next-project navigation. WHAXE's two complementary finished stills after “Made for the drop.” and before Credits are a useful example of a quiet visual ending, not a mandatory section. GEICO's reference/final comparison serves its own practical-to-CG story.
 
@@ -46,7 +50,7 @@ A results statement is appropriate only when there is a relevant, supported resu
 
 ## Typography, copy, spacing and alignment
 
-Use the site's existing Geist typography, paper background and ink-colored text. Reuse active type scales and link styles rather than adding a new font or section-specific display style. Headlines have presence through scale and tight spacing; supporting copy stays readable and relatively short.
+Use the site's existing Geist typography, paper background and ink-colored body text. Light/paper is the current default; dark pages are a possible future art-direction option, not part of this release. Owner-approved brand-logo section markers may replace redundant headings. Reuse active type scales and link styles rather than adding a new font or section-specific display style. Headlines have presence through scale and tight spacing; supporting copy stays readable and relatively short.
 
 Current implementation anchors, not universal required dimensions:
 
@@ -64,7 +68,7 @@ Keep useful whitespace around transitions. The owner explicitly restored the est
 
 “Full-width” normally means the broad content wrapper, not automatically edge-to-edge browser width. Choose a large single image/film when it carries the story. Preserve the source's aspect ratio and readable subject scale.
 
-Two-up media uses equal columns and a restrained gap (currently 28px in the house `.pair`). Pair images because they complement, compare or clarify each other. WHAXE's finished detail and wider product compositions have equal weight and native 16:9 proportions, without a heading or captions. GEICO's physical reference and final render pair uses labels because distinguishing the two is useful.
+Two-up media uses equal columns and a restrained gap (currently 28px in the house `.pair`). Pair images because they complement, compare or clarify each other. WHAXE's four final compositions have equal weight and native 16:9 proportions, without headings or captions. Its two finished loops sit together above the supported campaign results. Paired items should align, but distinct rows may intentionally use different aspect ratios. GEICO's physical reference and final render pair uses labels because distinguishing the two is useful.
 
 For a deliberately aligned pair, match displayed height without stretching. GEICO's table photo is an explicit owner-approved exception: an 8:5 crop anchored at the top removes material from the bottom to align with the viewport film. Fullscreen preserves the complete image. This is not permission to crop every future photograph to 8:5.
 
@@ -82,7 +86,7 @@ Image and video wrappers have different aspect/fit rules, and some current video
 
 Use the established players and coordinate playback rather than adding another control system.
 
-- Main films are poster-first and user initiated, with browser-native transport controls, audio/seek behavior and inline playback. The GEICO hero adds the shared corner fullscreen control. Do not hide native transport to mimic custom loop chrome.
+- Main films with meaningful audio are poster-first, user initiated and sound-on, with browser-native transport controls, audio/seek behavior and inline playback. The GEICO hero adds the shared corner fullscreen control. Do not hide native transport to mimic custom loop chrome.
 - Process clips use muted inline loops with play/pause and expand. Existing case playback suspends loops when offscreen, the tab is hidden, the main film plays or the opted-in panorama is open. Remember a deliberate pause. Reduced-motion and data-saving preferences prevent automatic process playback; explicit play remains available.
 - A clean continuous excerpt can be delivered as a prepared native-loop clip. GEICO's final CG excerpt uses this approach; do not reintroduce the older seek-at-segment-boundary behavior without verifying sustained playback.
 - Stills need only expand where expanded viewing is offered. Slideshow controls are previous/next and expand, with pause when autoplay exists. Do not add a useless pause control to a static gallery.
@@ -97,7 +101,7 @@ On touch/pen, first tap reveals the media's controls without operating a previou
 
 Use the shared white SVG northeast expand arrow and matching exit graphic. Small translucent dark backings provide contrast over light imagery while the hit area remains larger (44px for inline controls). Do not restore heavy always-visible discs or alternate expand glyphs. Viewer Close remains visible even when other tools fade. The shared hook changes control visibility, not playback state.
 
-The quiet enhancement is scoped to existing article media wrappers and the opted-in viewer; it is not automatically attached to every raw image. WHAXE's final still pair currently uses `WorkMedia` without added overlay controls. Do not imply that every image already has fullscreen or retrofit it merely to satisfy this document.
+The quiet enhancement is scoped to existing article media wrappers and the opted-in viewer; it is not automatically attached to every raw image. WHAXE's final four-still gallery uses `WorkMedia` without added overlay controls. Do not imply that every image already has fullscreen or retrofit it merely to satisfy this document.
 
 ## Process, BTS and captions
 
@@ -111,7 +115,7 @@ The current GEICO table photo and viewport clip have no visible captions, follow
 
 Place credits after the project's final visual/story beat, with generous whitespace. Use a centered overall composition, understated role labels and names with real visual presence. Reuse `.credits` / `.creditGrid` and semantic role/name pairs (`dl`, `dt`, `dd`). No cards, borders, badges or dense production table.
 
-Group a large team when it improves scanning, as GEICO does. A shorter list can use WHAXE's simpler two-column arrangement. GEICO's groups reduce across tablet/mobile; WHAXE's roles become one column at 480px. Preserve role/name proximity and readable names rather than forcing identical group counts.
+Group a large team when it improves scanning, as GEICO does. A shorter list can use WHAXE's simpler two-column arrangement or Noise Tech's single centered stack; group only as needed. GEICO's groups reduce across tablet/mobile; WHAXE's roles become one column at 480px. Preserve role/name proximity and readable names rather than forcing identical group counts.
 
 Deven appears confidently as one contributor among the team, not in a separate promotional callout. Distinguish agency, production and individual roles accurately. Verified credits should make authorship clear without implying RVA3D commissioned the original production; do not add explanatory provenance paragraphs elsewhere.
 
@@ -129,7 +133,7 @@ Attribution can be natural visible copy when useful (WHAXE's campaign-team link)
 
 Reuse the established `.v-broad.case-next` markup and global styles, also found in [EditorialCasePage.tsx](../src/components/site/EditorialCasePage.tsx). Preserve the thin content-width divider, small uppercase NEXT PROJECT label, large linked title with northeast arrow, and restrained Back to Work link on the opposite/right side on desktop. The existing responsive rules reflow this into a stacked arrangement with space above Back to Work.
 
-Use an existing public case-study route and the appropriate Work anchor, with existing `siteHref` handling. GEICO currently points to WHAXE; WHAXE points to GEICO. Do not invent routes or add thumbnails, cards, descriptions, a More work headline or a centered link cluster.
+Use an existing public case-study route and the appropriate Work anchor, with existing `siteHref` handling. The current deliberate sequence is WHAXE ? GEICO ? Twist ? Noise Tech ? Wawa ? DESMI ? WHAXE. The September 26 two-page GEICO/WHAXE loop is historical. Keep this sequence independent of Work-page curation. Do not invent routes or add thumbnails, cards, descriptions, a More work headline or a centered link cluster.
 
 ## Accessibility and verification
 
@@ -148,7 +152,7 @@ Run relevant existing lint, type, content, media and build checks for changed co
 - Add unnecessary boxes, cards, badges, dashboards or a tinted results module simply to divide the page.
 - Repeat explanations, add filler process sections or finish with a generic promotional paragraph.
 - Revive either the older related-work thumbnail grid or the superseded More work text cluster when established NEXT PROJECT navigation exists.
-- Force every project into identical media modules, a fixed number of sections, GEICO's panorama/slideshow or WHAXE's closing still pair.
+- Force every project into identical media modules, a fixed number of sections, GEICO's panorama/slideshow or WHAXE's final gallery.
 - Crop or stretch media merely to conform to another case study. An approved asset-specific crop is not a universal aspect-ratio rule.
 - Restore obvious captions, expose internal media labels or describe process footage as a final render.
 - Make noninteractive emphasis look like a purple link, hide functionality permanently or create decorative controls that do nothing.
@@ -156,3 +160,12 @@ Run relevant existing lint, type, content, media and build checks for changed co
 - Add a special RVA3D/Deven promotional credit box, unsupported collaborator credits or explanatory commissioning/provenance paragraphs.
 - Treat archived comments, unused legacy CSS or an older brief as permission to reverse later owner corrections.
 - Change global typography, header prototypes, homepage/Work behavior or other case studies merely to make them conform to this guide.
+
+## Curation, workflow and publication
+
+- Feature only Noise Tech as the Capri Sun Work entry. Solstice Pouch and Trick & Treat retain their standalone routes and sibling links.
+- Read current instructions, source and [site_handoff.md](site_handoff.md) before editing. Keep each task bounded and protect unrelated work. Checkpoint approved work before new experiments.
+- Local review, committed, pushed and deployed are separate states. Report actual tests and limitations; never call unrun checks passed.
+- Use underscores in new ordinary filenames/folders; preserve framework filenames, route slugs and established paths.
+- A storage location does not establish publication permission. Only public-approved assets enter production; private-review-only assets stay private.
+- Source/master files, including the skyline master, do not become public because a web derivative is approved. Preserve originals, source mapping, credit and rights records. Use the strict selection/sealing workflow in [production-release.md](production-release.md).

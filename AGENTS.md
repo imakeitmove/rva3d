@@ -167,7 +167,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-Read `docs/case_study_style.md` before changing case-study layout, copy, media, credits, or navigation.
+Read `docs/case_study_style.md` before changing case-study layout, copy, media, credits, or navigation. Also read `docs/site_handoff.md` for current checkout, release state, preview workflow and deferred tasks.
 
 ## RVA3D copy voice
 
