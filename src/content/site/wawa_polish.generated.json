@@ -1,0 +1,190 @@
+{
+  "process": [
+    {
+      "kind": "image",
+      "src": "/media/work/wawa_polish/process_001.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Wawa Coffee Island supplied fixture CAD and process view 1"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/wawa_polish/process_002.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Wawa Coffee Island supplied fixture CAD and process view 2"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/wawa_polish/process_003.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Wawa Coffee Island supplied fixture CAD and process view 3"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/wawa_polish/process_004.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Wawa Coffee Island supplied fixture CAD and process view 4"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/wawa_polish/process_005.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Wawa Coffee Island supplied fixture CAD and process view 5"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/wawa_polish/process_006.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Wawa Coffee Island supplied fixture CAD and process view 6"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/wawa_polish/process_007.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Wawa Coffee Island supplied fixture CAD and process view 7"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/wawa_polish/process_008.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Wawa Coffee Island supplied fixture CAD and process view 8"
+    }
+  ],
+  "products": [
+    {
+      "kind": "image",
+      "src": "/media/work/wawa_polish/products_001.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Wawa 24-ounce coffee cup recreation"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/wawa_polish/products_002.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Coffee bags and products recreated for the Wawa fixture"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/wawa_polish/products_003.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Recreated Wawa coffee cups"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/wawa_polish/products_004.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Recreated sugar packets for the Wawa coffee counter"
+    }
+  ],
+  "loops": [
+    {
+      "kind": "video",
+      "src": "/media/work/wawa_polish/loops_001.mp4",
+      "width": 1280,
+      "height": 720,
+      "mimeType": "video/mp4",
+      "alt": "Wawa Florida island configuration turntable",
+      "presentation": "loop",
+      "hasAudio": false,
+      "poster": {
+        "kind": "image",
+        "src": "/media/work/wawa_polish/loops_001_poster.webp",
+        "width": 1280,
+        "height": 720,
+        "alt": "Wawa Florida island configuration turntable"
+      }
+    },
+    {
+      "kind": "video",
+      "src": "/media/work/wawa_polish/loops_002.mp4",
+      "width": 1280,
+      "height": 720,
+      "mimeType": "video/mp4",
+      "alt": "Wawa 7000 rack configuration turntable",
+      "presentation": "loop",
+      "hasAudio": false,
+      "poster": {
+        "kind": "image",
+        "src": "/media/work/wawa_polish/loops_002_poster.webp",
+        "width": 1280,
+        "height": 720,
+        "alt": "Wawa 7000 rack configuration turntable"
+      }
+    }
+  ],
+  "stills": [
+    {
+      "kind": "image",
+      "src": "/media/work/wawa_polish/stills_001.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Finished Wawa Coffee Island fixture, view 1"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/wawa_polish/stills_002.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Finished Wawa Coffee Island fixture, view 2"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/wawa_polish/stills_003.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Finished Wawa Coffee Island fixture, view 3"
+    },
+    {
+      "kind": "image",
+      "src": "/media/work/wawa_polish/stills_004.webp",
+      "width": 1600,
+      "height": 900,
+      "alt": "Finished Wawa Coffee Island fixture, view 4"
+    }
+  ],
+  "hero": {
+    "kind": "video",
+    "src": "/media/work/wawa_polish/hero_001.mp4",
+    "width": 1920,
+    "height": 1080,
+    "mimeType": "video/mp4",
+    "alt": "Wawa Coffee Island finished visualization film",
+    "presentation": "controls",
+    "hasAudio": true,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/wawa_polish/hero_001_poster.webp",
+      "width": 1920,
+      "height": 1080,
+      "alt": "Wawa Coffee Island finished visualization film"
+    }
+  },
+  "test": {
+    "kind": "video",
+    "src": "/media/work/wawa_polish/test_001.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "alt": "Wawa Coffee Island viewport animation test",
+    "presentation": "loop",
+    "hasAudio": false,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/wawa_polish/test_001_poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Wawa Coffee Island viewport animation test"
+    }
+  }
+}

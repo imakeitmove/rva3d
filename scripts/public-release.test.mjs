@@ -184,7 +184,8 @@ test("release registry pins ten owner-approved cases and the exact selectively r
   // assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 224, logicalUrls: 286, seoDimensionsVerified: false });
   // September 29 sealed selection: 236 assets / 298 URLs; audited additions: 4 About + 14 WHAXE.
   //assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 236, logicalUrls: 298, seoDimensionsVerified: false });
-  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 254, logicalUrls: 316, seoDimensionsVerified: false });
+  // Prior selection: 254 assets / 316 URLs. Wawa adds 24 exact owner-selected derivatives.
+  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 278, logicalUrls: 340, seoDimensionsVerified: false });
 });
 
 // GEICO Phase 2 covers the editorial contract and prevents approval drift in shared media.
@@ -438,3 +439,27 @@ test("case refinement keeps caption-only Cable evidence and approved media prove
 //       } else {
 //         assert(isPublicMediaEntry(registry[delivery.split("/").at(-1)]), "Public media does not resolve: " + value.src);
 //       }
+
+test("Wawa media preserves the owner's exact 20-source order and playback roles", async () => {
+  const read = async name => JSON.parse(await fs.readFile(path.join(root, "src/content/site", name), "utf8"));
+  const [media, registry, urls] = await Promise.all([read("wawa_polish.generated.json"), read("media.generated.json"), read("media-urls.generated.json")]);
+  const ordered = [media.hero, ...media.process, ...media.products, media.test, ...media.loops, ...media.stills];
+  const expected = [
+    "WAWA_LARGE_COFFEE_ISLAND_montage_V01_herovideo.mp4",
+    ...Array.from({ length: 8 }, (_, i) => `wawa_coffee_island_process_use${i + 1}.jpg`),
+    "wawa_24_0z_cup_preview.jpg", "LARGE_WAWA_ISLAND_FIXTURE_V03_CU_preview.jpg", "wawa_coffee_cups_preview.jpg", "sugar_packets_preview.jpg",
+    "wawa_coffee_island_animation_test.mp4", "360_florida_island_V04.mp4", "360_7000_rack_V04.mp4",
+    "LARGE_WAWA_ISLAND_FIXTURE_V06_camera_2.jpg", "LARGE_WAWA_ISLAND_FIXTURE_V06_camera_4 copy.jpg", "LARGE_WAWA_ISLAND_FIXTURE_V12_Main0051 (0-00-00-00).jpg", "LARGE_WAWA_ISLAND_FIXTURE_V06_camera_3.jpg",
+  ];
+  assert.equal(ordered.length, 20);
+  assert.deepEqual(ordered.map(item => {
+    const entry = registry[urls[item.src].split("/").at(-1)];
+    assert.equal(entry.publication, "public-approved");
+    assert.equal(item.width / item.height, 16 / 9);
+    return path.posix.basename(entry.source);
+  }), expected);
+  assert.equal(media.hero.presentation, "controls"); assert.equal(media.hero.hasAudio, true);
+  for (const loop of [media.test, ...media.loops]) { assert.equal(loop.presentation, "loop"); assert.equal(loop.hasAudio, false); }
+  const renderer = (await fs.readFile(path.join(root, "src/components/site/WawaCase.tsx"), "utf8")).split("// Previous Wawa composition")[0];
+  for (const text of ["Pak-It supplied CAD models for their wire rack system,", "and we recreated the cups, coffee bags, lids and packets", "that show the counter as it will be seen by customers.", "Pak-It won the contract and its fixtures were integrated across Wawa's entire chain of over 1,200 stores."] ) assert(renderer.includes(text));
+});

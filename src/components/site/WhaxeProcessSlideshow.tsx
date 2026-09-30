@@ -7,8 +7,10 @@ import type { WorkImageMedia } from "@/content/work/types";
 import { useGeicoPlayback } from "./GeicoMedia";
 import styles from "./GeicoInteractions.module.css";
 
-// WHAXE-specific timing; reuse house transitions, controls and coordinated playback.
-export function WhaxeProcessSlideshow({ slides }: { slides: WorkImageMedia[] }) {
+// Reuse the reviewed timing, house transitions and coordinated playback.
+// The optional label lets other cases use the same gallery without WHAXE attribution.
+// Previous signature: ({ slides }: { slides: WorkImageMedia[] })
+export function WhaxeProcessSlideshow({ slides, label = "WHAXE material and lighting development" }: { slides: WorkImageMedia[]; label?: string }) {
   const root = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(false);
@@ -34,7 +36,7 @@ export function WhaxeProcessSlideshow({ slides }: { slides: WorkImageMedia[] }) 
     return () => clearTimeout(timer);
   }, [eligible, index, slides.length]);
   function step(direction: number) { setIndex(previous => (previous + direction + slides.length) % slides.length); }
-  return <div ref={root} className={styles.slideshow} role="region" aria-roledescription="carousel" aria-label="WHAXE material and lighting development" data-active-slide={index} data-autoplay={eligible}>
+  return <div ref={root} className={styles.slideshow} role="region" aria-roledescription="carousel" aria-label={label} data-active-slide={index} data-autoplay={eligible}>
     <div className={styles.slides} style={{ aspectRatio: `${slides[0].width} / ${slides[0].height}` }}>
       {slides.map((media, slide) => (slide === 0 || visible || slide === index) && <div className={styles.slide} key={media.src} aria-hidden={slide !== index} data-current={slide === index} role="group" aria-roledescription="slide" aria-label={`${slide + 1} of ${slides.length}`}>
         <WorkMedia media={media} privateDelivery sizes="(max-width: 760px) calc(100vw - 40px), 58vw" />

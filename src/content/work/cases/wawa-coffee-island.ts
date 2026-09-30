@@ -1,4 +1,5 @@
-import additions from "../../site/case-refinement-20260916.generated.json" with { type: "json" };
+// Previous hero source: case-refinement-20260916.generated.json / additions.wawaHero.
+import refreshedMedia from "../../site/wawa_polish.generated.json" with { type: "json" };
 import type { WorkCaseStudy, WorkVideoMedia } from "../types";
 
 const hero = {
@@ -233,7 +234,8 @@ const wawaCoffeeIslandFinalOnlyAudit = {
 // the corrected contribution, known credits, summary and SEO remain authoritative.
 export const wawaCoffeeIsland = {
   ...wawaCoffeeIslandFinalOnlyAudit,
-  heroMedia: additions.wawaHero as WorkVideoMedia,
+  // Previous heroMedia: additions.wawaHero as WorkVideoMedia.
+  heroMedia: refreshedMedia.hero as WorkVideoMedia,
   galleryMedia: wawaCoffeeIslandBeforeSafetyAudit.galleryMedia,
   processChapters: wawaCoffeeIslandBeforeSafetyAudit.processChapters,
   // Previous sequence is preserved in wawaCoffeeIslandBeforeSafetyAudit.

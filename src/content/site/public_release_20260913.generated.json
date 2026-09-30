@@ -14,10 +14,10 @@
     "desmi-rotan-pump",
     "uncommon-goods-outta-this-world"
   ],
-  "assets": 254,
-  "logicalUrls": 316,
-  "registryDigest": "d22b454271a41cebe4451e994e042ecacfd8d15966ad968e7a272734a3020ddf",
-  "urlsDigest": "acf3efd2c655be14b22d86aec6e9cc9a7c5a9c6f70b09e58367bf92f7c365b4f",
+  "assets": 278,
+  "logicalUrls": 340,
+  "registryDigest": "f6b0cf471f146ac9db07b1d84e6448d809a2bc867d4c1a9d1916111dc9f10f95",
+  "urlsDigest": "a7cda654f6ac2815934f549fe8d0bf6f75c1f8d2cbe9ae797f159ca4ce0ba266",
   "previous93RegistryDigest": "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8",
   "previous157UrlsDigest": "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f",
   "excludedKeys": [
@@ -231,5 +231,42 @@
       "e552d93c4f00cc5ac0cf.webp"
     ],
     "evidence": "docs/media_audit_20260930.json"
+  },
+  "wawaPolish20260930": {
+    "previousRevision": "4284c728ac9d365edf22592fff122aaf40b7a64c",
+    "previous": {
+      "assets": 254,
+      "logicalUrls": 316,
+      "registryDigest": "d22b454271a41cebe4451e994e042ecacfd8d15966ad968e7a272734a3020ddf",
+      "urlsDigest": "acf3efd2c655be14b22d86aec6e9cc9a7c5a9c6f70b09e58367bf92f7c365b4f"
+    },
+    "addedKeys": [
+      "2fb4fec64ac667e4b873.mp4",
+      "40ad777476decd3cd497.webp",
+      "f5b91a9993eb420994bf.webp",
+      "13c189a9f206df73cff7.webp",
+      "cc36625bb4472097f3bd.webp",
+      "1ac27cbf978d321788ea.webp",
+      "2400dbfb0c53217e683a.webp",
+      "6757cb6f644e7bb5c660.webp",
+      "95fbfa4e6c6fc841e3b6.webp",
+      "b8106e4ec3f542d82e49.webp",
+      "005381e203dd57775112.webp",
+      "23afe43d8efdd77533e2.webp",
+      "58cd54885eacabb70403.webp",
+      "156acfff8366a1fb195e.webp",
+      "703de0cbdee6b763d29d.mp4",
+      "10e7b5c3e7cdae2f933c.webp",
+      "520089b4e3133e49eca6.mp4",
+      "83e7c562467e592d9707.webp",
+      "3a57c76061f9e917cbaf.mp4",
+      "818fff9a538a276c17e7.webp",
+      "86879b56c815a39c941f.webp",
+      "805c7208f063535f69ac.webp",
+      "136bce5c73532eb501fc.webp",
+      "dfae32253e5f02eac2d2.webp"
+    ],
+    "authorization": "Owner-selected Wawa derivatives for local case-study review and checkpoint only. No push/deployment authorized; unrelated rights unchanged.",
+    "evidence": "docs/wawa_media_audit_20260930.json"
   }
 }
