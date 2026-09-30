@@ -20,6 +20,7 @@ export function BrandLogoRibbon() {
   const { sequenceRef, trackRef, viewportRef } =
     usePortfolioRibbonMotion({
       direction: 1,
+      scrollEnergy: true,
       itemCount: brandLogos.length,
       onActivate: ignoreActivation,
       // paused,

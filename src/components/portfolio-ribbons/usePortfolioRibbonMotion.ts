@@ -10,12 +10,15 @@ import {
   useRef,
 } from "react";
 
+import { acquireScrollEnergy } from "../../../public/site-assets/scroll-energy.js";
+
 const AUTO_SPEED = 7.5;
 const DRAG_THRESHOLD = 7;
 const MAX_FLING_SPEED = 2400;
 const TAP_TIME_LIMIT = 450;
 
 type UsePortfolioRibbonMotionOptions = {
+  scrollEnergy?: boolean;
   direction: -1 | 1;
   itemCount: number;
   onActivate: (index: number, origin: HTMLElement) => void;
@@ -43,11 +46,20 @@ function wrapPosition(value: number, width: number) {
 
 export function usePortfolioRibbonMotion({
   direction,
+  scrollEnergy = false,
   itemCount,
   onActivate,
   paused,
   position,
 }: UsePortfolioRibbonMotionOptions) {
+  const energyRef = useRef<ReturnType<typeof acquireScrollEnergy> | null>(null);
+  useEffect(() => {
+    if (!scrollEnergy) return;
+    const energy = acquireScrollEnergy();
+    energyRef.current = energy;
+    return () => { energy.dispose(); energyRef.current = null; };
+  }, [scrollEnergy]);
+
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const sequenceRef = useRef<HTMLDivElement>(null);
@@ -118,7 +130,8 @@ export function usePortfolioRibbonMotion({
         velocityRef.current *= Math.exp(-4.4 * elapsed);
       } else {
         velocityRef.current = 0;
-        positionRef.current += direction * AUTO_SPEED * elapsed;
+        // Previous baseline-only step: direction * AUTO_SPEED * elapsed.
+        positionRef.current += direction * (AUTO_SPEED + (energyRef.current?.sample(time) ?? 0)) * elapsed;
       }
 
       renderPosition();

@@ -1,3 +1,4 @@
+import { acquireScrollEnergy } from "./scroll-energy.js";
 import { initProjectGroups } from "./project-groups.js";
 import { icon } from "./v004_icons.js";
 import { MediaController, motionPreference } from "./v004_media.js";
@@ -18,26 +19,34 @@ export function initGallery(data) {
   }
   const geometryObserver=new ResizeObserver(measureGeometry);geometryObserver.observe(ribbon);geometryObserver.observe(document.querySelector(".site-header"));measureGeometry();
   const originals=[...track.querySelectorAll(".v-thumb")];
-  // V007 removes the persistent motion control; ambient motion has a single bounded lifetime.
-  let ambientUntil=0,ambientDone=motionPreference.matches,browseIndex=0;
+  // Previous V007 four-second lifetime: ambientUntil=0, ambientDone=motionPreference.matches.
+  // Continuous drift now receives page-scroll energy, retaining viewer/focus pauses.
+  let browseIndex=0;
+  let scrollEnergy=acquireScrollEnergy();
   let requested=-1,railAnimation=0;
   let selected=-1,epoch=0,player=null,expansion=null,changeAnimation=null;
   let opener=null,closing=false,openEpoch=0,awaitingOpen=false,openingFrom=0;
   let keyboardPause=false,hover=false,visible=false,drag=null,velocity=0,raf=0,previous=0,position=18,entrance=false,suppressClick=false;
   // Visual copies have no screen-reader or tab-stop duplicates; IDs still map to originals.
   for(const button of originals){const copy=button.cloneNode(true);copy.setAttribute("aria-hidden","true");copy.tabIndex=-1;copy.classList.add("v-thumb-copy");copy.removeAttribute("aria-controls");copy.removeAttribute("aria-expanded");track.append(copy);}
-  const cycle=()=>originals[originals.length-1].offsetLeft+originals[originals.length-1].offsetWidth-originals[0].offsetLeft+parseFloat(getComputedStyle(track).gap);
-  const canMove=()=>visible&&!document.hidden&&!motionPreference.matches&&!ambientDone&&performance.now()<ambientUntil&&!keyboardPause&&!hover&&!section.contains(document.activeElement)&&!drag&&panel.hidden&&document.body.dataset.foregroundMedia!=="true";
-  function motionLabel(){ribbon.dataset.motionState=motionPreference.matches?"reduced":ambientDone||performance.now()>=ambientUntil?"settled":!visible||document.hidden?"offscreen":"drifting";}
+  const measureCycle=()=>originals[originals.length-1].offsetLeft+originals[originals.length-1].offsetWidth-originals[0].offsetLeft+parseFloat(getComputedStyle(track).gap);
+  let cycleWidth=measureCycle();
+  const cycle=()=>cycleWidth;
+  const cycleObserver=new ResizeObserver(()=>{cycleWidth=measureCycle();});
+  cycleObserver.observe(track);
+  originals.forEach(button=>cycleObserver.observe(button));
+  const canMove=()=>visible&&!document.hidden&&!motionPreference.matches&&!keyboardPause&&!hover&&!section.contains(document.activeElement)&&!drag&&panel.hidden&&document.body.dataset.foregroundMedia!=="true";
+  function motionLabel(){ribbon.dataset.motionState=motionPreference.matches?"reduced":keyboardPause||hover?"settled":!visible||document.hidden?"offscreen":"drifting";}
   function stop(){cancelAnimationFrame(raf);raf=0;previous=0;motionLabel();}
   function start(){motionLabel();if(!raf&&canMove()){position=ribbon.scrollLeft;raf=requestAnimationFrame(frame);}}
   function frame(now){
-    raf=0;if(now>=ambientUntil){ambientDone=true;stop();return;}if(!canMove()){stop();return;}
+    raf=0;if(!canMove()){stop();return;}
     const delta=Math.min((now-(previous||now))/1000,.05);previous=now;
-    const settle=Math.min(1,Math.max(0,(ambientUntil-now)/1000));position+=7.5*delta*settle;if(position>=cycle())position-=cycle();ribbon.scrollLeft=position;raf=requestAnimationFrame(frame);
+    // Previous bounded step: 7.5*delta*settle. Cache cycle geometry outside frames.
+    position+=(7.5+scrollEnergy.sample(now))*delta;if(position>=cycle())position-=cycle();ribbon.scrollLeft=position;raf=requestAnimationFrame(frame);
   }
-  function refresh(){if(motionPreference.matches||ambientUntil&&performance.now()>=ambientUntil)ambientDone=true;stop();start();}
-  function manualPause(){cancelAnimationFrame(railAnimation);railAnimation=0;ambientDone=true;keyboardPause=true;velocity=0;refresh();}
+  function refresh(){stop();start();}
+  function manualPause(){cancelAnimationFrame(railAnimation);railAnimation=0;keyboardPause=true;velocity=0;refresh();}
   function syncBrowse(){
     const anchor=ribbon.scrollLeft+originals[0].offsetWidth/2;
     const nearest=[...track.querySelectorAll('.v-thumb')].sort((a,b)=>Math.abs(a.offsetLeft+a.offsetWidth/2-anchor)-Math.abs(b.offsetLeft+b.offsetWidth/2-anchor))[0];
@@ -214,10 +223,10 @@ export function initGallery(data) {
       originals[next].focus({preventScroll:true});const left=originals[next].offsetLeft;ribbon.scrollLeft=Math.max(0,left-12);position=ribbon.scrollLeft;
     }
   });
-  ribbon.addEventListener("mouseenter",()=>{hover=true;manualPause();});ribbon.addEventListener("mouseleave",()=>{hover=false;refresh();});
+  ribbon.addEventListener("mouseenter",()=>{hover=true;refresh();});ribbon.addEventListener("mouseleave",()=>{hover=false;refresh();});
   ribbon.addEventListener("focusin",()=>manualPause());
   section.addEventListener("focusin",refresh);
-  section.addEventListener("focusout",()=>requestAnimationFrame(refresh));
+  section.addEventListener("focusout",()=>requestAnimationFrame(()=>{keyboardPause=false;refresh();}));
   for(const [id,direction] of [["ribbon-prev",-1],["ribbon-next",1]])document.querySelector(`#${id}`)?.addEventListener("click",()=>{
     manualPause();
     const step=originals[0].offsetWidth+parseFloat(getComputedStyle(track).gap);
@@ -227,7 +236,7 @@ export function initGallery(data) {
   function endDrag(event,cancel=false){
     if(!drag||event.pointerId!==drag.id)return;
     const moved=drag.horizontal;if(cancel)velocity=0;try{if(ribbon.hasPointerCapture(drag.id))ribbon.releasePointerCapture(drag.id);}catch{}
-    drag=null;ribbon.removeAttribute("data-dragging");syncBrowse();
+    drag=null;keyboardPause=false;ribbon.removeAttribute("data-dragging");syncBrowse();
     if(moved){suppressClick=true;if(!cancel&&!motionPreference.matches&&visible&&!document.hidden&&panel.hidden){previous=0;const inertial=now=>{raf=0;if(!visible||document.hidden||drag||!panel.hidden)return;const dt=Math.min((now-(previous||now))/1000,.04);previous=now;velocity*=Math.exp(-4.4*dt);position=Math.max(0,Math.min(track.scrollWidth-ribbon.clientWidth,position+velocity*dt));ribbon.scrollLeft=position;if(Math.abs(velocity)>8)raf=requestAnimationFrame(inertial);else {syncBrowse();refresh();}};raf=requestAnimationFrame(inertial);}else refresh();}else refresh();
   }
   ribbon.addEventListener("pointerdown",event=>{if(!event.isPrimary||event.button!==0){if(drag)endDrag({pointerId:drag.id},true);return;}manualPause();suppressClick=false;position=ribbon.scrollLeft;drag={id:event.pointerId,x:event.clientX,y:event.clientY,last:event.clientX,time:performance.now(),started:performance.now(),horizontal:false};velocity=0;});
@@ -243,10 +252,13 @@ export function initGallery(data) {
   addEventListener("pointerup",event=>endDrag(event));addEventListener("pointercancel",event=>endDrag(event,true));/* Previous bubbling handler ended touch drag when capture transferred from a thumbnail: ribbon.addEventListener("lostpointercapture",event=>endDrag(event,true)); */
   ribbon.addEventListener("lostpointercapture",event=>{if(event.target===ribbon)endDrag(event,true);});
   addEventListener("blur",()=>{if(drag)endDrag({pointerId:drag.id},true);stop();});
-  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible&&!entrance){entrance=true;ambientUntil=performance.now()+4000;ribbon.scrollLeft=motionPreference.matches?0:18;if(!motionPreference.matches&&!ambientDone)track.animate([{transform:"translateX(18px)"},{transform:"translateX(0)"}],{duration:450,easing:"ease-out"});}refresh();},{threshold:0}).observe(ribbon);
+  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible&&!entrance){entrance=true;ribbon.scrollLeft=motionPreference.matches?0:18;if(!motionPreference.matches)track.animate([{transform:"translateX(18px)"},{transform:"translateX(0)"}],{duration:450,easing:"ease-out"});}refresh();},{threshold:0}).observe(ribbon);
   document.addEventListener("visibilitychange",refresh);motionPreference.addEventListener("change",refresh);
   document.addEventListener("rva-foreground-change",refresh);
   addEventListener("resize",()=>{ensureSelected();refresh();});
+  // Page navigation releases the new subscription; BFCache restoration reconnects it.
+  addEventListener("pagehide",()=>{scrollEnergy.dispose();cycleObserver.disconnect();stop();});
+  addEventListener("pageshow",event=>{if(event.persisted){scrollEnergy=acquireScrollEnergy();cycleObserver.observe(track);originals.forEach(button=>cycleObserver.observe(button));refresh();}});
   return {select,close};
 }
 
