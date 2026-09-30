@@ -71,6 +71,8 @@ const cableSnakeLegacy = {
             alt: "Cable Snake bends toward camera in a finished live-action frame.",
           },
           presentation: "controls",
+          // Verified AAC soundtrack; keep audio explicit in public and review records.
+          hasAudio: true,
           caption:
             "From practical cable animation and on-set reference to the matching digital character.",
         },
