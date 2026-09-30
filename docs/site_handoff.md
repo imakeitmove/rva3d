@@ -10,6 +10,9 @@ Application `53308e961824ce5535e5cb7bda912d37cb80ec51` deployed September 30 at 
 
 Local checkpoints after the live release (not pushed or deployed):
 
+- Current About opening: studio-first dark introduction (Creative thinking. / Hands-on making.), followed by the brief Meet Deven founder section. Exact owner copy; old communication message and founder kicker are no longer rendered. Switcher and legacy communication anchor retained. AboutIntro.module.css scopes the spacing/typography/alignment: portrait was bottom-aligned against the long text plus bottom padding; now top-aligned beside the secondary heading, source and displayed widths unchanged. At 1440x900 and 1024x768 the face begins around y599 beside the heading, within the first screen. Mobile stacks naturally. Lower About markup, FAQ/process/answers, homepage, logos and media untouched (source equality checked). Lint/types/build and content tests pass (59 pass, 11 existing skips); before/after 1440x900, 1024x768, 390x844 captures visually inspected, no overflow or new browser errors. Evidence: ignored `scripts/runtime/studio_intro/`. Started clean at `ff6873ae4`; no pre-existing changes displaced. No push/deploy.
+
+
 - Latest positioning refinement: owner confirmed the process block stays on FAQ; only Direct by Design intro was removed. About portrait now uses the exact fused small-studio/direct-contact heading and copy, preserving the current surrounding composition and kicker. Home retains its existing phrase, size and layout, with only confidence receiving normal-style `--rva-purple` emphasis. Starting tree was clean at `99cf09ff`; no earlier composition was restored. Lint/types/build and content tests pass (59 pass, 11 existing skips); 1440/1024/390 browser checks and desktop/mobile visual review pass, no new runtime errors. Evidence: ignored `scripts/runtime/about_positioning/`. No push/deploy.
 
 

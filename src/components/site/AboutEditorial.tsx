@@ -1,5 +1,6 @@
 import "./editorial-refinement.css";
 import Image from "next/image";
+import introStyles from "./AboutIntro.module.css";
 import { Shell } from "./Shell";
 import { Brand } from "./Brand";
 import { siteHref } from "@/lib/site/paths";
@@ -122,30 +123,11 @@ export function AboutEditorial() {
       <div className="about-editorial about-navigation-v2 about-richmond-refresh">
         <MovedAboutFragments />
         <AboutCommunication />
-        <section className="about-ground editorial-width" data-tone="paper">
+        <section className={`about-ground editorial-width ${introStyles.founder}`} data-tone="paper">
           <div className="about-positioning">
-            {/* Previous text-only navigation: <EditorialPageNav current="about" /> */}
-            {/* V001 navigation lived in the text column: <EditorialPageNavLegacy current="about" tiles /> */}
-            <p className="label">Richmond, Virginia / RVA3D</p>
-            {/* Previous portrait positioning retained for editorial rollback.
-            <h1>
-              Rendered with
-              <br />
-              <em>confidence.</em>
-            </h1>
-            <p className="editorial-lead">
-              <Brand /> is a Richmond-based creative studio led by Deven Langston.
-              With 20 years in motion design, 3D animation, visual effects, and
-              production, Deven connects creative direction with hands-on execution.
-            </p>
-            */}
-            <h1>A small studio with a clear point of contact.</h1>
-            <p className="editorial-lead">
-              <Brand /> is a Richmond-based creative studio led by Deven Langston, bringing 20 years of experience across motion design, 3D animation, visual effects, and production. You work directly with Deven from the first conversation through final delivery, connecting senior creative direction with hands-on execution and keeping the line of communication clear throughout.
-            </p>
-            <p className="editorial-lead about-kicker">
-              Got a graphics challenge? We’ll figure it out!
-            </p>
+            <p className="label">FOUNDER / CREATIVE LEAD</p>
+            <h2>Meet Deven.</h2>
+            <p className="editorial-lead">Deven Langston brings 20 years in animation, visual effects, and production. He leads the work and stays your direct point of contact throughout.</p>
           </div>
           <Image
             className="grounded-portrait"
@@ -346,3 +328,29 @@ We occasionally need additional freelance help when a project needs extra
                 hands or a specific skill set. If you make excellent work and think we
                 might be useful to each other, say hello!
 */
+
+// Previous portrait copy retained for rollback only.
+//           <div className="about-positioning">
+//             {/* Previous text-only navigation: <EditorialPageNav current="about" /> */}
+//             {/* V001 navigation lived in the text column: <EditorialPageNavLegacy current="about" tiles /> */}
+//             <p className="label">Richmond, Virginia / RVA3D</p>
+//             {/* Previous portrait positioning retained for editorial rollback.
+//             <h1>
+//               Rendered with
+//               <br />
+//               <em>confidence.</em>
+//             </h1>
+//             <p className="editorial-lead">
+//               <Brand /> is a Richmond-based creative studio led by Deven Langston.
+//               With 20 years in motion design, 3D animation, visual effects, and
+//               production, Deven connects creative direction with hands-on execution.
+//             </p>
+//             */}
+//             <h1>A small studio with a clear point of contact.</h1>
+//             <p className="editorial-lead">
+//               <Brand /> is a Richmond-based creative studio led by Deven Langston, bringing 20 years of experience across motion design, 3D animation, visual effects, and production. You work directly with Deven from the first conversation through final delivery, connecting senior creative direction with hands-on execution and keeping the line of communication clear throughout.
+//             </p>
+//             <p className="editorial-lead about-kicker">
+//               Got a graphics challenge? We’ll figure it out!
+//             </p>
+//           </div>

@@ -2,6 +2,7 @@
 // "alt=\"A hands-on wooden build and 3D technical visualization within an RVA3D process montage.\""
 import "./editorial-refinement.css";
 import styles from "./HowWeWorkEditorial.module.css";
+import introStyles from "./AboutIntro.module.css";
 
 import Image from "next/image";
 import processMedia from "@/content/site/how_we_work_media.generated.json";
@@ -120,35 +121,54 @@ export function WorkingProcess() {
   );
 }
 
-// Communication remains the About opening; process now leads FAQ.
+// Keep the historical communication anchor compatible; this is now the studio introduction.
 export function AboutCommunication() { return <div className={`about-editorial how-we-work-editorial ${styles.page}`}>
-        <section
-          className="review-story-dark"
-          id="communication"
-          data-tone="void"
-          aria-labelledby="review-story-title"
-        >
-          <div className="editorial-width communication-switcher"><EditorialPageNav current="about" /></div>
-          <div className="editorial-width review-dark-grid">
-            <div className="review-intro">
-              <p className="label">Communication with a purpose</p>
-              <h2 id="review-story-title">
-                No mystery
-                <br />
-                in the middle.
-              </h2>
-              {/* The approved update sentence now stands alone in the right column. */}
-            </div>
-            <div className={styles.communicationCopy}>
-              <p>You’ll get meaningful updates while work is underway and a clear review when something needs your decision.</p>
-              {/* Previous explanatory copy retained for restoration:
-              <p>What changed, what happens next and whether you need to do anything.</p>
-              <p>Each review brings the version, the question and your feedback together in one place, so notes don’t get lost across email threads and it’s easy to see what happens next.</p>
-              */}
-            </div>
-          </div>
-        </section>
+  <section className={`review-story-dark ${introStyles.opening}`} id="communication" data-tone="void" aria-labelledby="studio-title">
+    <div className="editorial-width communication-switcher"><EditorialPageNav current="about" /></div>
+    <div className="editorial-width review-dark-grid">
+      <div className="review-intro">
+        <p className="label">ABOUT RVA3D</p>
+        <h1 id="studio-title"><span>Creative thinking.</span>{" "}<span>Hands-on making.</span></h1>
+      </div>
+      <div className={introStyles.studioCopy}>
+        <p>RVA3D is a Richmond-based creative studio combining 3D animation, visualization, motion design, visual effects, and interactive work. We help brands, agencies, and production teams take ideas from early concept through final delivery.</p>
+      </div>
+    </div>
+  </section>
 </div>; }
+
+// Previous About communication opening retained for rollback only; not rendered or relocated.
+// // Communication remains the About opening; process now leads FAQ.
+// export function AboutCommunication() { return <div className={`about-editorial how-we-work-editorial ${styles.page}`}>
+//         <section
+//           className="review-story-dark"
+//           id="communication"
+//           data-tone="void"
+//           aria-labelledby="review-story-title"
+//         >
+//           <div className="editorial-width communication-switcher"><EditorialPageNav current="about" /></div>
+//           <div className="editorial-width review-dark-grid">
+//             <div className="review-intro">
+//               <p className="label">Communication with a purpose</p>
+//               <h2 id="review-story-title">
+//                 No mystery
+//                 <br />
+//                 in the middle.
+//               </h2>
+//               {/* The approved update sentence now stands alone in the right column. */}
+//             </div>
+//             <div className={styles.communicationCopy}>
+//               <p>You’ll get meaningful updates while work is underway and a clear review when something needs your decision.</p>
+//               {/* Previous explanatory copy retained for restoration:
+//               <p>What changed, what happens next and whether you need to do anything.</p>
+//               <p>Each review brings the version, the question and your feedback together in one place, so notes don’t get lost across email threads and it’s easy to see what happens next.</p>
+//               */}
+//             </div>
+//           </div>
+//         </section>
+// </div>; }
+//
+//
 
 // Existing buyer answers retained intact, now composed only on /faq.
 export function BuyerFaq() { return (

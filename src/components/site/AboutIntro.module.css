@@ -1,0 +1,24 @@
+/* Only the current About opening and founder composition; FAQ keeps its existing rules. */
+.opening:global(.review-story-dark)[data-tone] { padding-block: 48px 56px; }
+.opening :global(.communication-switcher) { margin-bottom: 40px; }
+.opening[data-tone] :global(.review-dark-grid) { align-items: start; gap: clamp(40px, 5vw, 72px); }
+.opening :global(.review-intro) > :global(.label) { margin: 0; }
+.opening:global(.review-story-dark) h1 { font-size: clamp(38px, 3.8vw, 58px); line-height: 1.1; font-weight: 510; letter-spacing: -.045em; margin: 20px 0 0; }
+.opening h1 span { display: block; }
+.opening .studioCopy { padding-top: 36px; }
+.opening .studioCopy p { margin: 0; max-width: 43ch; font-size: clamp(20px, 1.65vw, 24px); line-height: 1.55; }
+.founder:global(.about-ground) { align-items: start; padding-block: 44px 0; }
+.founder > :global(.about-positioning) { padding: 0 0 36px; }
+.founder :global(.label) { margin: 0; }
+.founder h2 { margin: 20px 0 24px; }
+.founder :global(.editorial-lead) { margin: 0; max-width: 36ch; }
+.founder > :global(.grounded-portrait) { align-self: start; margin: 28px 0 0; }
+@media (max-width: 700px) {
+  .opening:global(.review-story-dark)[data-tone] { padding-block: 32px 44px; }
+  .opening :global(.communication-switcher) { margin-bottom: 32px; }
+  .opening[data-tone] :global(.review-dark-grid) { gap: 26px; }
+  .opening .studioCopy { padding-top: 0; }
+  .founder:global(.about-ground) { padding-top: 36px; gap: 20px; }
+  .founder > :global(.about-positioning) { padding-bottom: 0; }
+  .founder > :global(.grounded-portrait) { margin-top: 0; }
+}
