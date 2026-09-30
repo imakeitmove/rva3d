@@ -126,8 +126,11 @@ export function AboutEditorial() {
         <section className={`about-ground editorial-width ${introStyles.founder}`} data-tone="paper">
           <div className="about-positioning">
             <p className="label">FOUNDER / CREATIVE LEAD</p>
-            <h2>Meet Deven.</h2>
-            <p className="editorial-lead">Deven Langston brings 20 years in animation, visual effects, and production. He leads the work and stays your direct point of contact throughout.</p>
+            {/* Previous heading: Meet Deven. */}
+            <h2>Rendered with <em>confidence.</em></h2>
+            {/* Previous founder copy retained for rollback: <p className="editorial-lead">Deven Langston brings 20 years in animation, visual effects, and production. He leads the work and stays your direct point of contact throughout.</p> */}
+            <p className="editorial-lead">With 20 years in motion design, 3D animation, visual effects, and production, Deven connects creative direction with hands-on execution.</p>
+            <p className="editorial-lead about-kicker">Got a graphics challenge? We’ll figure it out!</p>
           </div>
           <Image
             className="grounded-portrait"

@@ -22,3 +22,7 @@
   .founder > :global(.about-positioning) { padding-bottom: 0; }
   .founder > :global(.grounded-portrait) { margin-top: 0; }
 }
+
+/* Restore the approved two-phrase emphasis and separate the short closing line. */
+.founder:global(.about-ground) h2 em { display: block; color: var(--rva-purple); font-style: normal; }
+.founder :global(.about-kicker) { margin-top: 1.25em; }

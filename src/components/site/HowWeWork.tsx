@@ -128,7 +128,8 @@ export function AboutCommunication() { return <div className={`about-editorial h
     <div className="editorial-width review-dark-grid">
       <div className="review-intro">
         <p className="label">ABOUT RVA3D</p>
-        <h1 id="studio-title"><span>Creative thinking.</span>{" "}<span>Hands-on making.</span></h1>
+        {/* Previous headline: Creative thinking. Hands-on making. */}
+        <h1 id="studio-title">A small studio with a clear point of contact.</h1>
       </div>
       <div className={introStyles.studioCopy}>
         <p>RVA3D is a Richmond-based creative studio combining 3D animation, visualization, motion design, visual effects, and interactive work. We help brands, agencies, and production teams take ideas from early concept through final delivery.</p>
