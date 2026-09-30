@@ -1,0 +1,26 @@
+{
+  "skylineDisplay": {
+    "src": "/media/5da9bd3bae4d621428f8.webp",
+    "width": 1920,
+    "height": 360,
+    "alt": "Richmond’s skyline at dusk, photographed across the James River."
+  },
+  "skylineFull": {
+    "src": "/media/7f9b170cbc2faba71694.webp",
+    "width": 2048,
+    "height": 900,
+    "alt": "The complete Richmond skyline photograph, with the evening sky and river in the foreground."
+  },
+  "film": {
+    "src": "/media/6018fdd9f65752ca39e1.webp",
+    "width": 1280,
+    "height": 720,
+    "alt": "Fool Me Twice artwork for Pixel Drop’s Richmond 48 Hour Film Project film."
+  },
+  "studio": {
+    "src": "/media/8b9a25908d3466dd6bbf.webp",
+    "width": 1280,
+    "height": 720,
+    "alt": "Cameras, lenses, lights, color charts and creative objects, with Deven at the right edge."
+  }
+}

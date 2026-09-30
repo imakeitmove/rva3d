@@ -5,6 +5,8 @@ import { hasPrivateReviewSession } from "@/lib/private_review_auth";
 import { Resend } from "resend";
 import { publicInquiryDeliveryEnabled } from "@/lib/site/runtime-environment";
 
+import { validateCollaboratorForm, collaboratorMessage, collaboratorSubject, collaboratorSuccess, type CollaboratorField } from "@/lib/collaborator-contact";
+
 const CONTACT_EMAIL = "hello@rva3d.com";
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_MAX_ATTEMPTS = 5;
@@ -18,7 +20,7 @@ const inquiryTypes = {
 } as const;
 
 type InquiryType = keyof typeof inquiryTypes;
-type ContactField = "name" | "email" | "company" | "inquiryType" | "message";
+type ContactField = CollaboratorField | "name" | "email" | "company" | "inquiryType" | "message";
 
 export type ContactFormState = {
   status: "idle" | "success" | "error";
@@ -115,17 +117,20 @@ function validateContactForm(formData: FormData) {
   };
 }
 
-export async function submitContactForm(
-  _previousState: ContactFormState,
-  formData: FormData,
-): Promise<ContactFormState> {
-  const { values, fieldErrors } = validateContactForm(formData);
+// Previously submitContactForm owned this body directly. Both typed entry points
+// now share the same delivery/security boundary; project validation is unchanged.
+async function submitForm(formData: FormData, kind: "project" | "collaborator"): Promise<ContactFormState> {
+  const collaborator = kind === "collaborator" ? validateCollaboratorForm(formData) : null;
+  const { values, fieldErrors } = collaborator ? {
+    values: { ...collaborator.values, company: "", inquiryType: "other" as InquiryType, message: collaborator.values.note },
+    fieldErrors: collaborator.fieldErrors,
+  } : validateContactForm(formData);
 
   // Give honeypot submissions a normal-looking response without sending mail.
   if (values.website) {
     return {
       status: "success",
-      message: "Thanks. Your message has been sent.",
+      message: collaborator ? collaboratorSuccess : "Thanks. Your message has been sent.",
       submissionId: crypto.randomUUID(),
     };
   }
@@ -158,7 +163,7 @@ export async function submitContactForm(
   // mode on the Production domain:
   // const publicSending = process.env.RVA3D_PUBLIC_LAUNCH_ENABLED === "1";
   const publicSending = publicInquiryDeliveryEnabled();
-  if (!controlledTest && !publicSending) return { status: "error", message: "Your inquiry passed validation. Nothing was sent or stored in this protected preview. Email hello@rva3d.com to start a conversation." };
+  if (!controlledTest && !publicSending) return { status: "error", message: collaborator ? "Your introduction passed validation. Nothing was sent or stored in this protected preview." : "Your inquiry passed validation. Nothing was sent or stored in this protected preview. Email hello@rva3d.com to start a conversation." };
   const apiKey = process.env.RESEND_API_KEY;
   const fromAddress = process.env.EMAIL_FROM;
   const toAddress = process.env.CONTACT_EMAIL_TO || CONTACT_EMAIL;
@@ -181,8 +186,8 @@ export async function submitContactForm(
       from: fromAddress,
       to: toAddress,
       replyTo: values.email,
-      subject: `${controlledTest ? "[RVA3D CONTROLLED DELIVERY TEST] " : ""}RVA3D website inquiry: ${inquiryLabel}`,
-      text: [
+      subject: `${controlledTest ? "[RVA3D CONTROLLED DELIVERY TEST] " : ""}${collaborator ? collaboratorSubject : `RVA3D website inquiry: ${inquiryLabel}`}`,
+      text: collaborator ? collaboratorMessage(collaborator.values) : [
         `Name: ${values.name}`,
         `Email: ${values.email}`,
         `Company: ${values.company || "Not provided"}`,
@@ -223,7 +228,7 @@ export async function submitContactForm(
 
     return {
       status: "success",
-      message: "Thanks. Your message was accepted by our email provider. RVA3D will be in touch soon.",
+      message: collaborator ? collaboratorSuccess : "Thanks. Your message was accepted by our email provider. RVA3D will be in touch soon.",
       // Previous implementation returned an unrelated random UUID. The
       // provider ID proves this exact message was accepted and stored.
       // submissionId: crypto.randomUUID(),
@@ -239,4 +244,14 @@ export async function submitContactForm(
         "We couldn’t send your message. Please email hello@rva3d.com or call (804) 392-8183.",
     };
   }
+}
+
+// Separate server actions select the category internally; hidden fields cannot
+// change a project inquiry into a collaborator introduction or bypass its rules.
+export async function submitContactForm(_previousState: ContactFormState, formData: FormData): Promise<ContactFormState> {
+  return submitForm(formData, "project");
+}
+
+export async function submitCollaboratorForm(_previousState: ContactFormState, formData: FormData): Promise<ContactFormState> {
+  return submitForm(formData, "collaborator");
 }

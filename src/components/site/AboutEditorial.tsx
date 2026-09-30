@@ -7,6 +7,10 @@ import home from "@/content/site/home.generated.json";
 import editorial from "@/content/site/editorial.generated.json";
 import { EditorialPageNav } from "./EditorialPageNav";
 import { MovedAboutFragments } from "./MovedAboutFragments";
+import { CollaboratorContact } from "./CollaboratorContact";
+import { publicInquiryDeliveryEnabled } from "@/lib/site/runtime-environment";
+import { AboutSkyline } from "./AboutSkyline";
+import richmondMedia from "@/content/site/about-richmond.generated.json";
 
 const processSteps = [
   ["Talk", "Start with the problem, audience, deliverables, timing, existing materials, constraints, and what success needs to look like."],
@@ -112,7 +116,7 @@ export function AboutEditorialLegacy() {
 export function AboutEditorial() {
   return (
     <Shell>
-      <div className="about-editorial about-navigation-v2">
+      <div className="about-editorial about-navigation-v2 about-richmond-refresh">
         <MovedAboutFragments />
         <div className="editorial-width about-page-switcher"><EditorialPageNav current="about" /></div>
         <section className="about-ground editorial-width" data-tone="paper">
@@ -127,8 +131,8 @@ export function AboutEditorial() {
             </h1>
             <p className="editorial-lead">
               <Brand /> is a Richmond-based creative studio led by Deven Langston.
-              His 20 years in motion design, 3D animation, visual effects and
-              production connect creative direction with hands-on execution.
+              With 20 years in motion design, 3D animation, visual effects, and
+              production, Deven connects creative direction with hands-on execution.
             </p>
             <p className="editorial-lead about-kicker">
               Got a graphics challenge? We’ll figure it out!
@@ -143,6 +147,75 @@ export function AboutEditorial() {
             unoptimized
             priority
           />
+        </section>
+
+        <section className="richmond-intro editorial-width" data-tone="paper" aria-labelledby="richmond-title">
+          <h2 id="richmond-title">Rooted in Richmond.</h2>
+          <p>
+            Deven Langston has spent his entire professional life in Richmond. A
+            Virginia Commonwealth University graduate and former instructor in its
+            Kinetic Imaging program, he built his career alongside the city&apos;s
+            filmmakers, animators, and production crews.
+          </p>
+        </section>
+
+        <AboutSkyline />
+
+        <section className="richmond-history editorial-width" data-tone="paper" aria-label="Richmond filmmaking and studio practice">
+          <div className="richmond-film-row">
+            <div className="richmond-film-copy">
+              <p>
+                <strong>Films made in Richmond.</strong> Deven created graphics and
+                visual effects with Pixel Drop for Richmond’s 48 Hour Film Project.
+                He also served as lead animator on the team’s short film{" "}
+                <a href="https://richmondmagazine.com/arts-entertainment/stage-screen/pixel-drop-cmyk-screens-at-cannes-film-festival/"><em>CMYK</em></a>,
+                which screened in the HP/48HFP “Power of Ink” program at Cannes.
+              </p>
+              <a className="richmond-films-link" href="https://vimeo.com/pixeldropfilms">Watch the films <span aria-hidden="true">↗</span></a>
+            </div>
+            <Image {...richmondMedia.film} alt={richmondMedia.film.alt} sizes="(max-width: 700px) calc(100vw - 40px), 50vw" unoptimized />
+          </div>
+          <div className="richmond-studio-row">
+            <div className="richmond-studio-copy">
+              <h2><span className="sr-only">RVA3D</span><Image src="/media/6898dc7d4ac2276dbb79.webp" width={1122} height={386} alt="" unoptimized /></h2>
+              <p>
+                <b>Direct by design.</b> You work with Deven from the first conversation
+                through final delivery. Bring the rough idea, references, CAD,
+                script, or footage. Together, we find the clearest way to show it.
+              </p>
+            </div>
+            <Image {...richmondMedia.studio} alt={richmondMedia.studio.alt} sizes="(max-width: 700px) calc(100vw - 40px), 50vw" unoptimized />
+          </div>
+        </section>
+
+        {/* Previous text-only Richmond and direct-relationship layout retained for restoration.
+        <section
+          className="richmond-roots editorial-width"
+          data-tone="paper"
+          aria-labelledby="richmond-title"
+        >
+          <h2 id="richmond-title">Rooted in Richmond.</h2>
+          <p>
+            Deven Langston has spent his entire professional life in Richmond. A
+            Virginia Commonwealth University graduate and former instructor in its
+            Kinetic Imaging program, he built his craft alongside the city’s
+            filmmakers, animators, and production crews.
+          </p>
+          <p>
+            His local work includes advertising for Dominion Riverrock and contributions
+            to the Richmond International Film Festival’s opening titles, on a project
+            led by Curtis Brown of Metro Productions. He also made films with Pixel Drop
+            for Richmond’s 48 Hour Film Project, creating graphics and visual effects,
+            and served as lead animator on the team’s short film{" "}
+            <a href="https://richmondmagazine.com/arts-entertainment/stage-screen/pixel-drop-cmyk-screens-at-cannes-film-festival/">
+              <em>CMYK</em>
+            </a>.
+          </p>
+          <p>
+            RVA3D grows out of those experiences and relationships. Richmond is where
+            Deven learned, taught, and built his career—and where we’re continuing to
+            make things together.
+          </p>
         </section>
 
         <section
@@ -179,6 +252,8 @@ export function AboutEditorial() {
           </div>
         </section>
 
+        */}
+
         {/* Process, communication, and FAQ remain preserved in the legacy export
             above and are now presented on the dedicated How We Work page. */}
         <section
@@ -194,6 +269,13 @@ export function AboutEditorial() {
                 Collaborate with <Brand />
               </h2>
             </div>
+            <div className="collaborate-copy">
+              <p>We occasionally bring in freelance collaborators when a project needs extra
+                hands or a specific skill set. If you make excellent work and think we
+                might be a good fit for each other, say hello!</p>
+            </div>
+            <CollaboratorContact sendingEnabled={publicInquiryDeliveryEnabled()} />
+            {/* Previous collaborator copy, mailto CTA and rate guidance retained for restoration.
             <div className="collaborate-copy">
               <p>
                 <Brand /> occasionally brings in freelance artists, animators,
@@ -215,6 +297,7 @@ export function AboutEditorial() {
                 rate range are useful.
               </p>
             </div>
+            */}
           </div>
         </section>
       </div>
@@ -231,3 +314,21 @@ export function AboutEditorial() {
 // Then Deven takes responsibility for making it happen: sharing meaningful
 //               progress while decisions are easy to change, keeping the next step clear
 //               and raising problems while there are still good options.
+
+/* September 30 copy polish — preceding wording retained for editorial rollback.
+His 20 years in motion design, 3D animation, visual effects and
+              production connect creative direction with hands-on execution.
+
+built his craft alongside the city&apos;s
+
+Click here to see the films ↗
+
+Senior-led by design. You work directly with Deven from the first
+                conversation through final delivery. Bring the rough idea,
+                references, CAD, script or footage. Together, we find the clearest
+                way to show it.
+
+We occasionally need additional freelance help when a project needs extra
+                hands or a specific skill set. If you make excellent work and think we
+                might be useful to each other, say hello!
+*/
