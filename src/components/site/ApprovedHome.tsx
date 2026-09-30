@@ -1,3 +1,4 @@
+import { HomeLogoReview } from "./HomeLogoReview";
 import { SiteBoot } from "./SiteBoot";
 import "server-only";
 import data from "@/content/site/home.generated.json";
@@ -24,9 +25,14 @@ export function ApprovedHome() {
   content = content
     .replaceAll("https://www.rva3d.com", "").replaceAll("/project/", "/work/")
     .replaceAll("/private/deven_portrait.webp", (data as typeof data & { portrait?: string }).portrait || "");
+  const logoReview = process.env.NODE_ENV === "development" || process.env.RVA3D_HEADER_LOGO_REVIEW === "1";
+  // Preserve the original image/default page. The opt-in portal replaces only
+  // this standalone mark, inside the same responsive footprint.
+  if (logoReview) content = content.replace(/<img class="v-intro-logo"([^>]+)>/, '<span class="v-intro-logo" data-home-logo-mount><img style="display:block;width:100%;height:auto"$1></span>');
   return <><Header /><main id="main"><div dangerouslySetInnerHTML={{ __html: content }} /><Contact /></main>
     <script id="v008-data" type="application/json" dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewData).replaceAll("<", "\\u003c") }} />
     <SiteBoot home />
+    {logoReview && <HomeLogoReview src={data.logoStill} />}
     <noscript><p className="v-frame">Browse all projects on the <a href={siteHref("/work")}>Work page</a>. Gallery controls require JavaScript; all case stories remain available.</p></noscript>
   </>;
 }

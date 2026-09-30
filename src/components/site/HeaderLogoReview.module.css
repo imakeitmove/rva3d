@@ -10,3 +10,10 @@
   .scene { display: none; }
   .fallback { opacity: 1 !important; }
 }
+
+/* The standalone slot keeps its original image dimensions; no header rescaling. */
+.replay { width: 100%; padding: 0; border: 0; margin: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+.replay:disabled { cursor: default; }
+.replay:focus-visible { outline: 2px solid var(--rva-signal); outline-offset: 6px; }
+.replay .fallback img { display: block; width: 100%; height: auto; }
+:global([data-home-logo-mount]):has(> .replay) > img { display: none !important; }

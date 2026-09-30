@@ -2,6 +2,18 @@
 
 Local visual feature, September 30, 2026. Checkpointed as `4284c728ac9d365edf22592fff122aaf40b7a64c`; no push, public rollout or release-receipt change.
 
+## Outline correction and second instance (local review)
+
+The later three-scope task corrects the prior black-fill treatment: the `signalFlat` outline caps had been mapped to the header background, and RVA `void` interiors inherited light link ink. Authored material identity now maps paper outlines to the paper token, inset fills to black, and the real 3D outline/depth to Signal Green. A small material depth bias resolves coplanar fill/outline overlap without changing vertices, letter shapes, camera or crop. Unlit colors preserve readability; only the two inset 3D fill caps flash white, then restore black. The desired treatment was used, not the authorized fallback. Older appearance notes below describe the previous checkpoint.
+
+The existing standalone homepage image (`/media/c5746f173330d7d5e00b.png`) was decorative. Under the same local gate it now has a native replay button with visible focus and Enter/Space support. Its original image remains the full-size fallback. Header link semantics and the default/no-query marks are unchanged. The trusted homepage template receives one named portal mount; no inline/footer brands are replaced.
+
+Both locations reuse HeaderLogoReview, HeaderLogoScene and the unchanged LogoPlayback controller. One cached GLB download/immutable loader result feeds independent cloned scenes, cameras, geometry groups, materials, mixers and controllers. Cleanup touches only the owning instance. Hidden/offscreen unmount cancels pending actions; return starts idle. Header crop/8% scale, hit rectangle and height are unchanged; the lower mark retains its original responsive footprint.
+
+Comparison captures: ignored `scripts/runtime/logo_pair/before.png`, `after_0.png`, `after_12.png`, `after_45.png`, `after_90.png`, `header_flash.png`, `homepage_flash.png`. Review both at http://127.0.0.1:3027/?header_logo=3d; no production enablement, push or deployment.
+
+Validation for the correction: lint, TypeScript, eight controller tests and built preview pass. Browser-emulated 1440/1024/390 checks cover independent hover/reverse/pause/re-entry, rapid cross-instance clicks, repeated flash restoration, native button Enter/Space, modified Home clicks, other-page Home navigation, idle/held redraw counts, offscreen cancellation, emulated hidden visibility, reduced motion/coarse-pointer fallback, blocked GLB and independent WebGL-loss fallback. One GLB request serves both instances. Poses and flash screenshots were visually inspected. No new application errors; existing local analytics 404/MIME noise remains. No physical-device testing.
+
 ## Open and restart
 
 http://127.0.0.1:3027/?header_logo=3d

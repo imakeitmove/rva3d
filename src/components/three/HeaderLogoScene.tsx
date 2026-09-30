@@ -6,12 +6,28 @@ import { AnimationMixer, DoubleSide, LoopOnce, Mesh, MeshBasicMaterial, Perspect
 import { GLTFLoader, type GLTF } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { LogoPlayback, type LogoPhase } from "./header_logo_playback";
 
-type Props = { host: HTMLSpanElement; onReady: () => void; onFailure: () => void };
-type Binding = { material: MeshBasicMaterial; role: "ink" | "black" | "signal" | "paper"; flash: boolean };
+type Props = { host: HTMLElement; onReady: () => void; onFailure: () => void };
+type Binding = { material: MeshBasicMaterial; role: "black" | "signal" | "paper"; flash: boolean };
 type Asset = { gltf: GLTF; camera: PerspectiveCamera; bindings: Binding[]; dispose: () => void };
 const MODEL = "/models/RVA_Logo_010_spin_loop_001.glb";
 
-function prepare(gltf: GLTF): Asset {
+// Cache immutable loader output/download only. Every mounted logo owns its scene,
+// camera, geometry draw groups, materials, mixer and controller; cleanup is local.
+let sourceAsset: Promise<GLTF> | undefined;
+function loadSource() {
+  return sourceAsset ??= fetch(MODEL).then(response => {
+    if (!response.ok) throw new Error("Logo failed to load");
+    return response.arrayBuffer();
+  }).then(buffer => new GLTFLoader().parseAsync(buffer, "")).catch(error => {
+    sourceAsset = undefined;
+    throw error;
+  });
+}
+function prepare(sourceAsset: GLTF): Asset {
+  const scene = sourceAsset.scene.clone(true);
+  const cameras: PerspectiveCamera[] = [];
+  scene.traverse(object => { if (object instanceof PerspectiveCamera) cameras.push(object); });
+  const gltf = { ...sourceAsset, scene, cameras };
   const camera = gltf.cameras.find(item => item.name === "camera_for_logo");
   if (!(camera instanceof PerspectiveCamera) || Math.abs(camera.aspect - 8 / 3) > 0.001 || gltf.animations.length !== 1 || Math.abs(gltf.animations[0].duration - 3) > 0.001) throw new Error("Unexpected header logo camera/timeline export");
   // R3F must not recompute projection when the header resizes. Preserve the
@@ -22,12 +38,14 @@ function prepare(gltf: GLTF): Asset {
     if (!(object instanceof Mesh)) return;
     const source = Array.isArray(object.material) ? object.material[0] : object.material;
     const is3D = /^(3|D)(?:_|$)/.test(object.name);
-    const role = source.name === "paper_flat" ? "paper" : is3D ? "black" : "ink";
-    const front = new MeshBasicMaterial({ side: DoubleSide, toneMapped: false });
-    // C4D uses an expanded solid backing behind the inset letter fills. Color
-    // its front like the header ground so matching both to Accent cannot erase
-    // the D counter or merge the 3 and D into a solid slab.
-    bindings.push({ material: front, role: is3D && source.name === "signalFlat" ? "paper" : role, flash: is3D && source.name === "void" });
+    // Authored material identity separates outlines from inset fills; camera-facing
+    // triangles are never used to infer letter roles. Earlier mapping made
+    // signalFlat caps background-colored and RVA void fills inherit light ink.
+    // Previous roles: is3D && signalFlat ? paper : is3D ? black : ink.
+    const role = source.name === "paper_flat" ? "paper" : source.name === "signalFlat" ? "signal" : "black";
+    const front = new MeshBasicMaterial({ side: DoubleSide, toneMapped: false,
+      polygonOffset: source.name === "void", polygonOffsetFactor: -1, polygonOffsetUnits: -1 });
+    bindings.push({ material: front, role, flash: is3D && source.name === "void" });
     if (is3D) {
       // The export groups caps and extrusion in a single material. Partition
       // cloned index draw groups by existing local z=0 caps; vertices stay intact.
@@ -46,35 +64,34 @@ function prepare(gltf: GLTF): Asset {
       // Previously Lambert-shaded Accent; full Signal Green now stays graphic.
       const side = new MeshBasicMaterial({ side: DoubleSide, toneMapped: false });
       bindings.push({ material: side, role: "signal", flash: false });
-      object.geometry.dispose();
+      // Cached source geometry belongs to the immutable loader asset.
       object.geometry = geometry;
       object.material = [side, front];
-    } else object.material = front;
+    } else { object.geometry = object.geometry.clone(); object.material = front; }
     object.frustumCulled = false;
   });
-  // Imported materials are no longer used; GLTFLoader caches shared originals.
-  const originalMaterials = new Set(gltf.parser.associations.keys());
-  for (const item of originalMaterials) if (item instanceof MeshBasicMaterial || ("isMaterial" in item && item.isMaterial)) (item as MeshBasicMaterial).dispose();
+  // Previous single-instance cleanup disposed parser-associated source materials.
+  // Keep cached source materials intact; only these instance bindings are disposed.
   return { gltf, camera, bindings, dispose: () => {
     gltf.scene.traverse(object => { if (object instanceof Mesh) object.geometry.dispose(); });
     bindings.forEach(item => item.material.dispose());
   } };
 }
 
-function connect(asset: Asset, host: HTMLSpanElement, invalidate: () => void) {
-  const link = host.closest("a")!;
+function connect(asset: Asset, host: HTMLElement, invalidate: () => void) {
+  const link = host.closest<HTMLElement>("a, button")!;
+  const replayButton = link instanceof HTMLButtonElement;
   const mixer = new AnimationMixer(asset.gltf.scene);
   const action = mixer.clipAction(asset.gltf.animations[0]);
   action.setLoop(LoopOnce, 1); action.clampWhenFinished = true; action.play();
   let white = false, colorTimer = 0;
   const colors = () => {
-    const ink = getComputedStyle(host.querySelector(".brand-rva")!).color;
-    const signal = getComputedStyle(host).getPropertyValue("--rva-signal").trim();
-    const background = getComputedStyle(host.closest("header")!).backgroundColor;
-    // The backing is opaque geometry: extract the current RGB ground explicitly
-    // rather than asking Three.Color to discard CSS background alpha with a warning.
-    const paper = background.replace(/^rgba\(([^,]+),([^,]+),([^,]+),[^)]+\)$/, "rgb($1,$2,$3)");
-    asset.bindings.forEach(item => item.material.color.set(white && item.flash ? "#ffffff" : item.role === "ink" ? ink : item.role === "black" ? "#000000" : item.role === "signal" ? signal : paper));
+    const tokens = getComputedStyle(host);
+    const signal = tokens.getPropertyValue("--rva-signal").trim();
+    const paper = tokens.getPropertyValue("--rva-paper").trim();
+    // Previously derived paper from the header background and RVA from link ink.
+    // The approved artwork uses crisp paper outlines and dark interiors in both slots.
+    asset.bindings.forEach(item => item.material.color.set(white && item.flash ? "#ffffff" : item.role === "black" ? "#000000" : item.role === "signal" ? signal : paper));
   };
   const pose = (time: number, phase: LogoPhase) => {
     action.time = time; mixer.update(0);
@@ -93,9 +110,12 @@ function connect(asset: Asset, host: HTMLSpanElement, invalidate: () => void) {
   const enter = (event: PointerEvent) => { if (!frozen && event.pointerType === "mouse") playback.enter(); };
   const leave = () => { if (!frozen) playback.leave(); colors(); invalidate(); };
   const click = (event: MouseEvent) => {
-    if (frozen || location.pathname !== "/" || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.detail === 0) return;
-    // Only mouse activation on the current homepage consumes redundant navigation.
-    event.preventDefault(); playback.click();
+    if (frozen || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (!replayButton && (location.pathname !== "/" || event.detail === 0)) return;
+    // Native button Enter/Space replays; Home preserves keyboard and modified navigation.
+    event.preventDefault();
+    if (replayButton && event.detail === 0 && playback.phase !== "spin") { playback.leave(); playback.enter(); }
+    playback.click();
   };
   const refresh = () => {
     colors(); invalidate(); clearTimeout(colorTimer);
@@ -141,15 +161,14 @@ export default function HeaderLogoScene(props: Props) {
   useEffect(() => {
     let disposed = false;
     let loaded: Asset | undefined;
-    const controller = new AbortController();
-    fetch(MODEL, { signal: controller.signal }).then(response => {
-      if (!response.ok) throw new Error("Header logo failed to load");
-      return response.arrayBuffer();
-    }).then(buffer => new GLTFLoader().parseAsync(buffer, "")).then(gltf => {
-      loaded = prepare(gltf);
-      if (disposed) loaded.dispose(); else setAsset(loaded);
+    // Previous per-instance fetch/AbortController parsed another copy of the GLB.
+    // One cached download is shared; unmount never aborts another instance's load.
+    loadSource().then(source => {
+      if (disposed) return;
+      loaded = prepare(source);
+      setAsset(loaded);
     }).catch(() => { if (!disposed) onFailure(); });
-    return () => { disposed = true; controller.abort(); loaded?.dispose(); };
+    return () => { disposed = true; loaded?.dispose(); };
   }, [onFailure]);
   if (!asset) return null;
   return <Canvas camera={asset.camera} dpr={[1, 1.5]} frameloop="demand" gl={{ alpha: true, antialias: true, powerPreference: "low-power", toneMapping: NoToneMapping }} fallback={null}>

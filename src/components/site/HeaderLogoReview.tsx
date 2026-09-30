@@ -13,8 +13,8 @@ class LogoBoundary extends Component<{ children: ReactNode; onFailure: () => voi
 }
 
 // Server build opt-in + loopback/query/input gates. Public/default stays static.
-export function HeaderLogoReview({ children }: { children: ReactNode }) {
-  const [host, setHost] = useState<HTMLSpanElement | null>(null);
+export function HeaderLogoReview({ children, standalone = false }: { children: ReactNode; standalone?: boolean }) {
+  const [host, setHost] = useState<HTMLElement | null>(null);
   const [enabled, setEnabled] = useState(false);
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -45,12 +45,14 @@ export function HeaderLogoReview({ children }: { children: ReactNode }) {
     };
   }, [host]);
   const show = enabled && !failed;
-  return <span ref={setHost} className={styles.slot} data-header-logo-review={show ? "3d" : "static"}>
-    <span className={styles.fallback} style={{ opacity: show && ready ? 0 : 1 }}>{children}</span>
+  const Tag = standalone ? "button" : "span";
+  return <Tag ref={setHost} className={`${styles.slot} ${standalone ? styles.replay : ""}`} data-logo-instance={standalone ? "homepage" : "header"} data-header-logo-review={show ? "3d" : "static"}
+    {...(standalone ? { type: "button" as const, "aria-label": "Replay RVA3D logo animation", disabled: !show, tabIndex: show ? 0 : -1 } : {})}>
+    <span className={styles.fallback} aria-hidden={standalone || undefined} style={{ opacity: show && ready ? 0 : 1 }}>{children}</span>
     {show && host && <span className={styles.scene} aria-hidden="true" style={{ opacity: ready ? 1 : 0 }}>
       <span className={styles.viewport}><LogoBoundary onFailure={onFailure}><LogoScene host={host} onReady={onReady} onFailure={onFailure} /></LogoBoundary></span>
     </span>}
-  </span>;
+  </Tag>;
 }
 
 // Previous SVG extrusion / pointer-tilt prototype retained as inactive restoration reference.
