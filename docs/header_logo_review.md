@@ -1,6 +1,6 @@
 ﻿# Authored header logo review
 
-Local visual feature, September 30, 2026. Uncommitted; no public rollout or release-receipt change.
+Local visual feature, September 30, 2026. Checkpointed as `4284c728ac9d365edf22592fff122aaf40b7a64c`; no push, public rollout or release-receipt change.
 
 ## Open and restart
 

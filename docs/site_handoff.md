@@ -8,6 +8,14 @@ Application `53308e961824ce5535e5cb7bda912d37cb80ec51` deployed September 30 at 
 
 ## Resume here
 
+Local checkpoints after the live release (not pushed or deployed):
+
+- Header logo: `4284c728ac9d365edf22592fff122aaf40b7a64c` - black 3D fronts, full Signal Green sides, preserved white flash, modestly larger composition. See [header_logo_review.md](header_logo_review.md) for opt-in preview and validation.
+- Wawa / Work: `f7a5d6c52cd98abe357aba48a0b73e50a4c46434` - expanded Wawa media/copy sequence and centered existing credits. Work already had the requested Wawa/Cable Snake swap and first-ten behavior; preserved and verified. See [wawa_review_20260930.md](wawa_review_20260930.md).
+- Both implementation checkpoints were validated and the tree was clean between scopes. Subsequent documentation-only commits do not imply another application change or production deployment.
+
+Current local candidate media selection: 278 public assets / 340 public URL mappings. The 24 Wawa additions are recorded in [wawa_media_audit_20260930.json](wawa_media_audit_20260930.json); prior registrations are unchanged. Both private Twist photographs remain private and excluded. The release audit below describes the earlier live package, not this local candidate.
+
 1. Read the current user request and `AGENTS.md`.
 2. Read this handoff and [case_study_style.md](case_study_style.md).
 3. Inspect actual Git state and the relevant page/source. The [rollout history](case_study_rollout_progress.md) is historical detail, not a required full read.
@@ -49,7 +57,7 @@ Dependency audit findings from the previous release remain a separate maintenanc
 
 These are ideas for gradual development, not a committed roadmap or deadlines. Next plausible editorial task: choose one, establish exact sources/rights/credits, and bound its scope.
 
-- Expand [Wawa](../src/content/work/cases/wawa-coffee-island.ts).
+<!-- Previous backlog item: Expand Wawa. Implemented in the local checkpoint above; not deployed. -->
 - Five Below.
 - Expand [Capri Sun Solstice Pouch and Trick & Treat](../src/content/work/cases/capri_sun_standalone.ts), separately.
 - A “case study case study”: pure motion graphics about selling and telling; identify exact projects later.
@@ -58,12 +66,14 @@ These are ideas for gradual development, not a committed roadmap or deadlines. N
 - Expand [AMSOIL](../src/content/work/cases/amsoil-xpd-wind-grease.ts).
 - Engine renders / gears / transmissions: possible technical case study.
 - Simply: identify exact project.
-- Twisted Tea “coosie”: working label; verify project name.
+- Twisted Tea koozie: identify exact project and sources.
 - Blue Moon Answers.
-- Hay Day farmers / farmer's market work.
-- Coors Light and pops: clarify assignments.
+- Hay Day Farmers Market: identify exact project and sources.
+- Coors Light and Pops: clarify assignments.
 - Richmond 48 Hour Film graphics: identify films, contributions, award category/year/recipient and actual graphics/VFX examples. Research what “Best Graphics in Richmond” refers to; do not assume five consecutive awards or personal awards. No new About claim in this release.
 - Dark case-study art direction remains optional future exploration.
+- PERC Truck: identify exact project, sources, rights and credits before considering a case study.
+- Investigate `foto.sasisa.ru`: research lead only; no investigation or publication approval implied by this note.
 
 ## Notion
 
