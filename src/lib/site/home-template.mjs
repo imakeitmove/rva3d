@@ -51,7 +51,7 @@ export function v008Page(data, { header, tokens }) {
         <h3>Bring more range to the project.</h3><p>A campaign needs design, animation and compositing to work together, from the first visual direction to the final formats.</p>
         <h3>Add senior capacity, without a large studio.</h3><p>Your agency or in-house team needs someone who can take ownership of a difficult asset, shot or sequence within your production workflow.</p>
       </div></div>
-      <a class="editorial-link v-fit-link" href="https://www.rva3d.com/how-we-work">How we work <span aria-hidden="true">↗</span></a></details>
+      <a class="editorial-link v-fit-link" href="https://www.rva3d.com/about#process">How we work <span aria-hidden="true">↗</span></a></details>
     </section>
 </div></section>
     <section data-project-gallery data-project-mode="sampler" data-project-group-size="2" class="v-work" id="work" data-tone="void"><div class="v-frame"><div class="v-section-top"><h2><span>The proof</span><br>is in the pixels.</h2>${link("https://www.rva3d.com/work", "View all work", "v-explore-link")}</div><!-- V007 removes the non-interactive taxonomy strip. -->

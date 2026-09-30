@@ -14,10 +14,10 @@
     "desmi-rotan-pump",
     "uncommon-goods-outta-this-world"
   ],
-  "assets": 308,
-  "logicalUrls": 370,
-  "registryDigest": "1458a5bf3241431734c0d17af8567071c1666755d436ef66b3ce53e1a2c151b3",
-  "urlsDigest": "23430d3471fd8f257f9a8d906fd58fea5f1fc3f869cf885f50bf448e16c54e14",
+  "assets": 313,
+  "logicalUrls": 376,
+  "registryDigest": "801b69ff0fd1fde454f54ca77d4c16460dabafd6303d18b26aca1245d0f8d584",
+  "urlsDigest": "00db24a7ec7fd01f9d172a49ab4087c64b6b8ff70b317033c9328cbc0b48fc1a",
   "previous93RegistryDigest": "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8",
   "previous157UrlsDigest": "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f",
   "excludedKeys": [
@@ -314,5 +314,61 @@
     ],
     "evidence": "docs/five_below_media_audit_20260930.json",
     "authorization": "Exact owner-selected derivatives; case remains a preview candidate, not approved for public production. No deployment."
+  },
+  "richmondSlideshow20260930": {
+    "previousAssets": 308,
+    "previousUrls": 370,
+    "addedKeys": [
+      "1d116262aaa7267061c8.webp",
+      "71b8d26feade7c178a00.webp",
+      "dc458b4f53d2da64ca2f.webp",
+      "f099802614b571a3758a.webp",
+      "7fb40a51347e30b8fa90.webp"
+    ],
+    "sources": [
+      {
+        "name": "48-hour-pixel-drop-meet-the-team-deven.jpg",
+        "sourceSha256": "a3522fb616730b294ebb21e7a784989a71f3a0a270d279b911c628022062749a",
+        "key": "1d116262aaa7267061c8.webp",
+        "width": 1280,
+        "height": 772
+      },
+      {
+        "name": "48-hour-filmapalooza-red-carpet_cropped.jpg",
+        "sourceSha256": "caddc00141f54eff89cbbefc5a05b646c88320ec1e50531065e61f408a4bc4c3",
+        "key": "71b8d26feade7c178a00.webp",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "name": "48-hour-runner-up-best-film_cropped.jpg",
+        "sourceSha256": "331e1be209fe7f9a7f56d0a8586de80d48ce21b0c7d8c5af47478de959f657ba",
+        "key": "dc458b4f53d2da64ca2f.webp",
+        "width": 1280,
+        "height": 772
+      },
+      {
+        "name": "48-hour-pixel-drop-meet-the-team.jpg",
+        "sourceSha256": "eeaa61b3e7b9d162e2811934372ee42d88c97fab2e1d9522bc388769c7e9d029",
+        "key": "f099802614b571a3758a.webp",
+        "width": 1280,
+        "height": 772
+      },
+      {
+        "name": "fool_me_twice_cover_image_001.jpg",
+        "sourceSha256": "d7fb06a073c81b672d96c6e315b3e480590922e4179e7a4ba7e84b857b24b4f3",
+        "key": "6018fdd9f65752ca39e1.webp",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "name": "48-hour-pixel-drop-meet-the-team-rumple.jpg",
+        "sourceSha256": "62f0ed33e76da2a97f4519cc912f322fd4c1e3e67a19953056882334beadea8f",
+        "key": "7fb40a51347e30b8fa90.webp",
+        "width": 1280,
+        "height": 772
+      }
+    ],
+    "authorization": "Owner-selected About film slideshow; no deployment."
   }
 }

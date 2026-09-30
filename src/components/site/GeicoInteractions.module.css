@@ -33,3 +33,7 @@
 .slideshow:fullscreen .slides { width: 100%; height: 100%; aspect-ratio: auto !important; }
 .slideshow:fullscreen .slide img { object-fit: contain; }
 .panoramaPreview :global(.site-media) { position: relative; }
+
+/* Opt-in photographic mode preserves complete frames; existing case defaults stay cover. */
+.slideshow[data-image-fit="contain"] .slide img { height: 100%; object-fit: contain; }
+.slideshow[data-image-fit="contain"] .slideControls button { font-size: 25px; }

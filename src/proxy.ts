@@ -11,8 +11,8 @@ const previewPublicHeaders = { ...publicHeaders, "X-Robots-Tag": "noindex, nofol
 /* Previous buyer allowlist retained for rollback; it did not include /interactive.
 const buyerRoutePattern = /^\/(?:$|work(?:\/[^/]+)?\/?$|capabilities(?:\/[^/]+)?\/?$|about\/?$|privacy\/?$|login\/?$|client-login\/?$|contact(?:-test)?\/?$)/;
 */
-const buyerRoutePattern = /^\/(?:$|work(?:\/[^/]+)?\/?$|capabilities(?:\/[^/]+)?\/?$|interactive\/?$|about\/?$|how-we-work\/?$|privacy\/?$|login(?:\/recovery)?\/?$|client-login\/?$|contact(?:-test)?\/?$)/;
-const publicRoutePattern = /^\/(?:$|work(?:\/[^/]+)?\/?$|capabilities(?:\/[^/]+)?\/?$|interactive\/?$|about\/?$|how-we-work\/?$|hello\/?$|privacy\/?$|login(?:\/recovery)?\/?$|client-login\/?$|contact\/?$)/;
+const buyerRoutePattern = /^\/(?:$|work(?:\/[^/]+)?\/?$|capabilities(?:\/[^/]+)?\/?$|interactive\/?$|about\/?$|how-we-work\/?$|faq\/?$|privacy\/?$|login(?:\/recovery)?\/?$|client-login\/?$|contact(?:-test)?\/?$)/;
+const publicRoutePattern = /^\/(?:$|work(?:\/[^/]+)?\/?$|capabilities(?:\/[^/]+)?\/?$|interactive\/?$|about\/?$|how-we-work\/?$|faq\/?$|hello\/?$|privacy\/?$|login(?:\/recovery)?\/?$|client-login\/?$|contact\/?$)/;
 const publicMediaPattern = /^\/media\/[a-f0-9]{20}\.(?:webp|png|jpg|mp4|glb)$/;
 
 export function proxy(request: NextRequest) {
@@ -23,6 +23,9 @@ export function proxy(request: NextRequest) {
   };
   const finishPrivate = (response: NextResponse) => finish(response, privateHeaders);
   const finishPublic = (response: NextResponse) => finish(response, isPublicProduction() ? publicHeaders : previewPublicHeaders);
+
+  // HTTP redirect preserves inbound fragments; the FAQ adapter forwards moved process anchors.
+  if (/^\/how-we-work\/?$/.test(pathname)) return finishPublic(NextResponse.redirect(new URL("/faq" + request.nextUrl.search, request.url), 308));
 
   // One authored model for loopback-only header review; never open /models globally.
   if (pathname === "/models/RVA_Logo_010_spin_loop_001.glb" && !isPublicProduction() &&

@@ -5,12 +5,15 @@ import { Brand } from "./Brand";
 import { siteHref } from "@/lib/site/paths";
 import home from "@/content/site/home.generated.json";
 import editorial from "@/content/site/editorial.generated.json";
-import { EditorialPageNav } from "./EditorialPageNav";
+import { WorkingProcess } from "./HowWeWork";
+import { WhaxeProcessSlideshow } from "./WhaxeProcessSlideshow";
+import filmSlides from "@/content/site/richmond_films.generated.json";
+import type { WorkImageMedia } from "@/content/work/types";
 import { MovedAboutFragments } from "./MovedAboutFragments";
 import { CollaboratorContact } from "./CollaboratorContact";
 import { publicInquiryDeliveryEnabled } from "@/lib/site/runtime-environment";
 import { AboutSkyline } from "./AboutSkyline";
-import richmondMedia from "@/content/site/about-richmond.generated.json";
+// Direct by Design imagery now lives on FAQ.
 
 const processSteps = [
   ["Talk", "Start with the problem, audience, deliverables, timing, existing materials, constraints, and what success needs to look like."],
@@ -118,7 +121,7 @@ export function AboutEditorial() {
     <Shell>
       <div className="about-editorial about-navigation-v2 about-richmond-refresh">
         <MovedAboutFragments />
-        <div className="editorial-width about-page-switcher"><EditorialPageNav current="about" /></div>
+        <WorkingProcess />
         <section className="about-ground editorial-width" data-tone="paper">
           <div className="about-positioning">
             {/* Previous text-only navigation: <EditorialPageNav current="about" /> */}
@@ -163,6 +166,7 @@ export function AboutEditorial() {
 
         <section className="richmond-history editorial-width" data-tone="paper" aria-label="Richmond filmmaking and studio practice">
           <div className="richmond-film-row">
+            <WhaxeProcessSlideshow slides={filmSlides as WorkImageMedia[]} label="Films made in Richmond" autoplay={false} fit="contain" />
             <div className="richmond-film-copy">
               <p>
                 <strong>Films made in Richmond.</strong> Deven created graphics and
@@ -173,8 +177,9 @@ export function AboutEditorial() {
               </p>
               <a className="richmond-films-link" href="https://vimeo.com/pixeldropfilms">Watch the films <span aria-hidden="true">↗</span></a>
             </div>
-            <Image {...richmondMedia.film} alt={richmondMedia.film.alt} sizes="(max-width: 700px) calc(100vw - 40px), 50vw" unoptimized />
+            {/* Previous single film artwork replaced by the owner-selected six-photo slideshow. */}
           </div>
+          {/* Direct by Design moved to FAQ with the requested introduction.
           <div className="richmond-studio-row">
             <div className="richmond-studio-copy">
               <h2><span className="sr-only">RVA3D</span><Image src="/media/6898dc7d4ac2276dbb79.webp" width={1122} height={386} alt="" unoptimized /></h2>
@@ -186,6 +191,7 @@ export function AboutEditorial() {
             </div>
             <Image {...richmondMedia.studio} alt={richmondMedia.studio.alt} sizes="(max-width: 700px) calc(100vw - 40px), 50vw" unoptimized />
           </div>
+          */}
         </section>
 
         {/* Previous text-only Richmond and direct-relationship layout retained for restoration.
@@ -254,8 +260,7 @@ export function AboutEditorial() {
 
         */}
 
-        {/* Process, communication, and FAQ remain preserved in the legacy export
-            above and are now presented on the dedicated How We Work page. */}
+        {/* Process and communication now lead About; FAQ has its own canonical page. */}
         <section
           className="collaborate-section"
           id="collaborate"
@@ -264,15 +269,18 @@ export function AboutEditorial() {
         >
           <div className="editorial-width collaborate-grid">
             <div>
-              <p className="label">Freelance collaborators</p>
+              <p className="label">Collaborate with RVA3D</p>
               <h2 id="collaborate-title">
-                Collaborate with <Brand />
+                Good work can start in a lot of ways.
               </h2>
             </div>
             <div className="collaborate-copy">
-              <p>We occasionally bring in freelance collaborators when a project needs extra
+              {/* Previous freelancer-only invitation retained for restoration: <p>We occasionally bring in freelance collaborators when a project needs extra
                 hands or a specific skill set. If you make excellent work and think we
-                might be a good fit for each other, say hello!</p>
+                might be a good fit for each other, say hello!</p> */}
+              <p>RVA3D is open to more than client projects. We like meeting artists, filmmakers, designers, technologists, educators, schools, and community organizations when there’s a good reason to make something together.</p>
+              <p>That might mean joining forces on a production, bringing in a specialist, developing a workshop, speaking or teaching, supporting a creative event, or exploring an idea that doesn’t fit neatly into a client brief.</p>
+              <p>We can’t say yes to everything, but if you think RVA3D could be useful—or you could be useful to us—tell us what you have in mind.</p>
             </div>
             <CollaboratorContact sendingEnabled={publicInquiryDeliveryEnabled()} />
             {/* Previous collaborator copy, mailto CTA and rate guidance retained for restoration.

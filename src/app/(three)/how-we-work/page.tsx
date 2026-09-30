@@ -1,3 +1,7 @@
+import { permanentRedirect } from "next/navigation";
+export default function HowWeWorkPage() { permanentRedirect("/faq"); }
+
+/* Previous page retained for restoration; process moved to About, questions to FAQ.
 import type { Metadata } from "next";
 
 import { HowWeWork } from "@/components/site/HowWeWork";
@@ -14,3 +18,5 @@ export const metadata: Metadata = {
 export default function HowWeWorkPage() {
   return <HowWeWork />;
 }
+
+*/

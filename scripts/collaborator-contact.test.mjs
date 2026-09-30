@@ -28,19 +28,19 @@ function harness({ production = false, authenticated = false, controlled = false
 }
 function data(overrides = {}) {
   const form = new FormData();
-  for (const [key, value] of Object.entries({ name: "Test Artist", email: "artist@example.com", skill: "3D animator", portfolio: "https://example.com/work", ...overrides })) form.set(key, value);
+  for (const [key, value] of Object.entries({ name: "Test Artist", email: "artist@example.com", message: "A workshop idea for our school.", ...overrides })) form.set(key, value);
   return form;
 }
 
-test("collaborator validates required fields and restricts portfolio schemes and lengths", async () => {
+test("collaborator validates required fields and restricts optional link schemes and lengths", async () => {
   const h = harness();
   const missing = await h.submit(new FormData());
-  assert.deepEqual(Object.keys(missing.fieldErrors).sort(), ["email", "name", "portfolio", "skill"]);
-  for (const portfolio of ["javascript:alert(1)", "file:///private", "not a URL", "https://user:password@example.com"]) {
-    assert.ok((await h.submit(data({ portfolio }))).fieldErrors.portfolio);
+  assert.deepEqual(Object.keys(missing.fieldErrors).sort(), ["email", "message", "name"]);
+  for (const link of ["javascript:alert(1)", "file:///private", "not a URL", "https://user:password@example.com"]) {
+    assert.ok((await h.submit(data({ link }))).fieldErrors.link);
   }
-  const long = await h.submit(data({ location: "x".repeat(151), note: "x".repeat(2001) }));
-  assert.ok(long.fieldErrors.location && long.fieldErrors.note);
+  const long = await h.submit(data({ location: "x".repeat(151), message: "x".repeat(2001) }));
+  assert.ok(long.fieldErrors.location && long.fieldErrors.message);
   assert.equal(h.sent.length, 0);
 });
 
@@ -51,7 +51,8 @@ test("valid optional-empty introduction uses distinct subject and friendly non-p
   assert.equal(result.message, collaborator.collaboratorSuccess);
   assert.equal(result.submissionId, "mock-delivery");
   assert.equal(h.sent[0].subject, "RVA3D collaborator introduction");
-  assert.match(h.sent[0].text, /Portfolio: https:\/\/example.com\/work/);
+  assert.match(h.sent[0].text, /Link: Not provided/);
+  assert.match(h.sent[0].text, /A workshop idea for our school/);
   assert.doesNotMatch(h.sent[0].text, /Company:|What can we help with|Project type/);
   assert.equal(h.sent[0].replyTo, "artist@example.com");
 });
@@ -88,4 +89,12 @@ test("project inquiry delivery and validation match the unchanged baseline", asy
   assert.deepEqual(JSON.parse(JSON.stringify(await current.project(form))), JSON.parse(JSON.stringify(await old.project(form))));
   assert.deepEqual(JSON.parse(JSON.stringify(current.sent)), JSON.parse(JSON.stringify(old.sent)));
   assert.deepEqual(JSON.parse(JSON.stringify(await current.project(new FormData()))), JSON.parse(JSON.stringify(await old.project(new FormData()))));
+});
+
+test("optional organization and portfolio link remain useful to freelancers", async () => {
+ const h=harness({production:true});
+ assert.equal((await h.submit(data({organization:"Freelance animator",link:"https://example.com/work",location:"Richmond"}))).status,"success");
+ assert.match(h.sent[0].text,/Organization \/ role: Freelance animator/);
+ assert.match(h.sent[0].text,/Link: https:\/\/example.com\/work/);
+ assert((await h.submit(data({organization:"x".repeat(201)}))).fieldErrors.organization);
 });

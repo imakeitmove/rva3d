@@ -3,14 +3,17 @@
 import { useEffect } from "react";
 
 const movedFragments = new Map([
-  ["#how-we-work", "./how-we-work#process"],
-  ["#faq", "./how-we-work#faq"],
+  ["#how-we-work", "./about#process"],
+  ["#faq", "./faq#faq"],
 ]);
 
-export function MovedAboutFragments() {
+export function MovedAboutFragments({ faq = false }: { faq?: boolean }) {
   useEffect(() => {
     const replaceMovedFragment = () => {
-      const destination = movedFragments.get(window.location.hash);
+      // The permanent legacy redirect preserves its fragment in the browser.
+      const destination = faq
+        ? (["#process", "#working-together", "#communication", "#how-we-work"].includes(window.location.hash) ? "./about" + (window.location.hash === "#how-we-work" ? "#process" : window.location.hash) : undefined)
+        : movedFragments.get(window.location.hash);
       if (destination) {
         window.location.replace(new URL(destination, window.location.href));
       }
@@ -19,13 +22,13 @@ export function MovedAboutFragments() {
     replaceMovedFragment();
     window.addEventListener("hashchange", replaceMovedFragment);
     return () => window.removeEventListener("hashchange", replaceMovedFragment);
-  }, []);
+  }, [faq]);
 
   return (
     <noscript>
       <p className="moved-fragment-fallback">
-        Looking for <a href="./how-we-work#process">our process</a> or the{" "}
-        <a href="./how-we-work#faq">project FAQ</a>?
+        Looking for <a href="./about#process">our process</a> or the{" "}
+        <a href="./faq#faq">project FAQ</a>?
       </p>
     </noscript>
   );

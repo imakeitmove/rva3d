@@ -122,7 +122,7 @@ function validateContactForm(formData: FormData) {
 async function submitForm(formData: FormData, kind: "project" | "collaborator"): Promise<ContactFormState> {
   const collaborator = kind === "collaborator" ? validateCollaboratorForm(formData) : null;
   const { values, fieldErrors } = collaborator ? {
-    values: { ...collaborator.values, company: "", inquiryType: "other" as InquiryType, message: collaborator.values.note },
+    values: { ...collaborator.values, company: "", inquiryType: "other" as InquiryType, message: collaborator.values.message },
     fieldErrors: collaborator.fieldErrors,
   } : validateContactForm(formData);
 

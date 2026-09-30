@@ -11,15 +11,14 @@ import { buyerFaqs, processSteps } from "@/content/site/how-we-work";
 import { siteHref } from "@/lib/site/paths";
 import { Brand } from "./Brand";
 import { EditorialPageNav } from "./EditorialPageNav";
-import { Shell } from "./Shell";
+// Shell now belongs to About / FAQ; the sections below are composed once per page.
 
-export function HowWeWork() {
+export function WorkingProcess() {
   return (
-    <Shell>
       <div className={`about-editorial how-we-work-editorial ${styles.page}`}>
         {/* V001 used a contained paper opening; V002 joins the blue intro, image and dark content. */}
         <section className="how-we-work-opening-v2" data-tone="paper">
-          <div className="editorial-width"><EditorialPageNav current="how-we-work" /></div>
+          <div className="editorial-width"><EditorialPageNav current="about" /></div>
           {/* Restore the simplified opening from 8ddaa766. Regressed intro retained:
           <div className="editorial-width how-we-work-intro">
             Removed redundant kicker: <p className="label">Working with RVA3D</p>
@@ -143,6 +142,14 @@ export function HowWeWork() {
           </div>
         </section>
 
+
+
+      </div>
+  );
+}
+
+// Existing buyer answers retained intact, now composed only on /faq.
+export function BuyerFaq() { return (
         <section
           className="buyer-faq"
           id="faq"
@@ -171,11 +178,7 @@ export function HowWeWork() {
             </div>
           </div>
         </section>
-
-      </div>
-    </Shell>
-  );
-}
+); }
 
 // Previous composition retained for restoration; superseded by this focused editorial pass.
 // Previous feature-block opening; copy is now composed beside the statement.

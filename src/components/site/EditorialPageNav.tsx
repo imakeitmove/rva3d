@@ -1,6 +1,6 @@
 import navigation from "./EditorialNavigation.module.css";
 
-type EditorialPage = "about" | "how-we-work";
+type EditorialPage = "about" | "faq";
 
 // Preserved V001 text/square variants; V002 uses the shared navigation below.
 export function EditorialPageNavLegacy({ current, tiles = false }: { current: EditorialPage; tiles?: boolean }) {
@@ -11,10 +11,10 @@ export function EditorialPageNavLegacy({ current, tiles = false }: { current: Ed
         {tiles && <span className="editorial-nav-direction" aria-hidden="true">↗</span>}
       </a>
       <a
-        href="./how-we-work"
-        aria-current={current === "how-we-work" ? "page" : undefined}
+        href="./faq"
+        aria-current={current === "faq" ? "page" : undefined}
       >
-        How we work
+        FAQ
         {tiles && <span className="editorial-nav-direction" aria-hidden="true">↗</span>}
       </a>
     </nav>
@@ -28,8 +28,8 @@ export function EditorialPageNav({ current }: { current: EditorialPage }) {
       <a className={navigation.link} href="./about" aria-current={current === "about" ? "page" : undefined}>
         About <span aria-hidden="true">↗</span>
       </a>
-      <a className={navigation.link} href="./how-we-work" aria-current={current === "how-we-work" ? "page" : undefined}>
-        How we work <span aria-hidden="true">↗</span>
+      <a className={navigation.link} href="./faq" aria-current={current === "faq" ? "page" : undefined}>
+        FAQ <span aria-hidden="true">↗</span>
       </a>
     </nav>
   );
