@@ -17,3 +17,8 @@
 .replay:focus-visible { outline: 2px solid var(--rva-signal); outline-offset: 6px; }
 .replay .fallback img { display: block; width: 100%; height: auto; }
 :global([data-home-logo-mount]):has(> .replay) > img { display: none !important; }
+
+/* Header-only 2x composition. Reserve horizontal Home-link space without
+   changing its height, authored camera/crop, or standalone homepage instance. */
+.slot[data-logo-instance="header"][data-header-logo-review="3d"] { margin-right: 3.034em; }
+.slot[data-logo-instance="header"][data-header-logo-review="3d"] .scene { width: 216%; left: -4%; }

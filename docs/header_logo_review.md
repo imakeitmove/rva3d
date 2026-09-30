@@ -82,3 +82,7 @@ No camera re-export is currently required. One visual difference remains for app
 ## Local polish checkpoint
 
 Black 3D fronts, unlit full Signal Green sides, and an 8% uniform composition increase. Camera, crop coordinates, hit target, header height and navigation rectangles are unchanged. Browser pixel checks confirmed black -> white -> black front fill and exact Signal Green sides; poses 0/12/45/90 fit without clipping. Lint, TypeScript, eight playback tests, production-mode build, desktop/tablet/mobile interaction and fallback checks passed.
+
+## Header-only enlargement, September 30
+
+Header review crop doubled from 65.52 x 20.63 CSS px to 131.05 x 41.25 at desktop/tablet; authored silhouette scales uniformly 2x within it. Header stays 73px tall. The stable Home link reserves horizontal space (121.34 x 44px); body logo stays 158.39 x 54.48px at 1440. Camera, fixed crop, materials and playback code unchanged. Default/mobile/reduced-motion remain static. Poses 0/12/45/90, hover/click/reset, 1440/1024/390 layout, lint/types/build and eight controller tests pass. Evidence: ignored `scripts/runtime/editorial_refresh/`. Local checkpoint only; no push/deploy.
