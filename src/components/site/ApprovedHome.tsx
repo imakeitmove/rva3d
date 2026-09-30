@@ -11,7 +11,15 @@ export function ApprovedHome() {
   // Retain V008's approved semantic markup and proven controllers in a Next server component.
   // It is escaped from the existing registry at preparation time, never user-authored HTML.
   // GEICO leads the review selection; preserve the homepage's two-card layout.
-  const reviewData = { ...data, cases: studies.map(study => ({
+  // Homepage-only curation; the shared registry and Work ordering stay intact.
+  // Previously: studies.map directly in its registry order.
+  const siblings = new Set(["capri-sun-solstice-pouch", "capri-sun-trick-and-treat"]);
+  const first = studies[0];
+  const wawa = studies.find(study => study.slug === "wawa-coffee-island");
+  const homeStudies = [first, ...(wawa && wawa !== first ? [wawa] : []),
+    ...studies.filter(study => study !== first && study !== wawa && !siblings.has(study.slug)),
+    ...studies.filter(study => study !== first && study !== wawa && siblings.has(study.slug))];
+  const reviewData = { ...data, cases: homeStudies.map(study => ({
     slug: study.slug, title: study.title, publicHeadline: headline[study.slug],
     client: study.client, eyebrow: study.eyebrow, summary: study.indexSummary,
     roles: study.role, cover: protectedMedia(study.indexMedia.kind === "video" ? study.indexMedia.poster : study.indexMedia),
