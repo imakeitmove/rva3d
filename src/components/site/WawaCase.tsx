@@ -36,8 +36,9 @@ export function WawaCase() {
       <Image className={editorial.logo} src="/media/brand_logos/wawa.webp" alt="Wawa" width={220} height={100} style={{ width: 110 }} unoptimized />
       <p>{"Pak-It won the contract and its fixtures were integrated across Wawa's entire chain of over 1,200 stores."}</p>
     </CaseBeat>
+    {/* Previous order was media.stills; owner swapped camera_2 and camera_3 only. */}
     <CaseBeat id="final-stills"><div className={styles.finalGallery}>
-      {(media.stills as WorkImageMedia[]).map(item => <CaseMedia key={item.src} media={item} />)}
+      {([media.stills[3], media.stills[1], media.stills[2], media.stills[0]] as WorkImageMedia[]).map(item => <CaseMedia key={item.src} media={item} />)}
     </div></CaseBeat>
   </RolloutCase>;
 }

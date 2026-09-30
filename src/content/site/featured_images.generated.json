@@ -1,0 +1,23 @@
+{
+  "wawa": {
+    "kind": "image",
+    "src": "/media/work/wawa_polish/stills_001.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Finished Wawa Coffee Island fixture, view 1"
+  },
+  "amsoil": {
+    "kind": "image",
+    "src": "/media/featured_images/amsoil.webp",
+    "width": 1600,
+    "height": 1248,
+    "alt": "Wind turbine cutaway showing the drivetrain in its wind-farm setting."
+  },
+  "capabilities": {
+    "kind": "image",
+    "src": "/media/featured_images/capabilities.webp",
+    "width": 1440,
+    "height": 1200,
+    "alt": "RVA3D self-promotional render of green and purple cans carrying RVA3D branding."
+  }
+}

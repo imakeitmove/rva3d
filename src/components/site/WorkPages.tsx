@@ -1,3 +1,6 @@
+import featuredMedia from "@/content/site/featured_images.generated.json";
+import featuredStyles from "./FeaturedImages.module.css";
+import type { WorkImageMedia } from "@/content/work/types";
 // Public-safety audit 2026-09-15; previous wording retained for reference:
 // "RVA3D completed the contracted 3D work described below"
 // Public-safety audit 2026-09-15; previous wording retained for reference:
@@ -28,7 +31,11 @@ export function WorkIndex() {
   // Keep secondary Capri Sun routes in studies; feature only Noise Tech on Work.
   // Previous catalogue used the full studies array, adding two sibling cards.
   // Previous Work-only selection/count retained: studies.filter(excluding Capri siblings), Math.min(4, length).
-  const featuredStudies = curateWorkStudies(studies);
+  // Work-only cover overrides; canonical heroes and other page selections stay intact.
+  const featuredStudies = curateWorkStudies(studies).map(study => {
+    const cover = study.slug === "wawa-coffee-island" ? featuredMedia.wawa : study.slug === "amsoil-xpd-wind-grease" ? featuredMedia.amsoil : null;
+    return cover ? { ...study, indexMedia: cover as WorkImageMedia } : study;
+  });
   const initialCount = Math.min(WORK_INITIAL_COUNT, featuredStudies.length);
   return <Shell>
     <section className="editorial-opening work-index-opening" data-tone="paper"><div className="v-frame">
@@ -37,7 +44,7 @@ export function WorkIndex() {
       <h1>The proof<br />is in the <em>pixels.</em></h1><p className="editorial-lead work-intro-copy"><span>Products to explain. Characters to animate. Shots to solve.</span><span>See what each project needed, what we contributed and how it came together.</span></p>
     </div></section>
     <BrandLogoRibbon />
-    <section className="project-catalogue v-broad" data-tone="paper" aria-label="Case studies" data-project-gallery data-project-mode="inventory" data-project-group-size="4" data-project-initial-count={initialCount}>
+    <section className={`project-catalogue v-broad ${featuredStyles.workCovers}`} data-tone="paper" aria-label="Case studies" data-project-gallery data-project-mode="inventory" data-project-group-size="4" data-project-initial-count={initialCount}>
       <div className="catalogue" data-project-cards>{featuredStudies.map((study, index) => <ProjectCard key={study.slug} study={study} hidden={index >= initialCount} />)}</div>
       <div data-project-controls hidden><p className="label work-project-announcement" data-project-status role="status" aria-atomic="true">Showing {initialCount} of {featuredStudies.length} projects</p><button className="button" data-control-tone="purple" data-project-load-more type="button">Load more <span aria-hidden="true">↓</span></button></div>
       <noscript><style>{'[data-project-mode="inventory"] [data-project-card][hidden]{display:block!important}'}</style><p>All projects are shown when JavaScript is unavailable.</p></noscript>

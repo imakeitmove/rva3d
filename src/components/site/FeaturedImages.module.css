@@ -1,0 +1,2 @@
+.workCovers :global(.case-wawa-coffee-island .catalogue-image img) { object-fit: cover; object-position: 50% 50%; }
+.workCovers :global(.case-amsoil-xpd-wind-grease .catalogue-image img) { object-fit: cover; object-position: 50% 54%; }

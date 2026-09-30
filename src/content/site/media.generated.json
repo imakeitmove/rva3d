@@ -3984,5 +3984,39 @@
     "approvalSource": "direct-owner-approval",
     "approvalNote": "Exact source selected by the owner for the Wawa refresh. Web derivative only; local checkpoint/review authorized, no deployment.",
     "recipe": "Processed animation-test frame at 8s; WebP quality85 effort6."
+  },
+  "dc846fa0e608a872cbb7.webp": {
+    "file": "private-media/dc846fa0e608a872cbb7.webp",
+    "type": "image/webp",
+    "bytes": 245454,
+    "sha256": "dc846fa0e608a872cbb7e5ffedc2edb302ec2050c84e573594b6297cc81fd627",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/amsoil_xpd_wind_grease/selected/AMSWIND_STILL_CAM_Main_FULL_Composite_4k_R003_V002_jpeg.jpg",
+    "sourceSha256": "485c9cc1fe03b97998629486d8d5a33196f164aed5e24b49a8c7b34d81a25261",
+    "width": 1600,
+    "height": 1248,
+    "publication": "public-approved",
+    "approvedAt": "2026-09-30",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval",
+    "approvalNote": "Owner-selected web derivative for the scoped featured-image update. Local review/checkpoint only; no deployment authorized.",
+    "recipe": "Auto-orient; uncropped max1600px; sRGB WebP quality85 effort6; metadata stripped. Work-only cover crop."
+  },
+  "c3ca8a33d4f374c77b32.webp": {
+    "file": "private-media/c3ca8a33d4f374c77b32.webp",
+    "type": "image/webp",
+    "bytes": 516988,
+    "sha256": "c3ca8a33d4f374c77b32b042d1d87aba1e4d0161e1e95779559fd33c80402f93",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_LogoDesign/output/RVA3D_Spoof_ads/jpeg/twisted_tea_RVA3D_BG_cans_R02_V001.jpg",
+    "sourceSha256": "dc4e3f52eb80af366e119752d755ecb29a3dba8fdb66e2c8200fd98c78936c2c",
+    "width": 1440,
+    "height": 1200,
+    "publication": "public-approved",
+    "approvedAt": "2026-09-30",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval",
+    "approvalNote": "Owner-selected web derivative for the scoped featured-image update. Local review/checkpoint only; no deployment authorized.",
+    "recipe": "Auto-orient; centered 6:5 cover crop to 1440x1200; sRGB WebP quality85 effort6; metadata stripped. Original RVA3D spec imagery, not a Twisted Tea commission."
   }
 }

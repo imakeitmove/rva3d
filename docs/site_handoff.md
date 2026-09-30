@@ -10,6 +10,9 @@ Application `53308e961824ce5535e5cb7bda912d37cb80ec51` deployed September 30 at 
 
 Local checkpoints after the live release (not pushed or deployed):
 
+- Latest logo correction: `9ce32f7f` restores authored paper/green outlines and adds the independent standalone homepage replay under the same local gate. See the current section in `header_logo_review.md` and ignored `scripts/runtime/logo_pair/` captures.
+- Featured-image refinement: Wawa final stills now camera_3, camera_4 copy, V12 Main0051, camera_2. Work reuses camera_2 with cover (source has no bars); AMSOIL Work uses the owner-supplied 4k R003 V002 composite; main Capabilities uses the supplied RVA3D spoof-can render with a correct self-promotional caption. Canonical case heroes, order and navigation remain unchanged. `build_featured_images.mjs` pins exact sources/hashes; two new WebP derivatives, originals preserved. Local selection now 280 public assets / 342 mappings; private exclusions unchanged. Lint/types/build/content/release/media checks and browser 1440/1024/390 checks pass; captures in ignored `scripts/runtime/featured_images/`.
+
 - Header logo: `4284c728ac9d365edf22592fff122aaf40b7a64c` - black 3D fronts, full Signal Green sides, preserved white flash, modestly larger composition. See [header_logo_review.md](header_logo_review.md) for opt-in preview and validation.
 - Wawa / Work: `f7a5d6c52cd98abe357aba48a0b73e50a4c46434` - expanded Wawa media/copy sequence and centered existing credits. Work already had the requested Wawa/Cable Snake swap and first-ten behavior; preserved and verified. See [wawa_review_20260930.md](wawa_review_20260930.md).
 - Both implementation checkpoints were validated and the tree was clean between scopes. Subsequent documentation-only commits do not imply another application change or production deployment.

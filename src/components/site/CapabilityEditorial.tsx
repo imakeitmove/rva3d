@@ -1,3 +1,4 @@
+import featuredMedia from "@/content/site/featured_images.generated.json";
 // Public-safety audit: previous content retained for reference.
 // "<p>A sign changes while the photographed scene stays familiar.</p>"
 // Public-safety audit: previous content retained for reference.
@@ -8,7 +9,7 @@ import { capabilities } from "@/content/capabilities";
 import { capabilityEditorial } from "@/content/site/capability-editorial";
 import proofData from "@/content/site/capability-proof-v2.generated.json";
 import type { WorkMedia, WorkVideoMedia } from "@/content/work/types";
-import { mediaUrl, studies, protectedMedia } from "@/lib/site/content";
+import { mediaUrl, protectedMedia } from "@/lib/site/content";
 import { siteHref } from "@/lib/site/paths";
 import { Shell } from "./Shell";
 import { SiteMedia } from "./SiteMedia";
@@ -17,12 +18,13 @@ import { InteractiveLogo } from "./InteractiveLogo";
 
 const proof = proofData as unknown as Record<string, WorkMedia>;
 export function CapabilityEditorial() {
-  const amsoil = studies.find(item => item.slug === "amsoil-xpd-wind-grease")!;
+  // Previous top feature used the AMSOIL index image; its case study is unchanged.
   // Previous WHAXE hero selection is retained in the V1 implementation below;
   // the active proof slot now uses the requested Five Below display animation.
   // Restore the approved still and caption selection from 797bec0f (September 13).
   // Previous shared reference: const hero = protectedMedia(amsoil.heroMedia);
-  const hero = protectedMedia(amsoil.indexMedia);
+  // Previous: const hero = protectedMedia(amsoil.indexMedia);
+  const hero = protectedMedia(featuredMedia.capabilities as WorkMedia);
   const heroSrc = hero.kind === "image" ? hero.src : hero.poster.src;
   // One authoritative registry reference can replace the motion reel without changing layout.
   const reel = capabilities.find(item => item.slug === "motion-design")!.overviewMedia!;
@@ -32,7 +34,7 @@ export function CapabilityEditorial() {
   const selected: Record<string, WorkMedia> = { "3d-animation": fiveBelow, "product-technical-visualization": desmi, "motion-design": motion, "vfx-compositing": proof.bud, "creative-production-support": proof.production };
   const logoModelUrl = mediaUrl("/models/RVA_Logo_010_intro_002.glb");
   return <Shell><div className="capabilities-editorial capabilities-v2">
-    <section className="capability-ambient-hero" data-tone="void"><div className="ambient-capability-image" style={{ backgroundImage: `url("${heroSrc}")` }} aria-hidden="true" /><div className="editorial-width ambient-hero-grid"><div><p className="label">Capabilities / What we do</p><h1>We make the pixels<br className="wide-only" /> do what we<br className="wide-only" /> <em>want them to do.</em></h1><p>Launch a product, explain a mechanism or finish a demanding shot. RVA3D can develop the idea with you or join an existing production to handle the part that needs specialist attention.</p><a className="button" href={siteHref("/#contact")}>Get in touch <span aria-hidden="true">&#8599;</span></a></div><figure><SiteMedia capabilityFullscreen media={hero} priority /><figcaption>Inside the work / AMSOIL technical visualization</figcaption></figure></div></section>
+    <section className="capability-ambient-hero" data-tone="void"><div className="ambient-capability-image" style={{ backgroundImage: `url("${heroSrc}")` }} aria-hidden="true" /><div className="editorial-width ambient-hero-grid"><div><p className="label">Capabilities / What we do</p><h1>We make the pixels<br className="wide-only" /> do what we<br className="wide-only" /> <em>want them to do.</em></h1><p>Launch a product, explain a mechanism or finish a demanding shot. RVA3D can develop the idea with you or join an existing production to handle the part that needs specialist attention.</p><a className="button" href={siteHref("/#contact")}>Get in touch <span aria-hidden="true">&#8599;</span></a></div><figure><SiteMedia capabilityFullscreen media={hero} priority />{/* Previous media-specific caption: Inside the work / AMSOIL technical visualization */}<figcaption>RVA3D / Self-promotional render</figcaption></figure></div></section>
     {/* Previous wayfinding used centered, heavy labels without directional markers. */}
     <div className="editorial-width capability-wayfinding-v2" data-tone="paper"><nav className={navigation.capabilityGrid} aria-label="Jump to a capability">{capabilities.map(capability => <a className={navigation.link} key={capability.slug} href={`#${capability.slug}`}>{capability.title}<span aria-hidden="true">↘</span></a>)}</nav></div>
     <div className="refined-capabilities">{capabilities.map(capability => {

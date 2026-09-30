@@ -184,8 +184,8 @@ test("release registry pins ten owner-approved cases and the exact selectively r
   // assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 224, logicalUrls: 286, seoDimensionsVerified: false });
   // September 29 sealed selection: 236 assets / 298 URLs; audited additions: 4 About + 14 WHAXE.
   //assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 236, logicalUrls: 298, seoDimensionsVerified: false });
-  // Prior selection: 254 assets / 316 URLs. Wawa adds 24 exact owner-selected derivatives.
-  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 278, logicalUrls: 340, seoDimensionsVerified: false });
+  // Prior selection: 254/316; Wawa added 24. Featured-image refresh adds two (280/342).
+  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 280, logicalUrls: 342, seoDimensionsVerified: false });
 });
 
 // GEICO Phase 2 covers the editorial contract and prevents approval drift in shared media.

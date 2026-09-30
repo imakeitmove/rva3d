@@ -14,10 +14,10 @@
     "desmi-rotan-pump",
     "uncommon-goods-outta-this-world"
   ],
-  "assets": 278,
-  "logicalUrls": 340,
-  "registryDigest": "f6b0cf471f146ac9db07b1d84e6448d809a2bc867d4c1a9d1916111dc9f10f95",
-  "urlsDigest": "a7cda654f6ac2815934f549fe8d0bf6f75c1f8d2cbe9ae797f159ca4ce0ba266",
+  "assets": 280,
+  "logicalUrls": 342,
+  "registryDigest": "d2f306f9403d9fd6a3de489d521b895b1c9e078a9ca255b7277fb933038c2493",
+  "urlsDigest": "36322b2fc161da455e51deee86869149ae2e73f97a31bdac56f837f74d227c86",
   "previous93RegistryDigest": "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8",
   "previous157UrlsDigest": "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f",
   "excludedKeys": [
@@ -268,5 +268,15 @@
     ],
     "authorization": "Owner-selected Wawa derivatives for local case-study review and checkpoint only. No push/deployment authorized; unrelated rights unchanged.",
     "evidence": "docs/wawa_media_audit_20260930.json"
+  },
+  "featuredImages20260930": {
+    "previousAssets": 278,
+    "previousUrls": 340,
+    "addedKeys": [
+      "dc846fa0e608a872cbb7.webp",
+      "c3ca8a33d4f374c77b32.webp"
+    ],
+    "evidence": "src/content/site/featured_images.generated.json",
+    "authorization": "Owner-directed Wawa/AMSOIL Work covers and original RVA3D Capabilities spec render; no deployment."
   }
 }
