@@ -2,6 +2,10 @@
 
 Updated September 30, 2026 (America/New_York). Implementation crossed September 29–30; release timing is recorded separately in the receipt.
 
+## Current live release
+
+Application `53308e961824ce5535e5cb7bda912d37cb80ec51` deployed September 30 at 01:49 EDT as `dpl_3GW37byMHiADg4KD7zzD1b93iU6J`; both public domains and live interactions verified. The receipt records exact checks and rollback. A later documentation HEAD does not imply a newer application deployment.
+
 ## Resume here
 
 1. Read the current user request and `AGENTS.md`.
@@ -63,4 +67,4 @@ These are ideas for gradual development, not a committed roadmap or deadlines. N
 
 ## Notion
 
-Project: [RVA3D.com](https://app.notion.com/p/282a9ba2f25880ac9d47cf948851d2f0). September 30 session progress-note URL is recorded in the release receipt and the project's Latest website handoff pointer. Preserve historical notes; do not place internal release notes into website-rendered copy.
+Project: [RVA3D.com](https://app.notion.com/p/282a9ba2f25880ac9d47cf948851d2f0). [September 30 release progress note](https://app.notion.com/p/3eba9ba2f2588170b527f229d2d47464) is also linked from the project's Latest website handoff pointer. Preserve historical notes; do not place internal release notes into website-rendered copy.

@@ -1,0 +1,180 @@
+{
+  "session": {
+    "timezone": "America/New_York",
+    "startedAt": "2026-09-30T01:25:00-04:00",
+    "implementationDates": [
+      "2026-09-29",
+      "2026-09-30"
+    ],
+    "verifiedAt": "2026-09-30T05:56:06.985Z"
+  },
+  "status": "deployed-and-live-verified",
+  "deployedRevision": "53308e961824ce5535e5cb7bda912d37cb80ec51",
+  "deployment": {
+    "id": "dpl_3GW37byMHiADg4KD7zzD1b93iU6J",
+    "url": "https://rva3d-8vkwh4pnp-devenjames-projects.vercel.app",
+    "completedAt": "2026-09-30T01:49:02.103-04:00",
+    "target": "production",
+    "project": "rva3d",
+    "projectId": "prj_bZXgUFRiXRpbAur3F4RQOOHxcQCe",
+    "domains": [
+      "https://rva3d.com",
+      "https://www.rva3d.com"
+    ]
+  },
+  "rollback": {
+    "id": "dpl_3NiybC3788tHoDPVDZhiL9EYxcNU",
+    "url": "https://rva3d-1zwgmhh99-devenjames-projects.vercel.app",
+    "revision": "17b7d850bb9db49df965f4a0c2a2d731ef8adc78"
+  },
+  "commits": {
+    "about": "2ff4c90279500cae9890449c7cfb31126afed4d1",
+    "ribbons": "581892b8335fcbcf603974a0cc87ba651dc8ec81",
+    "whaxeAndWork": "82608bf54fb8bd1e7b37b41d335dac9473d3e233",
+    "documentationAndSeal": "53308e961824ce5535e5cb7bda912d37cb80ec51"
+  },
+  "integration": {
+    "method": "Fast-forward of the existing clean scripts/runtime/production-main-20260929 clone; About/ribbon history preserved; dirty parent untouched.",
+    "pushedRef": "refs/heads/main",
+    "historyRewritten": false,
+    "documentationCloseout": "This receipt is added in a later documentation-only commit. It is not a new deployed application revision; no redeploy is required."
+  },
+  "work": {
+    "initialLimit": 10,
+    "eligible": 8,
+    "moreVisible": false,
+    "order": [
+      "GEICO",
+      "Wawa",
+      "WHAXE",
+      "Capri Sun Noise Tech",
+      "AMSOIL",
+      "Twist / Cable Snake",
+      "DESMI",
+      "Uncommon Goods"
+    ],
+    "capriSiblingsExcludedFromListing": true,
+    "siblingRoutesVerified": true,
+    "nextSequence": [
+      "WHAXE",
+      "GEICO",
+      "Twist",
+      "Noise Tech",
+      "Wawa",
+      "DESMI",
+      "WHAXE"
+    ]
+  },
+  "typography": {
+    "cause": "WHAXE inherited shared 18px exploration text while GEICO applied narrative overrides.",
+    "desktop1440": {
+      "beforeSize": 18,
+      "afterSize": 27.36,
+      "beforeLineHeight": 28.8,
+      "afterLineHeight": 37.7568
+    },
+    "mobile390": {
+      "beforeSize": 18,
+      "afterSize": 21,
+      "afterLineHeight": 29.4
+    },
+    "weight": 400,
+    "font": "Geist",
+    "narrativeMeasure": "30ch desktop; 32ch mobile",
+    "impact": "Unchanged purple, weight 600",
+    "closing": "Matches GEICO font/leading; WHAXE retains its approved 700px measure.",
+    "evidence": "docs/whaxe_typography_20260930.json"
+  },
+  "media": {
+    "previousPublicAssets": 236,
+    "aboutAdded": 4,
+    "whaxeAdded": 14,
+    "publicAssets": 254,
+    "publicLogicalUrls": 316,
+    "changedExisting": 0,
+    "removed": 0,
+    "privateExcluded": [
+      "993e84ea58f4fee4558b.webp",
+      "663a629f0c8ed278c20b.webp"
+    ],
+    "privateStatusUnchanged": true,
+    "mastersNotPackaged": true,
+    "brandLogos": 25,
+    "allSealedHashesVerified": true,
+    "allNewLiveHashesVerified": true,
+    "allLiveLogoHashesVerified": true,
+    "audit": "docs/media_audit_20260930.json"
+  },
+  "validation": {
+    "lint": "pass",
+    "typeScript": "pass",
+    "sourceBuild": "pass",
+    "contentReleaseTests": {
+      "passed": 57,
+      "skipped": 11,
+      "failed": 0,
+      "skips": "Existing explicit legacy cases; no new skips."
+    },
+    "collaboratorAndRibbonTests": {
+      "passed": 7,
+      "failed": 0
+    },
+    "mediaIntegrity": "pass",
+    "strictPublicRelease": "pass",
+    "diffCheck": "pass",
+    "sealedProductionCheck": "pass",
+    "productionWrapper": "pass",
+    "remoteBuild": "pass",
+    "dependencyClosure": {
+      "trackedFiles": 218,
+      "importEdges": 441,
+      "skipped": false
+    },
+    "browserWidths": [
+      1440,
+      820,
+      390
+    ],
+    "liveBrowser": "pass",
+    "liveMedia": "pass",
+    "mobileRegressionPages": [
+      "GEICO",
+      "Twist",
+      "Noise Tech",
+      "Wawa",
+      "DESMI"
+    ],
+    "runtimeExceptions": 0
+  },
+  "knownLimits": {
+    "email": "Production RESEND_API_KEY, EMAIL_FROM and CONTACT_EMAIL_TO keys confirmed. Collaborator transport tested with mocks; no actual email sent or delivery claimed.",
+    "physicalDevices": "Not tested; responsive browser emulation used.",
+    "dependencies": {
+      "lastObserved": "2026-09-30",
+      "high": 5,
+      "moderate": 2,
+      "critical": 0,
+      "total": 7,
+      "status": "Deferred maintenance; no dependency updates or claimed fixes."
+    }
+  },
+  "notion": {
+    "project": "https://app.notion.com/p/282a9ba2f25880ac9d47cf948851d2f0",
+    "progressNote": "https://app.notion.com/p/3eba9ba2f2588170b527f229d2d47464",
+    "readBackVerified": true,
+    "parentPointerVerified": true
+  },
+  "handoff": "docs/site_handoff.md",
+  "styleGuide": "docs/case_study_style.md",
+  "package": "scripts/runtime/production_package_20260930",
+  "evidence": [
+    "scripts/runtime/release_20260930_preflight.log",
+    "scripts/runtime/release_20260930_deploy.log",
+    "scripts/runtime/release_20260930_remote_build.log",
+    "scripts/runtime/release_live_browser.json",
+    "scripts/runtime/release_live_media.json",
+    "scripts/runtime/release_live_assets.json",
+    "scripts/runtime/release_live_regressions.json"
+  ],
+  "intentionallyExcluded": "Private Twist derivatives, source masters, credentials, runtime packages/logs and screenshots. No backlog project was implemented."
+}
