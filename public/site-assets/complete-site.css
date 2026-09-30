@@ -642,3 +642,6 @@ body.complete-site [data-media-chrome] [data-media-persistent] { opacity:1!impor
 }
 
 body.complete-site [data-media-chrome] [data-media-control]:disabled { cursor:default;filter:opacity(.5); }
+
+/* Echo the approved About emphasis without changing homepage scale or layout. */
+.complete-site .v-about-editorial h2 em { font-style: normal; color: var(--rva-purple); }

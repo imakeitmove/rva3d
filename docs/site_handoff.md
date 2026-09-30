@@ -10,6 +10,9 @@ Application `53308e961824ce5535e5cb7bda912d37cb80ec51` deployed September 30 at 
 
 Local checkpoints after the live release (not pushed or deployed):
 
+- Latest positioning refinement: owner confirmed the process block stays on FAQ; only Direct by Design intro was removed. About portrait now uses the exact fused small-studio/direct-contact heading and copy, preserving the current surrounding composition and kicker. Home retains its existing phrase, size and layout, with only confidence receiving normal-style `--rva-purple` emphasis. Starting tree was clean at `99cf09ff`; no earlier composition was restored. Lint/types/build and content tests pass (59 pass, 11 existing skips); 1440/1024/390 browser checks and desktop/mobile visual review pass, no new runtime errors. Evidence: ignored `scripts/runtime/about_positioning/`. No push/deploy.
+
+
 - Latest owner adjustment supersedes the placement below: FAQ again starts with the process image and Clear/direct/easy sequence through plan/CTA, followed by Direct by Design and buyer answers. About begins with the dark communication section and switcher, then Rendered with confidence. Process links/legacy anchors now target FAQ; communication stays on About. Richmond photos rotate from the red-carpet image through the remaining sequence, with Deven first-photo portrait last; text left/slideshow right, stacked on mobile. Five-second autoplay matches GEICO timing, retaining pause, offscreen/hidden suspension and reduced-motion support. Other case timing remains unchanged. Lint/types/build/content tests pass (59 pass, 11 existing skips); 1440/1024/390 browser layout, order, autoplay/pause/reduced-motion and anchor checks pass, no new console errors. Evidence: `scripts/runtime/editorial_refresh/adjust_*`. No push/deploy.
 
 

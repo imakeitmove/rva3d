@@ -13,7 +13,7 @@ import { MovedAboutFragments } from "./MovedAboutFragments";
 import { CollaboratorContact } from "./CollaboratorContact";
 import { publicInquiryDeliveryEnabled } from "@/lib/site/runtime-environment";
 import { AboutSkyline } from "./AboutSkyline";
-// Direct by Design imagery now lives on FAQ.
+// Studio-model positioning is now fused into the portrait section.
 
 const processSteps = [
   ["Talk", "Start with the problem, audience, deliverables, timing, existing materials, constraints, and what success needs to look like."],
@@ -127,6 +127,7 @@ export function AboutEditorial() {
             {/* Previous text-only navigation: <EditorialPageNav current="about" /> */}
             {/* V001 navigation lived in the text column: <EditorialPageNavLegacy current="about" tiles /> */}
             <p className="label">Richmond, Virginia / RVA3D</p>
+            {/* Previous portrait positioning retained for editorial rollback.
             <h1>
               Rendered with
               <br />
@@ -136,6 +137,11 @@ export function AboutEditorial() {
               <Brand /> is a Richmond-based creative studio led by Deven Langston.
               With 20 years in motion design, 3D animation, visual effects, and
               production, Deven connects creative direction with hands-on execution.
+            </p>
+            */}
+            <h1>A small studio with a clear point of contact.</h1>
+            <p className="editorial-lead">
+              <Brand /> is a Richmond-based creative studio led by Deven Langston, bringing 20 years of experience across motion design, 3D animation, visual effects, and production. You work directly with Deven from the first conversation through final delivery, connecting senior creative direction with hands-on execution and keeping the line of communication clear throughout.
             </p>
             <p className="editorial-lead about-kicker">
               Got a graphics challenge? We’ll figure it out!
@@ -179,7 +185,7 @@ export function AboutEditorial() {
             {/* Previous order began with Deven; move that image to the end and return media to the right. */}
             <WhaxeProcessSlideshow slides={[...filmSlides.slice(1), filmSlides[0]] as WorkImageMedia[]} label="Films made in Richmond" intervalMs={5000} fit="contain" />
           </div>
-          {/* Direct by Design moved to FAQ with the requested introduction.
+          {/* Historical Direct by Design row retained for rollback; current positioning is in the portrait section.
           <div className="richmond-studio-row">
             <div className="richmond-studio-copy">
               <h2><span className="sr-only">RVA3D</span><Image src="/media/6898dc7d4ac2276dbb79.webp" width={1122} height={386} alt="" unoptimized /></h2>

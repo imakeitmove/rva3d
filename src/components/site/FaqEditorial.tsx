@@ -1,6 +1,6 @@
-import Image from "next/image";
+// Previous Direct by Design image import: import Image from "next/image";
 import "./editorial-refinement.css";
-import media from "@/content/site/about-richmond.generated.json";
+// Previous intro media: import media from "@/content/site/about-richmond.generated.json";
 import { Shell } from "./Shell";
 import { BuyerFaq, WorkingProcess } from "./HowWeWork";
 import { MovedAboutFragments } from "./MovedAboutFragments";
@@ -9,6 +9,7 @@ export function FaqEditorial() {
   return <Shell><div className="about-editorial faq-editorial">
     <MovedAboutFragments faq />
     <WorkingProcess />
+    {/* Historical intro retained for rollback only. Studio positioning now lives beside the About portrait.
     <section className="faq-direct editorial-width" data-tone="paper" aria-labelledby="direct-title">
       <div><p className="label">Direct by design</p><h1 id="direct-title">A small studio with a clear point of contact.</h1>
         <p>RVA3D is built so the person you talk to stays close to the work. Deven leads the creative and production process from the first conversation through final delivery, keeping decisions direct and responsibility clear.</p>
@@ -17,6 +18,7 @@ export function FaqEditorial() {
       </div>
       <Image {...media.studio} alt={media.studio.alt} sizes="(max-width: 700px) calc(100vw - 40px), 45vw" unoptimized />
     </section>
+    */}
     <BuyerFaq />
   </div></Shell>;
 }
