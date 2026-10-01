@@ -1,0 +1,24 @@
+{
+  "media": {
+    "kind": "video",
+    "src": "/media/capabilities/motion_design_loop_004.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "alt": "Selected motion design from the 2026 RVA3D reel",
+    "presentation": "loop",
+    "hasAudio": false,
+    "poster": {
+      "kind": "image",
+      "src": "/media/capabilities/motion_design_loop_004_poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Selected motion design from the 2026 RVA3D reel"
+    }
+  },
+  "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/demo_reels/2026_motion_design_demo_reel-loop-for-web_004.mp4",
+  "sourceSha256": "2a95ac5d82c150165a9ddc1e73d7e165a0bfc47d553325d07894367ccd75ec6c",
+  "sourceHasAudio": false,
+  "duration": 15.875,
+  "frameRate": "24/1"
+}

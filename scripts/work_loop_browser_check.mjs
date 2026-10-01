@@ -115,7 +115,7 @@ for(const width of [1440,1024,390]) {
  console.log("PASS Work/AMSOIL",width,JSON.stringify(images));
  await nav('/about');
  const about=await aboutState(),before=JSON.parse(fs.readFileSync(`${evidence}/about_before.json`))[width];
- assert.equal(about.copy,"With 20 years of experience in motion design and 3D animation, Deven Langston is RVA3D's senior artist, guiding projects from first frame to final render.");assert.equal(about.branded,1);
+ assert.equal(about.copy,"With 20 years of experience in motion design and 3D animation, Deven Langston is RVA3D's founder and senior artist, guiding projects from first frame to final render.");assert.equal(about.branded,1);
  assert.equal(about.classes,before.classes);assert.equal(about.heading,before.heading);assert.deepEqual(about.faq,before.faq);
  for(const field of ['src','alt','width','height','x','y']){if(typeof about.portrait[field]==='number')assert(Math.abs(about.portrait[field]-before.portrait[field])<1,field);else assert.equal(about.portrait[field],before.portrait[field]);}
  assert(!(await run("document.documentElement.scrollWidth>innerWidth")));

@@ -58,7 +58,7 @@ for (const [width, height] of (process.argv.includes("--interactions-only") ? []
   requests.length = 0;
   await navigate("/capabilities");
   const initiallyRequested = requests.slice();
-  if (stage === "after") assert(!initiallyRequested.some(url => /(?:b221e7516f79f54c21d1|f03e2d55e41c89ec7dae|3808b8f2fcb540877802)\.mp4/.test(url)), "Below-fold loops should not load at the hero");
+  if (stage === "after") assert(!initiallyRequested.some(url => /(?:b221e7516f79f54c21d1|f03e2d55e41c89ec7dae|ef8afc51db8bb9d3771f)\.mp4/.test(url)), "Below-fold loops should not load at the hero");
   await screenshot(`hero_${width}`);
   for (const id of [...ids, "contact"]) {
     await run(`document.getElementById(${JSON.stringify(id)}).scrollIntoView({block:'center',behavior:'instant'})`);

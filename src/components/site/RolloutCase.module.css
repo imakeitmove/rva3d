@@ -1,7 +1,9 @@
 /* Composition only; house spacing, typography and controls remain unchanged. */
 .case { padding-bottom: 0; }
 .beat h2 { font-size: clamp(30px, 3.2vw, 49px); line-height: 1.1; letter-spacing: -.035em; font-weight: 500; margin: 0 0 24px; }
-.beat > p, .beat > div > p { max-width: 780px; font-size: clamp(18px, 1.65vw, 24px); line-height: 1.5; }
+/* Previous: .beat > p, .beat > div > p { max-width: 780px; font-size: clamp(18px, 1.65vw, 24px); line-height: 1.5; } */
+.beat { composes: narrativeScale from "./EditorialTypography.module.css"; }
+.beat > p, .beat > div > p { max-width: var(--editorial-body-measure); font-size: var(--editorial-body-size); line-height: var(--editorial-body-leading); font-weight: var(--editorial-body-weight); letter-spacing: var(--editorial-body-tracking); }
 .beat a { color: inherit; font-weight: 600; text-decoration: none; }
 .beat a:is(:hover, :focus-visible) { text-decoration: underline; }
 .beat .caption { font-size: 12px; line-height: 1.5; margin: 10px 0 0; opacity: .75; }

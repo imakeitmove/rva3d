@@ -1,6 +1,7 @@
 import featuredMedia from "@/content/site/featured_images.generated.json";
 import whaxe from "@/content/site/whaxe-polish.generated.json";
-import uncommonGoods from "@/content/site/uncommon_goods_refresh.generated.json";
+// Previous overview example: import uncommonGoods from "@/content/site/uncommon_goods_refresh.generated.json";
+import motionReel from "@/content/site/capabilities_motion_reel.generated.json";
 import proof from "@/content/site/capability-proof-v2.generated.json";
 import { capabilityOverview as copy } from "@/content/site/capability-overview";
 import type { WorkMedia, WorkVideoMedia } from "@/content/work/types";
@@ -22,7 +23,8 @@ const selected: Record<string, WorkVideoMedia> = {
     alt: "DESMI ROTAN CHD pump cutaway, exploded assembly and rotor animation",
     poster: { kind: "image", src: "/media/capabilities/desmi-rotan-chd-sizzle-poster.webp", width: 1280, height: 720, alt: "DESMI ROTAN CHD pump cutaway" },
   },
-  "motion-design": uncommonGoods.flyup as WorkVideoMedia,
+  // Previous overview only: "motion-design": uncommonGoods.flyup as WorkVideoMedia,
+  "motion-design": motionReel.media as WorkVideoMedia,
   // ffprobe confirms the approved comparison has no audio stream.
   "vfx-compositing": { ...proof.bud, hasAudio: false } as WorkVideoMedia,
 };
@@ -53,18 +55,19 @@ export function CapabilityOverview() {
           <header className={styles.heading}><h2>{service.title}</h2><p className={styles.kicker}>{service.kicker}</p></header>
           <figure className={styles.media}><GeicoVideo media={media} main={media.presentation === "controls"} expandable={media.presentation === "controls"} /><figcaption>{service.caption}</figcaption></figure>
           <div className={styles.copy}><p>{service.body}</p><p className={styles.needs}>{service.needs}</p>
-            <a className={styles.link} href={siteHref(service.href)}>{service.link}<span aria-hidden="true">↗</span></a>
+            <a className={`editorial-link ${styles.link}`} href={siteHref(service.href)}>{service.link}<span aria-hidden="true">↗</span></a>
           </div>
         </section>;
       })}
       <section id="interactive-3d" className={`${styles.service} ${styles.interactive}`} data-tone="paper">
         <header className={styles.heading}><h2>{copy.interactive.title}</h2><p className={styles.kicker}>{copy.interactive.kicker}</p></header>
         <figure className={styles.media}><div className={styles.demo}><InteractiveLogo modelUrl={mediaUrl("/models/RVA_Logo_010_intro_002.glb")} /></div><figcaption>Self-initiated RVA3D work</figcaption></figure>
-        <div className={styles.copy}><p>{copy.interactive.body}</p><p className={styles.needs}>{copy.interactive.needs}</p><a className={styles.link} href={siteHref("/interactive")}>Explore interactive work <span aria-hidden="true">↗</span></a></div>
-      </section>
-      <section id="creative-production-support" className={styles.close} data-tone="paper">
-        <h2>{copy.close.title}</h2><div><p>{copy.close.body}</p><p>{copy.close.final}</p></div>
+        <div className={styles.copy}><p>{copy.interactive.body}</p><p className={styles.needs}>{copy.interactive.needs}</p><a className={`editorial-link ${styles.link}`} href={siteHref("/interactive")}>Explore interactive work <span aria-hidden="true">↗</span></a></div>
       </section>
     </div>
+      {/* Previously inside the paper-width wrapper; the closing color now spans the page. */}
+      <section id="creative-production-support" className={styles.close} data-tone="paper"><div className={`${styles.width} ${styles.closeGrid}`}>
+        <h2>{copy.close.title}</h2><div><p>{copy.close.body}</p><p>{copy.close.final}</p></div>
+      </div></section>
   </div></GeicoExperience></Shell>;
 }

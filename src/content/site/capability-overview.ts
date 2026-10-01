@@ -24,8 +24,10 @@ export const capabilityOverview = {
       kicker: "Make the message move.",
       body: "Type, illustration and graphics with purposeful timing. Brand films, explainers and titles, animated from supplied storyboards or developed with you.",
       needs: "Brand films · Titles · Explainers · Cutdowns",
-      caption: "Uncommon Goods · Production: Spang",
-      link: "View Uncommon Goods", href: "/work/uncommon-goods-outta-this-world",
+      // Previous single-project example: "Uncommon Goods · Production: Spang";
+      // link: "View Uncommon Goods", href: "/work/uncommon-goods-outta-this-world",
+      caption: "Selected motion design",
+      link: "Explore selected work", href: "/work",
     },
     {
       id: "vfx-compositing", title: "VFX & Compositing", index: "VFX",
@@ -43,7 +45,8 @@ export const capabilityOverview = {
     needs: "Browser 3D · Prototypes · Creative tools",
   },
   close: {
-    title: "A whole project. Or the part you need.",
+    // Previous: "A whole project. Or the part you need."
+    title: "A whole project. Or just the part you need.",
     body: "We can take a project from concept through delivery, or join your existing team for a defined asset, shot or sequence.",
     final: "Bring the brief, CAD, footage—or the question.",
   },

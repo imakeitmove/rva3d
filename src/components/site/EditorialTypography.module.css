@@ -1,0 +1,9 @@
+/* Extracted from RolloutCase's active narrative rule, measured on Wawa,
+   Uncommon Goods and AMSOIL. Keep their existing responsive scale unchanged. */
+.narrativeScale {
+  --editorial-body-size: clamp(18px, 1.65vw, 24px);
+  --editorial-body-leading: 1.5;
+  --editorial-body-weight: 400;
+  --editorial-body-tracking: normal;
+  --editorial-body-measure: 780px;
+}

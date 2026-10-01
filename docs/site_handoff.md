@@ -1,5 +1,19 @@
 # RVA3D current website handoff
 
+## October 1: owner-selected Motion Design reel 004 (local checkpoint)
+
+Main Capabilities Motion Design uses exact source production/site_content/1_source/demo_reels/2026_motion_design_demo_reel-loop-for-web_004.mp4 (1920x1080, 24fps, 381 frames / 15.875s, no audio). Source SHA256 2a95ac5d82c150165a9ddc1e73d7e165a0bfc47d553325d07894367ccd75ec6c verified unchanged. scripts/build_capabilities_motion_reel.mjs replaces the superseded uncommitted 003 registration, then uses the existing H.264 CRF20 slow / WebP85 pipeline. Selection manifest: capabilities_motion_reel.generated.json. The selected 1280x720 derivative is /media/ef8afc51db8bb9d3771f.mp4; its poster is /media/f44f217be20881fbf2cb.webp. Prior committed records and the Uncommon Goods case remain unchanged.
+
+Caption: Selected motion design. Link: Explore selected work -> /work, with shared Work editorial-link styling. Existing ambient behavior remains muted/inline/visibility-aware with accessible pause/play and fullscreen controls. Lint, TypeScript, content/media/site tests, asset/release verification, production build, four-width browser checks and two natural loop-wrap checks pass with no media or console errors. Nothing pushed, merged or deployed. Preview: http://127.0.0.1:3027/capabilities#motion-design.
+
+## October 1: capabilities typography follow-up (local checkpoint)
+
+- Owner follow-up keeps the closing headline "A whole project. Or just the part you need." and full-width signal green (#d7ff43).
+- Measured actual narrative styles on Wawa, WHAXE, Uncommon Goods and AMSOIL at 1920/1440/1024/390. RolloutCase overrides Wawa/AMSOIL's declared larger narrative styles: their rendered body, like Uncommon Goods, is 24/36, 23.76/35.64, 18/27, 18/27px (size/line-height). WHAXE's custom narrative remains 28/38.64, 27.36/37.7568, 22/30.36, 21/29.4px. All use Geist, 400, normal tracking.
+- Extracted the active RolloutCase narrative rule into EditorialTypography.module.css tokens consumed by RolloutCase and CapabilityOverview. All eight Capabilities main paragraphs match the first scale exactly, with a 34ch reading-measure cap. Typical needs/captions/index remain 13/12/14px. Links now directly reuse Work's editorial-link class (17px, 600, 25.5px line-height, 8px arrow gap).
+- Computed-style evidence: scripts/runtime/capabilities_type_{before,after}.json. Review screenshots: scripts/runtime/capabilities_overview_review/after/type_*.png. Lint, TypeScript, content tests and production build pass; browser checks cover all four widths, exact matching type, unchanged case/Work typography, no overflow and no console/runtime/media errors. Preview remains http://127.0.0.1:3027/capabilities. The pending About wording is included as "founder and senior artist." Nothing pushed, merged or deployed.
+
+
 ## October 1: capabilities overview redesign (local review only)
 
 Continued aff0d587d510df84f9b4de1f98789cdb4e4810bf on review/geico_refresh_20260926 in qa-runtime/geico_refresh_20260926. Checkpoint: redesign capabilities overview (git log -1 --format=%H -- src/components/site/CapabilityOverview.tsx). No push, merge, deployment or Notion update.

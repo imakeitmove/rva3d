@@ -14,10 +14,10 @@
     "desmi-rotan-pump",
     "uncommon-goods-outta-this-world"
   ],
-  "assets": 365,
-  "logicalUrls": 429,
-  "registryDigest": "e7d36cf0fc02ef6b2a27236a1acf0cd8c5468ff95e2f29f99d265229d2e1125c",
-  "urlsDigest": "36ea296288e51ea7a419e198ac1c966c024a368617013478d694ee633e4c73d0",
+  "assets": 367,
+  "logicalUrls": 431,
+  "registryDigest": "3c88d2a63d2b35bd1ca7826f02bd439e030eba988274bd590e631b6bf18d37e5",
+  "urlsDigest": "48a4befdd306580dfd35a8b2303c63e8270bbfd491237c2f2500703900c28a79",
   "previous93RegistryDigest": "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8",
   "previous157UrlsDigest": "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f",
   "excludedKeys": [
@@ -470,5 +470,13 @@
     ],
     "evidence": "src/content/site/amsoil_final_still.generated.json",
     "authorization": "Owner-selected exact cropped 4k AMSOIL final still. Local review only; no deployment."
+  },
+  "capabilitiesMotionReel20261001": {
+    "addedKeys": [
+      "ef8afc51db8bb9d3771f.mp4",
+      "f44f217be20881fbf2cb.webp"
+    ],
+    "evidence": "src/content/site/capabilities_motion_reel.generated.json",
+    "authorization": "Owner-selected exact 004 ambient Motion Design overview reel and poster; no deployment."
   }
 }

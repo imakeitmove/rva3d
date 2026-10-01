@@ -72,7 +72,7 @@ test("AMSOIL single ending and factual centered credit selection",()=>{
 });
 test("About founder paragraph uses exact owner wording and house BrandText",()=>{
  const active=ts.transpileModule(fs.readFileSync("src/components/site/AboutEditorial.tsx","utf8"),{fileName:"AboutEditorial.tsx",compilerOptions:{jsx:ts.JsxEmit.Preserve,module:ts.ModuleKind.ESNext,removeComments:true}}).outputText;
- const expected="With 20 years of experience in motion design and 3D animation, Deven Langston is RVA3D's senior artist, guiding projects from first frame to final render.";
+ const expected="With 20 years of experience in motion design and 3D animation, Deven Langston is RVA3D's founder and senior artist, guiding projects from first frame to final render.";
  assert(active.includes('<BrandText text="'+expected+'"'));
  assert(!active.includes("Deven connects creative direction with hands-on execution."));
  assert(active.includes("A small studio with a clear point of contact."));

@@ -940,25 +940,34 @@ test("capabilities overview has five offerings, matched public examples and one 
   assert.deepEqual(copy.services.map(item => [item.id, item.href]), [
     ["3d-animation", "/work/axe-whaxe-lil-baby"],
     ["product-technical-visualization", "/work/desmi-rotan-pump"],
-    ["motion-design", "/work/uncommon-goods-outta-this-world"],
+    // Previous single-project feature linked to Uncommon Goods.
+    ["motion-design", "/work"],
     ["vfx-compositing", "/capabilities/vfx-compositing"],
   ]);
   assert.equal(copy.interactive.title, "Interactive & Prototyping");
-  assert.equal(copy.close.title, "A whole project. Or the part you need.");
+  assert.equal(copy.close.title, "A whole project. Or just the part you need.");
   assert.equal(copy.close.body, "We can take a project from concept through delivery, or join your existing team for a defined asset, shot or sequence.");
-  const [component, urls, registry, whaxe, uncommon, proof, featured, route] = await Promise.all([
+  const [component, urls, registry, whaxe, reel, proof, featured, route] = await Promise.all([
     "src/components/site/CapabilityOverview.tsx", "src/content/site/media-urls.generated.json",
     "src/content/site/media.generated.json", "src/content/site/whaxe-polish.generated.json",
-    "src/content/site/uncommon_goods_refresh.generated.json", "src/content/site/capability-proof-v2.generated.json",
+    "src/content/site/capabilities_motion_reel.generated.json", "src/content/site/capability-proof-v2.generated.json",
     "src/content/site/featured_images.generated.json", "src/app/(three)/capabilities/page.tsx",
   ].map(async file => { const source = await readFile(resolve(projectRoot, file), "utf8");return file.endsWith(".json") ? JSON.parse(source) : source; }));
-  for (const media of [whaxe.loops[1], uncommon.flyup, proof.bud, featured.capabilities]) {
+  for (const media of [whaxe.loops[1], reel.media, proof.bud, featured.capabilities]) {
     for (const src of [media.src, media.poster?.src].filter(Boolean)) {
       const record = registry[(urls[src] || src).split("/").at(-1)];
       assert.equal(record?.publication, "public-approved", src);
     }
   }
-  assert.equal(whaxe.loops[1].hasAudio, false);assert.equal(uncommon.flyup.hasAudio, false);
+  assert.equal(whaxe.loops[1].hasAudio, false);assert.equal(reel.media.hasAudio, false);
+  assert(reel.source.endsWith("/2026_motion_design_demo_reel-loop-for-web_004.mp4"));
+  assert.equal(reel.media.presentation, "loop");assert.equal(reel.duration, 15.875);
+  assert.equal(registry[urls[reel.media.src].split("/").at(-1)].sourceSha256, reel.sourceSha256);
+  const motion = copy.services.find(item => item.id === "motion-design");
+  assert.equal(motion.caption, "Selected motion design");assert.equal(motion.link, "Explore selected work");
+  const activeComponent = component.split("\n").filter(line => !line.trim().startsWith("//")).join("\n");
+  assert.match(activeComponent, /"motion-design": motionReel.media/);
+  assert.doesNotMatch(activeComponent, /uncommonGoods.flyup/);
   assert.equal(proof.bud.presentation, "controls");
   assert.match(component, /main=\{media.presentation === "controls"\}/);
   assert.match(component, /Self-initiated RVA3D work/);
@@ -1112,7 +1121,7 @@ test("buyer-confidence copy and distinct project interaction contracts stay scop
   // Superseded overview contract: assert(activeCap.includes("Bring the footage or production question; we’ll work out the rest!"));
   // Superseded overview contract: assert.match(editorial,/WE ARE ON YOUR TEAM/); assert.match(editorial,/We&#8217;ll help you/);
   // Superseded overview contract: assert.match(editorial,/capability-story-actions/); assert.match(header,/nav-client-login/);
-  for (const copy of ["Show them exactly what you mean.","No detail is too small.","Make the message move.","Wait, what did you change?","A whole project. Or the part you need."]) assert(activeCap.includes(copy));
+  for (const copy of ["Show them exactly what you mean.","No detail is too small.","Make the message move.","Wait, what did you change?","A whole project. Or just the part you need."]) assert(activeCap.includes(copy));
   assert(activeCap.includes("Type, illustration and graphics with purposeful timing."));
   assert(activeCap.includes("Bring the brief, CAD, footage"));
   assert.match(editorial,/data-capability-service/);
