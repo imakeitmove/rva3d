@@ -1,6 +1,7 @@
 import "./editorial-refinement.css";
 import Image from "next/image";
 import introStyles from "./AboutIntro.module.css";
+import mockupStyles from "./AboutMockup.module.css";
 import { Shell } from "./Shell";
 import { Brand } from "./Brand";
 import { siteHref } from "@/lib/site/paths";
@@ -120,17 +121,20 @@ export function AboutEditorialLegacy() {
 export function AboutEditorial() {
   return (
     <Shell>
-      <div className="about-editorial about-navigation-v2 about-richmond-refresh">
+      <div className={`about-editorial about-navigation-v2 about-richmond-refresh ${mockupStyles.page}`}>
         <MovedAboutFragments />
         <AboutCommunication />
+        <AboutSkyline />
         <section className={`about-ground editorial-width ${introStyles.founder}`} data-tone="paper">
           <div className="about-positioning">
-            <p className="label">FOUNDER / CREATIVE LEAD</p>
+            {/* Former founder kicker: FOUNDER / CREATIVE LEAD */}
             {/* Previous heading: Meet Deven. */}
-            <h2>Rendered with <em>confidence.</em></h2>
+            {/* Previous founder heading moved to the dark opening: Rendered with confidence. */}
+            <h2>A small studio with a clear point of contact.</h2>
             {/* Previous founder copy retained for rollback: <p className="editorial-lead">Deven Langston brings 20 years in animation, visual effects, and production. He leads the work and stays your direct point of contact throughout.</p> */}
             <p className="editorial-lead">With 20 years in motion design, 3D animation, visual effects, and production, Deven connects creative direction with hands-on execution.</p>
             <p className="editorial-lead about-kicker">Got a graphics challenge? We’ll figure it out!</p>
+            <a className={mockupStyles.faqLink} href={siteHref("/faq")}>Questions about working together? <span>Read the FAQ ↗</span></a>
           </div>
           <Image
             className="grounded-portrait"
@@ -148,12 +152,12 @@ export function AboutEditorial() {
           <p>
             Deven Langston has spent his entire professional life in Richmond. A
             Virginia Commonwealth University graduate and former instructor in its
-            Kinetic Imaging program, he built his career alongside the city&apos;s
+            Kinetic Imaging program, he built his career alongside the city’s
             filmmakers, animators, and production crews.
           </p>
         </section>
 
-        <AboutSkyline />
+        {/* Skyline moved directly below the dark introduction by the approved mockup. */}
 
         <section className="richmond-history editorial-width" data-tone="paper" aria-label="Richmond filmmaking and studio practice">
           <div className="richmond-film-row">

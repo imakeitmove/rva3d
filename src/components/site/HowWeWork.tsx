@@ -124,15 +124,18 @@ export function WorkingProcess() {
 // Keep the historical communication anchor compatible; this is now the studio introduction.
 export function AboutCommunication() { return <div className={`about-editorial how-we-work-editorial ${styles.page}`}>
   <section className={`review-story-dark ${introStyles.opening}`} id="communication" data-tone="void" aria-labelledby="studio-title">
-    <div className="editorial-width communication-switcher"><EditorialPageNav current="about" /></div>
+    {/* Former large About/FAQ switcher removed by the September 30 mockup.
+    <div className="editorial-width communication-switcher"><EditorialPageNav current="about" /></div> */}
     <div className="editorial-width review-dark-grid">
       <div className="review-intro">
         {/* Removed studio eyebrow: <p className="label">ABOUT RVA3D</p> */}
         {/* Previous headline: Creative thinking. Hands-on making. */}
-        <h1 id="studio-title">A small studio with a clear point of contact.</h1>
+        {/* Previous studio headline moved to the founder section. */}
+        <h1 id="studio-title">Rendered with <em>Confidence</em></h1>
       </div>
       <div className={introStyles.studioCopy}>
-        <p>RVA3D is a Richmond-based creative studio combining 3D animation, visualization, motion design, visual effects, and interactive work. We help brands, agencies, and production teams take ideas from early concept through final delivery.</p>
+        {/* Previous introduction: RVA3D is a Richmond-based creative studio combining 3D animation, visualization, motion design, visual effects, and interactive work. We help brands, agencies, and production teams take ideas from early concept through final delivery. */}
+        <p>RVA3D is a Richmond-based creative studio focused on 3D animation, motion graphics and VFX. We help brands, agencies, and production teams put creative ideas on screens.</p>
       </div>
     </div>
   </section>

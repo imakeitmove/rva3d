@@ -33,7 +33,8 @@ export function AboutSkyline() {
     }}>
       <Image {...media.skylineDisplay} alt={media.skylineDisplay.alt} sizes="100vw" unoptimized />
     </a>
-    <figcaption className="editorial-width">photograph by Deven Langston</figcaption>
+    {/* Previous singular credit: photograph by Deven Langston. */}
+    <figcaption className="editorial-width">photographs by Deven Langston</figcaption>
     <dialog ref={dialog} className={`${viewerStyles.lightbox} richmond-viewer`} aria-labelledby="richmond-viewer-title" onCancel={event => { event.preventDefault(); setOpen(false); }}>
       {open && <div className={viewerStyles.lightboxPanel}>
         <div className={viewerStyles.lightboxTopbar}>
