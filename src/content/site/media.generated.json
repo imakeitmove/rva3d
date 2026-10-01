@@ -4868,5 +4868,22 @@
     "approvalSource": "direct-owner-approval",
     "approvalNote": "Exact owner-selected Uncommon Goods web derivative for the scoped local case-study refresh; masters remain private. No push or deployment authorized.",
     "recipe": "Uncropped max1600px; auto-oriented sRGB WebP quality85 effort6; metadata stripped."
+  },
+  "a8a34e07ce0dc864ea5b.webp": {
+    "file": "private-media/a8a34e07ce0dc864ea5b.webp",
+    "type": "image/webp",
+    "bytes": 41658,
+    "sha256": "a8a34e07ce0dc864ea5b1c4bd19a434aa911c0dd6d0a46ef8a55adf0792523f9",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/selects/_UncommonGoods_OutaThisWorld_15_V06_sun_lamp.jpg",
+    "sourceSha256": "621a391b02093cca27201445d2c8b787b90a919a634ef98cbf6b496a48c8bb1b",
+    "width": 1600,
+    "height": 900,
+    "publication": "public-approved",
+    "approvedAt": "2026-09-30",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval",
+    "approvalNote": "Exact owner-selected Uncommon Goods web derivative for the scoped local case-study refresh; masters remain private. No push or deployment authorized.",
+    "recipe": "Uncropped max1600px; auto-oriented sRGB WebP quality85 effort6; metadata stripped."
   }
 }

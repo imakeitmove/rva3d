@@ -185,8 +185,8 @@ test("release registry pins ten owner-approved cases and the exact selectively r
   // September 29 sealed selection: 236 assets / 298 URLs; audited additions: 4 About + 14 WHAXE.
   //assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 236, logicalUrls: 298, seoDimensionsVerified: false });
   // Prior selection: 254/316; Wawa added 24, featured images two, Five Below selected derivatives twenty-eight.
-  // Previous 313/376; seventeen exact Uncommon Goods derivatives and URLs added.
-  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 330, logicalUrls: 393, seoDimensionsVerified: false });
+  // Previous 330/393; one uncropped Uncommon Goods closing still added.
+  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 331, logicalUrls: 394, seoDimensionsVerified: false });
 });
 
 // GEICO Phase 2 covers the editorial contract and prevents approval drift in shared media.
@@ -391,7 +391,7 @@ test("GEICO and Uncommon Goods retain final edits and scoped historical attribut
   const uncommon = workRecords.find(item => item.slug === "uncommon-goods-outta-this-world");
   assert.match(uncommon.heroMedia.src, /commercial_30/);
   // Previous ending: commercial_15 in the shorter-route closing band.
-  assert.match(uncommon.editorial.sections.at(-1).media.src, /uncommon_goods_refresh\/ending.webp/);
+  assert.match(uncommon.editorial.sections.at(-1).media.src, /uncommon_goods_refresh\/sun_lamp.webp/);
   assert.equal(uncommon.editorial.closingBand, undefined);
   assert.match(uncommon.indexMedia.src, /uncommon_goods_refresh\/card.webp/);
   assert(uncommon.credits.some(credit => credit.name === "Spang TV"));
@@ -504,7 +504,8 @@ test("Uncommon Goods refresh preserves the exact source sequence and silent-loop
   }
   assert.match(source(media.card), /_UncommonGoods_OutaThisWorld_15_V06_sun_lamp.jpg$/);
   assert.equal(media.card.width / media.card.height, 16 / 11);
-  assert.match(source(media.ending), /_UncommonGoods_OutaThisWorld_15_V06_moon_rocket.jpg$/);
+  // Previous ending was media.ending: moon_rocket.
+  assert.match(source(media.sun_lamp), /_UncommonGoods_OutaThisWorld_15_V06_sun_lamp.jpg$/);
   const study = workRecords.find(item => item.slug === "uncommon-goods-outta-this-world");
   assert.equal(study.indexMedia.src, media.card.src);
   assert.notEqual(study.heroMedia.src, media.card.src);

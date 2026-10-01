@@ -151,5 +151,14 @@
     "recipe": "Uncropped max1600px; auto-oriented sRGB WebP quality85 effort6; metadata stripped.",
     "width": 1600,
     "height": 900
+  },
+  {
+    "key": "a8a34e07ce0dc864ea5b.webp",
+    "logical": "/media/work/uncommon_goods_refresh/sun_lamp.webp",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/selects/_UncommonGoods_OutaThisWorld_15_V06_sun_lamp.jpg",
+    "sourceSha256": "621a391b02093cca27201445d2c8b787b90a919a634ef98cbf6b496a48c8bb1b",
+    "recipe": "Uncropped max1600px; auto-oriented sRGB WebP quality85 effort6; metadata stripped.",
+    "width": 1600,
+    "height": 900
   }
 ]

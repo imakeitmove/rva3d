@@ -169,5 +169,12 @@
       "height": 900,
       "alt": "Supplied accordion lamp scene."
     }
-  ]
+  ],
+  "sun_lamp": {
+    "kind": "image",
+    "src": "/media/work/uncommon_goods_refresh/sun_lamp.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Illuminated accordion sun lamp in the finished Uncommon Goods animation."
+  }
 }

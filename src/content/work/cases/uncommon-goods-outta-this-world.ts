@@ -158,21 +158,33 @@ const uncommonGoodsPublicBeforeMediaRefresh = {
   },
 } satisfies WorkCaseStudy;
 
+export const uncommonGoodsRefreshCopy = {
+  title: "An (un)common sense approach.",
+  intro: "Uncommon Goods’ “Outta This World” connects a collection of fun and unusual gifts with illustrations set in motion. Working with Spang, we turned storyboards into a 15- and a 30-second spot.",
+  source: "We started with product photographs, stop motion and video.",
+  processHeading: "Keeping the style.",
+  process: "We made a supporting 3D rocket to rotoscope for easier animation.",
+  conclusion: "The finished spots kept the handmade charm of the original boards while adding just enough 3D structure to make the motion feel effortless.",
+};
+
 // The current card and editorial sequence match the September 30 owner selection.
 // Keep the prior records above for rollback; the commercial hero remains unchanged.
 export const uncommonGoodsOuttaThisWorldPublic = {
   ...uncommonGoodsPublicBeforeMediaRefresh,
+  title: uncommonGoodsRefreshCopy.title,
+  summary: uncommonGoodsRefreshCopy.intro,
   indexMedia: refresh.card as WorkImageMedia,
   editorial: {
     ...uncommonGoodsPublicBeforeMediaRefresh.editorial,
     closingBand: undefined,
     sections: [
       // The page groups these canonical still records into the existing slideshow.
-      ...refresh.slides.map((media, index) => ({ id: `source-material-${index + 1}`, kind: "media" as const, media: media as WorkImageMedia })),
+      ...refresh.slides.map((media, index) => ({ id: `source-material-${index + 1}`, kind: "media" as const, media: media as WorkImageMedia, copy: index === 0 ? uncommonGoodsRefreshCopy.source : undefined })),
       { id: "moving-source", kind: "group", media: [refresh.spinner, refresh.puzzle] as WorkVideoMedia[] },
-      { id: "process-rocket", kind: "media", heading: "Behind the scenes.", media: refresh.process as WorkVideoMedia },
+      { id: "process-rocket", kind: "media", heading: uncommonGoodsRefreshCopy.processHeading, copy: uncommonGoodsRefreshCopy.process, media: refresh.process as WorkVideoMedia },
       { id: "final-samples", kind: "group", media: [refresh.flyup, refresh.zoomback] as WorkVideoMedia[] },
-      { id: "ending-still", kind: "media", media: refresh.ending as WorkImageMedia },
+      // Previous ending used refresh.ending (moon/rocket); retain that registered asset.
+      { id: "ending-still", kind: "media", copy: uncommonGoodsRefreshCopy.conclusion, media: refresh.sun_lamp as WorkImageMedia },
     ],
   },
 } satisfies WorkCaseStudy;

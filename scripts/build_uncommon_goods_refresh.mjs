@@ -9,6 +9,7 @@ import { selectProductionMedia } from "./production-media-selection.mjs";
 // Originals remain read-only; registration follows the Five Below/featured pipeline.
 const root = "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/uncommongoods_outa_this_world/";
 const specs = [
+  ["sun_lamp", "selects/_UncommonGoods_OutaThisWorld_15_V06_sun_lamp.jpg", "Illuminated accordion sun lamp in the finished Uncommon Goods animation."],
   ["card", "selects/_UncommonGoods_OutaThisWorld_15_V06_sun_lamp.jpg", "Illuminated accordion sun lamp against the illustrated Uncommon Goods setting."],
   ["board", "source_material_from_client/artboards/uncommon_good_outa-this-world_storyboard.png", "Complete supplied Outta This World storyboard with product scenes and animation directions."],
   ["musical", "source_material_from_client/artboards/OTW-FramesMusical.jpg.jpg", "Supplied musical-kit scene and illustrated musical notes."],
@@ -28,7 +29,11 @@ const originalRegistry = structuredClone(registry), originalUrls = { ...urls }, 
 const before = selectProductionMedia(registry, urls);
 assert.equal(hash(JSON.stringify(before.manifest)), baseline.registryDigest);
 assert.equal(hash(JSON.stringify(before.urls)), baseline.urlsDigest);
-const result = {}, audit = [];
+// --only prepares a newly requested derivative without re-encoding existing media.
+const only = process.argv.includes("--only") ? process.argv[process.argv.indexOf("--only") + 1] : undefined;
+assert(!only || specs.some(([id]) => id === only), "Unknown derivative selection");
+const result = only ? JSON.parse(await fs.readFile("src/content/site/uncommon_goods_refresh.generated.json")) : {};
+const audit = only ? JSON.parse(await fs.readFile("docs/uncommon_goods_refresh_media_20260930.json")) : [];
 await fs.mkdir("scripts/runtime/ug_refresh", { recursive: true });
 async function register(name, bytes, type, source, sourceSha256, width, height, recipe) {
   const sha256 = hash(bytes), key = sha256.slice(0, 20) + (type === "video/mp4" ? ".mp4" : ".webp"), file = "private-media/" + key;
@@ -40,7 +45,7 @@ async function register(name, bytes, type, source, sourceSha256, width, height, 
   audit.push({ key, logical, source, sourceSha256, recipe, width, height });
   return { src: logical, width, height };
 }
-for (const [id, relative, alt] of specs) {
+for (const [id, relative, alt] of specs.filter(([id]) => !only || id === only)) {
   const source = root + relative, original = await fs.readFile(source), sourceSha256 = hash(original);
   if (relative.endsWith(".mp4")) {
     const output = "scripts/runtime/ug_refresh/" + id + ".mp4";
@@ -66,6 +71,7 @@ for (const [key, value] of Object.entries(originalRegistry)) assert.deepEqual(re
 for (const [key, value] of Object.entries(originalUrls)) assert.equal(urls[key], value);
 const selected = selectProductionMedia(registry, urls);
 baseline.uncommonGoodsRefresh20260930 ??= { previousAssets: baseline.assets, previousUrls: baseline.logicalUrls, addedKeys: audit.filter(a => !originalRegistry[a.key]).map(a => a.key), evidence: "docs/uncommon_goods_refresh_media_20260930.json", authorization: "Owner-selected case-study sequence and card derivatives; no push/deployment." };
+baseline.uncommonGoodsRefresh20260930.addedKeys = [...new Set([...baseline.uncommonGoodsRefresh20260930.addedKeys, ...audit.filter(a => !originalRegistry[a.key]).map(a => a.key)])];
 baseline.assets = Object.keys(selected.manifest).length; baseline.logicalUrls = Object.keys(selected.urls).length;
 baseline.registryDigest = hash(JSON.stringify(selected.manifest)); baseline.urlsDigest = hash(JSON.stringify(selected.urls));
 result.slides = [result.board, result.musical, result.nasa, result.park, result.accordion];
