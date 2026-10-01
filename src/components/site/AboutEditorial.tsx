@@ -149,6 +149,7 @@ export function AboutEditorial() {
             unoptimized
             priority
           />
+          {/* Photo credit hidden for now: photographs by Deven Langston. */}
         </section>
 
         <section className="richmond-intro editorial-width" data-tone="paper" aria-labelledby="richmond-title">
@@ -293,7 +294,8 @@ export function AboutEditorial() {
               <p>That might mean joining forces on a production, bringing in a specialist, developing a workshop, speaking or teaching, supporting a creative event, or exploring an idea that doesn’t fit neatly into a client brief.</p>
               <p>We can’t say yes to everything, but if you think RVA3D could be useful—or you could be useful to us—tell us what you have in mind.</p>
               */}
-              <p>That might mean joining forces on a production, bringing in a specialist, developing a workshop, speaking or teaching, supporting a creative event, or exploring an idea outside a typical client brief. We can’t say yes to everything, but if you think RVA3D could be useful—or you could be useful to us—tell us what you have in mind.</p>
+              {/* Closing collaboration paragraph removed at the owner's request; retained for restoration.
+              <p>That might mean joining forces on a production, bringing in a specialist, developing a workshop, speaking or teaching, supporting a creative event, or exploring an idea outside a typical client brief. We can’t say yes to everything, but if you think RVA3D could be useful—or you could be useful to us—tell us what you have in mind.</p> */}
             </div>
             <CollaboratorContact sendingEnabled={publicInquiryDeliveryEnabled()} />
             {/* Previous collaborator copy, mailto CTA and rate guidance retained for restoration.

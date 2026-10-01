@@ -34,7 +34,8 @@ export function AboutSkyline() {
       <Image {...media.skylineDisplay} alt={media.skylineDisplay.alt} sizes="100vw" unoptimized />
     </a>
     {/* Previous singular credit: photograph by Deven Langston. */}
-    <figcaption className="editorial-width">photographs by Deven Langston</figcaption>
+    {/* Credit moved onto the founder portrait at the owner's request.
+    <figcaption className="editorial-width">photographs by Deven Langston</figcaption> */}
     <dialog ref={dialog} className={`${viewerStyles.lightbox} richmond-viewer`} aria-labelledby="richmond-viewer-title" onCancel={event => { event.preventDefault(); setOpen(false); }}>
       {open && <div className={viewerStyles.lightboxPanel}>
         <div className={viewerStyles.lightboxTopbar}>
@@ -44,7 +45,7 @@ export function AboutSkyline() {
         <button type="button" className={viewerStyles.lightboxMedia} aria-label="Close larger skyline view" onClick={() => setOpen(false)}>
           <Image {...media.skylineFull} alt={media.skylineFull.alt} className={viewerStyles.lightboxImage} style={{ width: "100%", height: "100%" }} unoptimized loading="eager" />
         </button>
-        <p className="richmond-viewer-credit">photograph by Deven Langston</p>
+        {/* Photo credit hidden for now: <p className="richmond-viewer-credit">photograph by Deven Langston</p> */}
       </div>}
     </dialog>
   </figure>;

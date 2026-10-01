@@ -1086,9 +1086,12 @@ test("buyer-confidence copy and distinct project interaction contracts stay scop
   assert.match(howWeWork,/<summary data-brand-copy="plain">\{question\}<\/summary>/); assert.doesNotMatch(howWeWorkContent,/1\.5×|1\.5x/);
   assert.match(brand,/child\.type === "summary" && child\.props\["data-brand-copy"\] === "plain"/);
   assert.match(aboutCss,/\.faq-list summary\{[^}]*min-height:68px/);
-  assert(contact.includes('siteHref("/faq#process")'));
-  assert(contact.includes('siteHref("/faq")'));
-  assert(contact.includes('siteHref("/about#collaborate")'));
+  // Previous footer process-link assertion: siteHref("/faq#process").
+  const activeFooter = contact.replace(/\{\/\*[\s\S]*?\*\/\}/g, "");
+  assert(activeFooter.includes('<a href={siteHref("/about")}>About</a>'));
+  assert(activeFooter.includes('<a href={siteHref("/faq")}>FAQ</a>'));
+  assert(activeFooter.includes('siteHref("/about#collaborate")'));
+  assert.doesNotMatch(activeFooter, /How we work|Working With RVA3D|\/how-we-work|\/faq#process/i);
   assert.match(fragments,/\["#how-we-work", "\.\/faq#process"\]/);
   assert.match(fragments,/\["#faq", "\.\/faq#faq"\]/);
   assert.match(fragments,/window\.location\.replace/);

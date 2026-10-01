@@ -29,8 +29,9 @@ export function ClientAccess({ recovery = false }: { recovery?: boolean }) {
         <Link className={styles.backLink} href="/">← Back to site</Link>
       </div>
       <div className={styles.formSide}>
-        <p id="client-access-notice" className={styles.notice}>Local preview — {recovery ? "account recovery is not connected. No email will be sent." : "sign-in is not connected. Please do not enter real credentials."}</p>
-        <form className={styles.form} onSubmit={handleSubmit} aria-describedby="client-access-notice client-access-message">
+        {/* Previous login-only notice: “Local preview — sign-in is not connected. Please do not enter real credentials.” */}
+        {recovery ? <p id="client-access-notice" className={styles.notice}>Local preview — account recovery is not connected. No email will be sent.</p> : null}
+        <form className={styles.form} onSubmit={handleSubmit} aria-describedby={recovery ? "client-access-notice client-access-message" : "client-access-message"}>
           {recovery ? <>
             <label htmlFor="client-email">Email</label>
             <input id="client-email" name="email" type="email" autoComplete="email" maxLength={254} required />

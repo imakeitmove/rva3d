@@ -37,7 +37,14 @@ export function WorkIndex() {
   // Previous catalogue used the full studies array, adding two sibling cards.
   // Previous Work-only selection/count retained: studies.filter(excluding Capri siblings), Math.min(4, length).
   // Work-only cover overrides; canonical heroes and other page selections stay intact.
-  const featuredStudies = [...curateWorkStudies(studies), ...(isPortfolioPreviewBuild() ? [fiveBelow] : [])].map(study => {
+  // Previous Work-only order appended Five Below after AMSOIL and the remaining cases.
+  const selectedStudies = [...curateWorkStudies(studies), ...(isPortfolioPreviewBuild() ? [fiveBelow] : [])];
+  const amsoilIndex = selectedStudies.findIndex(study => study.slug === "amsoil-xpd-wind-grease");
+  const fiveBelowIndex = selectedStudies.findIndex(study => study.slug === "five-below");
+  if (amsoilIndex >= 0 && fiveBelowIndex >= 0) {
+    [selectedStudies[amsoilIndex], selectedStudies[fiveBelowIndex]] = [selectedStudies[fiveBelowIndex], selectedStudies[amsoilIndex]];
+  }
+  const featuredStudies = selectedStudies.map(study => {
     const cover = study.slug === "wawa-coffee-island" ? featuredMedia.wawa : study.slug === "amsoil-xpd-wind-grease" ? featuredMedia.amsoil : null;
     return cover ? { ...study, indexMedia: cover as WorkImageMedia } : study;
   });
