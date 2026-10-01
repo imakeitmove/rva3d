@@ -37,9 +37,12 @@
   .page :global(#communication h1) { font-size: clamp(38px, 10vw, 46px); }
   .page :global(#communication .review-dark-grid > div:last-child p) { font-size: 20px; line-height: 1.45; }
   .page :global(.richmond-skyline > a img) { aspect-ratio: 3 / 1; }
-  .page :global(.about-ground)[data-tone] { grid-template-columns: 1fr; padding-top: 40px; gap: 20px; }
+  /* Keep the established portrait position after the approved founder copy
+     gained one mobile line by sharing the reclaimed space across the row. */
+  .page :global(.about-ground)[data-tone] { grid-template-columns: 1fr; padding-top: 40px; gap: 12px; }
   .page :global(.about-ground > .about-positioning) { padding-bottom: 0; }
-  .page :global(.about-ground h2) { font-size: 34px; }
+  .page :global(.about-ground h2) { font-size: 34px; margin-bottom: 18px; }
+  .page .faqLink { margin-top: 10px; }
   .page :global(.about-ground > .grounded-portrait) { width: 270px; }
   .page :global(.richmond-intro)[data-tone] { grid-template-columns: 1fr; gap: 24px; padding-block: 44px 24px; }
   .page :global(.richmond-intro h2) { text-align: left; justify-self: start; }
