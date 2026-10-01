@@ -8,6 +8,7 @@ import ts from "typescript";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { cableSnake } from "../src/content/work/cases/cable-snake.ts";
+import besties from "../src/content/site/besties.generated.json" with { type: "json" };
 import fiveBelow from "../src/content/site/five_below.generated.json" with { type: "json" };
 
 // Render the actual player with only its visibility hook, image and CSS imports
@@ -35,6 +36,24 @@ for (const hasAudio of [true, false]) test(`controlled video preserves audio pol
   assert.match(html, /playsInline=""/);
   assert.doesNotMatch(html, /autoplay=""/i);
   assert.equal(/muted=""/.test(html), !hasAudio);
+});
+test("Besties controlled hero restores unmuted hydrated playback state", () => {
+  assert.equal(besties.hero.presentation, "controls");
+  assert.equal(besties.hero.hasAudio, true);
+
+  const html = render(besties.hero);
+  assert.match(html, /controls=""/);
+  assert.match(html, /playsInline=""/);
+  assert.doesNotMatch(html, /autoplay=""/i);
+  assert.doesNotMatch(html, /muted=""/);
+
+  const liveVideo = { muted: true, defaultMuted: true, volume: 0 };
+  exports.syncControlledVideoAudioPolicy(liveVideo, besties.hero.hasAudio);
+  assert.deepEqual(liveVideo, {
+    muted: false,
+    defaultMuted: false,
+    volume: 1,
+  });
 });
 const manifest = JSON.parse(fs.readFileSync("src/content/site/media.generated.json"));
 const urls = JSON.parse(fs.readFileSync("src/content/site/media-urls.generated.json"));

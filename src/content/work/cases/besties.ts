@@ -4,10 +4,15 @@ import type { PreviewWorkCaseStudy, WorkImageMedia, WorkVideoMedia } from "../ty
 // Canonical local-review record. This is SuperJoy's later case-study film,
 // not the original campaign. Metrics provenance: docs/besties_media_audit_20261001.json.
 export const bestiesCopy = {
-  intro: "Coca-Cola and OREO teamed up as unlikely “Besties,” pairing a Coca-Cola-flavored OREO cookie with an OREO-flavored Coca-Cola Zero Sugar. After the launch, SuperJoy produced a case-study film celebrating the rollout and its results. RVA3D joined the film as lead animation support, creating graphic moments that helped tell that story.",
-  context: "To help SuperJoy show off the scale of the launch, we worked within the campaign’s existing visual language and turned its products, graphics, and results into animated moments.",
+  // Previous opening retained for editorial provenance:
+  // "Coca-Cola and OREO teamed up as unlikely “Besties,” pairing a Coca-Cola-flavored OREO cookie with an OREO-flavored Coca-Cola Zero Sugar. After the launch, SuperJoy produced a case-study film celebrating the rollout and its results. RVA3D joined the film as lead animation support, creating graphic moments that helped tell that story."
+  openingOne: "Coca-Cola and OREO teamed up as unlikely “Besties,” creating a Coca-Cola-flavored OREO cookie and an OREO-flavored Coke Zero-Sugar.",
+  openingTwo: "After the launch, SuperJoy produced a case-study film celebrating the rollout and its results. RVA3D joined the film as lead animation support.",
+  // Previous launch-context copy removed from the rendered case at the owner's request:
+  // "To help SuperJoy show off the scale of the launch, we worked within the campaign’s existing visual language and turned its products, graphics, and results into animated moments."
   logos: "We animated a graphic moment that brought the two brands together—literally.",
-  motion: "Small animated details kept the story moving—from bubbles and hearts to product builds and transitions.",
+  // Previous motion-grid bridge removed from the rendered case at the owner's request:
+  // "Small animated details kept the story moving—from bubbles and hearts to product builds and transitions."
   // The supplied V2 footage qualifies the superlative; retain that source scope.
   results: "Campaign figures supplied for the case-study film reported 10,800 placements and 21.8 billion earned impressions, with the launch described as OREO’s most talked-about activation that had been measured.",
 };
@@ -19,9 +24,9 @@ export const besties = {
   productionPartner: "SuperJoy",
   eyebrow: "Coca-Cola × OREO / Case-study film animation",
   indexSummary: "Animation support for SuperJoy’s case-study film celebrating the Coca-Cola × OREO Besties launch and its results.",
-  summary: bestiesCopy.intro,
+  summary: `${bestiesCopy.openingOne} ${bestiesCopy.openingTwo}`,
   problem: "SuperJoy needed animated graphic moments for a film about the Besties launch and its results.",
-  approach: bestiesCopy.context,
+  approach: bestiesCopy.logos,
   result: bestiesCopy.results,
   value: "Brand-combination animation, playful product builds, transitions and animated results helped tell the film’s story.",
   authorship: "Lead animation support by Deven Langston — RVA3D for SuperJoy’s case-study film.",

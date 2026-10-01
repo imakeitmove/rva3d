@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState, type CSSProperties } from "react";
+import { useCallback, useRef, useState, type CSSProperties } from "react";
 
 import type { WorkVideoMedia } from "@/content/work";
 import { useVisibilityAwareLoop } from "@/hooks/useVisibilityAwareLoop";
@@ -65,10 +65,42 @@ function LoopVideo({
   );
 }
 
+type ControlledVideoAudioElement = Pick<
+  HTMLVideoElement,
+  "defaultMuted" | "muted" | "volume"
+>;
+
+export function syncControlledVideoAudioPolicy(
+  video: ControlledVideoAudioElement,
+  hasAudio: WorkVideoMedia["hasAudio"],
+) {
+  const shouldMute = hasAudio === false;
+  video.defaultMuted = shouldMute;
+  video.muted = shouldMute;
+
+  if (!shouldMute && video.volume <= 0) {
+    video.volume = 1;
+  }
+}
+
 function ControlledVideo({ media, privateDelivery = false }: WorkVideoProps) {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const setVideoRef = useCallback(
+    (video: HTMLVideoElement | null) => {
+      videoRef.current = video;
+      if (video) {
+        // Browser-native media state can outlive React's initial muted prop.
+        // Restore the declared policy when this controlled player hydrates.
+        syncControlledVideoAudioPolicy(video, media.hasAudio);
+      }
+    },
+    [media.hasAudio],
+  );
+
   return (
     <div className={styles.frame} style={aspectStyle(media)}>
       <video
+        ref={setVideoRef}
         aria-label={media.alt}
         controls
         muted={media.hasAudio === false}
@@ -77,6 +109,11 @@ function ControlledVideo({ media, privateDelivery = false }: WorkVideoProps) {
         preload={privateDelivery ? "none" : "metadata"}
         width={media.width}
         height={media.height}
+        onLoadedMetadata={() => {
+          if (videoRef.current) {
+            syncControlledVideoAudioPolicy(videoRef.current, media.hasAudio);
+          }
+        }}
       >
         <source src={media.src} type={media.mimeType} />
         Your browser does not support embedded video.

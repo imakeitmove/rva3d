@@ -25,12 +25,15 @@ export function CaseBeat({ children, id, pair = false, row = false, centered = f
 }
 // Optional post-credit copy preserves the Noise Tech sheet order without changing other cases.
 // Previous signature: export function RolloutCase({ slug, title, intro, hero, children, credits, nextSlug }: { slug: string; title: string; intro: ReactNode; hero: WorkMedia; children: ReactNode; credits: readonly WorkCredit[]; nextSlug?: string }) {
-export function RolloutCase({ slug, title, intro, hero, children, credits, nextSlug, afterCredits }: { slug: string; title: string; intro: ReactNode; hero: WorkMedia; children: ReactNode; credits: readonly WorkCredit[]; nextSlug?: string; afterCredits?: ReactNode }) {
+export function RolloutCase({ slug, title, intro, introParagraphs, hero, children, credits, nextSlug, afterCredits }: { slug: string; title: string; intro?: ReactNode; introParagraphs?: readonly ReactNode[]; hero: WorkMedia; children: ReactNode; credits: readonly WorkCredit[]; nextSlug?: string; afterCredits?: ReactNode }) {
   const index = studies.findIndex(study => study.slug === slug);
   const next = nextSlug ? studies.find(study => study.slug === nextSlug)! : studies[(index + 1) % studies.length];
   return <Shell><article className={[house.case, finishing.finish, styles.case].join(" ")} data-editorial-case={slug} data-tone="paper"><GeicoExperience><RolloutPlayback>
     <header className={house.opening}><Link className="editorial-link" href={siteHref("/work#" + slug)}>← Back to Work</Link>
-      <h1>{title}</h1><div className={house.intro}><p className={house.lead}>{intro}</p></div>
+      <h1>{title}</h1><div className={house.intro} data-intro-paragraphs={introParagraphs ? "" : undefined}>
+        {/* Previous single-paragraph rendering remains the default for every existing case. */}
+        {introParagraphs ? introParagraphs.map((paragraph, paragraphIndex) => <p className={house.lead} key={paragraphIndex}>{paragraph}</p>) : <p className={house.lead}>{intro}</p>}
+      </div>
     </header>
     <div className={house.wide} id="film"><CaseMedia media={hero} priority /></div>
     {children}

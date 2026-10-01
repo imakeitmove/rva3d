@@ -1,9 +1,13 @@
 /* Existing Wawa/Five Below narrative scale and native-ratio paired media. */
 .narrative p { max-width: 30ch; margin: 0; font-size: clamp(22px, 1.9vw, 28px); line-height: 1.38; }
-.transition { max-width: 760px; margin: 0 0 28px; }
+/* Previous transition-copy spacing retained for restoration: */
+/* .transition { max-width: 760px; margin: 0 0 28px; } */
+.package { max-width: 1100px; margin-inline: auto; }
 .motionGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
 .motionGrid > div { min-width: 0; }
 .logo { display: block; width: 180px; max-width: 50vw; height: auto; margin: 0 auto 28px; }
+.resultMetric { color: var(--rva-purple); font-weight: 700; }
+:global([data-editorial-case="coca-cola-oreo-besties"] [data-intro-paragraphs] p + p) { margin-top: 18px; }
 /* Short film credits reuse the shared centered layout with one readable stack. */
 :global([data-editorial-case="coca-cola-oreo-besties"]) :global(#credits) { text-align: center; }
 :global([data-editorial-case="coca-cola-oreo-besties"]) :global(#credits) > div { display: block; max-width: 560px; margin-inline: auto; }

@@ -12,18 +12,23 @@ import styles from "./BestiesCase.module.css";
 export function BestiesCase() {
   return (
     <RolloutCase slug={study.slug} title={study.title}
-      intro={<BrandText text={copy.intro} />} hero={study.heroMedia}
+      introParagraphs={[
+        copy.openingOne,
+        <BrandText key="opening-two" text={copy.openingTwo} />,
+      ]} hero={study.heroMedia}
       credits={study.credits} nextSlug="axe-whaxe-lil-baby">
-      <CaseBeat id="launch-context" row>
-        <div className={styles.narrative}><p>{copy.context}</p></div>
-        <CaseMedia media={media.package as WorkImageMedia} />
+      <CaseBeat id="launch-context">
+        {/* Previous side copy removed; the package remains as its own visual beat. */}
+        <div className={styles.package}>
+          <CaseMedia media={media.package as WorkImageMedia} />
+        </div>
       </CaseBeat>
       <CaseBeat id="brands-together" row>
         <div className={styles.narrative}><p>{copy.logos}</p></div>
         <CaseMedia media={media.logos as WorkVideoMedia} />
       </CaseBeat>
       <CaseBeat id="animated-details">
-        <p className={styles.transition}>{copy.motion}</p>
+        {/* Previous “Small animated details…” bridge removed at the owner's request. */}
         <div className={styles.motionGrid}>
           {([media.bubbles, media.hearts, media.cookie, media.besties] as WorkVideoMedia[])
             .map(item => <CaseMedia key={item.src} media={item} />)}
@@ -33,7 +38,14 @@ export function BestiesCase() {
         <Image className={styles.logo} src={mediaUrl(media.logo.src)}
           width={media.logo.width} height={media.logo.height} alt="OREO" unoptimized />
         <h2>The results were the story.</h2>
-        <p>{copy.results}</p>
+        <p>
+          Campaign figures supplied for the case-study film reported{" "}
+          <strong className={styles.resultMetric}>
+            10,800 placements and 21.8 billion earned impressions
+          </strong>
+          , with the launch described as OREO’s most talked-about activation
+          that had been measured.
+        </p>
       </CaseBeat>
       <CaseBeat id="results-samples" pair>
         <CaseMedia media={media.spotify as WorkVideoMedia} />
