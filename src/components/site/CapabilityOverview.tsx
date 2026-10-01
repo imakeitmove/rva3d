@@ -13,7 +13,7 @@ import { GeicoExperience, GeicoVideo } from "./GeicoMedia";
 import { InteractiveLogo } from "./InteractiveLogo";
 import styles from "./CapabilityOverview.module.css";
 
-// Reuse approved silent derivatives. The complete VFX comparison stays user-controlled.
+// Reuse approved silent derivatives. Featured videos share the ambient loop behavior.
 const selected: Record<string, WorkVideoMedia> = {
   "3d-animation": whaxe.loops[1] as WorkVideoMedia,
   "product-technical-visualization": {
@@ -25,8 +25,9 @@ const selected: Record<string, WorkVideoMedia> = {
   },
   // Previous overview only: "motion-design": uncommonGoods.flyup as WorkVideoMedia,
   "motion-design": motionReel.media as WorkVideoMedia,
-  // ffprobe confirms the approved comparison has no audio stream.
-  "vfx-compositing": { ...proof.bud, hasAudio: false } as WorkVideoMedia,
+  // ffprobe confirms the approved comparison has no audio stream. Keep the
+  // source manifest intact while using the overview's shared ambient treatment.
+  "vfx-compositing": { ...proof.bud, presentation: "loop", hasAudio: false } as WorkVideoMedia,
 };
 
 export function CapabilityOverview() {

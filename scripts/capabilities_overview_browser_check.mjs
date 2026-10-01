@@ -53,7 +53,7 @@ const { targetInfos } = await send("Target.getTargets");
 const target = targetInfos.find(item => item.type === "page" && item.url.includes("127.0.0.1:3027")) || targetInfos.find(item => item.type === "page");
 session = (await send("Target.attachToTarget", { targetId: target.targetId, flatten: true })).sessionId;
 await send("Runtime.enable");await send("Page.enable");await send("Network.enable");await send("Page.bringToFront");
-for (const [width, height] of (process.argv.includes("--interactions-only") ? [] : [[1440, 900], [1024, 768], [390, 844]])) {
+for (const [width, height] of (process.argv.includes("--interactions-only") ? [] : [[1920, 1080], [1440, 900], [1024, 768], [390, 844]])) {
   await send("Emulation.setDeviceMetricsOverride", { width, height, deviceScaleFactor: 1, mobile: width === 390 });
   requests.length = 0;
   await navigate("/capabilities");
@@ -102,7 +102,7 @@ if (report.length) fs.writeFileSync(`${evidence}/${stage}/report.json`, JSON.str
 if (stage === "after") {
   await send("Emulation.setDeviceMetricsOverride", { width: 1440, height: 900, deviceScaleFactor: 1, mobile: false });
   await navigate("/capabilities");
-  for (const id of ids.slice(0, 3)) {
+  for (const id of ids.slice(0, 4)) {
     const selector = `[id="${id}"] video`;
     await run(`document.querySelector(${JSON.stringify(selector)}).scrollIntoView({block:'center',behavior:'instant'})`);
     await until(`(()=>{const v=document.querySelector(${JSON.stringify(selector)});return !v.paused&&v.readyState>=2&&v.muted&&v.loop&&v.playsInline})()`);
@@ -125,22 +125,16 @@ if (stage === "after") {
   await until("!document.querySelector('section[id$=-animation] video').paused");
   await send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "no-preference" }] });
   await run("document.querySelector('#vfx-compositing').scrollIntoView({block:'center',behavior:'instant'})");
-  assert(await run("(()=>{const v=document.querySelector('#vfx-compositing video');return v.paused&&v.controls&&!v.autoplay&&!v.loop&&v.muted})()"));
-  await run("document.querySelector('#vfx-compositing video').play()");
-  await until("document.querySelector('#vfx-compositing video').currentTime>0");
-  await run("document.querySelector('section[id$=-animation]').scrollIntoView({block:'center',behavior:'instant'})");await wait(300);
-  assert(await run("document.querySelector('section[id$=-animation] video').paused"));
-  await run("document.querySelector('#vfx-compositing video').pause()");
-  await until("!document.querySelector('section[id$=-animation] video').paused");
+  await until("(()=>{const v=document.querySelector('#vfx-compositing video');return !v.paused&&v.currentTime>0&&v.muted&&v.loop&&v.playsInline&&!v.controls})()");
   // Real background-tab visibility event, without redefining document.hidden.
   const otherTab = await send("Target.createTarget", { url: "about:blank" });
   await send("Target.activateTarget", { targetId: otherTab.targetId });
-  await until("document.hidden&&document.querySelector('section[id$=-animation] video').paused");
+  await until("document.hidden&&document.querySelector('#vfx-compositing video').paused");
   await send("Target.activateTarget", { targetId: target.targetId });
   // Leave the review-only blank tab open: closing it makes this CLI's browser owner disconnect.
-  await until("!document.hidden&&!document.querySelector('section[id$=-animation] video').paused");
-  console.log("PASS real background-tab pause and foreground resume");
-  await run("document.querySelector('section[id$=-animation] .v-fullscreen').click()");
+  await until("!document.hidden&&!document.querySelector('#vfx-compositing video').paused");
+  console.log("PASS VFX background-tab pause and foreground resume");
+  await run("document.querySelector('#vfx-compositing .v-fullscreen').click()");
   await until("!!document.fullscreenElement");
   await run("document.exitFullscreen()");
   await run("document.querySelector('#interactive-3d').scrollIntoView({block:'center',behavior:'instant'})");
@@ -154,7 +148,7 @@ if (stage === "after") {
   const links = await run(`Promise.all(${JSON.stringify(destinations)}.map(async path=>({path,status:(await fetch(path)).status})))`);
   assert(links.every(link => link.status === 200), JSON.stringify(links));
   await navigate("/#contact");await until("!!document.getElementById('contact')");
-  console.log("PASS matching destinations, semantic/mobile order, anchors, loop controls/wraps/visibility, reduced motion, controlled VFX, fullscreen and keyboard logo replay");
+  console.log("PASS matching destinations, semantic/mobile order, anchors, four ambient loop controls/wraps/visibility, reduced motion, VFX fullscreen and keyboard logo replay");
 }
 fs.writeFileSync(`${evidence}/${stage}/${process.argv.includes("--interactions-only") ? "interactions" : "report"}.json`, JSON.stringify({ report, errors, failedMedia }, null, 2));
 if (stage === "after") { assert.equal(errors.length, 0, JSON.stringify(errors));assert.equal(failedMedia.length, 0, JSON.stringify(failedMedia)); }

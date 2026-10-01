@@ -968,7 +968,10 @@ test("capabilities overview has five offerings, matched public examples and one 
   const activeComponent = component.split("\n").filter(line => !line.trim().startsWith("//")).join("\n");
   assert.match(activeComponent, /"motion-design": motionReel.media/);
   assert.doesNotMatch(activeComponent, /uncommonGoods.flyup/);
+  // The underlying proof record stays controlled for its original context;
+  // only the Capabilities overview presents this silent comparison as a loop.
   assert.equal(proof.bud.presentation, "controls");
+  assert.match(activeComponent, /"vfx-compositing": \{ \.\.\.proof\.bud, presentation: "loop", hasAudio: false \}/);
   assert.match(component, /main=\{media.presentation === "controls"\}/);
   assert.match(component, /Self-initiated RVA3D work/);
   assert.match(component, /service.id === "vfx-compositing" \? selected\[service.id\] : protectedMedia/);
