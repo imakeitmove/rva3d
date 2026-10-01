@@ -12,7 +12,7 @@ class LogoBoundary extends Component<{ children: ReactNode; onFailure: () => voi
   render() { return this.state.failed ? null : this.props.children; }
 }
 
-// Server build opt-in + loopback/query/input gates. Public/default stays static.
+// Public progressive enhancement. The server-rendered static brand remains until a successful frame.
 export function HeaderLogoReview({ children, standalone = false }: { children: ReactNode; standalone?: boolean }) {
   const [host, setHost] = useState<HTMLElement | null>(null);
   const [enabled, setEnabled] = useState(false);
@@ -21,10 +21,13 @@ export function HeaderLogoReview({ children, standalone = false }: { children: R
   const onReady = useCallback(() => setReady(true), []);
   const onFailure = useCallback(() => { setFailed(true); setReady(false); }, []);
   useEffect(() => {
-    if (!host) return;
+    if (!host || typeof matchMedia !== "function") return;
     const preference = matchMedia("(prefers-reduced-motion: reduce)");
     const pointer = matchMedia("(min-width: 761px) and (hover: hover) and (pointer: fine)");
-    const selected = new URLSearchParams(location.search).get("header_logo") === "3d" && ["127.0.0.1", "localhost", "[::1]"].includes(location.hostname);
+    // Previous selected gate required loopback + header_logo=3d.
+    // Keep an optional explicit static diagnostic without gating normal public use.
+    const publicSurface = !/^\/(?:review|portal|admin|sandbox|preview|api)(?:\/|$)/.test(location.pathname);
+    const selected = publicSurface && new URLSearchParams(location.search).get("header_logo") !== "static";
     let intersecting = true;
     const update = () => {
       const allowed = selected && intersecting && !document.hidden && !preference.matches && pointer.matches;
@@ -35,13 +38,13 @@ export function HeaderLogoReview({ children, standalone = false }: { children: R
     preference.addEventListener("change", update);
     pointer.addEventListener("change", update);
     document.addEventListener("visibilitychange", update);
-    const observer = new IntersectionObserver(entries => { intersecting = entries[0].isIntersecting; update(); });
-    observer.observe(host);
+    const observer = typeof IntersectionObserver === "undefined" ? null : new IntersectionObserver(entries => { intersecting = entries[0].isIntersecting; update(); });
+    observer?.observe(host);
     return () => {
       preference.removeEventListener("change", update);
       pointer.removeEventListener("change", update);
       document.removeEventListener("visibilitychange", update);
-      observer.disconnect();
+      observer?.disconnect();
     };
   }, [host]);
   const show = enabled && !failed;

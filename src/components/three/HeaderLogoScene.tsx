@@ -1,10 +1,11 @@
 ﻿"use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { AnimationMixer, DoubleSide, LoopOnce, Mesh, MeshBasicMaterial, PerspectiveCamera, NoToneMapping } from "three";
+import { AnimationMixer, DoubleSide, LoopOnce, Mesh, MeshBasicMaterial, PerspectiveCamera, NoToneMapping, WebGLRenderer, type WebGLRendererParameters } from "three";
 import { GLTFLoader, type GLTF } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { LogoPlayback, type LogoPhase } from "./header_logo_playback";
+import { logoPalette, LogoPaletteTransition } from "./header_logo_palette";
 
 type Props = { host: HTMLElement; onReady: () => void; onFailure: () => void };
 type Binding = { material: MeshBasicMaterial; role: "black" | "signal" | "paper"; flash: boolean };
@@ -84,6 +85,7 @@ function connect(asset: Asset, host: HTMLElement, invalidate: () => void) {
   const mixer = new AnimationMixer(asset.gltf.scene);
   const action = mixer.clipAction(asset.gltf.animations[0]);
   action.setLoop(LoopOnce, 1); action.clampWhenFinished = true; action.play();
+  /* Previous fixed-palette application retained for restoration.
   let white = false, colorTimer = 0;
   const colors = () => {
     const tokens = getComputedStyle(host);
@@ -93,22 +95,30 @@ function connect(asset: Asset, host: HTMLElement, invalidate: () => void) {
     // The approved artwork uses crisp paper outlines and dark interiors in both slots.
     asset.bindings.forEach(item => item.material.color.set(white && item.flash ? "#ffffff" : item.role === "black" ? "#000000" : item.role === "signal" ? signal : paper));
   };
+  */
+  const header = host.closest<HTMLElement>(".site-header");
+  const readPalette = () => {
+    const tokens = getComputedStyle(host);
+    const light = header?.dataset.tone === "paper";
+    host.dataset.logoPalette = light ? "light" : "dark";
+    return logoPalette(light, { purple: tokens.getPropertyValue("--rva-purple").trim(), signal: tokens.getPropertyValue("--rva-signal").trim(), paper: tokens.getPropertyValue("--rva-paper").trim() });
+  };
+  const palette = new LogoPaletteTransition(asset.bindings, readPalette(), { now: () => performance.now(), frame: callback => requestAnimationFrame(callback), cancel: id => cancelAnimationFrame(id) }, invalidate);
   const pose = (time: number, phase: LogoPhase) => {
     action.time = time; mixer.update(0);
-    colors();
     host.dataset.logoTime = time.toFixed(4); host.dataset.logoPhase = phase;
     invalidate();
   };
   const playback = new LogoPlayback({
     now: () => performance.now(), frame: callback => requestAnimationFrame(callback),
     cancelFrame: id => cancelAnimationFrame(id), delay: (callback, ms) => window.setTimeout(callback, ms), cancelDelay: id => clearTimeout(id),
-  }, pose, value => { white = value; host.dataset.logoFlash = String(value); colors(); invalidate(); });
-  // Exact frozen poses for local reference QA, behind the same build/host gate.
+  }, pose, value => { host.dataset.logoFlash = String(value); palette.flash(value); });
+  // Optional frozen-pose debugging remains loopback-only, independent of public use.
   const queryFrame = new URLSearchParams(location.search).get("header_logo_frame");
-  const frozen = queryFrame !== null && Number.isFinite(Number(queryFrame)) && Number(queryFrame) >= 0 && Number(queryFrame) <= 90;
+  const frozen = ["localhost", "127.0.0.1", "[::1]"].includes(location.hostname) && queryFrame !== null && Number.isFinite(Number(queryFrame)) && Number(queryFrame) >= 0 && Number(queryFrame) <= 90;
   pose(frozen ? Number(queryFrame) / 30 : 0, "idle");
   const enter = (event: PointerEvent) => { if (!frozen && event.pointerType === "mouse") playback.enter(); };
-  const leave = () => { if (!frozen) playback.leave(); colors(); invalidate(); };
+  const leave = () => { if (!frozen) playback.leave(); invalidate(); };
   const click = (event: MouseEvent) => {
     if (frozen || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     if (!replayButton && (location.pathname !== "/" || event.detail === 0)) return;
@@ -117,6 +127,7 @@ function connect(asset: Asset, host: HTMLElement, invalidate: () => void) {
     if (replayButton && event.detail === 0 && playback.phase !== "spin") { playback.leave(); playback.enter(); }
     playback.click();
   };
+  /* Previous broad ancestor observation/fixed-color refresh.
   const refresh = () => {
     colors(); invalidate(); clearTimeout(colorTimer);
     // Current header colors can transition for .32s; settle once, not an idle RAF.
@@ -124,12 +135,20 @@ function connect(asset: Asset, host: HTMLElement, invalidate: () => void) {
   };
   const observer = new MutationObserver(refresh);
   for (let ancestor = host.parentElement; ancestor; ancestor = ancestor.parentElement) observer.observe(ancestor, { attributes: true, attributeFilter: ["data-tone", "class", "style"] });
+  */
+  const refresh = () => {
+    const duration = header ? parseFloat(getComputedStyle(header).transitionDuration) * 1000 : 0;
+    palette.change(readPalette(), Number.isFinite(duration) ? duration : 200);
+  };
+  const observer = new MutationObserver(refresh);
+  // initHeader already chooses the tone and threshold. Do not sample scroll again.
+  if (header) observer.observe(header, { attributes: true, attributeFilter: ["data-tone"] });
   link.addEventListener("pointerenter", enter); link.addEventListener("pointerleave", leave); link.addEventListener("click", click);
-  link.addEventListener("focus", refresh); link.addEventListener("blur", refresh);
+  // Tone observation also covers keyboard navigation; focus does not repaint idle materials.
   return () => {
-    playback.dispose(); clearTimeout(colorTimer); observer.disconnect();
+    playback.dispose(); palette.dispose(); observer.disconnect();
     link.removeEventListener("pointerenter", enter); link.removeEventListener("pointerleave", leave); link.removeEventListener("click", click);
-    link.removeEventListener("focus", refresh); link.removeEventListener("blur", refresh);
+
     mixer.stopAllAction(); mixer.uncacheRoot(asset.gltf.scene);
   };
 }
@@ -158,6 +177,16 @@ function Mark({ asset, host, onReady, onFailure }: Props & { asset: Asset }) {
 export default function HeaderLogoScene(props: Props) {
   const [asset, setAsset] = useState<Asset | null>(null);
   const { onFailure } = props;
+  const createRenderer = useCallback((defaults: WebGLRendererParameters) => {
+    try {
+      return new WebGLRenderer({ ...defaults, alpha: true, antialias: true, powerPreference: "low-power" });
+    } catch (error) {
+      // R3F configures GL asynchronously, outside the React error boundary.
+      // Keep the static brand and deactivate the body replay button on failure.
+      onFailure();
+      throw error;
+    }
+  }, [onFailure]);
   useEffect(() => {
     let disposed = false;
     let loaded: Asset | undefined;
@@ -171,7 +200,8 @@ export default function HeaderLogoScene(props: Props) {
     return () => { disposed = true; loaded?.dispose(); };
   }, [onFailure]);
   if (!asset) return null;
-  return <Canvas camera={asset.camera} dpr={[1, 1.5]} frameloop="demand" gl={{ alpha: true, antialias: true, powerPreference: "low-power", toneMapping: NoToneMapping }} fallback={null}>
+  // Previous gl options object delegated startup errors entirely to async R3F configuration.
+  return <Canvas camera={asset.camera} dpr={[1, 1.5]} frameloop="demand" gl={createRenderer} onCreated={({ gl }) => { gl.toneMapping = NoToneMapping; }} fallback={null}>
     <Mark {...props} asset={asset} />
   </Canvas>;
 }

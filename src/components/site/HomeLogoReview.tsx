@@ -9,7 +9,7 @@ import { HeaderLogoReview } from "./HeaderLogoReview";
 export function HomeLogoReview({ src }: { src: string }) {
   const [mount, setMount] = useState<HTMLElement | null>(null);
   useEffect(() => {
-    if (new URLSearchParams(location.search).get("header_logo") !== "3d" || !["127.0.0.1", "localhost", "[::1]"].includes(location.hostname)) return;
+    // Previous loopback/header_logo=3d guard removed; capability fallback lives in HeaderLogoReview.
     // Mount into the server template after its first hydrated paint.
     const frame = requestAnimationFrame(() => setMount(document.querySelector<HTMLElement>("[data-home-logo-mount]")));
     return () => cancelAnimationFrame(frame);

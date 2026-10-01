@@ -328,3 +328,8 @@ Key Takeaway
 - Maintain logical focus order and visible indicators
 - Provide accessible fallback views for users unable to interact with 3D directly
 - Test thoroughly with assistive technologies to confirm compliance
+
+
+### Public header logo checks
+
+Run `npm run test:logo` for the authored playback and adaptive material tests. With the production-mode local preview on port 3027, run `node scripts/header_logo_browser_check.mjs <agent-browser-cdp-url>` for public rendering, navigation, responsive behavior, fallbacks, instance isolation and idle/network checks.

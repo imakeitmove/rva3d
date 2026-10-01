@@ -82,7 +82,8 @@ if (releaseTarget === "production") {
 }
 const temporary = await fs.mkdtemp(path.join(os.tmpdir(), "rva3d-source-export-"));
 const archive = path.join(temporary, "source.tar");
-const roots = ["src", "prisma", "public/site-assets", "public/fonts", "public/media/brand_logos", "scripts",
+// Exact owner-approved header asset; never export the models directory wholesale.
+const roots = ["public/models/RVA_Logo_010_spin_loop_001.glb", "src", "prisma", "public/site-assets", "public/fonts", "public/media/brand_logos", "scripts",
   "package.json", "package-lock.json", "tsconfig.json", "next.config.ts", "postcss.config.mjs",
   "eslint.config.mjs", ".nvmrc", "docs/preview-release.md", "docs/rocky-preview-handoff.md",
   "docs/public-media-policy-followup.md", "docs/production-release.md"];
@@ -152,7 +153,9 @@ await fs.writeFile(path.join(output, ".vercelignore"), [
   ".env*", ".git", ".next", "node_modules", "qa-runtime", "scripts/runtime",
   // Only brand_logos is exported from public/media; the seal rejects any other files.
   // Do not ignore that parent during upload: Vercel does not restore its excluded children.
-  "public/models", "public/project-media", "*.log", "",
+  // Previous "public/models" exclusion suppressed the now-public logo.
+  // Source inventory/seal includes only the exact approved model above.
+  "public/project-media", "*.log", "",
 ].join("\n"));
 if (releaseTarget === "production") {
   // The marker is intentionally written last. Earlier packages did not seal

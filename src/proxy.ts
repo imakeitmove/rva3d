@@ -27,10 +27,15 @@ export function proxy(request: NextRequest) {
   // HTTP redirect preserves inbound fragments; the FAQ adapter forwards moved process anchors.
   if (/^\/how-we-work\/?$/.test(pathname)) return finishPublic(NextResponse.redirect(new URL("/faq" + request.nextUrl.search, request.url), 308));
 
+  /* Previous local review model gate retained for restoration.
   // One authored model for loopback-only header review; never open /models globally.
   if (pathname === "/models/RVA_Logo_010_spin_loop_001.glb" && !isPublicProduction() &&
       (process.env.NODE_ENV === "development" || process.env.RVA3D_HEADER_LOGO_REVIEW === "1") &&
       /^(?:localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$/i.test(request.headers.get("host") || "")) return finishPrivate(NextResponse.next());
+
+  */
+  // Owner-approved public logo only; other models and all private routes stay gated.
+  if (pathname === "/models/RVA_Logo_010_spin_loop_001.glb") return finishPublic(NextResponse.next());
 
   // Exact App Router icon routes only; all other publication boundaries remain unchanged.
   if (pathname === "/icon.png" || pathname === "/apple-icon.png") return finishPublic(NextResponse.next());

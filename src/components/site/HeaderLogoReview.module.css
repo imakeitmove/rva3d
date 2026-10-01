@@ -20,5 +20,8 @@
 
 /* Header-only 2x composition. Reserve horizontal Home-link space without
    changing its height, authored camera/crop, or standalone homepage instance. */
-.slot[data-logo-instance="header"][data-header-logo-review="3d"] { margin-right: 3.034em; }
+/* Previously reserved only after data-header-logo-review=3d, causing hydration shift. */
+@media (min-width: 761px) and (hover: hover) and (pointer: fine) {
+  .slot[data-logo-instance="header"] { margin-right: 3.034em; }
+}
 .slot[data-logo-instance="header"][data-header-logo-review="3d"] .scene { width: 216%; left: -4%; }
