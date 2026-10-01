@@ -14,10 +14,10 @@
     "desmi-rotan-pump",
     "uncommon-goods-outta-this-world"
   ],
-  "assets": 350,
-  "logicalUrls": 413,
-  "registryDigest": "8ef028a817d1fc74f379fdff96950a68b2ae9d15c9bfa02e71fa03cd73258f47",
-  "urlsDigest": "28cfd9dad3279991ad338c1c9351f32e375938acfb240e0be6570bfe9800e7e5",
+  "assets": 359,
+  "logicalUrls": 422,
+  "registryDigest": "79f850fb27d2298b4d9603397bc020e12f6da7ebf6d1f0bffa87f0b9ddb18883",
+  "urlsDigest": "7acb7dbb0a23a0684b3806a1b70f7251df22a76b4368194b27932c36d0b028a2",
   "previous93RegistryDigest": "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8",
   "previous157UrlsDigest": "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f",
   "excludedKeys": [
@@ -432,5 +432,22 @@
     ],
     "evidence": "src/content/site/amsoil_refresh.generated.json",
     "authorization": "Owner-selected exact cropped 2k hero derivative for interim AMSOIL case refresh; no deployment."
+  },
+  "amsoilMediaRefinement20261001": {
+    "previousAssets": 350,
+    "previousUrls": 413,
+    "evidence": "src/content/site/amsoil_media_refinement.generated.json",
+    "authorization": "Owner-selected exact AMSOIL process clips, two loops and final left still. No deployment.",
+    "addedKeys": [
+      "bce4460bf9ac664f3fd4.mp4",
+      "ba2641a3a514b0420db3.webp",
+      "a3eb2f088176aa6c72ee.mp4",
+      "ad28cd423dfb452eb782.webp",
+      "96e4fa4c995d6767b27f.mp4",
+      "e43452197696c55c7403.webp",
+      "1cf1ff9bb207a0c65388.mp4",
+      "b2a51d1d6c0588ef359e.webp",
+      "effd43fbbeee1db5c8fb.webp"
+    ]
   }
 }

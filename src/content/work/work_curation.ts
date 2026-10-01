@@ -22,6 +22,7 @@ export function orderedWorkStudies<T extends { slug: string; publication: { stat
   };
   swap("amsoil-xpd-wind-grease", "five-below");
   swap("uncommon-goods-outta-this-world", "coca-cola-oreo-besties");
+  swap("desmi-rotan-pump", "coca-cola-oreo-besties");
   if (new Set(selected.map(study => study.slug)).size !== selected.length) throw new Error("Duplicate case in Work sequence");
   return selected;
 }

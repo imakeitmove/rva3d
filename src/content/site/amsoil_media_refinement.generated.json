@@ -1,0 +1,116 @@
+{
+  "viewport": {
+    "kind": "video",
+    "src": "/media/work/amsoil_refinement/viewport.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/amsoil_refinement/viewport_poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Viewport animation of the reconstructed drivetrain and main bearing"
+    },
+    "alt": "Viewport animation of the reconstructed drivetrain and main bearing",
+    "presentation": "loop",
+    "hasAudio": false
+  },
+  "bearing": {
+    "kind": "video",
+    "src": "/media/work/amsoil_refinement/bearing.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/amsoil_refinement/bearing_poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Animated grease movement through an overpacked spherical roller bearing"
+    },
+    "alt": "Animated grease movement through an overpacked spherical roller bearing",
+    "presentation": "loop",
+    "hasAudio": false
+  },
+  "intro": {
+    "kind": "video",
+    "src": "/media/work/amsoil_refinement/intro.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/amsoil_refinement/intro_poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "AMSOIL grease-bearing introduction loop"
+    },
+    "alt": "AMSOIL grease-bearing introduction loop",
+    "presentation": "loop",
+    "hasAudio": false
+  },
+  "outro": {
+    "kind": "video",
+    "src": "/media/work/amsoil_refinement/outro.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/amsoil_refinement/outro_poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "AMSOIL grease-bearing closing loop"
+    },
+    "alt": "AMSOIL grease-bearing closing loop",
+    "presentation": "loop",
+    "hasAudio": false
+  },
+  "finalLeft": {
+    "kind": "image",
+    "src": "/media/work/amsoil_refinement/final_left.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Wind-turbine drivetrain animatic with the main bearing highlighted in purple"
+  },
+  "sources": [
+    {
+      "name": "viewport",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/amsoil_xpd_wind_grease/selected/loops/amsoil_grease_viewport_002.mp4",
+      "sourceSha256": "4cf0402a08a4dada84d76cc55707042df3dcf10b9d8faf7e519201b796defa74",
+      "duration": 16.291667,
+      "sourceAudio": true,
+      "derivativeAudio": false
+    },
+    {
+      "name": "bearing",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/amsoil_xpd_wind_grease/process/SKF_spherical_roller_bearings_003_overpacked.mp4",
+      "sourceSha256": "9a735f5e350be1239b86b5abbc8618b0261ca2145f301a3eb68443bf8ae92870",
+      "duration": 12.541625,
+      "sourceAudio": false,
+      "derivativeAudio": false
+    },
+    {
+      "name": "intro",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/amsoil_xpd_wind_grease/selected/loops/XDP_Grease-Bearings_intro_loop.mp4",
+      "sourceSha256": "816b349dd1d33324d86ebfe36f53e824a108de0ea43141e746b5d60aa9d500e6",
+      "duration": 10.375,
+      "sourceAudio": false,
+      "derivativeAudio": false
+    },
+    {
+      "name": "outro",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/amsoil_xpd_wind_grease/selected/loops/XDP_Grease-Bearings_outro_loop.mp4",
+      "sourceSha256": "c8d7b83ccc7a9dd2ca314e93e35ff7fc38738c9e62c360e3528bde0e2ec1002b",
+      "duration": 11.958333,
+      "sourceAudio": false,
+      "derivativeAudio": false
+    },
+    {
+      "name": "finalLeft",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/amsoil_xpd_wind_grease/process/Wind_Turbine_Generator_animatic_part1_005_preview_2025-10-28_$time0479.png",
+      "sourceSha256": "f298ece6d94163778e4801af84dd3c182d9231e5d056597809b0ec79bde2b7ad"
+    }
+  ]
+}
