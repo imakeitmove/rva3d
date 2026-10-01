@@ -960,8 +960,8 @@ test("capabilities overview has five offerings, matched public examples and one 
     }
   }
   assert.equal(whaxe.loops[1].hasAudio, false);assert.equal(reel.media.hasAudio, false);
-  assert(reel.source.endsWith("/2026_motion_design_demo_reel-loop-for-web_004.mp4"));
-  assert.equal(reel.media.presentation, "loop");assert.equal(reel.duration, 15.875);
+  assert(reel.source.endsWith("/2026_motion_design_demo_reel-loop-for-web_005.mp4"));
+  assert.equal(reel.media.presentation, "loop");assert.equal(reel.duration, 10.5);
   assert.equal(registry[urls[reel.media.src].split("/").at(-1)].sourceSha256, reel.sourceSha256);
   const motion = copy.services.find(item => item.id === "motion-design");
   assert.equal(motion.caption, "Selected motion design");assert.equal(motion.link, "Explore selected work");

@@ -62,7 +62,9 @@ export function WorkIndex() {
       {/* Previous intro: Products to explore. Characters to believe. Ideas made visible. Find the work closest to what you have in mind. */}
       <h1>The proof<br />is in the <em>pixels.</em></h1><p className="editorial-lead work-intro-copy"><span>Products to explain. Characters to animate. Shots to solve.</span><span>See what each project needed, what we contributed and how it came together.</span></p>
     </div></section>
-    <BrandLogoRibbon />
+    {/* Keep the ribbon's existing bottom margin inside the paper header region.
+        Previous direct child: <BrandLogoRibbon /> left that gap unclassified. */}
+    <div data-tone="paper" style={{ display: "flow-root" }}><BrandLogoRibbon /></div>
     <section className={`project-catalogue v-broad ${featuredStyles.workCovers}`} data-tone="paper" aria-label="Case studies" data-project-gallery data-project-mode="inventory" data-project-group-size="4" data-project-initial-count={initialCount}>
       <div className="catalogue" data-project-cards>{featuredStudies.map((study, index) => <ProjectCard key={study.slug} study={study} hidden={index >= initialCount} />)}</div>
       <div data-project-controls hidden><p className="label work-project-announcement" data-project-status role="status" aria-atomic="true">Showing {initialCount} of {featuredStudies.length} projects</p><button className="button" data-control-tone="purple" data-project-load-more type="button">Load more <span aria-hidden="true">↓</span></button></div>

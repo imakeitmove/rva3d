@@ -16,8 +16,8 @@
   ],
   "assets": 367,
   "logicalUrls": 431,
-  "registryDigest": "3c88d2a63d2b35bd1ca7826f02bd439e030eba988274bd590e631b6bf18d37e5",
-  "urlsDigest": "48a4befdd306580dfd35a8b2303c63e8270bbfd491237c2f2500703900c28a79",
+  "registryDigest": "e1d5ed9fe4d24ea9875d0633252a4ccf829ebc05c4c2fee0005f6b0554bead8c",
+  "urlsDigest": "8556ca96c442eaa57861a787b83c0abdc79e4f355a996238593e5dab4ece26bf",
   "previous93RegistryDigest": "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8",
   "previous157UrlsDigest": "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f",
   "excludedKeys": [
@@ -473,10 +473,10 @@
   },
   "capabilitiesMotionReel20261001": {
     "addedKeys": [
-      "ef8afc51db8bb9d3771f.mp4",
-      "f44f217be20881fbf2cb.webp"
+      "2f1991faf21298d9200e.mp4",
+      "0bea300f2e52e5266a34.webp"
     ],
     "evidence": "src/content/site/capabilities_motion_reel.generated.json",
-    "authorization": "Owner-selected exact 004 ambient Motion Design overview reel and poster; no deployment."
+    "authorization": "Owner-selected exact 005 ambient Motion Design overview reel and poster; production deployment authorized."
   }
 }
