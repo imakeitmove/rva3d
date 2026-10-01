@@ -14,10 +14,10 @@
     "desmi-rotan-pump",
     "uncommon-goods-outta-this-world"
   ],
-  "assets": 364,
-  "logicalUrls": 428,
-  "registryDigest": "b76a705d0d2aa0bff81a201a600d7ec5824d137c6f55ece4a706b6d1643c9022",
-  "urlsDigest": "56aad7b8b7bea9483e8d709f65c50477c6d16aacbed28eb0b9dc9c245fdbd6b3",
+  "assets": 365,
+  "logicalUrls": 429,
+  "registryDigest": "e7d36cf0fc02ef6b2a27236a1acf0cd8c5468ff95e2f29f99d265229d2e1125c",
+  "urlsDigest": "36ea296288e51ea7a419e198ac1c966c024a368617013478d694ee633e4c73d0",
   "previous93RegistryDigest": "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8",
   "previous157UrlsDigest": "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f",
   "excludedKeys": [
@@ -463,5 +463,12 @@
     ],
     "evidence": "src/content/site/amsoil_media_refinement.generated.json",
     "authorization": "Owner-selected viewport _001 and bearing/grease loops; previous derivatives and masters preserved. No deployment."
+  },
+  "amsoilFinalStill20261001": {
+    "addedKeys": [
+      "5aff75ccc95ddb93efd5.webp"
+    ],
+    "evidence": "src/content/site/amsoil_final_still.generated.json",
+    "authorization": "Owner-selected exact cropped 4k AMSOIL final still. Local review only; no deployment."
   }
 }

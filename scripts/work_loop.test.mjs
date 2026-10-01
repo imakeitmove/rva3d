@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import fs from "node:fs";
 import { execFileSync } from "node:child_process";
+import ts from "typescript";
+import { amsoilXpdWindGrease } from "../src/content/work/cases/amsoil-xpd-wind-grease.ts";
 import { workRecords, portfolioWorkSlugs } from "../src/content/work/records.ts";
 import { fiveBelow } from "../src/content/work/cases/five_below.ts";
 import { besties } from "../src/content/work/cases/besties.ts";
@@ -24,7 +26,7 @@ test("ineligible candidates are excluded and duplicate sequence records fail",()
  assert.throws(()=>orderedWorkStudies(base,[base[0]],true),/Duplicate/);
  assert.equal(nextCaseStudy("none",[]),undefined);
 });
-test("AMSOIL interim copy and exact hero provenance",()=>{
+test("AMSOIL copy, animatic hero and preserved earlier hero provenance",()=>{
  assert.equal(amsoilRefreshCopy.title,"Greasy, not messy.");
  assert(amsoilRefreshCopy.opening.concat(" ",amsoilRefreshCopy.process.join(" ")," ",amsoilRefreshCopy.print).split(/\s+/).length<=100);
  const media=JSON.parse(fs.readFileSync("src/content/site/amsoil_refresh.generated.json"));
@@ -34,6 +36,11 @@ test("AMSOIL interim copy and exact hero provenance",()=>{
  const entry=registry[urls[media.hero.src].split("/").at(-1)];
  assert.equal(entry.source,media.source);assert.equal(entry.sourceSha256,media.sourceSha256);
  assert.equal(media.hero.width,entry.width);assert.equal(media.hero.height,entry.height);
+ const selected=registry[urls[amsoilMediaSequence.hero.src].split("/").at(-1)];
+ assert.equal(selected.source.split("/").at(-1),"Wind_Turbine_Generator_animatic_part1_005_preview_2025-10-28_$time0479.png");
+ assert.equal(selected.sourceSha256,"f298ece6d94163778e4801af84dd3c182d9231e5d056597809b0ec79bde2b7ad");
+ assert.equal(selected.width,amsoilMediaSequence.hero.width);assert.equal(selected.height,amsoilMediaSequence.hero.height);
+ assert.notEqual(amsoilMediaSequence.hero.src,media.hero.src);
 });
 
 test("AMSOIL owner copy and ordered process, four loops and final stills",()=>{
@@ -48,11 +55,27 @@ test("AMSOIL owner copy and ordered process, four loops and final stills",()=>{
  // Previous viewport/loop expectations: _002, intro then outro.
  assert.deepEqual(amsoilMediaSequence.process.slice(1).map(names),["amsoil_grease_viewport_001.mp4","SKF_spherical_roller_bearings_003_overpacked.mp4"]);
  assert.deepEqual(amsoilMediaSequence.loops.map(names),["XDP_Grease-Bearings_bearing_loop.mp4","XDP_Grease-Bearings_grease_loop.mp4","XDP_Grease-Bearings_intro_loop.mp4","XDP_Grease-Bearings_outro_loop.mp4"]);
- assert.equal(names(amsoilMediaSequence.final[0]),"Wind_Turbine_Generator_animatic_part1_005_preview_2025-10-28_$time0479.png");
- assert.equal(amsoilMediaSequence.final[1].src,"/media/work/amsoil-xpd-wind-grease/amsoil_trade_show_cutaway_proof_v001.webp");
+ // Previous ending expectations: animatic on left and trade-show proof on right.
+ assert.equal(amsoilMediaSequence.final.length,1);
+ assert.equal(names(amsoilMediaSequence.final[0]),"AMSWIND_STILL_CAM_Main_FULL_Composite_4k_R003_V002_cropped.jpg");
+ assert.equal(entry(amsoilMediaSequence.final[0]).sourceSha256,"6ce2a6aa40404ced634ba2a42bb2abc99ca0614fb9e81c3b27d043555cd6c2f6");
  const all=[...amsoilMediaSequence.process,...amsoilMediaSequence.loops,...amsoilMediaSequence.final];
  assert(!all.some(item=>names(item)==="amsoil_grease_viewport_002.mp4"));
  assert(!all.some(x=>x.src.includes("grease_comparison")||x.src.includes("bearing_closeup")||x.src.includes("hero_composite")));
+});
+test("AMSOIL single ending and factual centered credit selection",()=>{
+ assert.deepEqual(amsoilXpdWindGrease.credits,[{name:"AMSOIL",role:"Client"},{name:"Greg Collins",role:"Writer / Producer"},{name:"Deven Langston — RVA3D",role:"3D Visualization / Animation"},{name:"2025",role:"Year"}]);
+ assert(!amsoilXpdWindGrease.credits.some(credit=>/production company/i.test(credit.role)));
+ const active=ts.transpileModule(fs.readFileSync("src/components/site/AmsoilCase.tsx","utf8"),{fileName:"AmsoilCase.tsx",compilerOptions:{jsx:ts.JsxEmit.Preserve,module:ts.ModuleKind.ESNext,removeComments:true}}).outputText;
+ assert.match(active,/hero=\{sequence.hero\}/);assert.match(active,/credits=\{study.credits\}/);
+ assert.match(active,/<CaseBeat id="final-image">/);assert(!active.includes('id="final-stills"'));
+});
+test("About founder paragraph uses exact owner wording and house BrandText",()=>{
+ const active=ts.transpileModule(fs.readFileSync("src/components/site/AboutEditorial.tsx","utf8"),{fileName:"AboutEditorial.tsx",compilerOptions:{jsx:ts.JsxEmit.Preserve,module:ts.ModuleKind.ESNext,removeComments:true}}).outputText;
+ const expected="With 20 years of experience in motion design and 3D animation, Deven Langston is RVA3D's senior artist, guiding projects from first frame to final render.";
+ assert(active.includes('<BrandText text="'+expected+'"'));
+ assert(!active.includes("Deven connects creative direction with hands-on execution."));
+ assert(active.includes("A small studio with a clear point of contact."));
 });
 test("AMSOIL six web clips have silent browser-compatible media and matching posters",()=>{
  const urls=JSON.parse(fs.readFileSync("src/content/site/media-urls.generated.json")),registry=JSON.parse(fs.readFileSync("src/content/site/media.generated.json"));

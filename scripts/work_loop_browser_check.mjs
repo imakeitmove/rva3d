@@ -20,7 +20,8 @@ const nav = async path => { await send("Page.navigate",{url:"http://127.0.0.1:30
 const reviewOrder = ["geico-geckos-cereal-box", "wawa-coffee-island", "axe-whaxe-lil-baby", "capri-sun", "five-below", "cable-snake", "coca-cola-oreo-besties", "desmi-rotan-pump", "amsoil-xpd-wind-grease", "uncommon-goods-outta-this-world"];
 const production = process.argv[3] === "production";
 const order = production ? ["geico-geckos-cereal-box","wawa-coffee-island","axe-whaxe-lil-baby","capri-sun","amsoil-xpd-wind-grease","cable-snake","desmi-rotan-pump","uncommon-goods-outta-this-world"] : reviewOrder;
-const evidence = "scripts/runtime/amsoil_refinement_review/" + (production ? "production" : "review");
+// Prior refinement evidence remains in scripts/runtime/amsoil_refinement_review/.
+const evidence = "scripts/runtime/amsoil_final_review/" + (production ? "production" : "review");
 
 const click = async selector => {
  await run(`document.querySelector(${JSON.stringify(selector)}).scrollIntoView({block:'center',behavior:'instant'})`);
@@ -33,6 +34,16 @@ const targets=await send("Target.getTargets"), target=targets.targetInfos.find(x
 const attached=await send("Target.attachToTarget",{targetId:target.targetId,flatten:true});session=attached.sessionId;
 await send("Runtime.enable");await send("Page.enable");await send("Network.enable");await send("Page.bringToFront");
 fs.mkdirSync(evidence,{recursive:true});
+const aboutState = async () => run(`(()=>{const s=document.querySelector('.about-ground'),p=s.querySelector('img'),h=s.querySelector('h2'),a=s.querySelector('a'),r=s.getBoundingClientRect(),b=p.getBoundingClientRect();return {classes:s.className,heading:h.textContent,portrait:{src:p.getAttribute('src'),alt:p.alt,width:b.width,height:b.height,x:b.x-r.x,y:b.y-r.y},faq:{href:a.getAttribute('href'),text:a.textContent},copy:s.querySelector('p.editorial-lead').textContent,branded:s.querySelectorAll('p.editorial-lead .inline-brand').length}})()`);
+if(process.argv.includes('--about-baseline')){
+ const baseline={};
+ for(const width of [1440,1024,390]){
+  await send("Emulation.setDeviceMetricsOverride",{width,height:width===390?844:900,deviceScaleFactor:1,mobile:width===390});await nav('/about');
+  baseline[width]=await aboutState();await run("document.querySelector('.about-ground').scrollIntoView({block:'start',behavior:'instant'})");await wait(300);
+  await send("Page.captureScreenshot",{format:"png"}).then(r=>fs.writeFileSync(`${evidence}/about_before_${width}.png`,Buffer.from(r.data,"base64")));
+ }
+ fs.writeFileSync(`${evidence}/about_before.json`,JSON.stringify(baseline,null,2));console.log('PASS captured About baseline');ws.close();process.exit(0);
+}
 for(const width of [1440,1024,390]) {
  await send("Emulation.setDeviceMetricsOverride",{width,height:width===390?844:900,deviceScaleFactor:1,mobile:width===390});
  await nav("/work");
@@ -41,7 +52,8 @@ for(const width of [1440,1024,390]) {
  await send("Page.captureScreenshot",{format:"png"}).then(r=>fs.writeFileSync(`${evidence}/work_${width}.png`,Buffer.from(r.data,"base64")));
  await nav("/work/amsoil-xpd-wind-grease");
  assert.equal(await run("document.querySelector('h1').textContent"),"Greasy, not messy.");
- assert(await run("document.querySelector('#film img').currentSrc.includes('55f85759c8ec398ba6b3.webp')"));
+ // Prior opening hero: 55f85759c8ec398ba6b3.webp (2K-source composite).
+ assert(await run("document.querySelector('#film img').currentSrc.includes('effd43fbbeee1db5c8fb.webp')"));
  const images=await run(`(async()=>{for(const i of document.querySelectorAll('article img')){i.scrollIntoView({behavior:'instant'});await new Promise(r=>setTimeout(r,150));if(!i.complete)await Promise.race([new Promise(r=>i.addEventListener('load',r,{once:true})),new Promise(r=>setTimeout(r,2000))]);}return [...document.querySelectorAll('article img')].map(i=>({src:i.currentSrc,loaded:i.complete&&i.naturalWidth>0,ratio:i.getBoundingClientRect().width/i.getBoundingClientRect().height,natural:i.naturalWidth/i.naturalHeight}));})()`);
  assert(images.every(i=>i.loaded&&Math.abs(i.ratio-i.natural)<.01),JSON.stringify(images));
 // Previous comparison-video check:  await run("(async()=>{const v=document.querySelector('article video');v.scrollIntoView({block:'center',behavior:'instant'});await v.play();v.pause();return true})()");
@@ -79,22 +91,37 @@ for(const width of [1440,1024,390]) {
  assert(await run("[...document.querySelectorAll('article video')].every(v=>v.paused&&v.muted)"));
  await send("Emulation.setEmulatedMedia",{features:[]});
  const pair = async id => run(`(()=>{const p=document.querySelector('#'+${JSON.stringify(id)});return [...p.children].map(c=>{const r=c.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width}})})()`);
- for(const id of ['bearing-loops','final-stills']){
-  const boxes=await pair(id);assert.equal(boxes.length,id==='bearing-loops'?4:2);
+ for(const id of ['bearing-loops']){
+  const boxes=await pair(id);assert.equal(boxes.length,4);
   if(width>760){assert(Math.abs(boxes[0].y-boxes[1].y)<1);assert(boxes[1].x>boxes[0].x);if(boxes.length===4){assert(Math.abs(boxes[2].y-boxes[3].y)<1);assert(boxes[2].y>boxes[0].y);assert(Math.abs(boxes[2].x-boxes[0].x)<1)}}else{for(let i=1;i<boxes.length;i++){assert(Math.abs(boxes[0].x-boxes[i].x)<1);assert(boxes[i].y>boxes[i-1].y)}}
  }
- assert.deepEqual(await run("[...document.querySelectorAll('#final-stills img')].map(i=>new URL(i.currentSrc).pathname)"),[urls[media.finalLeft.src],urls['/media/work/amsoil-xpd-wind-grease/amsoil_trade_show_cutaway_proof_v001.webp']]);
- for(const id of ['process-1','process-2','process-3','bearing-loops','trade-show-print','final-stills']){
+ // Previous ending was a two-still pair; only the exact 4K-source image renders now.
+ const finalStill=JSON.parse(fs.readFileSync('src/content/site/amsoil_final_still.generated.json'));
+ assert.deepEqual(await run("[...document.querySelectorAll('#final-image img')].map(i=>new URL(i.currentSrc).pathname)"),[urls[finalStill.hero.src]]);
+ assert(await run("!document.querySelector('#final-stills')&&document.querySelector('#final-image').nextElementSibling.id==='credits'"));
+ assert(!(await run("[...document.querySelectorAll('article img')].some(i=>['55f85759c8ec398ba6b3.webp','087caf5c3abab7b2ed48.webp'].some(key=>i.currentSrc.includes(key)))")));
+ assert(await run("(()=>{const f=document.querySelector('#final-image'),i=f.querySelector('img');return Math.abs(f.getBoundingClientRect().width-i.getBoundingClientRect().width)<1})()"));
+ for(const id of ['process-1','process-2','process-3','bearing-loops','trade-show-print','final-image']){
   await run(`document.querySelector('#'+${JSON.stringify(id)}).scrollIntoView({block:'center',behavior:'instant'})`);await wait(600);
   await send("Page.captureScreenshot",{format:"png"}).then(r=>fs.writeFileSync(`${evidence}/${id}_${width}.png`,Buffer.from(r.data,"base64")));
  }
- assert(await run("document.querySelector('#credits').textContent.includes('Deven Langston')&&document.querySelector('#credits').textContent.includes('3D visualization and production')"));
+ assert.deepEqual(await run("[...document.querySelectorAll('#credits dl > div')].map(d=>({role:d.querySelector('dt').textContent,name:d.querySelector('dd').textContent}))"),[{role:'Client',name:'AMSOIL'},{role:'Writer / Producer',name:'Greg Collins'},{role:'3D Visualization / Animation',name:'Deven Langston — RVA3D'},{role:'Year',name:'2025'}]);
+ assert(!(await run("/production company/i.test(document.querySelector('#credits').textContent)")));
  assert(!(await run("document.documentElement.scrollWidth>innerWidth")));
  await run("scrollTo(0,0)");await wait(150);
  await send("Page.captureScreenshot",{format:"png"}).then(r=>fs.writeFileSync(`${evidence}/amsoil_${width}.png`,Buffer.from(r.data,"base64")));
  await run("document.querySelector('#credits').scrollIntoView({block:'center',behavior:'instant'})");await wait(150);
  await send("Page.captureScreenshot",{format:"png"}).then(r=>fs.writeFileSync(`${evidence}/credits_${width}.png`,Buffer.from(r.data,"base64")));
  console.log("PASS Work/AMSOIL",width,JSON.stringify(images));
+ await nav('/about');
+ const about=await aboutState(),before=JSON.parse(fs.readFileSync(`${evidence}/about_before.json`))[width];
+ assert.equal(about.copy,"With 20 years of experience in motion design and 3D animation, Deven Langston is RVA3D's senior artist, guiding projects from first frame to final render.");assert.equal(about.branded,1);
+ assert.equal(about.classes,before.classes);assert.equal(about.heading,before.heading);assert.deepEqual(about.faq,before.faq);
+ for(const field of ['src','alt','width','height','x','y']){if(typeof about.portrait[field]==='number')assert(Math.abs(about.portrait[field]-before.portrait[field])<1,field);else assert.equal(about.portrait[field],before.portrait[field]);}
+ assert(!(await run("document.documentElement.scrollWidth>innerWidth")));
+ await run("document.querySelector('.about-ground').scrollIntoView({block:'start',behavior:'instant'})");await wait(300);
+ await send("Page.captureScreenshot",{format:"png"}).then(r=>fs.writeFileSync(`${evidence}/about_after_${width}.png`,Buffer.from(r.data,"base64")));
+ console.log('PASS About exact branded copy and preserved portrait/layout',width);
 }
 for(const width of [1440,390]){
  await send("Emulation.setDeviceMetricsOverride",{width,height:width===390?844:900,deviceScaleFactor:1,mobile:width===390});

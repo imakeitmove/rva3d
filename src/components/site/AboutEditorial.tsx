@@ -3,7 +3,7 @@ import Image from "next/image";
 import introStyles from "./AboutIntro.module.css";
 import mockupStyles from "./AboutMockup.module.css";
 import { Shell } from "./Shell";
-import { Brand } from "./Brand";
+import { Brand, BrandText } from "./Brand";
 import { siteHref } from "@/lib/site/paths";
 import home from "@/content/site/home.generated.json";
 import editorial from "@/content/site/editorial.generated.json";
@@ -135,7 +135,8 @@ export function AboutEditorial() {
             {/* Previous founder heading moved to the dark opening: Rendered with confidence. */}
             <h2>A small studio with a clear point of contact.</h2>
             {/* Previous founder copy retained for rollback: <p className="editorial-lead">Deven Langston brings 20 years in animation, visual effects, and production. He leads the work and stays your direct point of contact throughout.</p> */}
-            <p className="editorial-lead">With 20 years in motion design, 3D animation, visual effects, and production, Deven connects creative direction with hands-on execution.</p>
+            {/* Previous founder paragraph: <p className="editorial-lead">With 20 years in motion design, 3D animation, visual effects, and production, Deven connects creative direction with hands-on execution.</p> */}
+            <p className="editorial-lead"><BrandText text="With 20 years of experience in motion design and 3D animation, Deven Langston is RVA3D's senior artist, guiding projects from first frame to final render." /></p>
             {/* Previous founder closing line replaced by the larger FAQ link.
             <p className="editorial-lead about-kicker">Got a graphics challenge? We’ll figure it out!</p> */}
             <a className={mockupStyles.faqLink} href={siteHref("/faq")}>Questions about working together? <span>Read the FAQ ↗</span></a>

@@ -5446,5 +5446,22 @@
     "approvalSource": "direct-owner-approval",
     "approvalNote": "Owner-selected AMSOIL process/loop/final-still derivatives for the scoped case refinement. Originals preserved; no push or deployment authorized.",
     "recipe": "Representative frame at 1 second from the exact web derivative; WebP quality85 effort6."
+  },
+  "5aff75ccc95ddb93efd5.webp": {
+    "file": "private-media/5aff75ccc95ddb93efd5.webp",
+    "type": "image/webp",
+    "bytes": 198620,
+    "sha256": "5aff75ccc95ddb93efd52b8b2931acb3751d80b2bf881987ecb2bb61e4b134dd",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/amsoil_xpd_wind_grease/selected/AMSWIND_STILL_CAM_Main_FULL_Composite_4k_R003_V002_cropped.jpg",
+    "sourceSha256": "6ce2a6aa40404ced634ba2a42bb2abc99ca0614fb9e81c3b27d043555cd6c2f6",
+    "width": 1600,
+    "height": 900,
+    "publication": "public-approved",
+    "approvedAt": "2026-10-01",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval",
+    "approvalNote": "Owner-selected exact cropped 4K AMSOIL final still. Local review/checkpoint only; no deployment authorized.",
+    "recipe": "Auto-orient; uncropped max1600px; sRGB WebP quality85 effort6; metadata stripped. Source master preserved."
   }
 }

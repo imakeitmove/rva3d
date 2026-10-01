@@ -138,9 +138,22 @@ const amsoilXpdWindGreaseLegacy = {
   ],
   galleryMedia: [],
   credits: [
+    // Previous credit retained: { name: "Deven Langston", role: "3D visualization and production" }.
     {
-      name: "Deven Langston",
-      role: "3D visualization and production",
+      name: "AMSOIL",
+      role: "Client",
+    },
+    {
+      name: "Greg Collins",
+      role: "Writer / Producer",
+    },
+    {
+      name: "Deven Langston — RVA3D",
+      role: "3D Visualization / Animation",
+    },
+    {
+      name: "2025",
+      role: "Year",
     },
   ],
   seo: {
