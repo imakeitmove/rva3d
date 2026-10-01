@@ -127,7 +127,7 @@ export function AboutCommunication() { return <div className={`about-editorial h
     <div className="editorial-width communication-switcher"><EditorialPageNav current="about" /></div>
     <div className="editorial-width review-dark-grid">
       <div className="review-intro">
-        <p className="label">ABOUT RVA3D</p>
+        {/* Removed studio eyebrow: <p className="label">ABOUT RVA3D</p> */}
         {/* Previous headline: Creative thinking. Hands-on making. */}
         <h1 id="studio-title">A small studio with a clear point of contact.</h1>
       </div>
