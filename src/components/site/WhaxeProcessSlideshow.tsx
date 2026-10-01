@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useImageSlideshow } from "@/hooks/use_image_slideshow";
 import { CapabilityFullscreen } from "./CapabilityFullscreen";
 import { WorkMedia } from "@/components/work/WorkMedia";
 import type { WorkImageMedia } from "@/content/work/types";
@@ -11,6 +11,8 @@ import styles from "./GeicoInteractions.module.css";
 // The optional label lets other cases use the same gallery without WHAXE attribution.
 // Previous signature: ({ slides }: { slides: WorkImageMedia[] })
 export function WhaxeProcessSlideshow({ slides, label = "WHAXE material and lighting development", autoplay = true, intervalMs = 2200, fit = "cover" }: { slides: WorkImageMedia[]; label?: string; autoplay?: boolean; intervalMs?: number; fit?: "cover" | "contain" }) {
+  /* Previous player preserved for restoration. Shared playback now also handles
+     hover, persistent focus/manual pauses, and manual fullscreen inspection.
   const root = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(false);
@@ -36,16 +38,20 @@ export function WhaxeProcessSlideshow({ slides, label = "WHAXE material and ligh
     return () => clearTimeout(timer);
   }, [eligible, index, slides.length, intervalMs]);
   function step(direction: number) { setIndex(previous => (previous + direction + slides.length) % slides.length); }
-  return <div ref={root} className={styles.slideshow} role="region" aria-roledescription="carousel" aria-label={label} data-image-fit={fit} data-active-slide={index} data-autoplay={eligible}>
+  */
+  const { mainPlaying, modalOpen } = useGeicoPlayback();
+  const { root, index, visible, eligible, paused, reduced, fullscreen, step, toggle, pausePointerDown, interactionProps } = useImageSlideshow({ count: slides.length, autoplay, intervalMs, blocked: mainPlaying || modalOpen });
+  if (!slides.length) return null;
+  return <div ref={root} {...interactionProps} className={styles.slideshow} role="region" aria-roledescription="carousel" aria-label={label} data-image-fit={fit} data-active-slide={index} data-autoplay={eligible}>
     <div className={styles.slides} style={{ aspectRatio: `${slides[0].width} / ${slides[0].height}` }}>
       {slides.map((media, slide) => (slide === 0 || visible || slide === index) && <div className={styles.slide} key={media.src} aria-hidden={slide !== index} data-current={slide === index} role="group" aria-roledescription="slide" aria-label={`${slide + 1} of ${slides.length}`}>
         <WorkMedia media={media} privateDelivery sizes="(max-width: 760px) calc(100vw - 40px), 58vw" />
       </div>)}
       <CapabilityFullscreen targetRef={root} kind="image" variant="homepage" />
       <div className={styles.slideControls}>
-        <button data-media-control className="custom-control" type="button" onClick={() => step(-1)} aria-label={fit === "contain" ? "Previous photograph" : "Previous process image"}><span aria-hidden="true">‹</span></button>
-        {autoplay && <button data-media-control className="custom-control" type="button" onClick={() => setPaused(previous => !previous)} disabled={reduced} aria-label={reduced ? "Slideshow autoplay disabled by reduced motion" : paused ? "Play process slideshow" : "Pause process slideshow"}><span aria-hidden="true">{paused || reduced ? "▶" : "Ⅱ"}</span></button>}
-        <button data-media-control className="custom-control" type="button" onClick={() => step(1)} aria-label={fit === "contain" ? "Next photograph" : "Next process image"}><span aria-hidden="true">›</span></button>
+        <button data-media-control className="custom-control" type="button" onClick={() => step(-1)} disabled={slides.length < 2} aria-label={fit === "contain" ? "Previous photograph" : "Previous process image"}><span aria-hidden="true">‹</span></button>
+        {autoplay && <button data-media-control className="custom-control" type="button" onPointerDown={pausePointerDown} onClick={toggle} disabled={reduced || fullscreen || slides.length < 2} aria-label={fullscreen ? "Fullscreen photographs use manual navigation" : reduced ? "Slideshow autoplay disabled by reduced motion" : paused ? "Play process slideshow" : "Pause process slideshow"}><span aria-hidden="true">{paused || reduced ? "▶" : "Ⅱ"}</span></button>}
+        <button data-media-control className="custom-control" type="button" onClick={() => step(1)} disabled={slides.length < 2} aria-label={fit === "contain" ? "Next photograph" : "Next process image"}><span aria-hidden="true">›</span></button>
       </div>
     </div>
   </div>;

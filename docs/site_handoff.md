@@ -1,5 +1,7 @@
 # RVA3D current website handoff
 
+Latest local checkpoint: [October 1 editorial baseline, slideshow playback and next logo task](slideshow_handoff_20261001.md). The owner-approved current rendering supersedes older restoration notes below. No new deployment is implied.
+
 Updated September 30, 2026 (America/New_York). Implementation crossed September 29–30; release timing is recorded separately in the receipt.
 
 ## Current live release

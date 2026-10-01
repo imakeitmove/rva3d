@@ -161,6 +161,13 @@ Run relevant existing lint, type, content, media and build checks for changed co
 - Treat archived comments, unused legacy CSS or an older brief as permission to reverse later owner corrections.
 - Change global typography, header prototypes, homepage/Work behavior or other case studies merely to make them conform to this guide.
 
+## Image slideshow playback (October 1, 2026)
+
+- Actual inline image slideshows autoplay when at least 25% visible in normal motion mode. Preserve approved timing (GEICO and Uncommon Goods: 5 seconds; WHAXE, Wawa and Five Below process images: 2.2 seconds); use approximately 5 seconds for new slideshows without an approved interval. Preserve order, crossfades, crops and controls; wrap last to first.
+- Use `useImageSlideshow` for the shared playback policy. Hover temporarily suspends playback. Focus entering, Pause, and Previous/Next stop rotation until explicit Play. An explicit pause survives scrolling, tab visibility changes and fullscreen exit. Offscreen, hidden-tab and competing-film/modal suspensions resume with a fresh full dwell, never catch up.
+- Reduced motion starts paused with manual navigation and no crossfade. Fullscreen image inspection stays manual, with autoplay disabled until exiting and explicitly selecting Play. One image has no advance timer. Every instance owns and cleans up its timer/listeners.
+- This does not apply to static photos, grids, or scroll-driven ribbons. The approved About red-carpet image is static. Image playback must never change a video's mute or volume setting; ambient loops stay muted and user-initiated films retain source audio.
+
 ## Curation, workflow and publication
 
 - Feature only Noise Tech as the Capri Sun Work entry. Solstice Pouch and Trick & Treat retain their standalone routes and sibling links.
