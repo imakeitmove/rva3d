@@ -1,5 +1,19 @@
 # RVA3D current website handoff
 
+## October 1: production release deployed and verified
+
+Application revision `e93c727163ba19aa4cbd89121431503dfb5aedfd` is live through Vercel Production deployment `dpl_4o6fXS7fL2sA7BU2Y6JuPSvLx9VE` (`https://rva3d-r1phxhwi0-devenjames-projects.vercel.app`). Both `https://rva3d.com` and `https://www.rva3d.com` resolve to the verified deployment; the apex redirects canonically to `www`. Build logs repeat the exact revision and sealed manifest SHA `bda9083e7eb1025fca994439ee3860a9e19a90eaabc5d0008cdd08fd059309d2`.
+
+- Canonical `main` was fast-forwarded to the approved review tree, including the final mobile About geometry correction. One later guard-only commit aligned `verify-preview-source.mjs` with the already-approved permanent `/how-we-work` to `/faq` redirect. No application behavior changed in that correction.
+- The fresh sealed package contains 367 public-approved assets, 431 logical URLs and 455,048,295 bytes. Dry run, release wrapper, remote build, lint, TypeScript, 61 passing content tests with 11 documented legacy skips, 49 source checks, asset/public-release validation and exact project/target checks pass.
+- Live HTTP checks pass on both domains for the homepage, Work, Capabilities, About, FAQ, Contact, VFX detail and all eight production case studies. The complete eight-case circular loop passes at 1440 and 390. Five Below and Besties remain outside that loop and their direct public routes render noindex Not Found responses.
+- Live capabilities checks pass at 1920, 1440, 1024 and 390, including semantic responsive order, anchors, all four ambient loops, end-to-start wrapping, muted inline playback, offscreen/background pause, reduced motion, VFX fullscreen, keyboard replay, destinations and zero runtime/media errors.
+- Live Work/AMSOIL/About checks pass at 1440, 1024 and 390, including natural image ratios, media playback, exact founder-and-senior-artist copy, preserved portrait geometry and zero runtime/media errors.
+- Existing Vercel projects created before June 30, 2026 require the Production environment variable `VERCEL_SUPPORT_LARGE_FUNCTIONS=1` for this package's traced media/review functions. The flag is enabled only for Production. Vercel accepted the eligible large-functions beta path and the final deployment is READY.
+- Rollback target is the previous verified production deployment `dpl_3GW37byMHiADg4KD7zzD1b93iU6J` at application revision `53308e961824ce5535e5cb7bda912d37cb80ec51`.
+
+Exact release facts: `docs/release_receipt_20261001.json`. The RVA3D Notion project received the matching October 1 production checkpoint and read-back verification.
+
 ## October 1: owner-selected Motion Design reel 004 (local checkpoint)
 
 Main Capabilities Motion Design uses exact source production/site_content/1_source/demo_reels/2026_motion_design_demo_reel-loop-for-web_004.mp4 (1920x1080, 24fps, 381 frames / 15.875s, no audio). Source SHA256 2a95ac5d82c150165a9ddc1e73d7e165a0bfc47d553325d07894367ccd75ec6c verified unchanged. scripts/build_capabilities_motion_reel.mjs replaces the superseded uncommitted 003 registration, then uses the existing H.264 CRF20 slow / WebP85 pipeline. Selection manifest: capabilities_motion_reel.generated.json. The selected 1280x720 derivative is /media/ef8afc51db8bb9d3771f.mp4; its poster is /media/f44f217be20881fbf2cb.webp. Prior committed records and the Uncommon Goods case remain unchanged.

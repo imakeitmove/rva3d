@@ -1,0 +1,126 @@
+{
+  "session": { "timezone": "America/New_York", "releaseDate": "2026-10-01", "verifiedAt": "2026-10-01T18:57:16.686Z" },
+  "status": "deployed-and-live-verified",
+  "deployedRevision": "e93c727163ba19aa4cbd89121431503dfb5aedfd",
+  "approvedReviewRevision": "e5cc400006b0cf9bda2154e035a433b018fbdb64",
+  "deployment": {
+    "id": "dpl_4o6fXS7fL2sA7BU2Y6JuPSvLx9VE",
+    "url": "https://rva3d-r1phxhwi0-devenjames-projects.vercel.app",
+    "inspectorUrl": "https://vercel.com/devenjames-projects/rva3d/4o6fXS7fL2sA7BU2Y6JuPSvLx9VE",
+    "createdAtEpochMs": 1790880199466,
+    "target": "production",
+    "readyState": "READY",
+    "project": "rva3d",
+    "projectId": "prj_bZXgUFRiXRpbAur3F4RQOOHxcQCe",
+    "domains": ["https://rva3d.com", "https://www.rva3d.com", "https://rva3d.vercel.app", "https://rva3d-devenjames-projects.vercel.app"]
+  },
+  "rollback": {
+    "id": "dpl_3GW37byMHiADg4KD7zzD1b93iU6J",
+    "url": "https://rva3d-8vkwh4pnp-devenjames-projects.vercel.app",
+    "revision": "53308e961824ce5535e5cb7bda912d37cb80ec51"
+  },
+  "commits": {
+    "reviewCheckpoint": "59883d417942e831269a0f3219d8fccbd11f6d87",
+    "mobileAboutCorrection": "e5cc400006b0cf9bda2154e035a433b018fbdb64",
+    "releaseGuardCorrection": "e93c727163ba19aa4cbd89121431503dfb5aedfd"
+  },
+  "integration": {
+    "method": "Fast-forwarded the dedicated clean main worktree to the approved review revision, then added one guard-only correction matching the already-approved /how-we-work to /faq redirect.",
+    "pushedRef": "refs/heads/main",
+    "remoteMainAtDeployment": "e93c727163ba19aa4cbd89121431503dfb5aedfd",
+    "historyRewritten": false,
+    "dirtyParentCheckoutTouched": false,
+    "documentationCloseout": "This receipt and handoff update are committed after deployment. They do not change the deployed application revision and require no redeploy."
+  },
+  "package": {
+    "path": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/artifacts/production_package_20261001_e93c7271",
+    "target": "production",
+    "assets": 367,
+    "publicApprovedAssets": 367,
+    "totalBytes": 455048295,
+    "logicalUrls": 431,
+    "manifestSha256": "bda9083e7eb1025fca994439ee3860a9e19a90eaabc5d0008cdd08fd059309d2"
+  },
+  "work": {
+    "eligible": 8,
+    "order": ["GEICO", "Wawa", "WHAXE", "Capri Sun Noise Tech", "AMSOIL", "Twist / Cable Snake", "DESMI", "Uncommon Goods"],
+    "desktopAndMobileCircularTraversal": true,
+    "previewOnly": {
+      "fiveBelow": "Excluded from the eight-case production loop; direct public route renders noindex Not Found.",
+      "besties": "Excluded from the eight-case production loop; direct public route renders noindex Not Found."
+    }
+  },
+  "capabilitiesTypography": {
+    "sharedToken": "EditorialTypography.module.css narrativeScale",
+    "font": "Geist",
+    "weight": 400,
+    "letterSpacing": "normal",
+    "computed": {
+      "1920": { "caseStudy": "24px / 36px", "capabilities": "24px / 36px" },
+      "1440": { "caseStudy": "23.76px / 35.64px", "capabilities": "23.76px / 35.64px" },
+      "1024": { "caseStudy": "18px / 27px", "capabilities": "18px / 27px" },
+      "390": { "caseStudy": "18px / 27px", "capabilities": "18px / 27px" }
+    },
+    "capabilitiesMeasure": "34ch cap; actual column width remains responsive"
+  },
+  "motionDesign": {
+    "source": "2026_motion_design_demo_reel-loop-for-web_004.mp4",
+    "sourceSha256": "2a95ac5d82c150165a9ddc1e73d7e165a0bfc47d553325d07894367ccd75ec6c",
+    "sourceDimensions": "1920x1080",
+    "sourceDurationSeconds": 15.875,
+    "sourceFrameRate": "24/1",
+    "sourceFrames": 381,
+    "sourceHasAudio": false,
+    "derivative": "/media/ef8afc51db8bb9d3771f.mp4",
+    "derivativeDimensions": "1280x720",
+    "derivativeBytes": 4257740,
+    "poster": "/media/f44f217be20881fbf2cb.webp",
+    "posterDimensions": "1280x720",
+    "posterBytes": 29580,
+    "caption": "Selected motion design",
+    "link": { "label": "Explore selected work", "href": "/work" },
+    "presentation": "Silent ambient loop; muted, inline, visibility-aware, background-aware and reduced-motion-aware.",
+    "browserLoopWrapVerified": true
+  },
+  "validation": {
+    "lint": "pass",
+    "typeScript": "pass",
+    "contentReleaseTests": { "passed": 61, "skipped": 11, "failed": 0 },
+    "sourceVerification": { "checks": 49, "trackedFiles": 248, "importEdges": 508 },
+    "mediaIntegrity": "pass",
+    "strictPublicRelease": "pass",
+    "sealedProductionDryRun": "pass",
+    "productionWrapper": "pass",
+    "remoteBuild": "pass",
+    "exactRemoteRevisionInBuildLog": true,
+    "responsiveWidths": [1920, 1440, 1024, 390],
+    "bothDomains": "pass",
+    "requiredRoutes": "pass",
+    "workAboutAmsoilBrowserSuite": "pass",
+    "capabilitiesBrowserSuite": "pass",
+    "runtimeExceptions": 0,
+    "mediaHttpErrors": 0
+  },
+  "vercel": {
+    "largeFunctions": {
+      "environment": "Production",
+      "variable": "VERCEL_SUPPORT_LARGE_FUNCTIONS",
+      "value": "1",
+      "reason": "The current traced media/review route exceeds the standard 250 MB uncompressed function limit; Vercel confirmed project eligibility for the large-functions beta."
+    },
+    "firstAttempt": "Stopped before upload because deployment-write authentication required refresh.",
+    "secondAttempt": "Remote build passed; activation stopped at the standard function-size limit.",
+    "finalAttempt": "Passed after official Production-only large-functions opt-in; deployment READY and aliased."
+  },
+  "knownLimits": {
+    "physicalDevices": "Not tested; responsive browser emulation used.",
+    "dependencies": { "lastObserved": "2026-10-01", "moderate": 2, "high": 5, "critical": 1, "total": 8, "status": "Observed from npm audit during the locked install; no dependency update was part of this release." }
+  },
+  "notion": {
+    "project": "https://app.notion.com/p/2aba9ba2f25880378320c6bf604577db",
+    "checkpointInserted": true,
+    "readBackVerified": true
+  },
+  "handoff": "docs/site_handoff.md",
+  "productionGuide": "docs/production-release.md"
+}
