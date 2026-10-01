@@ -14,10 +14,10 @@
     "desmi-rotan-pump",
     "uncommon-goods-outta-this-world"
   ],
-  "assets": 331,
-  "logicalUrls": 394,
-  "registryDigest": "92c2c7e1d300110618aff4cf04c3742acfc454a70c7128a002881c1784c283c5",
-  "urlsDigest": "bdb242577454918858fa36f729020e86753ad1c4fee09818e5bede9e3de989b8",
+  "assets": 349,
+  "logicalUrls": 412,
+  "registryDigest": "f210e0e0b727e2c21e68f219f8164e0dd215efd6c7bb3dccc3839c6b6650da64",
+  "urlsDigest": "bd3d307a9b08d6f5d96409e3d8ca4b42ef00b1c294d45212e873a1dcfcb1e3b0",
   "previous93RegistryDigest": "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8",
   "previous157UrlsDigest": "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f",
   "excludedKeys": [
@@ -152,7 +152,8 @@
     "2026-09-26",
     "2026-09-28",
     "2026-09-29",
-    "2026-09-30"
+    "2026-09-30",
+    "2026-10-01"
   ],
   "audit": "2026-09-17 explicit owner approval to publish all 45 current portfolio ribbon images with the finished hello experience and site refinements.",
   "previousSeptember15Release": {
@@ -396,5 +397,31 @@
     ],
     "evidence": "docs/uncommon_goods_refresh_media_20260930.json",
     "authorization": "Owner-selected case-study sequence and card derivatives; no push/deployment."
+  },
+  "bestiesCandidate20261001": {
+    "previousAssets": 331,
+    "previousUrls": 394,
+    "evidence": "docs/besties_media_audit_20261001.json",
+    "authorization": "Owner-selected web derivatives for local review; preview-only case. No push/deploy.",
+    "addedKeys": [
+      "447939617afba5376e90.mp4",
+      "506719b393afa4ac2bff.webp",
+      "025f0de6ca4add77318d.mp4",
+      "1554b4cbc867c1184d17.webp",
+      "31555292405eea8e9bae.mp4",
+      "e04ecfab6c9002dc8899.webp",
+      "aee922be6a08d2b5e982.mp4",
+      "bc46b807a8352aa4c82c.webp",
+      "abcfecf0828ff6d7e023.mp4",
+      "0d139ae94988564f8965.webp",
+      "0c52ff6aeea26c55c1c8.mp4",
+      "94b6d6cb45df1abbc440.webp",
+      "84c0e28a15bb26f29342.mp4",
+      "9d3c7c39ae7b6d941eca.webp",
+      "f9555d76a69aacc5f47f.mp4",
+      "c77535f663e1eed32faa.webp",
+      "ec12eb6dc19bf80f7ce2.webp",
+      "391d9aab2482edf3a87f.webp"
+    ]
   }
 }

@@ -186,7 +186,9 @@ test("release registry pins ten owner-approved cases and the exact selectively r
   //assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 236, logicalUrls: 298, seoDimensionsVerified: false });
   // Prior selection: 254/316; Wawa added 24, featured images two, Five Below selected derivatives twenty-eight.
   // Previous 330/393; one uncropped Uncommon Goods closing still added.
-  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 331, logicalUrls: 394, seoDimensionsVerified: false });
+  // Previous local selection: 331 assets / 394 URLs. Besties adds 18 exact derivatives.
+  // assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 331, logicalUrls: 394, seoDimensionsVerified: false });
+  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 349, logicalUrls: 412, seoDimensionsVerified: false });
 });
 
 // GEICO Phase 2 covers the editorial contract and prevents approval drift in shared media.

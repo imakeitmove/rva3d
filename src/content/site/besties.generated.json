@@ -1,0 +1,152 @@
+{
+  "hero": {
+    "kind": "video",
+    "src": "/media/work/besties/hero.mp4",
+    "width": 1920,
+    "height": 1080,
+    "mimeType": "video/mp4",
+    "alt": "Animation stringout for SuperJoy’s Coca-Cola × OREO case-study film",
+    "presentation": "controls",
+    "hasAudio": true,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/besties/hero_poster.webp",
+      "width": 1920,
+      "height": 1080,
+      "alt": "Animation stringout for SuperJoy’s Coca-Cola × OREO case-study film"
+    }
+  },
+  "logos": {
+    "kind": "video",
+    "src": "/media/work/besties/logos.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "alt": "Coca-Cola and OREO brand graphics combining for the case-study film",
+    "presentation": "loop",
+    "hasAudio": false,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/besties/logos_poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Coca-Cola and OREO brand graphics combining for the case-study film"
+    }
+  },
+  "bubbles": {
+    "kind": "video",
+    "src": "/media/work/besties/bubbles.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "alt": "Animated Coca-Cola bottle and bubbles",
+    "presentation": "loop",
+    "hasAudio": false,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/besties/bubbles_poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Animated Coca-Cola bottle and bubbles"
+    }
+  },
+  "hearts": {
+    "kind": "video",
+    "src": "/media/work/besties/hearts.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "alt": "Animated Coca-Cola and OREO heart transitions",
+    "presentation": "loop",
+    "hasAudio": false,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/besties/hearts_poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Animated Coca-Cola and OREO heart transitions"
+    }
+  },
+  "cookie": {
+    "kind": "video",
+    "src": "/media/work/besties/cookie.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "alt": "Coca-Cola and OREO cookie build animation",
+    "presentation": "loop",
+    "hasAudio": false,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/besties/cookie_poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Coca-Cola and OREO cookie build animation"
+    }
+  },
+  "besties": {
+    "kind": "video",
+    "src": "/media/work/besties/besties.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "alt": "Besties graphic build animation",
+    "presentation": "loop",
+    "hasAudio": false,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/besties/besties_poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Besties graphic build animation"
+    }
+  },
+  "spotify": {
+    "kind": "video",
+    "src": "/media/work/besties/spotify.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "alt": "Spotify Bestie Mode animation sample for the case-study film",
+    "presentation": "loop",
+    "hasAudio": false,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/besties/spotify_poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Spotify Bestie Mode animation sample for the case-study film"
+    }
+  },
+  "stats": {
+    "kind": "video",
+    "src": "/media/work/besties/stats.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "alt": "Supplied campaign results animated for the case-study film",
+    "presentation": "loop",
+    "hasAudio": false,
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/besties/stats_poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Supplied campaign results animated for the case-study film"
+    }
+  },
+  "package": {
+    "kind": "image",
+    "src": "/media/work/besties/package.webp",
+    "width": 1280,
+    "height": 800,
+    "alt": "Coca-Cola-flavored OREO cookie packaging from the Besties collaboration"
+  },
+  "logo": {
+    "kind": "image",
+    "src": "/media/work/besties/logo.webp",
+    "width": 557,
+    "height": 207,
+    "alt": "OREO"
+  }
+}

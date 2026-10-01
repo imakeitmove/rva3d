@@ -83,6 +83,7 @@ export const studies: readonly WorkCaseStudy[] = [
   workRecords.find(item => item.slug === "uncommon-goods-outta-this-world")!,
 ];
 export const headline: Record<string, string> = {
+  "coca-cola-oreo-besties": "Besties, by the numbers.",
   "five-below": "Retail display visualization for Five Below.",
   "uncommon-goods-outta-this-world": "Bringing supplied direction into motion for Uncommon Goods.",
   "desmi-rotan-pump": "Making the inner workings visible for DESMI.",
@@ -98,6 +99,7 @@ export const headline: Record<string, string> = {
   "wawa-coffee-island": "Turning fixture CAD into a fully stocked Wawa Coffee Island.",
 };
 export const context: Record<string, string> = {
+  "coca-cola-oreo-besties": "Coca-Cola × OREO / Case-study film for SuperJoy",
   "five-below": "Five Below / Client: Pak-It Displays",
   "uncommon-goods-outta-this-world": "Uncommon Goods / Through Spang TV",
   "desmi-rotan-pump": "DESMI / Technical visualization",

@@ -1,5 +1,7 @@
 import { isPortfolioPreviewBuild } from "@/content/work";
 import { fiveBelow } from "@/content/work/cases/five_below";
+import { besties } from "@/content/work/cases/besties";
+import { BestiesCase } from "./BestiesCase";
 import { FiveBelowCase } from "./FiveBelowCase";
 import featuredMedia from "@/content/site/featured_images.generated.json";
 import featuredStyles from "./FeaturedImages.module.css";
@@ -39,6 +41,8 @@ export function WorkIndex() {
     const cover = study.slug === "wawa-coffee-island" ? featuredMedia.wawa : study.slug === "amsoil-xpd-wind-grease" ? featuredMedia.amsoil : null;
     return cover ? { ...study, indexMedia: cover as WorkImageMedia } : study;
   });
+  // Append this local review candidate after existing curation; flagship order stays intact.
+  if (isPortfolioPreviewBuild()) featuredStudies.push(besties);
   const initialCount = Math.min(WORK_INITIAL_COUNT, featuredStudies.length);
   return <Shell>
     <section className="editorial-opening work-index-opening" data-tone="paper"><div className="v-frame">
@@ -60,7 +64,9 @@ export function WorkIndex() {
 //   return <Shell><section className="editorial-opening" data-tone="paper"><div className="v-frame"><p className="label">Selected work / 01—{String(studies.length).padStart(2, "0")}</p><h1>The proof<br />is in the <em>pixels.</em></h1><p className="editorial-lead">Products to explore. Characters to believe. Ideas made visible. Find the work closest to what you have in mind.</p></div></section><section className="project-catalogue v-broad" data-tone="paper" aria-label="Case studies" data-project-gallery data-project-group-size="4"><div className="catalogue" data-project-cards>{studies.map(study => <ProjectCard key={study.slug} study={study} />)}</div><nav data-project-controls aria-label="Project groups"><button type="button" data-project-direction="previous" aria-label="Previous project group" disabled><span aria-hidden="true">◀</span></button><p className="label" data-project-status role="status">Projects 1–4 of {studies.length}</p><button type="button" data-project-direction="next" aria-label="Next project group"><span aria-hidden="true">▶</span></button></nav><noscript><p>All projects are shown when JavaScript is unavailable.</p></noscript></section><section className="work-closing" data-tone="paper"><div className="v-frame">{/* Previous plain headline retained for restoration: Your project doesn’t have to look like any of these. */}<h2>Your project doesn’t have to look like any of these. It has to look like <span className="work-closing-highlight">your project.</span></h2><div className="work-closing-copy"><p>The work changes with the brief. A product to explain, a story to tell, a shot that needs something you can’t film... bring us the challenge. We’ll help figure out what to make and the best way to make it.</p><a className="editorial-link" href={siteHref("/about#how-we-work")}>How we work <span aria-hidden="true">↗</span></a></div></div></section></Shell>;
 // }
 export async function caseMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params, study = studies.find(item => item.slug === slug) || (isPortfolioPreviewBuild() && slug === fiveBelow.slug ? fiveBelow : undefined);
+  // Previous preview fallback handled Five Below only; retain both canonical candidates.
+  // const { slug } = await params, study = studies.find(item => item.slug === slug) || (isPortfolioPreviewBuild() && slug === fiveBelow.slug ? fiveBelow : undefined);
+  const { slug } = await params, study = studies.find(item => item.slug === slug) || (isPortfolioPreviewBuild() ? [fiveBelow, besties].find(item => item.slug === slug) : undefined);
   if (!study) notFound();
   // Previous private-review metadata set robots to noindex/noarchive.
   return { title: study.seo.title, description: study.seo.description,
@@ -72,6 +78,7 @@ export async function caseMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 export async function CasePage({ params }: Props) {
+  if ((await params).slug === besties.slug && isPortfolioPreviewBuild()) return <BestiesCase />;
   if ((await params).slug === fiveBelow.slug && isPortfolioPreviewBuild()) return <FiveBelowCase />;
   const { slug } = await params, index = studies.findIndex(item => item.slug === slug), study = studies[index];
   if (!study) notFound();
