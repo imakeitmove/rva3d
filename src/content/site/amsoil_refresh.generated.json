@@ -1,0 +1,11 @@
+{
+  "hero": {
+    "kind": "image",
+    "src": "/media/work/amsoil-xpd-wind-grease/amsoil_hero_cropped_v002.webp",
+    "width": 1600,
+    "height": 900,
+    "alt": "Wind turbine nacelle cutaway showing the reconstructed drivetrain above a wind farm."
+  },
+  "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/amsoil_xpd_wind_grease/selected/AMSWIND_STILL_CAM_Main_FULL_Composite_2k_R003_V002_cropped.jpg",
+  "sourceSha256": "4b59788fbb4ca4a3270a4259e53b1ba42a8a667929e3e8ba71d609428112ff6b"
+}

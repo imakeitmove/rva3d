@@ -1,3 +1,5 @@
+import { visibleWorkStudies, nextWorkStudy } from "@/lib/site/work_navigation";
+import { AmsoilCase } from "./AmsoilCase";
 import { isPortfolioPreviewBuild } from "@/content/work";
 import { fiveBelow } from "@/content/work/cases/five_below";
 import { besties } from "@/content/work/cases/besties";
@@ -12,7 +14,7 @@ import type { WorkImageMedia } from "@/content/work/types";
 // "And advertised the hell out of things! We’d love to elevate your idea, too."
 // Public-safety audit 2026-09-15; previous wording retained for reference:
 // "We’ve brought characters to life. Made ideas memorable."
-import { curateWorkStudies, WORK_INITIAL_COUNT } from "@/content/work/work_curation";
+import { WORK_INITIAL_COUNT } from "@/content/work/work_curation";
 import navigation from "./EditorialNavigation.module.css";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -38,18 +40,21 @@ export function WorkIndex() {
   // Previous Work-only selection/count retained: studies.filter(excluding Capri siblings), Math.min(4, length).
   // Work-only cover overrides; canonical heroes and other page selections stay intact.
   // Previous Work-only order appended Five Below after AMSOIL and the remaining cases.
+  /* Previous Work-only selection retained; the shared eligible sequence now owns these swaps.
   const selectedStudies = [...curateWorkStudies(studies), ...(isPortfolioPreviewBuild() ? [fiveBelow] : [])];
   const amsoilIndex = selectedStudies.findIndex(study => study.slug === "amsoil-xpd-wind-grease");
   const fiveBelowIndex = selectedStudies.findIndex(study => study.slug === "five-below");
   if (amsoilIndex >= 0 && fiveBelowIndex >= 0) {
     [selectedStudies[amsoilIndex], selectedStudies[fiveBelowIndex]] = [selectedStudies[fiveBelowIndex], selectedStudies[amsoilIndex]];
   }
+  */
+  const selectedStudies = visibleWorkStudies();
   const featuredStudies = selectedStudies.map(study => {
     const cover = study.slug === "wawa-coffee-island" ? featuredMedia.wawa : study.slug === "amsoil-xpd-wind-grease" ? featuredMedia.amsoil : null;
     return cover ? { ...study, indexMedia: cover as WorkImageMedia } : study;
   });
   // Append this local review candidate after existing curation; flagship order stays intact.
-  if (isPortfolioPreviewBuild()) featuredStudies.push(besties);
+  // Previous append: if (isPortfolioPreviewBuild()) featuredStudies.push(besties);
   const initialCount = Math.min(WORK_INITIAL_COUNT, featuredStudies.length);
   return <Shell>
     <section className="editorial-opening work-index-opening" data-tone="paper"><div className="v-frame">
@@ -89,7 +94,8 @@ export async function CasePage({ params }: Props) {
   if ((await params).slug === fiveBelow.slug && isPortfolioPreviewBuild()) return <FiveBelowCase />;
   const { slug } = await params, index = studies.findIndex(item => item.slug === slug), study = studies[index];
   if (!study) notFound();
-  const next = studies[(index + 1) % studies.length];
+  // Previous registry-order next: studies[(index + 1) % studies.length].
+  const next = nextWorkStudy(slug);
   // GEICO opts into its refreshed composition; the prior renderer remains intact.
   if (slug === "geico-geckos-cereal-box") return <GeicoCase />;
   if (slug === "axe-whaxe-lil-baby") return <WhaxeCase />;
@@ -100,6 +106,7 @@ export async function CasePage({ params }: Props) {
   if (slug === "capri-sun") return <NoiseTechCase />;
   if (slug === "capri-sun-solstice-pouch") return <SolsticeCase />;
   if (slug === "capri-sun-trick-and-treat") return <TrickTreatCase />;
+  if (slug === "amsoil-xpd-wind-grease") return <AmsoilCase />;
   if (study.editorial) return <EditorialCasePage study={study} editorial={study.editorial} next={next} />;
   const chapters = slug === "cable-snake" ? [study.processChapters[1], study.processChapters[3]] : slug === "amsoil-xpd-wind-grease" ? [study.processChapters[0], study.processChapters[2]] : slug === "wawa-coffee-island" ? [study.processChapters[0], study.processChapters[1], study.processChapters[3]] : study.processChapters.slice(0, 3).filter(chapter => chapter.media.length > 0);
   const related = capabilities.filter(item => study.capabilities.includes(item.title));

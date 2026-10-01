@@ -1,5 +1,17 @@
 # RVA3D current website handoff
 
+## October 1: Work loop and interim AMSOIL refresh (local only)
+
+Implemented from clean `c2ad7f1f` on `review/geico_refresh_20260926`. Checkpoint subject: `finalize work loop and refresh amsoil case study`; exact hash: `git log -1 --format=%H -- src/lib/site/work_navigation.ts`. No push, merge, deployment or Notion update.
+
+- Work exchanges only Besties and Uncommon Goods. Final review order and circular Next Project loop: GEICO > Wawa > WHAXE > Capri Sun Noise Tech > Five Below > Cable Snake > DESMI > Besties > AMSOIL > Uncommon Goods > GEICO. Homepage Proof order/behavior remains untouched. Capri Sun siblings remain reachable separately and return into the Work loop without becoming Work entries.
+- `orderedWorkStudies` in `work_curation.ts` supplies the same eligible order to Work and `nextWorkStudy` via `work_navigation.ts`. GEICO, WHAXE, shared RolloutCase and the fallback case renderer consume that source. Review includes eligible preview candidates; production includes public-approved cases only. Production order: GEICO > Wawa > WHAXE > Noise Tech > AMSOIL > Cable Snake > DESMI > Uncommon Goods > GEICO. Historical nextSlug metadata/selection code is retained for restoration and cannot override the loop.
+- AMSOIL now uses shared RolloutCase layout, title `Greasy, not messy.`, two body paragraphs totaling 77 words, and centered unchanged credit: Deven Langston / 3D visualization and production. Prior long narrative/closing/foldout composition remains in the original record and fallback source for later owner curation.
+- Exact hero master: `AMSWIND_STILL_CAM_Main_FULL_Composite_2k_R003_V002_cropped.jpg`, SHA256 `4b59788fbb4ca4a3270a4259e53b1ba42a8a667929e3e8ba71d609428112ff6b`. `build_amsoil_refresh.mjs` pins it and creates an uncropped 1600x900 WebP, registered as `55f85759c8ec398ba6b3.webp`; source preserved. Media order: new hero, existing three-condition film, process paragraph, reconstruction viewport + model plan, bearing closeup + earlier composite, trade-show cutaway, credits, Next. Other pages retain their current AMSOIL media selection.
+- Validation: lint/types/build, focused Work loop/hero tests (4), content (60 pass / 11 existing skips), audio (8), logo/playback (12), Proof (5), asset verification (352 assets / 415 URLs) and public-release verification (10 studies / 350 assets / 413 URLs) pass. Existing missing Notion portfolio env messages are nonfatal. Browser Work/AMSOIL checks at 1440/1024/390: all images loaded with natural ratios, comparison film played, no overflow; full ten-route native-link traversal passed at 1440 and 390 with one Next target per case, correct route/content and last-to-first wrap; zero runtime exceptions. No physical-device/cross-browser testing claimed.
+- `npm run test:work-loop` and `node scripts/work_loop_browser_check.mjs <agent-browser-cdp-url>` reproduce checks. Ignored browser evidence: `scripts/runtime/final_case_review/`. Rebuilt production-mode review preview remains at `http://127.0.0.1:3027`, PID 33708 at handoff. Owner's later AMSOIL media curation and release review remain future work.
+
+
 ## October 1: homepage Proof transitions (local only)
 
 Implemented from clean `a51c7a6256bd0142f07de7d17d90186aa33b5a6f` on `review/geico_refresh_20260926`. Checkpoint subject: `polish homepage proof transitions`; obtain its exact hash with `git log -1 --format=%H -- public/site-assets/proof_track.js`. No push, merge, deployment or Notion update.

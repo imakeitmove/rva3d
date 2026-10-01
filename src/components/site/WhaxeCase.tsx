@@ -1,3 +1,4 @@
+import { nextWorkStudy } from "@/lib/site/work_navigation";
 import Image from "next/image";
 import editorial from "./CaseEditorial.module.css";
 import Link from "next/link";
@@ -5,7 +6,7 @@ import { preload } from "react-dom";
 import { axeWhaxeLilBaby } from "@/content/work/cases/axe-whaxe-lil-baby";
 import { whaxeAnimationTests, whaxeCredits } from "@/content/work/whaxe_refresh";
 import type { WorkImageMedia, WorkVideoMedia } from "@/content/work/types";
-import { protectedMedia, studies, headline } from "@/lib/site/content";
+import { protectedMedia, headline } from "@/lib/site/content";
 import { Shell } from "./Shell";
 import { WorkMedia } from "@/components/work/WorkMedia";
 import { siteHref } from "@/lib/site/paths";
@@ -23,7 +24,8 @@ export function WhaxeCase() {
   const film = video(axeWhaxeLilBaby.heroMedia as WorkVideoMedia);
   // Previous related selection retained for restoration:
   // const related = studies.filter(study => ["geico-geckos-cereal-box", "cable-snake"].includes(study.slug));
-  const next = studies.find(study => study.slug === "geico-geckos-cereal-box")!;
+  // Previous destination retained: const next = studies.find(study => study.slug === "geico-geckos-cereal-box")!;
+  const next = nextWorkStudy("axe-whaxe-lil-baby");
   // Approved finished detail and wider product compositions, both native 16:9.
   // Previous two-still selection retained for restoration:
   // const finalStills = axeWhaxeLilBaby.processChapters[0].media;

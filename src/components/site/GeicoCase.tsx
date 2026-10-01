@@ -1,3 +1,4 @@
+import { nextWorkStudy } from "@/lib/site/work_navigation";
 import Link from "next/link";
 import Image from "next/image";
 // Previous thumbnail navigation used: import Image from "next/image";
@@ -7,7 +8,7 @@ import { preload } from "react-dom";
 import { siteHref } from "@/lib/site/paths";
 import { geicoCredits, geicoRefresh } from "@/content/work/geico_refresh";
 import type { WorkImageMedia, WorkVideoMedia } from "@/content/work/types";
-import { protectedMedia, studies, headline } from "@/lib/site/content";
+import { protectedMedia, headline } from "@/lib/site/content";
 import { Shell } from "./Shell";
 import { SiteMedia } from "./SiteMedia";
 import interactions from "@/content/work/geico_interactions.generated.json";
@@ -26,7 +27,8 @@ const video = (media: WorkVideoMedia) => protectedMedia({ ...media, alt: media =
 export function GeicoCase() {
   // Previous related selection: studies.filter(study => ["cable-snake", "axe-whaxe-lil-baby"].includes(study.slug));
   // Previous next destination: axe-whaxe-lil-baby. Continue the portfolio sequence through Twist.
-  const next = studies.find(study => study.slug === "cable-snake")!;
+  // Previous destination retained: const next = studies.find(study => study.slug === "cable-snake")!;
+  const next = nextWorkStudy("geico-geckos-cereal-box");
   const film = video(geicoRefresh.commercial);
   preload(film.poster.src, { as: "image", fetchPriority: "high" });
   return <Shell><article className={`${styles.case} ${refinement.finish}`} data-editorial-case="geico-geckos-cereal-box" data-tone="paper">

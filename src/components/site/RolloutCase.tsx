@@ -1,7 +1,8 @@
+import { nextWorkStudy } from "@/lib/site/work_navigation";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import type { WorkCredit, WorkMedia } from "@/content/work/types";
-import { protectedMedia, studies, headline } from "@/lib/site/content";
+import { protectedMedia, headline } from "@/lib/site/content";
 import { siteHref } from "@/lib/site/paths";
 import { Shell } from "./Shell";
 import { RolloutPlayback } from "./RolloutPlayback";
@@ -26,8 +27,11 @@ export function CaseBeat({ children, id, pair = false, row = false, centered = f
 // Optional post-credit copy preserves the Noise Tech sheet order without changing other cases.
 // Previous signature: export function RolloutCase({ slug, title, intro, hero, children, credits, nextSlug }: { slug: string; title: string; intro: ReactNode; hero: WorkMedia; children: ReactNode; credits: readonly WorkCredit[]; nextSlug?: string }) {
 export function RolloutCase({ slug, title, intro, introParagraphs, hero, children, credits, nextSlug, afterCredits }: { slug: string; title: string; intro?: ReactNode; introParagraphs?: readonly ReactNode[]; hero: WorkMedia; children: ReactNode; credits: readonly WorkCredit[]; nextSlug?: string; afterCredits?: ReactNode }) {
-  const index = studies.findIndex(study => study.slug === slug);
-  const next = nextSlug ? studies.find(study => study.slug === nextSlug)! : studies[(index + 1) % studies.length];
+  // Previous per-case nextSlug and registry-order selection are superseded by Work order.
+  // const index = studies.findIndex(study => study.slug === slug);
+  // const next = nextSlug ? studies.find(study => study.slug === nextSlug)! : studies[(index + 1) % studies.length];
+  void nextSlug; // Retain legacy caller metadata for restoration.
+  const next = nextWorkStudy(slug);
   return <Shell><article className={[house.case, finishing.finish, styles.case].join(" ")} data-editorial-case={slug} data-tone="paper"><GeicoExperience><RolloutPlayback>
     <header className={house.opening}><Link className="editorial-link" href={siteHref("/work#" + slug)}>← Back to Work</Link>
       <h1>{title}</h1><div className={house.intro} data-intro-paragraphs={introParagraphs ? "" : undefined}>

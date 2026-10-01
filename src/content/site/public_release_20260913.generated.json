@@ -14,10 +14,10 @@
     "desmi-rotan-pump",
     "uncommon-goods-outta-this-world"
   ],
-  "assets": 349,
-  "logicalUrls": 412,
-  "registryDigest": "f210e0e0b727e2c21e68f219f8164e0dd215efd6c7bb3dccc3839c6b6650da64",
-  "urlsDigest": "bd3d307a9b08d6f5d96409e3d8ca4b42ef00b1c294d45212e873a1dcfcb1e3b0",
+  "assets": 350,
+  "logicalUrls": 413,
+  "registryDigest": "8ef028a817d1fc74f379fdff96950a68b2ae9d15c9bfa02e71fa03cd73258f47",
+  "urlsDigest": "28cfd9dad3279991ad338c1c9351f32e375938acfb240e0be6570bfe9800e7e5",
   "previous93RegistryDigest": "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8",
   "previous157UrlsDigest": "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f",
   "excludedKeys": [
@@ -423,5 +423,14 @@
       "ec12eb6dc19bf80f7ce2.webp",
       "391d9aab2482edf3a87f.webp"
     ]
+  },
+  "amsoilRefresh20261001": {
+    "previousAssets": 349,
+    "previousUrls": 412,
+    "addedKeys": [
+      "55f85759c8ec398ba6b3.webp"
+    ],
+    "evidence": "src/content/site/amsoil_refresh.generated.json",
+    "authorization": "Owner-selected exact cropped 2k hero derivative for interim AMSOIL case refresh; no deployment."
   }
 }
