@@ -192,7 +192,9 @@ test("release registry pins ten owner-approved cases and the exact selectively r
   //assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 349, logicalUrls: 412, seoDimensionsVerified: false });
   // Previous selection before four AMSOIL loops, their posters and the final left still:
   //assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 350, logicalUrls: 413, seoDimensionsVerified: false });
-  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 359, logicalUrls: 422, seoDimensionsVerified: false });
+  // Before the AMSOIL _001 / four-loop refinement: 359 assets / 422 URLs.
+  // Three new clips, two new posters, and one reused poster add six mappings.
+  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 364, logicalUrls: 428, seoDimensionsVerified: false });
 });
 
 // GEICO Phase 2 covers the editorial contract and prevents approval drift in shared media.

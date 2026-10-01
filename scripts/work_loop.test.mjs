@@ -36,23 +36,25 @@ test("AMSOIL interim copy and exact hero provenance",()=>{
  assert.equal(media.hero.width,entry.width);assert.equal(media.hero.height,entry.height);
 });
 
-test("AMSOIL owner copy and ordered process, paired loops and final stills",()=>{
+test("AMSOIL owner copy and ordered process, four loops and final stills",()=>{
  assert.equal(amsoilRefreshCopy.opening,"AMSOIL needed to show how their grease performs inside a wind-turbine bearing. Unable to produce proper video footage, we helped them out by producing a 3D animation instead.");
- assert.deepEqual(amsoilRefreshCopy.process,["Working from limited references and two unrelated stock models,","we rebuilt the drivetrain and main bearing","animated grease movement through the bearing."]);
+ assert.deepEqual(amsoilRefreshCopy.process,["Working from limited references and two unrelated stock models,","we rebuilt the drivetrain and main bearing","and pumped grease between the parts."]);
  assert.equal(amsoilRefreshCopy.print,"The same 3D setup later supplied a ten-foot-wide trade-show print, extending the animation work into a large-format still.");
  const urls=JSON.parse(fs.readFileSync("src/content/site/media-urls.generated.json")),registry=JSON.parse(fs.readFileSync("src/content/site/media.generated.json"));
  const entry=media=>registry[urls[media.src].split("/").at(-1)];
  const names=media=>entry(media).source.split("/").at(-1);
  assert.deepEqual(amsoilMediaSequence.process.map(x=>x.kind),["image","video","video"]);
  assert.equal(urls[amsoilMediaSequence.process[0].src],"/media/b874568252fda0520d17.webp");
- assert.deepEqual(amsoilMediaSequence.process.slice(1).map(names),["amsoil_grease_viewport_002.mp4","SKF_spherical_roller_bearings_003_overpacked.mp4"]);
- assert.deepEqual(amsoilMediaSequence.loops.map(names),["XDP_Grease-Bearings_intro_loop.mp4","XDP_Grease-Bearings_outro_loop.mp4"]);
+ // Previous viewport/loop expectations: _002, intro then outro.
+ assert.deepEqual(amsoilMediaSequence.process.slice(1).map(names),["amsoil_grease_viewport_001.mp4","SKF_spherical_roller_bearings_003_overpacked.mp4"]);
+ assert.deepEqual(amsoilMediaSequence.loops.map(names),["XDP_Grease-Bearings_bearing_loop.mp4","XDP_Grease-Bearings_grease_loop.mp4","XDP_Grease-Bearings_intro_loop.mp4","XDP_Grease-Bearings_outro_loop.mp4"]);
  assert.equal(names(amsoilMediaSequence.final[0]),"Wind_Turbine_Generator_animatic_part1_005_preview_2025-10-28_$time0479.png");
  assert.equal(amsoilMediaSequence.final[1].src,"/media/work/amsoil-xpd-wind-grease/amsoil_trade_show_cutaway_proof_v001.webp");
  const all=[...amsoilMediaSequence.process,...amsoilMediaSequence.loops,...amsoilMediaSequence.final];
+ assert(!all.some(item=>names(item)==="amsoil_grease_viewport_002.mp4"));
  assert(!all.some(x=>x.src.includes("grease_comparison")||x.src.includes("bearing_closeup")||x.src.includes("hero_composite")));
 });
-test("AMSOIL four web loops have silent browser-compatible media and matching posters",()=>{
+test("AMSOIL six web clips have silent browser-compatible media and matching posters",()=>{
  const urls=JSON.parse(fs.readFileSync("src/content/site/media-urls.generated.json")),registry=JSON.parse(fs.readFileSync("src/content/site/media.generated.json"));
  for(const media of [...amsoilMediaSequence.process.slice(1),...amsoilMediaSequence.loops]){
   assert.equal(media.presentation,"loop");assert.equal(media.hasAudio,false);

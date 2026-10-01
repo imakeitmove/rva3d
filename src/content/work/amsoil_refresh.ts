@@ -15,14 +15,17 @@ export const amsoilRefreshCopy = {
   process: [
     "Working from limited references and two unrelated stock models,",
     "we rebuilt the drivetrain and main bearing",
-    "animated grease movement through the bearing.",
+    // Previous owner wording: "animated grease movement through the bearing."
+    "and pumped grease between the parts.",
   ],
   print: "The same 3D setup later supplied a ten-foot-wide trade-show print, extending the animation work into a large-format still.",
 } as const;
 
 // This ordered selection is shared by the renderer and semantic media tests.
 export const amsoilMediaSequence = {
-  process: [study.processChapters[0].media[1], media.viewport, media.bearing] as readonly (WorkImageMedia | WorkVideoMedia)[],
-  loops: [media.intro, media.outro] as readonly WorkVideoMedia[],
+  // Previous viewport selection: media.viewport (_002); retained in the registry.
+  process: [study.processChapters[0].media[1], media.viewport001, media.bearing] as readonly (WorkImageMedia | WorkVideoMedia)[],
+  // Previous paired selection: [media.intro, media.outro].
+  loops: [media.bearingLoop, media.greaseLoop, media.intro, media.outro] as readonly WorkVideoMedia[],
   final: [media.finalLeft, study.processChapters[3].media[0]] as readonly WorkImageMedia[],
 } as const;

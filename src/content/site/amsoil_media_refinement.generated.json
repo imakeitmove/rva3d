@@ -111,6 +111,81 @@
       "name": "finalLeft",
       "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/amsoil_xpd_wind_grease/process/Wind_Turbine_Generator_animatic_part1_005_preview_2025-10-28_$time0479.png",
       "sourceSha256": "f298ece6d94163778e4801af84dd3c182d9231e5d056597809b0ec79bde2b7ad"
+    },
+    {
+      "name": "viewport001",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/amsoil_xpd_wind_grease/selected/loops/amsoil_grease_viewport_001.mp4",
+      "sourceSha256": "2d5879125db3bb45c2eb6c3d4a42d089e27e96376b1fb71e91b10a5aabafbdc5",
+      "duration": 16.75,
+      "sourceAudio": true,
+      "derivativeAudio": false
+    },
+    {
+      "name": "bearingLoop",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/amsoil_xpd_wind_grease/selected/loops/XDP_Grease-Bearings_bearing_loop.mp4",
+      "sourceSha256": "0af62ff40bf8ace0af2176fb6ac9ee4274a8e662e6d1a0a3de81789fde25b6a1",
+      "duration": 4.708333,
+      "sourceAudio": false,
+      "derivativeAudio": false
+    },
+    {
+      "name": "greaseLoop",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/amsoil_xpd_wind_grease/selected/loops/XDP_Grease-Bearings_grease_loop.mp4",
+      "sourceSha256": "d776498248004c736d3edfefcd8f9d9a1a301f7cf2ccad3e427c749762bc3b78",
+      "duration": 8,
+      "sourceAudio": false,
+      "derivativeAudio": false
     }
-  ]
+  ],
+  "viewport001": {
+    "kind": "video",
+    "src": "/media/work/amsoil_refinement/viewport001.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/amsoil_refinement/viewport001_poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Viewport animation of the reconstructed drivetrain and main bearing"
+    },
+    "alt": "Viewport animation of the reconstructed drivetrain and main bearing",
+    "presentation": "loop",
+    "hasAudio": false
+  },
+  "bearingLoop": {
+    "kind": "video",
+    "src": "/media/work/amsoil_refinement/bearingLoop.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/amsoil_refinement/bearingLoop_poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "AMSOIL grease-bearing loop"
+    },
+    "alt": "AMSOIL grease-bearing loop",
+    "presentation": "loop",
+    "hasAudio": false
+  },
+  "greaseLoop": {
+    "kind": "video",
+    "src": "/media/work/amsoil_refinement/greaseLoop.mp4",
+    "width": 1280,
+    "height": 720,
+    "mimeType": "video/mp4",
+    "poster": {
+      "kind": "image",
+      "src": "/media/work/amsoil_refinement/greaseLoop_poster.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "AMSOIL grease movement loop"
+    },
+    "alt": "AMSOIL grease movement loop",
+    "presentation": "loop",
+    "hasAudio": false
+  }
 }
