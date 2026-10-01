@@ -17,6 +17,7 @@
     "test:content": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test scripts/content-spine.test.mjs scripts/public-release.test.mjs scripts/preview-assets.test.mjs scripts/release-workflow.test.mjs scripts/review-session.test.mjs",
     "test:media-audio": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test scripts/video-audio.test.mjs",
     "test:logo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test scripts/header_logo_playback.test.mjs scripts/header_logo_palette.test.mjs",
+    "test:proof": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test scripts/proof_track.test.mjs",
     "verify:public-release": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/verify-public-release.mjs"
   },
   "dependencies": {

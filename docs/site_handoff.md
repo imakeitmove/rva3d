@@ -1,5 +1,16 @@
 # RVA3D current website handoff
 
+## October 1: homepage Proof transitions (local only)
+
+Implemented from clean `a51c7a6256bd0142f07de7d17d90186aa33b5a6f` on `review/geico_refresh_20260926`. Checkpoint subject: `polish homepage proof transitions`; obtain its exact hash with `git log -1 --format=%H -- public/site-assets/proof_track.js`. No push, merge, deployment or Notion update.
+
+- The homepage two-card sampler now uses a masked horizontal track with 400ms ease-in-out motion instead of hiding/reordering cards. Existing pair order, content, images/crops, typography, links, desktop control alignment and mobile focus/scroll behavior are preserved. Previous sampler code remains commented for restoration; Work inventory and other gallery/ribbon systems are untouched.
+- All canonical panels participate in natural CSS layout, reserving the tallest presentation at each width without a JS height loop. Inert edge copies provide adjacent forward/backward wraps, followed by an invisible canonical reset. Rapid input is locked during motion; reduced motion switches immediately. Inactive panels are inert and aria-hidden. Image lazy-loading remains; no dependency or video was added. The existing control-position observer is retained with cleanup.
+- Browser checks traversed every pair forward/backward and across both wraps at 1440x900, 1024x768 and 390x844. Presentation heights were exactly 583.328125px, 535.109375px and 1003.28125px respectively across all selections and sampled mid-transitions. About document top stayed fixed at 3020.546875px, 2692.84375px and 3938.140625px respectively. No overflow, clipping, resting slivers or blank selected imagery was found.
+- Validation passed: lint, TypeScript, production build, 5 Proof navigation tests, content (60 pass / 11 existing skips), audio (8 pass), logo/playback (12 pass), asset verification (351 assets / 414 URLs) and public-release verification (10 studies / 349 assets / 412 URLs). Existing missing Notion portfolio environment messages remain nonfatal. Browser coverage includes rapid input, reduced motion, mobile keyboard selection, native touch selection/vertical scrolling, header/body logos and tones, muted ambient video, Work/About/FAQ/Contact and GEICO slideshow continuation; no browser runtime errors. No physical-device, cross-browser or audible-speaker test is claimed.
+- Run `npm run test:proof`; browser reproduction: `node scripts/proof_browser_check.mjs <agent-browser-cdp-url>`. Local ignored evidence is in `scripts/runtime/proof_review/measurements.json` and its idle/sliding screenshots. Production preview remains at `http://localhost:3027`, PID 40192 at handoff. Changes are scoped to Proof JS/CSS, tests, package script and this handoff.
+
+
 ## October 1: public adaptive 3D header logo (local only)
 
 Implemented from clean `dc000f8af` on `review/geico_refresh_20260926`, in `qa-runtime/geico_refresh_20260926`. Checkpoint subject: `integrate adaptive 3d header logo site wide`; obtain its exact hash with `git log -1 --format=%H -- src/components/three/header_logo_palette.ts`. No push, merge or deployment. This supersedes the earlier logo-inspection-only handoff below; the approved editorial/slideshow baseline is unchanged.

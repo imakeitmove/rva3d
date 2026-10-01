@@ -645,3 +645,14 @@ body.complete-site [data-media-chrome] [data-media-control]:disabled { cursor:de
 
 /* Echo the approved About emphasis without changing homepage scale or layout. */
 .complete-site .v-about-editorial h2 em { font-style: normal; color: var(--rva-purple); }
+
+/* Proof-only enhancement: each existing two-card presentation participates in
+   layout, so flex cross-size reserves the tallest responsive panel naturally. */
+.complete-site [data-project-mode="sampler"] .proof-viewport { display:block;overflow:hidden; }
+.complete-site [data-project-mode="sampler"] .proof-track { display:flex;align-items:stretch;transition:none; }
+.complete-site [data-project-mode="sampler"] .proof-track[data-moving="true"] { transition:transform 400ms ease-in-out;will-change:transform; }
+.complete-site [data-project-mode="sampler"] .proof-panel.v-cases { flex:0 0 100%;min-width:0;margin:0;align-content:start;align-items:start; }
+.complete-site [data-project-mode="sampler"] .proof-panel a:focus-visible { outline-offset:-2px; }
+@media(prefers-reduced-motion:reduce) {
+ .complete-site [data-project-mode="sampler"] .proof-track[data-moving="true"] { transition:none; }
+}

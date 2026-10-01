@@ -1,3 +1,5 @@
+import { initProofTrack } from "./proof_track.js";
+
 // Distinct models share card discovery and accessible arrival, not pagination state.
 export function featuredPairIndices(total, start) {
   if (total < 2) return total ? [0] : [];
@@ -27,6 +29,7 @@ export function initProjectGroups() {
     const controls = root.querySelector("[data-project-controls]");
     controls.hidden = false;
     if (root.dataset.projectMode === "sampler") {
+      /* Previous hide/reorder sampler retained for restoration.
       let start = 0;
       const stacked = () => getComputedStyle(container).gridTemplateColumns.split(" ").length === 1;
       const positionControls = () => {
@@ -62,6 +65,8 @@ export function initProjectGroups() {
       container.addEventListener("load", positionControls, true);
       document.fonts.ready.then(positionControls);
       render();
+      */
+      initProofTrack({ root, container, cards, controls, revealProject });
     } else {
       const size = Number(root.dataset.projectGroupSize) || 4;
       const loadMore = controls.querySelector("[data-project-load-more]");
