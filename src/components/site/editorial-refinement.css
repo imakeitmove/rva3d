@@ -492,3 +492,6 @@
 
 /* About now starts with communication; retain the compact switcher within its dark opening. */
 .communication-switcher { margin-bottom: 48px; }
+
+/* The collaboration invitation uses the same restrained purple editorial emphasis. */
+.about-richmond-refresh .collaborate-grid h2 em { color: var(--rva-purple); font-style: normal; }

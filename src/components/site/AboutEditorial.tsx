@@ -262,7 +262,8 @@ export function AboutEditorial() {
             <div>
               <p className="label">Collaborate with RVA3D</p>
               <h2 id="collaborate-title">
-                Good work can start in a lot of ways.
+                {/* Previous heading: Good work can start in a lot of ways. */}
+                Creative relationships <em>welcome.</em>
               </h2>
             </div>
             <div className="collaborate-copy">
@@ -270,8 +271,11 @@ export function AboutEditorial() {
                 hands or a specific skill set. If you make excellent work and think we
                 might be a good fit for each other, say hello!</p> */}
               <p>RVA3D is open to more than client projects. We like meeting artists, filmmakers, designers, technologists, educators, schools, and community organizations when there’s a good reason to make something together.</p>
+              {/* Previous two closing paragraphs retained for rollback:
               <p>That might mean joining forces on a production, bringing in a specialist, developing a workshop, speaking or teaching, supporting a creative event, or exploring an idea that doesn’t fit neatly into a client brief.</p>
               <p>We can’t say yes to everything, but if you think RVA3D could be useful—or you could be useful to us—tell us what you have in mind.</p>
+              */}
+              <p>That might mean joining forces on a production, bringing in a specialist, developing a workshop, speaking or teaching, supporting a creative event, or exploring an idea outside a typical client brief. We can’t say yes to everything, but if you think RVA3D could be useful—or you could be useful to us—tell us what you have in mind.</p>
             </div>
             <CollaboratorContact sendingEnabled={publicInquiryDeliveryEnabled()} />
             {/* Previous collaborator copy, mailto CTA and rate guidance retained for restoration.
