@@ -293,3 +293,6 @@
     gap: 28px;
   }
 }
+
+/* Remove only the FAQ opening padding formerly reserved for its page-switcher. */
+.page :global(.how-we-work-opening-v2)[data-tone] { padding-top: 0; }

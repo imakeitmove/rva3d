@@ -4,24 +4,32 @@
 .page :global(#communication .review-dark-grid) { grid-template-columns: .9fr 1.1fr; gap: clamp(48px, 7vw, 104px); align-items: center; }
 .page :global(#communication h1) { font-size: clamp(44px, 4.5vw, 66px); line-height: 1.04; font-weight: 500; letter-spacing: -.045em; margin: 0; }
 .page :global(#communication h1 em) { display: block; color: var(--rva-signal); font-style: normal; }
-.page :global(#communication .review-dark-grid > div:last-child p) { font-size: clamp(20px, 1.9vw, 28px); line-height: 1.35; max-width: 38ch; }
+/* Previous intro size: clamp(20px, 1.9vw, 28px). Slightly smaller type and pretty wrapping avoid a lone final word. */
+.page :global(#communication .review-dark-grid > div:last-child p) { font-size: clamp(20px, 1.8vw, 26px); line-height: 1.35; max-width: 38ch; text-wrap: pretty; }
 .page :global(.richmond-skyline) { margin: 0; }
 .page :global(.richmond-skyline > a img) { aspect-ratio: 16 / 3; object-fit: cover; }
-.page :global(.richmond-skyline figcaption) { padding-top: 10px; text-align: right; font-size: 11px; }
+.page :global(.richmond-skyline figcaption) { padding-top: 10px; text-align: center; font-size: 11px; }
 .page :global(.about-ground)[data-tone] { grid-template-columns: 1.15fr .85fr; gap: clamp(40px, 6vw, 86px); align-items: end; padding-block: 64px 0; }
 .page :global(.about-ground > .about-positioning) { align-self: center; padding: 0 0 40px; max-width: 650px; }
 .page :global(.about-ground h2) { max-width: 15ch; font-size: clamp(34px, 3.65vw, 54px); line-height: 1.12; margin: 0 0 26px; font-weight: 500; letter-spacing: -.04em; }
 .page :global(.about-ground .editorial-lead) { font-size: clamp(18px, 1.35vw, 20px); line-height: 1.55; max-width: 42ch; }
 .page :global(.about-ground .about-kicker) { margin-top: 1.25em; }
 .page :global(.about-ground > .grounded-portrait) { width: min(100%, 330px); height: auto; align-self: end; margin: 0 0 -1px; }
-.page .faqLink { display: inline-block; margin-top: 22px; font-size: 15px; line-height: 1.5; font-weight: 400; color: inherit; text-underline-offset: .2em; }
-.page .faqLink span { white-space: nowrap; }
+/* Previous FAQ size was 15px; promote this link into the removed closing line’s place. */
+.page .faqLink { display: inline-block; margin-top: 22px; font-size: clamp(18px, 1.35vw, 20px); line-height: 1.5; font-weight: 400; color: inherit; text-underline-offset: .2em; }
+.page .faqLink span { white-space: nowrap; color: var(--rva-purple); }
+/* Match the film utility link to the promoted founder FAQ link. */
+.page :global(.richmond-film-copy .richmond-films-link) { font-size: clamp(18px, 1.35vw, 20px); line-height: 1.5; font-weight: 400; color: var(--rva-purple); text-underline-offset: .2em; }
 .page :global(.richmond-intro)[data-tone] { grid-template-columns: 1fr 1fr; gap: clamp(48px, 7vw, 100px); padding-block: 62px 44px; }
-.page :global(.richmond-intro h2) { font-size: clamp(34px, 3.3vw, 48px); line-height: 1.1; max-width: none; text-align: right; }
+/* Previously right-aligned; center only within the existing right column to move the heading modestly left. */
+.page :global(.richmond-intro h2) { font-size: clamp(34px, 3.3vw, 48px); line-height: 1.1; max-width: 100%; width: fit-content; justify-self: center; text-align: left; }
 .page :global(.richmond-intro p) { font-size: 18px; line-height: 1.55; max-width: 48ch; }
 .page :global(.richmond-history)[data-tone] { padding-block: 24px 86px; }
 .page :global(.richmond-film-row) { grid-template-columns: 1fr 1fr; gap: clamp(48px, 7vw, 100px); }
 .page :global(.richmond-history p) { font-size: 18px; line-height: 1.55; }
+.page :global(.richmond-film-copy) .filmLead { color: #000; }
+.page .pixelDropLink { color: var(--rva-purple); font-weight: 700; }
+.page .filmPhoto { display: block; width: 100%; height: auto; object-fit: contain; align-self: center; }
 @media (max-width: 700px) {
   .page :global(#communication .editorial-width), .page :global(.richmond-skyline figcaption), .page :global(.about-ground), .page :global(.richmond-intro), .page :global(.richmond-history) { width: calc(100% - 40px); }
   .page :global(#communication) { padding-block: 48px; }
@@ -34,7 +42,7 @@
   .page :global(.about-ground h2) { font-size: 34px; }
   .page :global(.about-ground > .grounded-portrait) { width: 270px; }
   .page :global(.richmond-intro)[data-tone] { grid-template-columns: 1fr; gap: 24px; padding-block: 44px 24px; }
-  .page :global(.richmond-intro h2) { text-align: left; }
+  .page :global(.richmond-intro h2) { text-align: left; justify-self: start; }
   .page :global(.richmond-film-row) { grid-template-columns: 1fr; gap: 28px; }
   .page :global(.richmond-history)[data-tone] { padding-block: 20px 60px; }
 }

@@ -11,7 +11,8 @@ import { mediaUrl } from "@/lib/site/content";
 import { buyerFaqs, processSteps } from "@/content/site/how-we-work";
 import { siteHref } from "@/lib/site/paths";
 import { Brand } from "./Brand";
-import { EditorialPageNav } from "./EditorialPageNav";
+// Previous page-switcher import retained for restoration.
+// import { EditorialPageNav } from "./EditorialPageNav";
 // Shell now belongs to About / FAQ; the sections below are composed once per page.
 
 export function WorkingProcess() {
@@ -19,7 +20,8 @@ export function WorkingProcess() {
       <div className={`about-editorial how-we-work-editorial ${styles.page}`}>
         {/* V001 used a contained paper opening; V002 joins the blue intro, image and dark content. */}
         <section className="how-we-work-opening-v2" data-tone="paper">
-          <div className="editorial-width"><EditorialPageNav current="faq" /></div>
+          {/* Previous FAQ switcher removed so the banner joins the site header.
+          <div className="editorial-width"><EditorialPageNav current="faq" /></div> */}
           {/* Restore the simplified opening from 8ddaa766. Regressed intro retained:
           <div className="editorial-width how-we-work-intro">
             Removed redundant kicker: <p className="label">Working with RVA3D</p>
@@ -135,7 +137,8 @@ export function AboutCommunication() { return <div className={`about-editorial h
       </div>
       <div className={introStyles.studioCopy}>
         {/* Previous introduction: RVA3D is a Richmond-based creative studio combining 3D animation, visualization, motion design, visual effects, and interactive work. We help brands, agencies, and production teams take ideas from early concept through final delivery. */}
-        <p>RVA3D is a Richmond-based creative studio focused on 3D animation, motion graphics and VFX. We help brands, agencies, and production teams put creative ideas on screens.</p>
+        {/* Previous plain-text opening now uses the established inline Brand component. */}
+        <p><Brand /> is a Richmond-based creative studio focused on 3D animation, motion graphics and VFX. We help brands, agencies, and production teams put creative ideas on screens.</p>
       </div>
     </div>
   </section>

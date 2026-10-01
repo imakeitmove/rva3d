@@ -8,14 +8,17 @@ import { siteHref } from "@/lib/site/paths";
 import home from "@/content/site/home.generated.json";
 import editorial from "@/content/site/editorial.generated.json";
 import { AboutCommunication } from "./HowWeWork";
-import { WhaxeProcessSlideshow } from "./WhaxeProcessSlideshow";
+// Previous film slideshow import retained for restoration.
+// import { WhaxeProcessSlideshow } from "./WhaxeProcessSlideshow";
 import filmSlides from "@/content/site/richmond_films.generated.json";
-import type { WorkImageMedia } from "@/content/work/types";
+// import type { WorkImageMedia } from "@/content/work/types";
 import { MovedAboutFragments } from "./MovedAboutFragments";
 import { CollaboratorContact } from "./CollaboratorContact";
 import { publicInquiryDeliveryEnabled } from "@/lib/site/runtime-environment";
 import { AboutSkyline } from "./AboutSkyline";
 // Studio-model positioning is now fused into the portrait section.
+// Owner-selected 48-hour-filmapalooza-red-carpet_cropped; reuse its approved derivative.
+const richmondFilmPhoto = filmSlides[1];
 
 const processSteps = [
   ["Talk", "Start with the problem, audience, deliverables, timing, existing materials, constraints, and what success needs to look like."],
@@ -133,7 +136,8 @@ export function AboutEditorial() {
             <h2>A small studio with a clear point of contact.</h2>
             {/* Previous founder copy retained for rollback: <p className="editorial-lead">Deven Langston brings 20 years in animation, visual effects, and production. He leads the work and stays your direct point of contact throughout.</p> */}
             <p className="editorial-lead">With 20 years in motion design, 3D animation, visual effects, and production, Deven connects creative direction with hands-on execution.</p>
-            <p className="editorial-lead about-kicker">Got a graphics challenge? We’ll figure it out!</p>
+            {/* Previous founder closing line replaced by the larger FAQ link.
+            <p className="editorial-lead about-kicker">Got a graphics challenge? We’ll figure it out!</p> */}
             <a className={mockupStyles.faqLink} href={siteHref("/faq")}>Questions about working together? <span>Read the FAQ ↗</span></a>
           </div>
           <Image
@@ -163,8 +167,8 @@ export function AboutEditorial() {
           <div className="richmond-film-row">
             <div className="richmond-film-copy">
               <p>
-                <strong>Films made in Richmond.</strong> Deven created graphics and
-                visual effects with Pixel Drop for Richmond’s 48 Hour Film Project.
+                <strong className={mockupStyles.filmLead}>Films made in Richmond.</strong> Deven created graphics and
+                visual effects with <a className={mockupStyles.pixelDropLink} href="https://vimeo.com/pixeldropfilms">Pixel Drop</a> for Richmond’s 48 Hour Film Project.
                 He also served as lead animator on the team’s short film{" "}
                 <a href="https://richmondmagazine.com/arts-entertainment/stage-screen/pixel-drop-cmyk-screens-at-cannes-film-festival/"><em>CMYK</em></a>,
                 which screened in the HP/48HFP “Power of Ink” program at Cannes.
@@ -172,7 +176,17 @@ export function AboutEditorial() {
               <a className="richmond-films-link" href="https://vimeo.com/pixeldropfilms">Watch the films <span aria-hidden="true">↗</span></a>
             </div>
             {/* Previous order began with Deven; move that image to the end and return media to the right. */}
-            <WhaxeProcessSlideshow slides={[...filmSlides.slice(1), filmSlides[0]] as WorkImageMedia[]} label="Films made in Richmond" intervalMs={5000} fit="contain" />
+            {/* Previous six-image slideshow retained for restoration; the owner selected one red-carpet still.
+            <WhaxeProcessSlideshow slides={[...filmSlides.slice(1), filmSlides[0]] as WorkImageMedia[]} label="Films made in Richmond" intervalMs={5000} fit="contain" /> */}
+            <Image
+              className={mockupStyles.filmPhoto}
+              src={richmondFilmPhoto.src}
+              width={richmondFilmPhoto.width}
+              height={richmondFilmPhoto.height}
+              alt={richmondFilmPhoto.alt}
+              sizes="(max-width: 700px) calc(100vw - 40px), 50vw"
+              unoptimized
+            />
           </div>
           {/* Historical Direct by Design row retained for rollback; current positioning is in the portrait section.
           <div className="richmond-studio-row">
