@@ -2,7 +2,8 @@
 // Previous complete-site composition retained: export { CapabilitiesPage as default } from "@/components/site/CapabilitiesPage";
 export { CapabilityEditorial as default } from "@/components/site/CapabilityEditorial";
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Capabilities | RVA3D", description: "Six ways to commission RVA3D: animation, visualization, motion design, VFX, interactive media and prototyping, and creative production support." };
+// Previous overview metadata: export const metadata = { title: "Capabilities | RVA3D", description: "Six ways to commission RVA3D: animation, visualization, motion design, VFX, interactive media and prototyping, and creative production support." };
+export const metadata = { title: "Capabilities | RVA3D", description: "Senior-led 3D animation, product visualization, motion design and VFX for brands, agencies and production teams." };
 /* Previous implementation retained for restoration. Replaced only in the isolated complete-site candidate.
 import type { Metadata } from "next";
 import Image from "next/image";

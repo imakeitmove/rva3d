@@ -935,10 +935,44 @@ test.skip("retired with the dormant React header: adaptive route regions", async
   }
 });
 
+test("capabilities overview has five offerings, matched public examples and one working close", async () => {
+  const { capabilityOverview: copy } = await import("../src/content/site/capability-overview.ts");
+  assert.deepEqual(copy.services.map(item => [item.id, item.href]), [
+    ["3d-animation", "/work/axe-whaxe-lil-baby"],
+    ["product-technical-visualization", "/work/desmi-rotan-pump"],
+    ["motion-design", "/work/uncommon-goods-outta-this-world"],
+    ["vfx-compositing", "/capabilities/vfx-compositing"],
+  ]);
+  assert.equal(copy.interactive.title, "Interactive & Prototyping");
+  assert.equal(copy.close.title, "A whole project. Or the part you need.");
+  assert.equal(copy.close.body, "We can take a project from concept through delivery, or join your existing team for a defined asset, shot or sequence.");
+  const [component, urls, registry, whaxe, uncommon, proof, featured, route] = await Promise.all([
+    "src/components/site/CapabilityOverview.tsx", "src/content/site/media-urls.generated.json",
+    "src/content/site/media.generated.json", "src/content/site/whaxe-polish.generated.json",
+    "src/content/site/uncommon_goods_refresh.generated.json", "src/content/site/capability-proof-v2.generated.json",
+    "src/content/site/featured_images.generated.json", "src/app/(three)/capabilities/page.tsx",
+  ].map(async file => { const source = await readFile(resolve(projectRoot, file), "utf8");return file.endsWith(".json") ? JSON.parse(source) : source; }));
+  for (const media of [whaxe.loops[1], uncommon.flyup, proof.bud, featured.capabilities]) {
+    for (const src of [media.src, media.poster?.src].filter(Boolean)) {
+      const record = registry[(urls[src] || src).split("/").at(-1)];
+      assert.equal(record?.publication, "public-approved", src);
+    }
+  }
+  assert.equal(whaxe.loops[1].hasAudio, false);assert.equal(uncommon.flyup.hasAudio, false);
+  assert.equal(proof.bud.presentation, "controls");
+  assert.match(component, /main=\{media.presentation === "controls"\}/);
+  assert.match(component, /Self-initiated RVA3D work/);
+  assert.match(component, /service.id === "vfx-compositing" \? selected\[service.id\] : protectedMedia/);
+  assert.equal((component.match(/featuredMedia.capabilities/g) || []).length, 1);
+  assert.doesNotMatch(component, /backgroundImage|vfx-microcase|capability-story-actions/);
+  const metadata = route.split("\n").find(line => line.startsWith("export const metadata"));
+  assert(metadata.includes("Senior-led 3D animation, product visualization, motion design and VFX for brands, agencies and production teams."));
+});
+
 test("complete-site capability refinements stay registered, public-approved, and interaction-safe", async () => {
   const [capability, player, logo, page, proxy, css, urlsSource, mediaSource] = await Promise.all(
     [
-      "src/components/site/CapabilityEditorial.tsx",
+      "src/components/site/CapabilityOverview.tsx",
       "public/site-assets/capability-player.js",
       "src/components/site/InteractiveLogo.tsx",
       "src/components/site/InteractivePage.tsx",
@@ -949,9 +983,11 @@ test("complete-site capability refinements stay registered, public-approved, and
     ].map((filePath) => readFile(resolve(projectRoot, filePath), "utf8")),
   );
 
-  assert.match(capability, /five-below-zig-zag-display-loop\.mp4/);
+  // Previous Five Below selection is superseded by the approved WHAXE product loop.
+  assert.match(capability, /whaxe\.loops\[1\]/);
   assert.match(capability, /desmi-rotan-chd-sizzle-loop\.mp4/);
-  assert.match(capability, /siteHref\("\/work\/wawa-coffee-island"\)/);
+  // One matching destination now comes from the overview content, without extra Wawa proof.
+  assert.match(capability, /siteHref\(service\.href\)/);
   assert.match(capability, /siteHref\("\/interactive"\)/);
   assert.match(player, /ambient: true/);
   assert.match(player, /restoreIntent\("auto"\)/);
@@ -1049,7 +1085,7 @@ test("Work curation swaps only Wawa and Twist, excludes Capri siblings, and star
 test("buyer-confidence copy and distinct project interaction contracts stay scoped", async () => {
   const [home,work,cap,editorial,header,css,about,howWeWork,howWeWorkContent,contact,aboutCss,brand,fragments,proxy,sitemap] = await Promise.all([
     "src/lib/site/home-template.mjs","src/components/site/WorkPages.tsx",
-    "src/content/site/capability-editorial.ts","src/components/site/CapabilityEditorial.tsx",
+    "src/content/site/capability-overview.ts","src/components/site/CapabilityOverview.tsx",
     "src/components/site/Header.tsx","public/site-assets/complete-site.css",
     "src/components/site/AboutEditorial.tsx","src/components/site/HowWeWork.tsx",
     "src/content/site/how-we-work.ts","src/components/site/Contact.tsx",
@@ -1071,11 +1107,18 @@ test("buyer-confidence copy and distinct project interaction contracts stay scop
   assert.doesNotMatch(activeWork,/Selected work \/ 01/);
   assert(activeWork.includes("Products to explain. Characters to animate. Shots to solve."));
   assert(activeWork.includes("See what each project needed, what we contributed and how it came together."));
-  for (const copy of ["Show them exactly what you mean.","No detail is too small.","Moving messages make moving messages.","Wait, what did you change?","Bring in the render-enforcements!"]) assert(activeCap.includes(copy));
-  assert(activeCap.includes("Turn a script, supplied boards or brand direction into motion."));
-  assert(activeCap.includes("Bring the footage or production question; we’ll work out the rest!"));
-  assert.match(editorial,/WE ARE ON YOUR TEAM/); assert.match(editorial,/We&#8217;ll help you/);
-  assert.match(editorial,/capability-story-actions/); assert.match(header,/nav-client-login/);
+  // Superseded overview contract: for (const copy of ["Show them exactly what you mean.","No detail is too small.","Moving messages make moving messages.","Wait, what did you change?","Bring in the render-enforcements!"]) assert(activeCap.includes(copy));
+  // Superseded overview contract: assert(activeCap.includes("Turn a script, supplied boards or brand direction into motion."));
+  // Superseded overview contract: assert(activeCap.includes("Bring the footage or production question; we’ll work out the rest!"));
+  // Superseded overview contract: assert.match(editorial,/WE ARE ON YOUR TEAM/); assert.match(editorial,/We&#8217;ll help you/);
+  // Superseded overview contract: assert.match(editorial,/capability-story-actions/); assert.match(header,/nav-client-login/);
+  for (const copy of ["Show them exactly what you mean.","No detail is too small.","Make the message move.","Wait, what did you change?","A whole project. Or the part you need."]) assert(activeCap.includes(copy));
+  assert(activeCap.includes("Type, illustration and graphics with purposeful timing."));
+  assert(activeCap.includes("Bring the brief, CAD, footage"));
+  assert.match(editorial,/data-capability-service/);
+  assert.match(editorial,/id="creative-production-support"/);
+  assert.doesNotMatch(editorial,/WE ARE ON YOUR TEAM|capability-story-actions|vfx-microcase/);
+  assert.match(header,/nav-client-login/);
   assert.match(css,/--control-bg:var\(--rva-purple\);--control-fg:#fff/);
   assert.match(css,/data-project-mode="inventory".*flex-direction:column/);
   assert.match(about,/export function AboutEditorial\(\)/);
