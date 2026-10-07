@@ -22,12 +22,15 @@ export const capabilityOverview = {
     {
       id: "motion-design", title: "Motion Design", index: "Motion Design",
       kicker: "Make the message move.",
-      body: "Type, illustration and graphics with purposeful timing. Brand films, explainers and titles, animated from supplied storyboards or developed with you.",
+      // Previous wording retained for editorial rollback:
+      // body: "Type, illustration and graphics with purposeful timing. Brand films, explainers and titles, animated from supplied storyboards or developed with you.",
+      body: "Motion graphics and 2D animation for type, illustration and brand assets. Brand films, explainers and titles, animated from supplied storyboards or developed with you.",
       needs: "Brand films · Titles · Explainers · Cutdowns",
       // Previous single-project example: "Uncommon Goods · Production: Spang";
       // link: "View Uncommon Goods", href: "/work/uncommon-goods-outta-this-world",
       caption: "Selected motion design",
       link: "Explore selected work", href: "/work",
+      proofLink: "See Uncommon Goods", proofHref: "/work/uncommon-goods-outta-this-world",
     },
     {
       id: "vfx-compositing", title: "VFX & Compositing", index: "VFX",

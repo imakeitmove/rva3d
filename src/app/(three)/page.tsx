@@ -1,6 +1,8 @@
 // COMPLETE SITE CANDIDATE
 import { ApprovedHome } from "@/components/site/ApprovedHome";
 export const dynamic = "force-dynamic";
+// Keep the Home canonical here so distinct routes do not inherit it.
+export const metadata = { alternates: { canonical: "https://www.rva3d.com/" } };
 export default function Home() { return <ApprovedHome />; }
 
 /* Previous implementation retained for restoration. Replaced only in the isolated complete-site candidate.

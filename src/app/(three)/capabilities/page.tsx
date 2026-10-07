@@ -3,7 +3,14 @@
 export { CapabilityEditorial as default } from "@/components/site/CapabilityEditorial";
 export const dynamic = "force-dynamic";
 // Previous overview metadata: export const metadata = { title: "Capabilities | RVA3D", description: "Six ways to commission RVA3D: animation, visualization, motion design, VFX, interactive media and prototyping, and creative production support." };
-export const metadata = { title: "Capabilities | RVA3D", description: "Senior-led 3D animation, product visualization, motion design and VFX for brands, agencies and production teams." };
+// Previous: export const metadata = { title: "Capabilities | RVA3D", description: "Senior-led 3D animation, product visualization, motion design and VFX for brands, agencies and production teams." };
+const pageCopy = { title: "3D Animation, Visualization & Motion Graphics | RVA3D", description: "Senior-led 3D animation, product visualization, motion design and VFX for brands, agencies and production teams." };
+export const metadata = {
+  ...pageCopy,
+  alternates: { canonical: "/capabilities" },
+  openGraph: { ...pageCopy, type: "website", siteName: "RVA3D" },
+  twitter: { ...pageCopy, card: "summary_large_image" },
+};
 /* Previous implementation retained for restoration. Replaced only in the isolated complete-site candidate.
 import type { Metadata } from "next";
 import Image from "next/image";

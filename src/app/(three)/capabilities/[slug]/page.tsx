@@ -1,7 +1,29 @@
 // COMPLETE SITE CANDIDATE
 export { CapabilityDetail as default } from "@/components/site/CapabilityDetail";
 export const dynamic = "force-dynamic";
-export const metadata = { title: "VFX and Compositing | RVA3D", description: "Visible and invisible visual effects, from shot planning through final compositing." };
+import type { Metadata } from "next";
+import { getCapabilityBySlug } from "@/content/capabilities";
+
+// Previous generic export mislabeled the existing 3D/Motion overview aliases:
+// export const metadata = { title: "VFX and Compositing | RVA3D", description: "Visible and invisible visual effects, from shot planning through final compositing." };
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const capability = getCapabilityBySlug(slug);
+  const isOverviewAlias = slug === "3d-animation" || slug === "motion-design";
+  const pageCopy = isOverviewAlias && capability
+    ? { title: `${capability.title} | RVA3D`, description: capability.overview }
+    : { title: "VFX and Compositing | RVA3D", description: "Visible and invisible visual effects, from shot planning through final compositing." };
+
+  if (!isOverviewAlias && slug !== "vfx-compositing") return pageCopy;
+
+  // Only the existing published VFX detail gains a self-canonical; alias redirects stay intact.
+  return {
+    ...pageCopy,
+    ...(slug === "vfx-compositing" ? { alternates: { canonical: "/capabilities/vfx-compositing" } } : {}),
+    openGraph: { ...pageCopy, type: "website", siteName: "RVA3D" },
+    twitter: { ...pageCopy, card: "summary_large_image" },
+  };
+}
 /* Previous implementation retained for restoration. Replaced only in the isolated complete-site candidate.
 import type { Metadata } from "next";
 import Link from "next/link";

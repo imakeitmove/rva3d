@@ -1,5 +1,16 @@
 # RVA3D current website handoff
 
+## October 6: approved small search-visibility pass (uncommitted local review)
+
+Started on review/geico_refresh_20260926 at e5cc400006b0cf9bda2154e035a433b018fbdb64 with only the untracked audit, which is preserved. Dirty parent untouched. No commit, push, merge or deployment.
+
+- Added self-canonicals for Home, Work, Capabilities, VFX and Interactive; route-specific OG/Twitter copy; accurate 3D Animation/Motion Design alias metadata with unchanged redirects. Home declares https://www.rva3d.com/; Next.js renders the equivalent origin-root https://www.rva3d.com.
+- Applied exact approved Home Richmond metadata/opening, Capabilities title, Motion Design paragraph and direct Uncommon Goods proof link. Creative Home H1 and existing general Work link preserved; existing editorial styling reused.
+- Application changes: src/app/layout.tsx; src/app/(three)/page.tsx, work/page.tsx, capabilities/page.tsx, capabilities/[slug]/page.tsx, interactive/page.tsx; src/lib/site/home-template.mjs; src/content/site/capability-overview.ts; src/components/site/CapabilityOverview.tsx. Updated existing scripts/content-spine.test.mjs metadata-copy lookup; this handoff records validation.
+- Passed lint, TypeScript, content (61 pass / 11 existing skips), Work loop (8), Proof (5), production build and diff whitespace check. Existing optional Notion configuration messages remain nonfatal.
+- Raw metadata reviewed on all eight requested routes plus About, FAQ, Hello and GEICO; correct self-canonicals/social overrides/alias redirects and sampled case canonicals confirmed. Browser checked all eight requested routes at 1440x900 and 390x844; Home/Capabilities screenshots visually inspected, natural wrapping, no horizontal overflow, correct native proof-link navigation, no runtime exceptions/media HTTP failures. Only documented local Vercel Analytics 404/MIME console errors. Installed Playwright/headless Chrome used after in-app browser and agent-browser launch failures. No physical-device testing claimed.
+- Production-mode preview running at http://127.0.0.1:3027, PID 10636; existing helper/process receipt used after listener checks. Ignored evidence/reproduction: scripts/runtime/seo_review.mjs and scripts/runtime/seo_review/ (report, raw HTML, screenshots), using pinned Node 22.23.2. Publication/media/dependency/infrastructure policies unchanged.
+
 ## October 1: owner-selected Motion Design reel 004 (local checkpoint)
 
 Main Capabilities Motion Design uses exact source production/site_content/1_source/demo_reels/2026_motion_design_demo_reel-loop-for-web_004.mp4 (1920x1080, 24fps, 381 frames / 15.875s, no audio). Source SHA256 2a95ac5d82c150165a9ddc1e73d7e165a0bfc47d553325d07894367ccd75ec6c verified unchanged. scripts/build_capabilities_motion_reel.mjs replaces the superseded uncommitted 003 registration, then uses the existing H.264 CRF20 slow / WebP85 pipeline. Selection manifest: capabilities_motion_reel.generated.json. The selected 1280x720 derivative is /media/ef8afc51db8bb9d3771f.mp4; its poster is /media/f44f217be20881fbf2cb.webp. Prior committed records and the Uncommon Goods case remain unchanged.

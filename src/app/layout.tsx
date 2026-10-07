@@ -19,25 +19,28 @@ const geistMono = localFont({
   display: "swap",
 });
 
+// Previous homepage metadata retained for editorial rollback:
+// title: "RVA3D | 3D Visualization, Animation and Motion Design"
+// description: "Senior-led 3D animation, product visualization, motion design and VFX. Work directly with RVA3D’s creative lead, from early ideas through final delivery."
+const homeTitle = "RVA3D | 3D Animation & Motion Graphics Studio in Richmond, VA";
+const homeDescription = "RVA3D is a Richmond, Virginia studio for 3D animation, product and technical visualization, motion graphics and VFX. Work directly with Deven Langston.";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.rva3d.com"),
   robots: publicRobotsPolicy(),
   referrer: "no-referrer",
-  title: "RVA3D | 3D Visualization, Animation and Motion Design",
-  description:
-    "Senior-led 3D animation, product visualization, motion design and VFX. Work directly with RVA3D’s creative lead, from early ideas through final delivery.",
+  title: homeTitle,
+  description: homeDescription,
   openGraph: {
     type: "website",
     siteName: "RVA3D",
-    title: "RVA3D | 3D Visualization, Animation and Motion Design",
-    description:
-      "Senior-led 3D animation, product visualization, motion design and VFX. Work directly with RVA3D’s creative lead, from early ideas through final delivery.",
+    title: homeTitle,
+    description: homeDescription,
   },
   twitter: {
     card: "summary_large_image",
-    title: "RVA3D | 3D Visualization, Animation and Motion Design",
-    description:
-      "Senior-led 3D animation, product visualization, motion design and VFX. Work directly with RVA3D’s creative lead, from early ideas through final delivery.",
+    title: homeTitle,
+    description: homeDescription,
   },
 };
 

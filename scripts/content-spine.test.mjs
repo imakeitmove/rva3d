@@ -977,7 +977,9 @@ test("capabilities overview has five offerings, matched public examples and one 
   assert.match(component, /service.id === "vfx-compositing" \? selected\[service.id\] : protectedMedia/);
   assert.equal((component.match(/featuredMedia.capabilities/g) || []).length, 1);
   assert.doesNotMatch(component, /backgroundImage|vfx-microcase|capability-story-actions/);
-  const metadata = route.split("\n").find(line => line.startsWith("export const metadata"));
+  // Previous single-line metadata lookup retained; the route now shares copy with social metadata.
+  // const metadata = route.split("\n").find(line => line.startsWith("export const metadata"));
+  const metadata = route.split("\n").find(line => line.startsWith("const pageCopy"));
   assert(metadata.includes("Senior-led 3D animation, product visualization, motion design and VFX for brands, agencies and production teams."));
 });
 

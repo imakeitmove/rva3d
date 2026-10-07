@@ -3,7 +3,14 @@
 // COMPLETE SITE CANDIDATE
 export { WorkIndex as default } from "@/components/site/WorkPages";
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Work | RVA3D", description: "Explore RVA3D case studies in 3D animation, product visualization, motion design and VFX: the challenge, our contribution and the finished work." };
+// Previous: export const metadata = { title: "Work | RVA3D", description: "Explore RVA3D case studies in 3D animation, product visualization, motion design and VFX: the challenge, our contribution and the finished work." };
+const pageCopy = { title: "Work | RVA3D", description: "Explore RVA3D case studies in 3D animation, product visualization, motion design and VFX: the challenge, our contribution and the finished work." };
+export const metadata = {
+  ...pageCopy,
+  alternates: { canonical: "/work" },
+  openGraph: { ...pageCopy, type: "website", siteName: "RVA3D" },
+  twitter: { ...pageCopy, card: "summary_large_image" },
+};
 /* Previous implementation retained for restoration. Replaced only in the isolated complete-site candidate.
 import type { Metadata } from "next";
 import Link from "next/link";

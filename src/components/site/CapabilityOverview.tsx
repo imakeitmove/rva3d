@@ -56,6 +56,7 @@ export function CapabilityOverview() {
           <header className={styles.heading}><h2>{service.title}</h2><p className={styles.kicker}>{service.kicker}</p></header>
           <figure className={styles.media}><GeicoVideo media={media} main={media.presentation === "controls"} expandable={media.presentation === "controls"} /><figcaption>{service.caption}</figcaption></figure>
           <div className={styles.copy}><p>{service.body}</p><p className={styles.needs}>{service.needs}</p>
+            {"proofHref" in service ? <><a className={`editorial-link ${styles.link}`} href={siteHref(service.proofHref)}>{service.proofLink}<span aria-hidden="true">→</span></a><br /></> : null}
             <a className={`editorial-link ${styles.link}`} href={siteHref(service.href)}>{service.link}<span aria-hidden="true">↗</span></a>
           </div>
         </section>;
