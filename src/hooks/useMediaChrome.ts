@@ -6,11 +6,13 @@ const INTENT_EVENT = "rva-case-media-intent";
 const REVEAL_MS = 4000;
 
 /** Progressive enhancement for existing case-study controls; never changes playback. */
-export function useMediaChrome<T extends HTMLElement>(targetRef: RefObject<T | null>, { enabled = true, viewer = false }: { enabled?: boolean; viewer?: boolean } = {}) {
+export function useMediaChrome<T extends HTMLElement>(targetRef: RefObject<T | null>, { enabled = true, viewer = false, standalone = false }: { enabled?: boolean; viewer?: boolean; standalone?: boolean } = {}) {
   useEffect(() => {
     const target = targetRef.current;
-    // Shared capability/homepage consumers retain their current behavior.
-    if (!enabled || !target || (!viewer && !target.closest("article"))) return;
+    // Shared capability/homepage consumers retain their current behavior. A
+    // standalone still can explicitly reuse the same case-study enhancement.
+    // Previous gate: if (!enabled || !target || (!viewer && !target.closest("article"))) return;
+    if (!enabled || !target || (!viewer && !standalone && !target.closest("article"))) return;
     let timer: ReturnType<typeof setTimeout> | undefined;
     let contact: { x: number; y: number; hidden: boolean } | null = null;
     let suppressClickUntil = 0;
@@ -76,5 +78,5 @@ export function useMediaChrome<T extends HTMLElement>(targetRef: RefObject<T | n
       delete target.dataset.mediaPointer;
       delete target.dataset.mediaViewer;
     };
-  }, [targetRef, enabled, viewer]);
+  }, [targetRef, enabled, viewer, standalone]);
 }

@@ -59,5 +59,6 @@ export const aboutFilmHighlights = [
 export const aboutFilmHighlights = [
   { value: "5", title: "years in a row", context: "Best Use of Graphics" },
   { value: "2×", title: "Best Film", context: "Richmond 48HFP" },
-  { value: "Cannes", title: "CMYK screening", context: "HP/48HFP “Power of Ink”" },
+  // Previous label: { value: "Cannes", title: "CMYK screening", context: "HP/48HFP “Power of Ink”" },
+  { value: "Cannes", title: "Screened at Cannes Film Festival", context: "" },
 ] as const;

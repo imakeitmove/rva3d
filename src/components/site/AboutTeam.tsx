@@ -59,10 +59,15 @@ export function AboutTeamPage({ reviewTestimonials }: { reviewTestimonials?: rea
           <p>{promise.description}</p>
         </article>)}
       </div>
+      {/* Retired standalone capacity/FAQ block, preserved for restoration only:
       <div className={styles.capacity}>
         <p>We bring in trusted collaborators when a project needs a larger team or specialist skills.</p>
         <a className={`editorial-link ${styles.faqLink}`} href={siteHref("/faq")}>Questions about working together? Read the FAQ <span aria-hidden="true">→</span></a>
-      </div>
+      </div> */}
+      <p className={styles.principleUtility}>
+        Questions about working together?{" "}
+        <a className={styles.utilityLink} href={siteHref("/faq")}>Read the FAQ <span aria-hidden="true">↗</span></a>
+      </p>
       {/* Repeated location strip removed per October 7 brief:
       <p className={styles.nearAndFar}>Based in Richmond. Working with clients near and far.</p> */}
     </section>
@@ -77,26 +82,30 @@ export function AboutTeamPage({ reviewTestimonials }: { reviewTestimonials?: rea
           <p>Deven also served as lead animator on Pixel Drop’s short film <a href="https://richmondmagazine.com/arts-entertainment/stage-screen/pixel-drop-cmyk-screens-at-cannes-film-festival/"><em>CMYK</em></a>, which screened in the HP/48HFP ‘Power of Ink’ program at Cannes.</p>
           <a className="editorial-link" href="https://vimeo.com/pixeldropfilms">Watch the films <span aria-hidden="true">↗</span></a> */}
           <h2 id="richmond-title">Proven in Richmond.</h2>
-          <p><BrandText text="A Virginia Commonwealth University graduate and former instructor in its Kinetic Imaging program, Deven brings 20 years of industry experience to RVA3D." /></p>
+          {/* Previous experience wording: Deven brings 20 years of industry experience to RVA3D. */}
+          <p><BrandText text="A Virginia Commonwealth University graduate and former instructor in its Kinetic Imaging program, Deven brings 20 years of motion graphics experience to RVA3D." /></p>
           {/* Previous overview retained; owner explicitly restored the achievements and collective framing.
           <p>Deven’s graphics and animation have contributed to award-winning Richmond 48 Hour Film Project films. He was also lead animator on Pixel Drop’s <a href="https://richmondmagazine.com/arts-entertainment/stage-screen/pixel-drop-cmyk-screens-at-cannes-film-festival/"><em>CMYK</em></a>, which screened at Cannes through the HP/48HFP ‘Power of Ink’ program.</p> */}
           <p>Our work has screened at Richmond’s 48 Hour Film Project, winning ‘Best Graphics in Richmond’ five years in a row and ‘Best Film’ twice. Our short film <a href="https://richmondmagazine.com/arts-entertainment/stage-screen/pixel-drop-cmyk-screens-at-cannes-film-festival/"><em>CMYK</em></a>, for which Deven was lead animator, was part of the HP/48HFP ‘Power of Ink’ program, representing RVA at the Cannes Film Festival.</p>
           {/* Previous collection link: <a className="editorial-link" href="https://vimeo.com/pixeldropfilms">Watch Pixel Drop films <span aria-hidden="true">↗</span></a> */}
-          <a className="editorial-link" href="https://vimeo.com/227448797">Watch CMYK <span aria-hidden="true">→</span></a>
+          {/* Previous individual-film destination: https://vimeo.com/227448797 — Watch CMYK. */}
+          <a className="editorial-link" href="https://vimeo.com/pixeldropfilms">Watch our films <span aria-hidden="true">→</span></a>
         </div>
         <div className={styles.filmProof}>
         <figure className={styles.filmPhoto}>
           {/* Previous static image retained; shared viewer now provides full-frame expansion:
           <Image src={filmPhoto.src} width={filmPhoto.width} height={filmPhoto.height} alt={filmPhoto.alt} sizes="(max-width: 900px) calc(100vw - 40px), 55vw" unoptimized /> */}
-          <SiteMedia media={{ ...filmPhoto, kind: "image" }} sizes="(max-width: 900px) calc(100vw - 40px), 55vw" />
+          <SiteMedia media={{ ...filmPhoto, kind: "image" }} sizes="(max-width: 900px) calc(100vw - 40px), 55vw" quietControls />
           <figcaption>Pixel Drop filmmakers on the Filmapalooza red carpet.</figcaption>
         </figure>
+        </div>
+      {/* Shared proof row now spans both editorial columns, rather than only the photograph. */}
       <dl className={styles.highlights} aria-label="Highlights from Deven’s Richmond filmmaking work across multiple teams">
         {aboutFilmHighlights.map(highlight => <div key={highlight.value}>
-          <dt>{highlight.value === "Cannes" ? <Image {...icons.cannes} className={styles.cannesGraphic} alt="Cannes Film Festival" sizes="112px" unoptimized /> : highlight.value}</dt><dd><strong>{highlight.title}</strong><span>{highlight.context}</span></dd>
+          {/* Context previously always rendered a span; Cannes now uses one complete screening label. */}
+          <dt>{highlight.value === "Cannes" ? <Image {...icons.cannes} className={styles.cannesGraphic} alt="Cannes Film Festival" sizes="72px" unoptimized /> : highlight.value}</dt><dd><strong>{highlight.title}</strong>{highlight.context && <span>{highlight.context}</span>}</dd>
         </div>)}
       </dl>
-        </div>
       </div>
     </section>
 

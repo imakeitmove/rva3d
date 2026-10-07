@@ -22,8 +22,10 @@ export function AboutTestimonials({ testimonials, privateReview = false }: {
     <div className={styles.quoteGrid} style={{ "--testimonial-count": quotes.length } as CSSProperties}>
       {quotes.map(testimonial => <figure key={testimonial.attribution} className={styles.quote}>
         <span className={styles.quoteMark} aria-hidden="true">“</span>
-        <blockquote><p>{testimonial.quote}</p></blockquote>
-        <span className={`${styles.quoteMark} ${styles.quoteClosing}`} aria-hidden="true">”</span>
+        {/* Previous separate closing block retained for restoration:
+        <blockquote><p>{testimonial.quote}</p><span className={`${styles.quoteMark} ${styles.quoteClosing}`} aria-hidden="true">”</span></blockquote> */}
+        <blockquote><p>{testimonial.quote}<span className={`${styles.quoteMark} ${styles.quoteClosing}`} aria-hidden="true">”</span></p></blockquote>
+        {/* Retired decorative closing glyph: <span className={`${styles.quoteMark} ${styles.quoteClosing}`} aria-hidden="true">”</span> */}
         {/* Previous single-line attribution: <figcaption>{testimonial.attribution}</figcaption> */}
         <figcaption><strong>{testimonial.attribution}</strong>{testimonial.affiliation && <span>{testimonial.affiliation}</span>}</figcaption>
       </figure>)}

@@ -12,14 +12,14 @@
 .introCopy > p { margin: 0; max-width: 38ch; font-size: clamp(20px, 1.8vw, 26px); line-height: 1.4; text-wrap: pretty; }
 .page .intro .faqLink { margin-top: 26px; color: var(--rva-paper); font-size: 17px; line-height: 1.5; }
 .page .intro .faqLink > span { color: var(--rva-paper); }
-/* FAQ now follows capacity copy. A narrow ink stroke preserves requested green
-   lettering on paper; green alone has insufficient text contrast here. */
+/* Retired capacity/FAQ styling; the owner removed the entire standalone block.
 .capacity { margin-top: 30px; max-width: 74ch; }
 .page .capacity p { margin: 0; font-size: 18px; line-height: 1.5; }
 .page .capacity .faqLink { display: inline-block; margin-top: 9px; color: var(--rva-signal); font-size: 18px; line-height: 1.5; -webkit-text-stroke: 1.25px var(--rva-void); paint-order: stroke fill; text-decoration: underline; text-decoration-color: var(--rva-void); text-underline-offset: .25em; }
 .page .capacity .faqLink > span { color: inherit; }
 .page .capacity .faqLink:hover { text-decoration-thickness: 2px; }
 .page .capacity .faqLink:focus-visible { outline: 2px solid var(--rva-void); outline-offset: 5px; }
+*/
 .skyline :global(.richmond-skyline) { margin: 0; }
 .skyline :global(.richmond-skyline) > a { display: block; }
 .skyline :global(.richmond-skyline) > a img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 3; object-fit: cover; }
@@ -173,4 +173,90 @@
   .filmSection { padding-block: 32px 48px; }
   .highlights { grid-template-columns: 1fr; gap: 28px; margin-top: 30px; }
   .highlights span { max-width: none; }
+}
+
+/* October 7 visual review: proof belongs to the whole Richmond section.
+   Earlier photo-only placement and independent quote heights remain above. */
+.page .filmGrid { row-gap: 40px; }
+.page .highlights { grid-column: 1 / -1; margin-top: 0; gap: 32px; text-align: center; }
+.page .highlights > div + div { padding-left: 32px; }
+.page .highlights dt { justify-content: center; min-height: 44px; font-size: 40px; }
+.page .highlights span { max-width: none; }
+.page .cannesGraphic { width: auto; height: 40px; }
+
+/* Shared intrinsic rows align names and affiliations even when an affiliation
+   wraps. Quote text controls the middle row; no fixed quote height is needed. */
+.page .quoteGrid { grid-template-rows: auto 1fr auto; column-gap: 24px; row-gap: 0; }
+.page .quote { display: grid; grid-template-rows: subgrid; grid-row: span 3; align-self: stretch; }
+.page .quote + .quote { border-left: 1px solid rgb(8 10 9 / .18); padding-left: 24px; }
+.page .quoteMark { font-size: 38px; line-height: 1; height: 36px; }
+.page .quote blockquote { flex: none; }
+.page .quote figcaption { margin-top: 24px; }
+.page .quote figcaption strong { font-size: 15px; }
+
+@media (max-width: 900px) {
+  .page .quoteGrid { grid-template-rows: none; gap: 36px; }
+  .page .quote { display: block; grid-row: auto; }
+  .page .quote + .quote { border-left: 0; padding-left: 0; }
+  .page .quoteMark { font-size: 34px; height: 30px; }
+  .page .quote figcaption { margin-top: 18px; }
+}
+@media (max-width: 600px) {
+  .page .highlights { gap: 20px; }
+  .page .highlights > div + div { padding-left: 20px; }
+  .page .highlights dt { font-size: 36px; min-height: 40px; }
+  .page .cannesGraphic { height: 36px; }
+}
+@media (max-width: 420px) {
+  .page .highlights > div + div { padding-left: 0; }
+}
+
+/* Final October 7 details, scoped to About; earlier treatments remain above. */
+/* Previous separate closing block: .page .quoteClosing { margin-top: 8px; text-align: right; } */
+/* Let the closing punctuation hang at a full line's edge without reserving a
+   separate line or increasing the body text's line box. */
+.page .quoteClosing { display: inline-block; width: 0; margin: 0; height: auto; font-size: 26px; line-height: 0; vertical-align: baseline; }
+.page .principleUtility {
+  margin: 28px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid rgb(8 10 9 / .18);
+  color: var(--rva-void);
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: right;
+}
+.page .utilityLink {
+  color: var(--rva-purple);
+  white-space: nowrap;
+  text-decoration: underline;
+  text-underline-offset: .2em;
+}
+.page .utilityLink:hover { text-decoration-thickness: 2px; }
+/* The shared legacy focus rule is important; keep this light-surface link purple
+   without its global black focus shadow. */
+.page .utilityLink:focus-visible { outline: 2px solid var(--rva-purple) !important; outline-offset: 4px; box-shadow: none !important; }
+.page .collaboration :global(.collaborate-grid) {
+  grid-template-columns: minmax(240px, .9fr) minmax(280px, 1.2fr) auto;
+  gap: clamp(28px, 4vw, 60px);
+  /* Previous top alignment: align-items: start; */
+  align-items: center;
+}
+.page .collaboration :global(.collaborate-email) {
+  --control-bg: var(--rva-purple);
+  --control-fg: var(--rva-paper);
+  margin-top: 0;
+  background: var(--rva-purple);
+  border-color: var(--rva-purple);
+  color: var(--rva-paper);
+}
+.page .collaboration :global(.collaborate-email):focus-visible {
+  outline: 2px solid var(--rva-purple) !important;
+  outline-offset: 4px;
+  box-shadow: inset 0 0 0 2px var(--rva-paper) !important;
+}
+@media (max-width: 1050px) {
+  .page .collaboration :global(.collaborate-grid) { grid-template-columns: 1fr; gap: 28px; align-items: start; }
+}
+@media (max-width: 900px) {
+  .page .principleUtility { text-align: left; }
 }

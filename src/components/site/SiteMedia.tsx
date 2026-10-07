@@ -8,9 +8,11 @@ import { CapabilityFullscreen } from "./CapabilityFullscreen";
 import { WorkMedia } from "@/components/work/WorkMedia";
 // The optional capability control keeps case-study media behavior unchanged.
 // Previous signature: export function SiteMedia({ media, priority = false, capabilityFullscreen = false }: { media: Media; priority?: boolean; capabilityFullscreen?: boolean }) {
-export function SiteMedia({ media, priority = false, capabilityFullscreen = false, sizes }: { media: Media; priority?: boolean; capabilityFullscreen?: boolean; sizes?: string }) {
+export function SiteMedia({ media, priority = false, capabilityFullscreen = false, sizes, quietControls = false }: { media: Media; priority?: boolean; capabilityFullscreen?: boolean; sizes?: string; quietControls?: boolean }) {
   const root = useRef<HTMLDivElement>(null);
-  useMediaChrome(root, { enabled: !capabilityFullscreen });
+  // Opt-in standalone media reuses the shared styling, pointer intent and timer.
+  // Previous call: useMediaChrome(root, { enabled: !capabilityFullscreen });
+  useMediaChrome(root, { enabled: !capabilityFullscreen, standalone: quietControls });
   const [full, setFull] = useState(false), [failure, setFailure] = useState(false), [retry, setRetry] = useState(0);
   useEffect(() => { const update = () => setFull(document.fullscreenElement === root.current); document.addEventListener("fullscreenchange", update); return () => document.removeEventListener("fullscreenchange", update); }, []);
   useEffect(() => {

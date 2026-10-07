@@ -45,9 +45,11 @@ test("one, two and three approved quotations render simultaneously with real att
     assert(html.includes(`--testimonial-count:${count}`));
     // Decorative quotation glyphs are now hidden from assistive technology.
     assert(!/carousel|autoplay/.test(html));
+    // Paired restrained marks are decorative; quote wording stays intact.
     assert.equal((html.match(/aria-hidden="true"/g) || []).length, count * 2);
     assert.equal((html.match(/>“<\/span>/g) || []).length, count);
     assert.equal((html.match(/>”<\/span>/g) || []).length, count);
+    assert.match(html, /Approved layout example 1\.<span[^>]+aria-hidden="true">”<\/span><\/p>/);
     assert(html.includes("<strong>Example collaborator 1</strong><span>Example production company</span>"));
   }
 });
@@ -69,7 +71,9 @@ test("About keeps the confirmed team order/roles and qualified historical filmma
   ]);
   // Previous combined values: ["5 years running", "2× Best Film", "Cannes"].
   assert.deepEqual(aboutFilmHighlights.map(item => item.value), ["5", "2×", "Cannes"]);
-  assert.equal(aboutFilmHighlights[2].title, "CMYK screening");
+  assert.equal(aboutFilmHighlights[0].title, "years in a row");
+  assert.equal(aboutFilmHighlights[2].title, "Screened at Cannes Film Festival");
+  assert.equal(aboutFilmHighlights[2].context, "");
   // Historical attribution remains in the section copy and internal provenance.
   assert.equal(aboutFilmHighlights[1].context, "Richmond 48HFP");
 });
