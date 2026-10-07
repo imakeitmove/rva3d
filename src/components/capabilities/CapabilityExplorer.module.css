@@ -109,7 +109,8 @@
   gap: 0.7rem;
   width: max-content;
   margin-top: 1.4rem;
-  color: #d7ff43;
+  /* Previous primary-green value retained for restoration: color: #d7ff43; */
+  color: var(--rva-signal);
   text-underline-offset: 0.35rem;
 }
 
@@ -169,7 +170,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
-  color: #d7ff43;
+  /* Previous primary-green value retained for restoration: color: #d7ff43; */
+  color: var(--rva-signal);
   text-underline-offset: 0.35rem;
 }
 
@@ -248,7 +250,8 @@
 
 .icon {
   display: none;
-  color: #d7ff43;
+  /* Previous primary-green value retained for restoration: color: #d7ff43; */
+  color: var(--rva-signal);
   font-family: var(--font-geist-mono), monospace;
 }
 

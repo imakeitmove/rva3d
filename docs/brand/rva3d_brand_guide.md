@@ -1,8 +1,10 @@
 # RVA3D Visual Identity Guide
 
-**Version:** 0.3 working draft  
-**Date:** September 5, 2026  
-**Status:** Updated to reflect the approved derived Depth Green support tone for Signal Green.
+**Version:** 0.4 working draft
+**Date:** October 6, 2026
+**Status:** Website Signal Green updated to the approved `#BBFF00`; Depth Green and all other named palette colors are unchanged. Baked artwork still requires the exports recorded in `docs/site_handoff.md`.
+
+Previous website Signal Green values `#D7FF43` and `#C7EB01` are superseded for current implementation. Historical release records retain their original values.
 
 ---
 
@@ -50,7 +52,7 @@ The goal is not to make every page multicolored. The goal is to create a system 
 |---|---|---:|---|
 | `--rva-void` | RVA Void | `#080A09` | Main background, dark surfaces |
 | `--rva-paper` | RVA Paper | `#F3F1E9` | Primary text, light surfaces |
-| `--rva-signal` | Signal Green | `#D7FF43` | Primary brand accent, action, focus, key CTA |
+| `--rva-signal` | Signal Green | `#BBFF00` | Primary brand accent, action, focus, key CTA |
 | `--rva-depth-green` | Depth Green | `#087A14` | Derived dimensional support for Signal Green: shadows, falloff, extrusion, and environmental depth |
 | `--rva-purple` | Vector Purple | `#6230C0` | Secondary accent, selected states, large background fields, CTA surfaces |
 | `--rva-stone` | System Gray | `#A4A59F` | Supporting text, metadata |
@@ -81,11 +83,11 @@ The screenshot that inspired the palette uses approximately:
 - terminal blue: `#3A96DD`
 - terminal amber: `#C19C00`
 
-RVA3D keeps the terminal logic, not a literal copy. Signal Green remains `#D7FF43`, and purple now becomes the official secondary brand color.
+RVA3D keeps the terminal logic, not a literal copy. Signal Green is `#BBFF00`, and purple now becomes the official secondary brand color.
 
 ### 3.3 Color roles
 
-#### Signal Green `#D7FF43`
+#### Signal Green `#BBFF00`
 Use for:
 
 - the `3D` portion of the wordmark when appropriate;
@@ -107,7 +109,7 @@ Use for:
 - hover depth;
 - darker green environmental lighting;
 - occasional dark-green surfaces when they clearly derive from Signal Green;
-- transitions such as `#D7FF43 → #087A14 → #080A09`.
+- transitions such as `#BBFF00 → #087A14 → #080A09`.
 
 Do not use Depth Green as:
 
@@ -398,7 +400,7 @@ Before adding or changing a global color, typeface, radius, spacing convention, 
 :root {
   --rva-void: #080a09;
   --rva-paper: #f3f1e9;
-  --rva-signal: #d7ff43;
+  --rva-signal: #bbff00;
   --rva-depth-green: #087a14;
   --rva-purple: #6230c0;
   --rva-stone: #a4a59f;

@@ -2,7 +2,8 @@
   --ink: #f3f1e9;
   --muted: #c0c4c6;
   --line: rgba(243, 241, 233, 0.28);
-  --accent: #d7ff43;
+  /* Previous primary-green value retained for restoration: --accent: #d7ff43; */
+  --accent: var(--rva-signal);
   --page-background: #3b4350;
   --intro: #c4c5bf;
   min-height: 100svh;
@@ -22,11 +23,13 @@
 }
 
 .capriPage .skipLink {
-  background: #d7ff43;
+  /* Previous primary-green value retained for restoration: background: #d7ff43; */
+  background: var(--rva-signal);
 }
 
 .capriPage .previewNotice {
-  color: #d7ff43;
+  /* Previous primary-green value retained for restoration: color: #d7ff43; */
+  color: var(--rva-signal);
 }
 
 .capriPage .brand span {
@@ -90,7 +93,8 @@
   top: 0;
   z-index: 20;
   padding: 0.6rem 1rem;
-  border-bottom: 1px solid rgba(215, 255, 67, 0.35);
+  /* Previous primary-green value retained for restoration: border-bottom: 1px solid rgba(215, 255, 67, 0.35); */
+  border-bottom: 1px solid rgba(var(--rva-signal-rgb), 0.35);
   background: rgba(21, 26, 16, 0.96);
   color: var(--accent);
   font-family: var(--font-geist-mono), monospace;
@@ -613,7 +617,8 @@ The new stack aligns both columns at the top and fills that open field. */
 .missingMaster {
   margin-top: 2rem;
   padding: 1rem;
-  border: 1px dashed rgba(215, 255, 67, 0.5);
+  /* Previous primary-green value retained for restoration: border: 1px dashed rgba(215, 255, 67, 0.5); */
+  border: 1px dashed rgba(var(--rva-signal-rgb), 0.5);
   color: var(--accent);
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.68rem;
@@ -640,8 +645,10 @@ The new stack aligns both columns at the top and fills that open field. */
 
 .pendingFacts {
   padding: 1.5rem;
-  border: 1px solid rgba(215, 255, 67, 0.25);
-  background: rgba(215, 255, 67, 0.035);
+  /* Previous primary-green value retained for restoration: border: 1px solid rgba(215, 255, 67, 0.25); */
+  border: 1px solid rgba(var(--rva-signal-rgb), 0.25);
+  /* Previous primary-green value retained for restoration: background: rgba(215, 255, 67, 0.035); */
+  background: rgba(var(--rva-signal-rgb), 0.035);
 }
 
 .pendingFacts > p:not(.sectionNumber) {
@@ -654,7 +661,8 @@ The new stack aligns both columns at the top and fills that open field. */
 }
 
 .developmentReview details {
-  border: 1px solid rgba(215, 255, 67, 0.28);
+  /* Previous primary-green value retained for restoration: border: 1px solid rgba(215, 255, 67, 0.28); */
+  border: 1px solid rgba(var(--rva-signal-rgb), 0.28);
   background: rgba(26, 32, 41, 0.35);
 }
 
@@ -714,11 +722,13 @@ The new stack aligns both columns at the top and fills that open field. */
 }
 
 .wawaPage .skipLink {
-  background: #d7ff43;
+  /* Previous primary-green value retained for restoration: background: #d7ff43; */
+  background: var(--rva-signal);
 }
 
 .wawaPage .previewNotice {
-  color: #d7ff43;
+  /* Previous primary-green value retained for restoration: color: #d7ff43; */
+  color: var(--rva-signal);
 }
 
 .wawaPage .brand span {

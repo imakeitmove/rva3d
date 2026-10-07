@@ -3,11 +3,14 @@ export const END_THRESHOLD = 0.975;
 export const END_HOLD_MS = 1500;
 
 export const HELLO_BEATS = [
-  { text: "HELLO!", spoken: "Hello!", color: "#d7ff43" },
+  // Previous Signal Green retained for restoration: { text: "HELLO!", spoken: "Hello!", color: "#d7ff43" },
+  { text: "HELLO!", spoken: "Hello!", color: "#bbff00" },
   { text: "IT WAS VERY\nNICE TO\nMEET YOU.", spoken: "It was very nice to meet you.", color: "#f3f1e9" },
-  { text: "OR...", spoken: "Or…", color: "#d7ff43" },
+  // Previous Signal Green retained for restoration: { text: "OR...", spoken: "Or…", color: "#d7ff43" },
+  { text: "OR...", spoken: "Or…", color: "#bbff00" },
   { text: "IF YOU FOUND\nOUR CARD ON\nTHE GROUND...", spoken: "If you found our card on the ground…", color: "#f3f1e9" },
-  { text: "THAT’S\nCOOL TOO.", spoken: "That’s cool too.", color: "#d7ff43" },
+  // Previous Signal Green retained for restoration: { text: "THAT’S\nCOOL TOO.", spoken: "That’s cool too.", color: "#d7ff43" },
+  { text: "THAT’S\nCOOL TOO.", spoken: "That’s cool too.", color: "#bbff00" },
   { text: "WELCOME.", spoken: "Welcome.", color: "#f3f1e9" },
 ] as const;
 

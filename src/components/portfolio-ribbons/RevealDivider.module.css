@@ -62,7 +62,8 @@
   background: var(--rva-signal);
   box-shadow:
     0 0.45rem 1.2rem rgba(8, 10, 9, 0.32),
-    0 0 0 0 rgba(217, 255, 67, 0.34);
+    /* Previous primary-green value retained for restoration: 0 0 0 0 rgba(217, 255, 67, 0.34); */
+    0 0 0 0 rgba(var(--rva-signal-rgb), 0.34);
   transform: translate(-50%, -50%);
   transform-origin: 50% 50%;
   transition:
@@ -80,7 +81,8 @@
 .hitTarget:focus-visible .handle {
   box-shadow:
     0 0.55rem 1.4rem rgba(8, 10, 9, 0.42),
-    0 0 0 0.38rem rgba(217, 255, 67, 0.2);
+    /* Previous primary-green value retained for restoration: 0 0 0 0.38rem rgba(217, 255, 67, 0.2); */
+    0 0 0 0.38rem rgba(var(--rva-signal-rgb), 0.2);
   transform: translate(-50%, -50%) scale(1.1);
 }
 
@@ -95,13 +97,15 @@
 
 .root[data-dragging="true"] .line {
   width: 2px;
-  box-shadow: 0 0 1rem rgba(217, 255, 67, 0.7);
+  /* Previous primary-green value retained for restoration: box-shadow: 0 0 1rem rgba(217, 255, 67, 0.7); */
+  box-shadow: 0 0 1rem rgba(var(--rva-signal-rgb), 0.7);
 }
 
 .root[data-dragging="true"] .handle {
   box-shadow:
     0 0.65rem 1.8rem rgba(8, 10, 9, 0.5),
-    0 0 0 0.5rem rgba(217, 255, 67, 0.24);
+    /* Previous primary-green value retained for restoration: 0 0 0 0.5rem rgba(217, 255, 67, 0.24); */
+    0 0 0 0.5rem rgba(var(--rva-signal-rgb), 0.24);
   cursor: grabbing;
   transform: translate(-50%, -50%) scale(1.08, 0.94);
 }

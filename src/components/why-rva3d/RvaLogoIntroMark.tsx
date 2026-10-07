@@ -37,7 +37,8 @@ const RVA_FLAT_DEPTH = 0.06;
 const RVA_REVEAL_RANGE = [50 / 90, 60 / 90] as const;
 const RVA_VOID = "#080a09";
 const RVA_PAPER = "#f3f1e9";
-const RVA_SIGNAL = "#d7ff43";
+// Previous Signal Green retained for restoration: const RVA_SIGNAL = "#d7ff43";
+const RVA_SIGNAL = "#bbff00";
 const MAX_PITCH = 0.16;
 const MAX_YAW = 0.5;
 

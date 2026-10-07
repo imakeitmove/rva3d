@@ -1,3 +1,4 @@
+// Signal Green migrated from #D7FF43 / rgb(215, 255, 67) and ribbon #D9FF43 to #BBFF00.
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -216,7 +217,7 @@ try {
         assert.equal(groups.first, "geico-geckos-cereal-box");
         assert.equal(new Set(groups.rows.flatMap(row => row.ids)).size, groups.total, "Lost project");
         assert(groups.rows.every(row => row.below && Math.abs(row.left - row.contentLeft) < 2 && Math.abs(row.right - row.contentRight) < 2), "Controls overlap/misalign");
-        assert(groups.rows.every(row => row.background === "rgb(217, 255, 67)" || row.background === "rgb(215, 255, 67)"), "Project controls must be green");
+        assert(groups.rows.every(row => row.background === "rgb(187, 255, 0)"), "Project controls must be green");
         assert(groups.initialRestored && groups.previousDisabled);
         if (route === "work") assert(groups.rows.slice(0, -1).every(row => row.count === 4), "Work group size changed");
       }

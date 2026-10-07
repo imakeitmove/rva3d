@@ -127,7 +127,8 @@
 }
 
 .viewport:focus-visible {
-  outline: 2px solid #d9ff43;
+  /* Previous primary-green value retained for restoration: outline: 2px solid #d9ff43; */
+  outline: 2px solid var(--rva-signal);
   outline-offset: -2px;
 }
 
@@ -168,7 +169,8 @@
 
 button.thumbnail:focus-visible {
   z-index: 1;
-  outline: 2px solid #d9ff43;
+  /* Previous primary-green value retained for restoration: outline: 2px solid #d9ff43; */
+  outline: 2px solid var(--rva-signal);
   outline-offset: -4px;
 }
 
@@ -278,11 +280,13 @@ button.thumbnail:focus-visible {
 
 .lightboxButton:hover,
 .lightboxButton:focus-visible {
-  border-color: #d9ff43;
+  /* Previous primary-green value retained for restoration: border-color: #d9ff43; */
+  border-color: var(--rva-signal);
 }
 
 .lightboxButton:focus-visible {
-  outline: 2px solid #d9ff43;
+  /* Previous primary-green value retained for restoration: outline: 2px solid #d9ff43; */
+  outline: 2px solid var(--rva-signal);
   outline-offset: 2px;
 }
 

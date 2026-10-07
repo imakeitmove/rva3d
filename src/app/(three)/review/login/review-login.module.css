@@ -4,7 +4,8 @@
   place-items: center;
   padding: 1.5rem;
   background:
-    radial-gradient(circle at 82% 12%, rgba(215, 255, 67, 0.12), transparent 30rem),
+    /* Previous primary-green value retained for restoration: radial-gradient(circle at 82% 12%, rgba(215, 255, 67, 0.12), transparent 30rem), */
+    radial-gradient(circle at 82% 12%, rgba(var(--rva-signal-rgb), 0.12), transparent 30rem),
     #080a09;
   color: #f3f1e9;
 }
@@ -31,7 +32,8 @@
 
 .brand span,
 .eyebrow {
-  color: #d7ff43;
+  /* Previous primary-green value retained for restoration: color: #d7ff43; */
+  color: var(--rva-signal);
 }
 
 .eyebrow {
@@ -61,8 +63,10 @@
 .message {
   margin: -1rem 0;
   padding: 0.9rem 1rem;
-  border-left: 3px solid #d7ff43;
-  background: rgba(215, 255, 67, 0.07);
+  /* Previous primary-green value retained for restoration: border-left: 3px solid #d7ff43; */
+  border-left: 3px solid var(--rva-signal);
+  /* Previous primary-green value retained for restoration: background: rgba(215, 255, 67, 0.07); */
+  background: rgba(var(--rva-signal-rgb), 0.07);
   color: #e6e8e2;
   line-height: 1.5;
 }
@@ -93,7 +97,8 @@
   min-height: 3.25rem;
   margin-top: 0.4rem;
   border: 0;
-  background: #d7ff43;
+  /* Previous primary-green value retained for restoration: background: #d7ff43; */
+  background: var(--rva-signal);
   color: #080a09;
   cursor: pointer;
   font: inherit;
@@ -103,6 +108,7 @@
 .form input:focus-visible,
 .form button:focus-visible,
 .brand:focus-visible {
-  outline: 2px solid #d7ff43;
+  /* Previous primary-green value retained for restoration: outline: 2px solid #d7ff43; */
+  outline: 2px solid var(--rva-signal);
   outline-offset: 4px;
 }

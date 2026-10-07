@@ -1,5 +1,7 @@
 # RVA3D favicon package
 
+October 6, 2026: the website CSS/runtime Signal Green is now `#BBFF00`. The baked source and generated icons below remain unchanged pending a new approved master export in that color. The existing generator only resamples; it cannot update the artwork palette safely. After the new export, regenerate all three listed outputs and validate them through the existing asset/release workflow.
+
 Canonical artwork: `W:\PROJECTS\_ACTIVE\2026_RVA3D_LogoDesign\output\RVA3D_favicon_R10B_V004.png`.
 
 Source SHA-256: `125675118be9bd986fdd90ff21739cb6b6ebe111a8155eff0e200b60c35fd938`.

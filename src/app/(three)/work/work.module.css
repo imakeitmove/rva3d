@@ -3,11 +3,13 @@
   --muted: #9fa29b;
   --line: rgba(243, 241, 233, 0.16);
   --line-strong: rgba(243, 241, 233, 0.28);
-  --accent: #d7ff43;
+  /* Previous primary-green value retained for restoration: --accent: #d7ff43; */
+  --accent: var(--rva-signal);
   min-height: 100svh;
   overflow-x: clip;
   background:
-    radial-gradient(circle at 90% 3%, rgba(215, 255, 67, 0.055), transparent 22rem),
+    /* Previous primary-green value retained for restoration: radial-gradient(circle at 90% 3%, rgba(215, 255, 67, 0.055), transparent 22rem), */
+    radial-gradient(circle at 90% 3%, rgba(var(--rva-signal-rgb), 0.055), transparent 22rem),
     #080a09;
   color: var(--ink);
 }
@@ -538,7 +540,8 @@
   justify-content: flex-end;
   padding: clamp(1.5rem, 4vw, 4rem);
   background:
-    radial-gradient(circle at 70% 25%, rgba(215, 255, 67, 0.2), transparent 35%),
+    /* Previous primary-green value retained for restoration: radial-gradient(circle at 70% 25%, rgba(215, 255, 67, 0.2), transparent 35%), */
+    radial-gradient(circle at 70% 25%, rgba(var(--rva-signal-rgb), 0.2), transparent 35%),
     #111411;
 }
 

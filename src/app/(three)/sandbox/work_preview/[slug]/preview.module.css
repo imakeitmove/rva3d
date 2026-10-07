@@ -2,7 +2,8 @@
   --ink: #f3f1e9;
   --muted: #a4a59f;
   --line: rgba(243, 241, 233, 0.16);
-  --accent: #d7ff43;
+  /* Previous primary-green value retained for restoration: --accent: #d7ff43; */
+  --accent: var(--rva-signal);
   min-height: 100svh;
   min-width: 0;
   overflow-x: clip;
@@ -29,7 +30,8 @@
 
 .previewNotice {
   padding: 0.55rem 1rem;
-  border-bottom: 1px solid rgba(215, 255, 67, 0.3);
+  /* Previous primary-green value retained for restoration: border-bottom: 1px solid rgba(215, 255, 67, 0.3); */
+  border-bottom: 1px solid rgba(var(--rva-signal-rgb), 0.3);
   background: #151a10;
   color: var(--accent);
   font-family: var(--font-geist-mono), monospace;

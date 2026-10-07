@@ -3,14 +3,20 @@
 :root {
   --rva-void: #080a09;
   --rva-paper: #f3f1e9;
-  --rva-signal: #d7ff43;
+  /* Previous primary-green value retained for restoration: --rva-signal: #d7ff43; */
+  --rva-signal: #bbff00;
+  /* Matching sRGB channels for the existing translucent accents. */
+  --rva-signal-rgb: 187, 255, 0;
   --rva-depth-green: #087a14;
   --rva-purple: #6230c0;
   /* September 9 Notion palette; used by V002 navigation. Existing consumers retain their values.
      https://app.notion.com/p/2aba9ba2f25880378320c6bf604577db */
   --rva-void-violet: #15121a;
   --rva-void-black: #111111;
-  --rva-signal-green: #c7eb01;
+  /* Previous primary-green value retained for restoration: --rva-signal-green: #c7eb01; */
+  /* V002 now follows the canonical website Signal Green above. */
+  /* V002 now follows the canonical website Signal Green above. */
+  --rva-signal-green: var(--rva-signal);
   --rva-paper-white: #f4f1e8;
   /* Restore the September 13 How We Work palette token (8ddaa766). */
   --rva-lightly-lavender: #e8e1eb;

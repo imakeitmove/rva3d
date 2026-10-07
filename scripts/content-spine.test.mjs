@@ -770,7 +770,7 @@ test("public controls retain a visible global focus treatment", async () => {
   assert.match(globals, /:focus-visible/);
   assert.match(
     globals,
-    /outline:\s*2px solid (?:#d7ff43|var\(--rva-signal\))/,
+    /outline:\s*2px solid var\(--rva-signal\)/,
   );
 });
 

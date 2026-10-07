@@ -431,7 +431,8 @@
   background-image:
     radial-gradient(
       circle at 50% 4%,
-      rgba(215, 255, 67, 0.12),
+      /* Previous primary-green value retained for restoration: rgba(215, 255, 67, 0.12), */
+      rgba(var(--rva-signal-rgb), 0.12),
       transparent 34rem
     ),
     radial-gradient(

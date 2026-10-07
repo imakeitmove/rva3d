@@ -118,7 +118,8 @@
   min-height: 15.5rem;
   overflow: hidden;
   background:
-    radial-gradient(circle at 78% 20%, rgba(215, 255, 67, 0.17), transparent 32%),
+    /* Previous primary-green value retained for restoration: radial-gradient(circle at 78% 20%, rgba(215, 255, 67, 0.17), transparent 32%), */
+    radial-gradient(circle at 78% 20%, rgba(var(--rva-signal-rgb), 0.17), transparent 32%),
     linear-gradient(145deg, #252334 0%, #0d100f 68%);
   perspective: 46rem;
   isolation: isolate;
@@ -128,8 +129,10 @@
   position: absolute;
   inset: 48% -18% -35%;
   background-image:
-    linear-gradient(rgba(215, 255, 67, 0.18) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(215, 255, 67, 0.18) 1px, transparent 1px);
+    /* Previous primary-green value retained for restoration: linear-gradient(rgba(215, 255, 67, 0.18) 1px, transparent 1px), */
+    linear-gradient(rgba(var(--rva-signal-rgb), 0.18) 1px, transparent 1px),
+    /* Previous primary-green value retained for restoration: linear-gradient(90deg, rgba(215, 255, 67, 0.18) 1px, transparent 1px); */
+    linear-gradient(90deg, rgba(var(--rva-signal-rgb), 0.18) 1px, transparent 1px);
   background-size: 2rem 2rem;
   transform: rotateX(64deg) rotateZ(-8deg);
   transform-origin: center top;
@@ -349,7 +352,8 @@
   max-width: 100%;
   font-size: clamp(1rem, 4.6vw, 1.2rem);
   overflow-wrap: anywhere;
-  text-decoration-color: rgba(215, 255, 67, 0.6);
+  /* Previous primary-green value retained for restoration: text-decoration-color: rgba(215, 255, 67, 0.6); */
+  text-decoration-color: rgba(var(--rva-signal-rgb), 0.6);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.28em;
 }

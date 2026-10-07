@@ -1,9 +1,10 @@
+// Signal Green migrated from #D7FF43 / rgb(215, 255, 67) and ribbon #D9FF43 to #BBFF00.
 import assert from "node:assert/strict";
 import test from "node:test";
 import { MeshBasicMaterial } from "three";
 import { logoPalette, LogoPaletteTransition } from "../src/components/three/header_logo_palette.ts";
 
-const tokens = { paper: "#f3f1e9", purple: "#6230c0", signal: "#d7ff43" };
+const tokens = { paper: "#f3f1e9", purple: "#6230c0", signal: "#bbff00" };
 function fixture() {
   let now = 0, id = 0, renders = 0;
   const frames = new Map();

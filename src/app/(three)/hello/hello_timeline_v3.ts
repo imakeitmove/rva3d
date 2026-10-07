@@ -1,6 +1,7 @@
 /** V3 art direction. V2 is preserved unchanged in hello_timeline.ts and 5623e596. */
 export const HELLO_V3 = {
-  colors: { black: "#080a09", paper: "#f3f1e9", green: "#d7ff43", purple: "#6230c0", sides: "#b9afc8" },
+  // Previous Signal Green retained for restoration: colors: { black: "#080a09", paper: "#f3f1e9", green: "#d7ff43", purple: "#6230c0", sides: "#b9afc8" },
+  colors: { black: "#080a09", paper: "#f3f1e9", green: "#bbff00", purple: "#6230c0", sides: "#b9afc8" },
   runway: { phone: 780, desktop: 690 },
   camera: { z: 8, phoneFov: 43, desktopFov: 38, near: 0.08, far: 100 },
   logoScale: 0.70, // Exact multiplier of the V2 presentation scale, never the asset.

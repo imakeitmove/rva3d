@@ -15,8 +15,10 @@
   --header-ink: #f3f1e9;
   --header-link: #d1d1cb;
   --header-line: rgba(243, 241, 233, 0.16);
-  --header-accent: #d7ff43;
-  --header-focus: #d7ff43;
+  /* Previous primary-green value retained for restoration: --header-accent: #d7ff43; */
+  --header-accent: var(--rva-signal);
+  /* Previous primary-green value retained for restoration: --header-focus: #d7ff43; */
+  --header-focus: var(--rva-signal);
   position: sticky;
   top: 0;
   z-index: 60;
