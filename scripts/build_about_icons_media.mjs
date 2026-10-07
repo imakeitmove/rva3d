@@ -10,6 +10,7 @@ const sources = [
   ["senior", "icon1_5-star-person_green_circle.png"],
   ["organized", "icon2_back-and-forth-arrows_green_circle.png"],
   ["communication", "icon3_communication_checkgreen_circle.png"],
+  ["cannes", "Cannes_Festival_thicker_green.png"],
 ];
 const registryFile = "src/content/site/media.generated.json", urlsFile = "src/content/site/media-urls.generated.json", releaseFile = "src/content/site/public_release_20260913.generated.json";
 const registry = JSON.parse(await fs.readFile(registryFile, "utf8")), urls = JSON.parse(await fs.readFile(urlsFile, "utf8")), release = JSON.parse(await fs.readFile(releaseFile, "utf8"));
@@ -19,14 +20,16 @@ const icons = {}, provenance = [];
 for (const [id, name] of sources) {
   const source = path.join(root, name), original = await fs.readFile(source), sourceSha256 = digest(original);
   // Preserve the supplied green circle and transparency. No recolor, crop or redraw.
-  const { data, info } = await sharp(original).resize({ width: 192, withoutEnlargement: true }).toColourspace("srgb").webp({ lossless: true, effort: 6 }).toBuffer({ resolveWithObject: true });
+  // The wider Cannes graphic retains its natural aspect ratio at a 384px delivery width.
+  const deliveryWidth = id === "cannes" ? 384 : 192;
+  const { data, info } = await sharp(original).resize({ width: deliveryWidth, withoutEnlargement: true }).toColourspace("srgb").webp({ lossless: true, effort: 6 }).toBuffer({ resolveWithObject: true });
   const sha256 = digest(data), key = sha256.slice(0, 20) + ".webp", file = "private-media/" + key;
   if (!registry[key]) {
     await fs.writeFile(file, data, { flag: "wx" });
     registry[key] = { file, type: "image/webp", bytes: data.length, sha256, source: source.replaceAll("\\", "/"), sourceSha256, width: info.width, height: info.height,
       publication: "public-approved", approvedAt: "2026-10-07", approvedBy: "Deven Langston", approvalAuthority: "RVA3D owner", approvalSource: "direct-owner-approval",
       approvalNote: "Owner-supplied icons explicitly selected for the October 7 About refinement. Local implementation is not deployment approval.",
-      recipe: "Uncropped 192px sRGB lossless WebP; supplied colors/alpha preserved; metadata stripped.",
+      recipe: `Uncropped ${deliveryWidth}px sRGB lossless WebP; supplied colors/alpha preserved; metadata stripped.`,
     };
   }
   assert.equal(registry[key].sourceSha256, sourceSha256);
@@ -41,6 +44,7 @@ for (const [id, name] of sources) {
 for (const [key, entry] of Object.entries(previousRegistry)) assert.deepEqual(registry[key], entry);
 for (const [key, value] of Object.entries(previousUrls)) assert.equal(urls[key], value);
 release.aboutIcons20261007 ??= { previousAssets: release.assets, previousUrls: release.logicalUrls, sources: provenance, authorization: "Owner-supplied About icons; no deployment authorization." };
+release.aboutCannes20261007 ??= { previousAssets: release.assets, previousUrls: release.logicalUrls, source: provenance.find(item => item.id === "cannes"), authorization: "October 7 owner correction explicitly selects the supplied Cannes graphic in program-screening context; no deployment authorization." };
 const selected = selectProductionMedia(registry, urls);
 release.assets = Object.keys(selected.manifest).length; release.logicalUrls = Object.keys(selected.urls).length;
 release.registryDigest = digest(JSON.stringify(selected.manifest)); release.urlsDigest = digest(JSON.stringify(selected.urls));

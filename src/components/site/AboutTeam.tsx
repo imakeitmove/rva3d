@@ -74,8 +74,11 @@ export function AboutTeamPage({ reviewTestimonials }: { reviewTestimonials?: rea
           <a className="editorial-link" href="https://vimeo.com/pixeldropfilms">Watch the films <span aria-hidden="true">↗</span></a> */}
           <h2 id="richmond-title">Proven in Richmond.</h2>
           <p><BrandText text="A Virginia Commonwealth University graduate and former instructor in its Kinetic Imaging program, Deven brings 20 years of industry experience to RVA3D." /></p>
-          <p>Deven’s graphics and animation have contributed to award-winning Richmond 48 Hour Film Project films. He was also lead animator on Pixel Drop’s <a href="https://richmondmagazine.com/arts-entertainment/stage-screen/pixel-drop-cmyk-screens-at-cannes-film-festival/"><em>CMYK</em></a>, which screened at Cannes through the HP/48HFP ‘Power of Ink’ program.</p>
-          <a className="editorial-link" href="https://vimeo.com/pixeldropfilms">Watch Pixel Drop films <span aria-hidden="true">↗</span></a>
+          {/* Previous overview retained; owner explicitly restored the achievements and collective framing.
+          <p>Deven’s graphics and animation have contributed to award-winning Richmond 48 Hour Film Project films. He was also lead animator on Pixel Drop’s <a href="https://richmondmagazine.com/arts-entertainment/stage-screen/pixel-drop-cmyk-screens-at-cannes-film-festival/"><em>CMYK</em></a>, which screened at Cannes through the HP/48HFP ‘Power of Ink’ program.</p> */}
+          <p>Our work has screened at Richmond’s 48 Hour Film Project, winning ‘Best Graphics in Richmond’ five years in a row and ‘Best Film’ twice. Our short film <a href="https://richmondmagazine.com/arts-entertainment/stage-screen/pixel-drop-cmyk-screens-at-cannes-film-festival/"><em>CMYK</em></a>, for which Deven was lead animator, was part of the HP/48HFP ‘Power of Ink’ program, representing RVA at the Cannes Film Festival.</p>
+          {/* Previous collection link: <a className="editorial-link" href="https://vimeo.com/pixeldropfilms">Watch Pixel Drop films <span aria-hidden="true">↗</span></a> */}
+          <a className="editorial-link" href="https://vimeo.com/227448797">Watch CMYK <span aria-hidden="true">→</span></a>
         </div>
         <div className={styles.filmProof}>
         <figure className={styles.filmPhoto}>
@@ -86,7 +89,7 @@ export function AboutTeamPage({ reviewTestimonials }: { reviewTestimonials?: rea
         </figure>
       <dl className={styles.highlights} aria-label="Highlights from Deven’s Richmond filmmaking work across multiple teams">
         {aboutFilmHighlights.map(highlight => <div key={highlight.value}>
-          <dt>{highlight.value}</dt><dd><strong>{highlight.title}</strong><span>{highlight.context}</span></dd>
+          <dt>{highlight.value === "Cannes" ? <Image {...icons.cannes} className={styles.cannesGraphic} alt="Cannes Film Festival" sizes="112px" unoptimized /> : highlight.value}</dt><dd><strong>{highlight.title}</strong><span>{highlight.context}</span></dd>
         </div>)}
       </dl>
         </div>

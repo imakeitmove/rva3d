@@ -45,7 +45,9 @@ test("one, two and three approved quotations render simultaneously with real att
     assert(html.includes(`--testimonial-count:${count}`));
     // Decorative quotation glyphs are now hidden from assistive technology.
     assert(!/carousel|autoplay/.test(html));
-    assert.equal((html.match(/aria-hidden="true"/g) || []).length, count);
+    assert.equal((html.match(/aria-hidden="true"/g) || []).length, count * 2);
+    assert.equal((html.match(/>“<\/span>/g) || []).length, count);
+    assert.equal((html.match(/>”<\/span>/g) || []).length, count);
     assert(html.includes("<strong>Example collaborator 1</strong><span>Example production company</span>"));
   }
 });

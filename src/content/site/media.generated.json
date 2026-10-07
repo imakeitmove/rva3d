@@ -5599,5 +5599,22 @@
     "approvalSource": "direct-owner-approval",
     "approvalNote": "Owner-supplied icons explicitly selected for the October 7 About refinement. Local implementation is not deployment approval.",
     "recipe": "Uncropped 192px sRGB lossless WebP; supplied colors/alpha preserved; metadata stripped."
+  },
+  "fbfe68e0d26d0833edbb.webp": {
+    "file": "private-media/fbfe68e0d26d0833edbb.webp",
+    "type": "image/webp",
+    "bytes": 18580,
+    "sha256": "fbfe68e0d26d0833edbb9309a3bd96c75238f9e8ed501c3180b004ba854cf5fc",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/meet_the_team/icons/Cannes_Festival_thicker_green.png",
+    "sourceSha256": "38d081b957c5c8545ea9ba245369efc0a1dff902e731f9cd96b4cdf0d60d5820",
+    "width": 384,
+    "height": 214,
+    "publication": "public-approved",
+    "approvedAt": "2026-10-07",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval",
+    "approvalNote": "Owner-supplied icons explicitly selected for the October 7 About refinement. Local implementation is not deployment approval.",
+    "recipe": "Uncropped 384px sRGB lossless WebP; supplied colors/alpha preserved; metadata stripped."
   }
 }

@@ -1,5 +1,17 @@
 # RVA3D current website handoff
 
+## October 7: Filmmaking copy and testimonial refinement (Part A)
+
+Local checkpoint subject: `restore filmmaking copy and simplify testimonial styling`, based on clean `f67e1a708f81d5185df13310757b9d1203d9fa84`. This entry supersedes the generic filmmaking paragraph, typographic Cannes highlight, white testimonial panels and green collaboration emphasis.
+
+- Owner-confirmed paragraph: ?Our work has screened at Richmond?s 48 Hour Film Project, winning ?Best Graphics in Richmond? five years in a row and ?Best Film? twice. Our short film CMYK, for which Deven was lead animator, was part of the HP/48HFP ?Power of Ink? program, representing RVA at the Cannes Film Festival.? CMYK remains italicized and linked to the existing Richmond Magazine article. VCU/experience paragraph, film-specific records, group caption and historical team attribution remain intact. Counts and collective framing are owner-confirmed; no extra Cannes selection or award claim.
+- Actual supplied Cannes_Festival_thicker_green.png inspected and processed through scripts/build_about_icons_media.mjs: full-frame transparent lossless 384x214 WebP `/media/fbfe68e0d26d0833edbb.webp`. Original color/proportions retained, one informative ?Cannes Film Festival? image name, no link or added badge. Exactly one registry asset/mapping added: 374 approved assets / 438 public mappings. Previous entries unchanged.
+- Verified individual film destination: https://vimeo.com/227448797, labeled ?Watch CMYK ??. A relevant multi-film collection destination could not be verified, so no invented collection link. Owner selection of a collection remains optional.
+- Testimonials sit directly on the light section, with matching decorative purple opening/closing glyphs, no panels and natural heights. Exact candidate words/order/attributions and publication restrictions unchanged. ?welcome.? restored with the existing Pretty Purple token; browser computed rgb(98, 48, 192).
+- Passed lint, TypeScript, content/About/access tests, asset integrity, public-release checks, optimized build and diff checks. Fresh unauthenticated browser checks at 1440/1024/768/390 verify exact quotes, transparent figures, both marks, supplied graphic proportions, responsive grouping, computed purple, one/two/three layouts and candidate-free normal About. FAQ, skyline and collaboration dialog focus behavior passed. Native fullscreen entry/explicit exit passed; synthetic native-fullscreen Escape remains unverified. Existing local Analytics and optional Notion warnings remain.
+- Evidence: ignored scripts/runtime/buyer_pass/before/ and part_a/, with validation logs alongside. Review: http://127.0.0.1:3027/review/about-team. Part B moves FAQ beneath capacity copy and applies bounded buyer-navigation/credit changes. No push, merge, deployment or new branch/worktree.
+
+
 ## October 7: About refinement to the owner's new mockup
 
 This entry supersedes the earlier About composition and testimonial-selection notes. The visual reference was source/ref/about_page_mockup_2026-10-07.jpg, inspected before editing. Starting branch review/geico_refresh_20260926 was clean at d733794f4962fb9341e9bb7799335b7cf133ba5f, preserving both the About checkpoint and password-free local access. Focused local commit subject: “refine about page to October 7 mockup”.

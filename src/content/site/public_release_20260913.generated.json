@@ -14,10 +14,10 @@
     "desmi-rotan-pump",
     "uncommon-goods-outta-this-world"
   ],
-  "assets": 373,
-  "logicalUrls": 437,
-  "registryDigest": "5802160047799964ebcc4475098eb2d7d20b0d0be320c6d55655ee9a5a380749",
-  "urlsDigest": "952900ec10df73537b004e57444e48c2790e77069c09b78a3ecab58d278e6a01",
+  "assets": 374,
+  "logicalUrls": 438,
+  "registryDigest": "588174d666c39db1a3c85db7d40b37e4f194efdccaad37216fe484db619ca131",
+  "urlsDigest": "c678f389495c3ab153c2c8cf57e8af5f6fcbde14047f84b60091e1a3f9e767e9",
   "previous93RegistryDigest": "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8",
   "previous157UrlsDigest": "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f",
   "excludedKeys": [
@@ -535,5 +535,16 @@
       }
     ],
     "authorization": "Owner-supplied About icons; no deployment authorization."
+  },
+  "aboutCannes20261007": {
+    "previousAssets": 373,
+    "previousUrls": 437,
+    "source": {
+      "id": "cannes",
+      "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/meet_the_team/icons/Cannes_Festival_thicker_green.png",
+      "sourceSha256": "38d081b957c5c8545ea9ba245369efc0a1dff902e731f9cd96b4cdf0d60d5820",
+      "key": "fbfe68e0d26d0833edbb.webp"
+    },
+    "authorization": "October 7 owner correction explicitly selects the supplied Cannes graphic in program-screening context; no deployment authorization."
   }
 }

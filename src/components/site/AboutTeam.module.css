@@ -1,5 +1,8 @@
 /* October 6 team composition, scoped to About. Established shared styles remain intact. */
 .page { background: var(--rva-paper); color: var(--rva-void); }
+.page .collaboration h2 em { color: var(--rva-purple); }
+.page .highlights dt { min-height: 64px; display: flex; align-items: center; }
+.cannesGraphic { display: block; width: 112px; max-width: 100%; height: auto; object-fit: contain; }
 .width { width: min(calc(100% - 80px), 1180px); margin-inline: auto; }
 .page h2, .testimonials h2 { margin: 0; font-size: clamp(34px, 3.3vw, 48px); line-height: 1.1; font-weight: 500; letter-spacing: -.04em; text-wrap: balance; }
 .intro { padding-block: clamp(56px, 6vw, 86px); background: #201e29; color: var(--rva-paper); }
@@ -94,12 +97,16 @@
 .page .testimonials .feedbackLabel { color: var(--rva-purple); margin: 0 0 16px; font-size: 12px; letter-spacing: .09em; }
 .page .testimonials .reviewNotice { font-size: 13px; line-height: 1.5; margin-top: 20px; }
 .page .quoteGrid { gap: 18px; align-items: stretch; }
-.page .quote { display: flex; flex-direction: column; min-width: 0; max-width: none; background: #fff; padding: 24px; border-radius: 8px; }
+/* Previous white panel styling retained:
+.page .quote { display: flex; flex-direction: column; min-width: 0; max-width: none; background: #fff; padding: 24px; border-radius: 8px; } */
+.page .quote { display: flex; flex-direction: column; min-width: 0; max-width: none; background: transparent; padding: 0; border: 0; border-radius: 0; box-shadow: none; align-self: start; }
 .page .quote::before { display: none; }
 .quoteMark { display: block; color: var(--rva-purple); font-size: 64px; line-height: .8; height: 46px; }
-.page .quote blockquote { flex: 1; }
+/* Previous equal-height text fill: .page .quote blockquote { flex: 1; } */
+.page .quote blockquote { flex: none; }
+.page .quoteClosing { align-self: flex-end; margin-top: 12px; }
 .page .quote blockquote p { color: var(--rva-void); font-size: 18px; line-height: 1.5; }
-.page .quote figcaption { color: var(--rva-purple); margin: 24px 0 0; font-size: 14px; line-height: 1.45; }
+.page .quote figcaption { color: var(--rva-purple); margin: 12px 0 0; font-size: 14px; line-height: 1.45; }
 .quote figcaption strong, .quote figcaption span { display: block; }
 .quote figcaption strong { font-weight: 650; margin-bottom: 3px; }
 
@@ -113,7 +120,8 @@
   .promiseHeading { min-height: 64px; margin-bottom: 10px; }
   .page .filmSection { padding-block: 50px; }
   .page .testimonials { padding-block: 56px; }
-  .page .quote { padding: 28px; }
+  /* Previous mobile panel padding: .page .quote { padding: 28px; } */
+  .page .quote { padding: 0; }
 }
 @media (max-width: 700px) {
   .page .profiles { grid-template-columns: 1fr; gap: 32px; }

@@ -23,6 +23,7 @@ export function AboutTestimonials({ testimonials, privateReview = false }: {
       {quotes.map(testimonial => <figure key={testimonial.attribution} className={styles.quote}>
         <span className={styles.quoteMark} aria-hidden="true">“</span>
         <blockquote><p>{testimonial.quote}</p></blockquote>
+        <span className={`${styles.quoteMark} ${styles.quoteClosing}`} aria-hidden="true">”</span>
         {/* Previous single-line attribution: <figcaption>{testimonial.attribution}</figcaption> */}
         <figcaption><strong>{testimonial.attribution}</strong>{testimonial.affiliation && <span>{testimonial.affiliation}</span>}</figcaption>
       </figure>)}
