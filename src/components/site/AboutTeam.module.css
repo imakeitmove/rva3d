@@ -260,3 +260,8 @@
 @media (max-width: 900px) {
   .page .principleUtility { text-align: left; }
 }
+
+/* Geist places the multiplication glyph ink slightly above the numeral baseline.
+   Keep real inline text and lower only its ink; zero line-height preserves the stat row. */
+.page .highlights .statValue { display: block; margin: 0; color: inherit; font: inherit; }
+.page .highlights .multiplication { display: inline; margin: 0; color: inherit; font: inherit; line-height: 0; vertical-align: -.055em; }

@@ -89,7 +89,8 @@ export function AboutTeamPage({ reviewTestimonials }: { reviewTestimonials?: rea
           <p>Our work has screened at Richmond’s 48 Hour Film Project, winning ‘Best Graphics in Richmond’ five years in a row and ‘Best Film’ twice. Our short film <a href="https://richmondmagazine.com/arts-entertainment/stage-screen/pixel-drop-cmyk-screens-at-cannes-film-festival/"><em>CMYK</em></a>, for which Deven was lead animator, was part of the HP/48HFP ‘Power of Ink’ program, representing RVA at the Cannes Film Festival.</p>
           {/* Previous collection link: <a className="editorial-link" href="https://vimeo.com/pixeldropfilms">Watch Pixel Drop films <span aria-hidden="true">↗</span></a> */}
           {/* Previous individual-film destination: https://vimeo.com/227448797 — Watch CMYK. */}
-          <a className="editorial-link" href="https://vimeo.com/pixeldropfilms">Watch our films <span aria-hidden="true">→</span></a>
+          {/* Previous arrow: Watch our films →; use the established editorial up-right arrow. */}
+          <a className="editorial-link" href="https://vimeo.com/pixeldropfilms">Watch our films <span aria-hidden="true">↗</span></a>
         </div>
         <div className={styles.filmProof}>
         <figure className={styles.filmPhoto}>
@@ -103,7 +104,10 @@ export function AboutTeamPage({ reviewTestimonials }: { reviewTestimonials?: rea
       <dl className={styles.highlights} aria-label="Highlights from Deven’s Richmond filmmaking work across multiple teams">
         {aboutFilmHighlights.map(highlight => <div key={highlight.value}>
           {/* Context previously always rendered a span; Cannes now uses one complete screening label. */}
-          <dt>{highlight.value === "Cannes" ? <Image {...icons.cannes} className={styles.cannesGraphic} alt="Cannes Film Festival" sizes="72px" unoptimized /> : highlight.value}</dt><dd><strong>{highlight.title}</strong>{highlight.context && <span>{highlight.context}</span>}</dd>
+          {/* Previous unadjusted value and single-line label retained for restoration:
+          <dt>{highlight.value === "Cannes" ? <Image {...icons.cannes} className={styles.cannesGraphic} alt="Cannes Film Festival" sizes="72px" unoptimized /> : highlight.value}</dt><dd><strong>{highlight.title}</strong>{highlight.context && <span>{highlight.context}</span>}</dd> */}
+          <dt>{highlight.value === "Cannes" ? <Image {...icons.cannes} className={styles.cannesGraphic} alt="Cannes Film Festival" sizes="72px" unoptimized /> : highlight.value === "2×" ? <span className={styles.statValue}>2<span className={styles.multiplication}>×</span></span> : highlight.value}</dt>
+          <dd><strong>{highlight.value === "Cannes" ? <>Screened at<br />Cannes Film Festival</> : highlight.title}</strong>{highlight.context && <span>{highlight.context}</span>}</dd>
         </div>)}
       </dl>
       </div>
