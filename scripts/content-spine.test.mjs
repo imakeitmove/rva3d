@@ -1101,7 +1101,7 @@ test("buyer-confidence copy and distinct project interaction contracts stay scop
     "src/lib/site/home-template.mjs","src/components/site/WorkPages.tsx",
     "src/content/site/capability-overview.ts","src/components/site/CapabilityOverview.tsx",
     "src/components/site/Header.tsx","public/site-assets/complete-site.css",
-    "src/components/site/AboutEditorial.tsx","src/components/site/HowWeWork.tsx",
+    "src/components/site/AboutTeam.tsx","src/components/site/HowWeWork.tsx",
     "src/content/site/how-we-work.ts","src/components/site/Contact.tsx",
     "src/components/site/editorial-refinement.css","src/components/site/Brand.tsx",
     "src/components/site/MovedAboutFragments.tsx","src/proxy.ts","src/app/sitemap.ts",
@@ -1135,7 +1135,8 @@ test("buyer-confidence copy and distinct project interaction contracts stay scop
   assert.match(header,/nav-client-login/);
   assert.match(css,/--control-bg:var\(--rva-purple\);--control-fg:#fff/);
   assert.match(css,/data-project-mode="inventory".*flex-direction:column/);
-  assert.match(about,/export function AboutEditorial\(\)/);
+  // Previous active composition was AboutEditorial; it remains available for restoration.
+  assert.match(about,/export function AboutTeamPage\(/);
   assert(about.includes('id="collaborate"'));
   for (const id of ["working-together","process","communication","faq"]) assert(howWeWork.includes(`id="${id}"`));
   for (const step of ["Talk","Define","Make","Refine","Deliver"]) assert(howWeWorkContent.includes(`["${step}"`));

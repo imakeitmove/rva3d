@@ -70,12 +70,23 @@ test("AMSOIL single ending and factual centered credit selection",()=>{
  assert.match(active,/hero=\{sequence.hero\}/);assert.match(active,/credits=\{study.credits\}/);
  assert.match(active,/<CaseBeat id="final-image">/);assert(!active.includes('id="final-stills"'));
 });
+/* Retained founder-only assertion for restoration of AboutEditorial.
 test("About founder paragraph uses exact owner wording and house BrandText",()=>{
  const active=ts.transpileModule(fs.readFileSync("src/components/site/AboutEditorial.tsx","utf8"),{fileName:"AboutEditorial.tsx",compilerOptions:{jsx:ts.JsxEmit.Preserve,module:ts.ModuleKind.ESNext,removeComments:true}}).outputText;
  const expected="With 20 years of experience in motion design and 3D animation, Deven Langston is RVA3D's founder and senior artist, guiding projects from first frame to final render.";
  assert(active.includes('<BrandText text="'+expected+'"'));
  assert(!active.includes("Deven connects creative direction with hands-on execution."));
  assert(active.includes("A small studio with a clear point of contact."));
+});
+*/
+test("About team biographies retain house BrandText and the artist's confirmed experience",()=>{
+ // Previous founder-only paragraph assertion belongs to the retained AboutEditorial composition.
+ const active=ts.transpileModule(fs.readFileSync("src/components/site/AboutTeam.tsx","utf8"),{fileName:"AboutTeam.tsx",compilerOptions:{jsx:ts.JsxEmit.Preserve,module:ts.ModuleKind.ESNext,removeComments:true}}).outputText;
+ const content=fs.readFileSync("src/content/site/about_team.ts","utf8");
+ assert(active.includes('<BrandText text={person.biography}'));
+ assert(content.includes("Deven leads the creative and technical work, from early planning through final delivery."));
+ assert(content.includes("20 years of experience in motion design and 3D animation"));
+ assert(!active.includes("A small studio with a clear point of contact."));
 });
 test("AMSOIL six web clips have silent browser-compatible media and matching posters",()=>{
  const urls=JSON.parse(fs.readFileSync("src/content/site/media-urls.generated.json")),registry=JSON.parse(fs.readFileSync("src/content/site/media.generated.json"));

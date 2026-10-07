@@ -14,10 +14,10 @@
     "desmi-rotan-pump",
     "uncommon-goods-outta-this-world"
   ],
-  "assets": 367,
-  "logicalUrls": 431,
-  "registryDigest": "3c88d2a63d2b35bd1ca7826f02bd439e030eba988274bd590e631b6bf18d37e5",
-  "urlsDigest": "48a4befdd306580dfd35a8b2303c63e8270bbfd491237c2f2500703900c28a79",
+  "assets": 370,
+  "logicalUrls": 434,
+  "registryDigest": "211fe79e7b352f47b2300391a218cce110de1e299b06002298f28344359c6e20",
+  "urlsDigest": "898025850f6175cb7d12c304308365370f0da37d1863cd348cd5b3dc13872ca1",
   "previous93RegistryDigest": "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8",
   "previous157UrlsDigest": "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f",
   "excludedKeys": [
@@ -153,7 +153,8 @@
     "2026-09-28",
     "2026-09-29",
     "2026-09-30",
-    "2026-10-01"
+    "2026-10-01",
+    "2026-10-06"
   ],
   "audit": "2026-09-17 explicit owner approval to publish all 45 current portfolio ribbon images with the finished hello experience and site refinements.",
   "previousSeptember15Release": {
@@ -478,5 +479,35 @@
     ],
     "evidence": "src/content/site/capabilities_motion_reel.generated.json",
     "authorization": "Owner-selected exact 004 ambient Motion Design overview reel and poster; no deployment."
+  },
+  "aboutTeam20261006": {
+    "previousAssets": 367,
+    "previousUrls": 431,
+    "addedKeys": [
+      "13a486c6448011ce9a70.webp",
+      "48a4b4a180f5b9dde679.webp",
+      "a4e1abf67b30c4515bfe.webp"
+    ],
+    "sources": [
+      {
+        "id": "deven",
+        "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/meet_the_team/deven_langston/deven_headshot_square.jpg",
+        "sourceSha256": "a9d815329c6635483402223324d793fbcd29098760c5145e7a81e53166dceb67",
+        "key": "13a486c6448011ce9a70.webp"
+      },
+      {
+        "id": "lauren",
+        "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/meet_the_team/lauren_langston/lauren_headshot_furcoat_purpleHair_CC.jpg",
+        "sourceSha256": "0eafce2c02a704a8aa6878fe403d802e8b25b01913cfade20c16037b8b5f5d40",
+        "key": "48a4b4a180f5b9dde679.webp"
+      },
+      {
+        "id": "jim",
+        "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/meet_the_team/jim_burns/Jim_burns_headshot_ai_assisted_cleanup_expanded.jpg",
+        "sourceSha256": "cf7837c924fe5abaff1c2805f8a63e27bbb359b28641970e78186f8fc93b19e4",
+        "key": "a4e1abf67b30c4515bfe.webp"
+      }
+    ],
+    "authorization": "Owner-directed About portraits; web derivatives only, no deployment authorization."
   }
 }

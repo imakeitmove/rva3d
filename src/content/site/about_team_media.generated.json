@@ -1,0 +1,20 @@
+{
+  "deven": {
+    "src": "/media/13a486c6448011ce9a70.webp",
+    "width": 800,
+    "height": 800,
+    "alt": "Deven Langston, Founder / Lead Artist"
+  },
+  "lauren": {
+    "src": "/media/48a4b4a180f5b9dde679.webp",
+    "width": 800,
+    "height": 800,
+    "alt": "Lauren Langston, Operations Manager"
+  },
+  "jim": {
+    "src": "/media/a4e1abf67b30c4515bfe.webp",
+    "width": 800,
+    "height": 800,
+    "alt": "Jim Burns, Client Strategist / Producer"
+  }
+}

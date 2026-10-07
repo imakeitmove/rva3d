@@ -61,6 +61,12 @@ export function proxy(request: NextRequest) {
   const token = request.cookies.get(PRIVATE_REVIEW_COOKIE)?.value;
   const authenticated = !!token && verifyPrivateReviewToken(token);
   const scope = token ? privateReviewTokenScope(token) : null;
+  // Exact About layout fixture: existing review auth, loopback only, never public production.
+  if (pathname === "/review/about-team") {
+    if (isPublicProduction() || !/^(?:localhost|127\.0\.0\.1|\[::1\])$/i.test(request.nextUrl.hostname)) return finishPrivate(new NextResponse(null, { status: 404 }));
+    if (!authenticated) return finishPrivate(NextResponse.redirect(new URL("/review/login?next=" + encodeURIComponent("/review/about-team"), request.url), 303));
+    return finishPrivate(NextResponse.next());
+  }
   if (pathname.startsWith("/review/projects/")) {
     const slug = pathname.slice("/review/projects/".length).replace(/\/$/, "");
     if (!permissionReviewAvailable(slug)) return finishPrivate(new NextResponse(null, { status: 404 }));

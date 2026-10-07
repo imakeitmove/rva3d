@@ -196,7 +196,9 @@ test("release registry pins ten owner-approved cases and the exact selectively r
   // Three new clips, two new posters, and one reused poster add six mappings.
   // Before the exact 4K-source AMSOIL final still: 364 assets / 428 URLs.
   // Before the exact owner-selected Motion Design 003 loop and poster: 365 assets / 429 URLs.
-  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 367, logicalUrls: 431, seoDimensionsVerified: false });
+  // Before the three owner-labeled About portraits:
+  // assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 367, logicalUrls: 431, seoDimensionsVerified: false });
+  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 370, logicalUrls: 434, seoDimensionsVerified: false });
 });
 
 // GEICO Phase 2 covers the editorial contract and prevents approval drift in shared media.
