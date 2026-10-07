@@ -4,6 +4,7 @@ import { verifyPrivateReviewToken, privateReviewTokenScope, PRIVATE_REVIEW_COOKI
 import { canReviewAsset, permissionReviewAvailable } from "@/lib/permission-review";
 import { safeReviewNext } from "@/lib/review-boundary";
 import { isPublicProduction } from "@/lib/site/runtime-environment";
+import { localAboutDesignPreviewEnabled } from "@/lib/site/local-about-design-preview";
 
 const privateHeaders = { "Cache-Control": "private, no-store", "CDN-Cache-Control": "no-store", "Vercel-CDN-Cache-Control": "no-store", "X-Robots-Tag": "noindex, nofollow, noarchive", "Referrer-Policy": "no-referrer", "X-Content-Type-Options": "nosniff", "X-Frame-Options": "DENY" };
 const publicHeaders = { "Referrer-Policy": "strict-origin-when-cross-origin", "X-Content-Type-Options": "nosniff", "X-Frame-Options": "DENY" };
@@ -58,15 +59,23 @@ export function proxy(request: NextRequest) {
 
   if (pathname === "/review/login" || pathname === "/review/auth") return finishPrivate(NextResponse.next());
 
+  // Exact local About design exception, enabled only by the loopback launcher.
+  if (pathname === "/review/about-team") {
+    if (!localAboutDesignPreviewEnabled() || !/^(?:localhost|127\.0\.0\.1|\[::1\])$/i.test(request.nextUrl.hostname)) return finishPrivate(new NextResponse(null, { status: 404 }));
+    return finishPrivate(NextResponse.next());
+  }
+
   const token = request.cookies.get(PRIVATE_REVIEW_COOKIE)?.value;
   const authenticated = !!token && verifyPrivateReviewToken(token);
   const scope = token ? privateReviewTokenScope(token) : null;
+  /* Previous password-required About gate retained for restoration.
   // Exact About layout fixture: existing review auth, loopback only, never public production.
   if (pathname === "/review/about-team") {
     if (isPublicProduction() || !/^(?:localhost|127\.0\.0\.1|\[::1\])$/i.test(request.nextUrl.hostname)) return finishPrivate(new NextResponse(null, { status: 404 }));
     if (!authenticated) return finishPrivate(NextResponse.redirect(new URL("/review/login?next=" + encodeURIComponent("/review/about-team"), request.url), 303));
     return finishPrivate(NextResponse.next());
   }
+  */
   if (pathname.startsWith("/review/projects/")) {
     const slug = pathname.slice("/review/projects/".length).replace(/\/$/, "");
     if (!permissionReviewAvailable(slug)) return finishPrivate(new NextResponse(null, { status: 404 }));
