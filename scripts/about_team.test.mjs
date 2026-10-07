@@ -23,7 +23,7 @@ vm.runInNewContext(output, {
 });
 const render = (testimonials, privateReview = false) => renderToStaticMarkup(createElement(componentExports.AboutTestimonials, { testimonials, privateReview }));
 const fixture = count => Array.from({ length: count }, (_, index) => ({
-  quote: `Approved layout example ${index + 1}.`, attribution: `Example collaborator ${index + 1}`, clearance: "cleared",
+  quote: `Approved layout example ${index + 1}.`, attribution: `Example collaborator ${index + 1}`, affiliation: "Example production company", clearance: "cleared",
 }));
 
 test("uncleared testimonials never render publicly and zero quotes omit the entire section", () => {
@@ -43,7 +43,10 @@ test("one, two and three approved quotations render simultaneously with real att
     assert.equal((html.match(/<blockquote>/g) || []).length, count);
     assert.equal((html.match(/<figcaption>/g) || []).length, count);
     assert(html.includes(`--testimonial-count:${count}`));
-    assert(!/carousel|autoplay|aria-hidden/.test(html));
+    // Decorative quotation glyphs are now hidden from assistive technology.
+    assert(!/carousel|autoplay/.test(html));
+    assert.equal((html.match(/aria-hidden="true"/g) || []).length, count);
+    assert(html.includes("<strong>Example collaborator 1</strong><span>Example production company</span>"));
   }
 });
 
@@ -62,9 +65,11 @@ test("About keeps the confirmed team order/roles and qualified historical filmma
     ["Lauren Langston", "Operations Manager"],
     ["Jim Burns", "Client Strategist / Producer"],
   ]);
-  assert.deepEqual(aboutFilmHighlights.map(item => item.value), ["5 years running", "2× Best Film", "Cannes"]);
+  // Previous combined values: ["5 years running", "2× Best Film", "Cannes"].
+  assert.deepEqual(aboutFilmHighlights.map(item => item.value), ["5", "2×", "Cannes"]);
   assert.equal(aboutFilmHighlights[2].title, "CMYK screening");
-  assert.equal(aboutFilmHighlights[1].context, "Films Deven contributed to");
+  // Historical attribution remains in the section copy and internal provenance.
+  assert.equal(aboutFilmHighlights[1].context, "Richmond 48HFP");
 });
 
 test("About local launch opt-in defaults off and every deployment signal overrides it", () => {

@@ -15,7 +15,9 @@ export async function localAboutTestimonialFixture(): Promise<AboutTestimonial[]
     if (typeof value.quote !== "string" || typeof value.attribution !== "string" || value.clearance !== "candidate" || value.quote.length > 1000 || value.attribution.length > 250) {
       throw new Error("Invalid local testimonial fixture");
     }
+    if (value.affiliation !== undefined && (typeof value.affiliation !== "string" || value.affiliation.length > 250)) throw new Error("Invalid local testimonial affiliation");
     // Only layout copy leaves the fixture. No source locators or research notes.
-    return { quote: value.quote, attribution: value.attribution, clearance: "candidate" };
+    // Previous single-line shape: return { quote: value.quote, attribution: value.attribution, clearance: "candidate" };
+    return { quote: value.quote, attribution: value.attribution, affiliation: value.affiliation as string | undefined, clearance: "candidate" };
   });
 }

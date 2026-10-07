@@ -3,6 +3,7 @@ import Image from "next/image";
 import { aboutIntroduction, aboutTeam, aboutPromises, aboutFilmHighlights } from "@/content/site/about_team";
 import { aboutTestimonials, type AboutTestimonial } from "@/content/site/about_testimonials";
 import portraits from "@/content/site/about_team_media.generated.json";
+import icons from "@/content/site/about_icons_media.generated.json";
 import filmSlides from "@/content/site/richmond_films.generated.json";
 import { siteHref } from "@/lib/site/paths";
 import { publicInquiryDeliveryEnabled } from "@/lib/site/runtime-environment";
@@ -10,6 +11,7 @@ import { Shell } from "./Shell";
 import { BrandText } from "./Brand";
 import { AboutSkyline } from "./AboutSkyline";
 import { AboutTestimonials } from "./AboutTestimonials";
+import { SiteMedia } from "./SiteMedia";
 import { CollaboratorContact } from "./CollaboratorContact";
 import { MovedAboutFragments } from "./MovedAboutFragments";
 import styles from "./AboutTeam.module.css";
@@ -34,7 +36,8 @@ export function AboutTeamPage({ reviewTestimonials }: { reviewTestimonials?: rea
     <section className={`${styles.width} ${styles.teamSection}`} id="team" data-tone="paper" aria-labelledby="team-title">
       <div className={styles.sectionHeading}>
         <h2 id="team-title">The people behind <BrandText text="RVA3D." /></h2>
-        <p>A small team with complementary strengths.</p>
+        {/* Previous subtitle removed for the compact October 7 composition:
+        <p>A small team with complementary strengths.</p> */}
       </div>
       <div className={styles.profiles}>
         {aboutTeam.map(person => <article key={person.id} className={styles.profile} aria-labelledby={`${person.id}-name`}>
@@ -42,39 +45,55 @@ export function AboutTeamPage({ reviewTestimonials }: { reviewTestimonials?: rea
           <div className={styles.profileCopy}>
             <h3 id={`${person.id}-name`}>{person.name}</h3>
             <p className={styles.role}>{person.role}</p>
-            <p className={styles.biography}><BrandText text={person.biography} /></p>
+            {/* Biography retained in content for restoration, no longer rendered:
+            <p className={styles.biography}><BrandText text={person.biography} /></p> */}
           </div>
         </article>)}
       </div>
       <div className={styles.promises} aria-label="Working with RVA3D">
         {aboutPromises.map(promise => <article key={promise.title}>
-          <h3>{promise.title}</h3><p>{promise.description}</p>
+          <div className={styles.promiseHeading}>
+            <Image {...icons[promise.icon]} className={styles.promiseIcon} alt="" aria-hidden="true" sizes="64px" unoptimized />
+            <h3>{promise.title}</h3>
+          </div>
+          <p>{promise.description}</p>
         </article>)}
       </div>
-      <p className={styles.nearAndFar}>Based in Richmond. Working with clients near and far.</p>
+      {/* Repeated location strip removed per October 7 brief:
+      <p className={styles.nearAndFar}>Based in Richmond. Working with clients near and far.</p> */}
     </section>
 
-    <AboutTestimonials testimonials={reviewTestimonials ?? aboutTestimonials} privateReview={reviewTestimonials !== undefined} />
-
-    <section className={`${styles.width} ${styles.filmSection}`} id="richmond" data-tone="paper" aria-labelledby="richmond-title">
-      <div className={styles.filmGrid}>
+    {/* Client feedback now follows the Richmond proof band. */}
+    <section className={styles.filmSection} id="richmond" data-tone="void" aria-labelledby="richmond-title">
+      <div className={`${styles.width} ${styles.filmGrid}`}>
         <div className={styles.filmCopy}>
+          {/* Previous Richmond copy retained for restoration:
           <h2 id="richmond-title">Rooted in Richmond.</h2>
           <p>Deven built his career alongside Richmond’s filmmakers and production crews. His 48 Hour Film Project work spans multiple teams, including <a href="https://vimeo.com/pixeldropfilms">Pixel Drop</a>.</p>
           <p>Deven also served as lead animator on Pixel Drop’s short film <a href="https://richmondmagazine.com/arts-entertainment/stage-screen/pixel-drop-cmyk-screens-at-cannes-film-festival/"><em>CMYK</em></a>, which screened in the HP/48HFP ‘Power of Ink’ program at Cannes.</p>
-          <a className="editorial-link" href="https://vimeo.com/pixeldropfilms">Watch the films <span aria-hidden="true">↗</span></a>
+          <a className="editorial-link" href="https://vimeo.com/pixeldropfilms">Watch the films <span aria-hidden="true">↗</span></a> */}
+          <h2 id="richmond-title">Proven in Richmond.</h2>
+          <p><BrandText text="A Virginia Commonwealth University graduate and former instructor in its Kinetic Imaging program, Deven brings 20 years of industry experience to RVA3D." /></p>
+          <p>Deven’s graphics and animation have contributed to award-winning Richmond 48 Hour Film Project films. He was also lead animator on Pixel Drop’s <a href="https://richmondmagazine.com/arts-entertainment/stage-screen/pixel-drop-cmyk-screens-at-cannes-film-festival/"><em>CMYK</em></a>, which screened at Cannes through the HP/48HFP ‘Power of Ink’ program.</p>
+          <a className="editorial-link" href="https://vimeo.com/pixeldropfilms">Watch Pixel Drop films <span aria-hidden="true">↗</span></a>
         </div>
+        <div className={styles.filmProof}>
         <figure className={styles.filmPhoto}>
-          <Image src={filmPhoto.src} width={filmPhoto.width} height={filmPhoto.height} alt={filmPhoto.alt} sizes="(max-width: 900px) calc(100vw - 40px), 55vw" unoptimized />
+          {/* Previous static image retained; shared viewer now provides full-frame expansion:
+          <Image src={filmPhoto.src} width={filmPhoto.width} height={filmPhoto.height} alt={filmPhoto.alt} sizes="(max-width: 900px) calc(100vw - 40px), 55vw" unoptimized /> */}
+          <SiteMedia media={{ ...filmPhoto, kind: "image" }} sizes="(max-width: 900px) calc(100vw - 40px), 55vw" />
           <figcaption>Pixel Drop filmmakers on the Filmapalooza red carpet.</figcaption>
         </figure>
-      </div>
-      <dl className={styles.highlights}>
+      <dl className={styles.highlights} aria-label="Highlights from Deven’s Richmond filmmaking work across multiple teams">
         {aboutFilmHighlights.map(highlight => <div key={highlight.value}>
           <dt>{highlight.value}</dt><dd><strong>{highlight.title}</strong><span>{highlight.context}</span></dd>
         </div>)}
       </dl>
+        </div>
+      </div>
     </section>
+
+    <AboutTestimonials testimonials={reviewTestimonials ?? aboutTestimonials} privateReview={reviewTestimonials !== undefined} />
 
     {/* The approved collaboration invitation and existing form remain intact. */}
     <section className={`collaborate-section ${styles.collaboration}`} id="collaborate" data-tone="paper" aria-labelledby="collaborate-title">

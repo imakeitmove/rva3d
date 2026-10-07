@@ -198,7 +198,9 @@ test("release registry pins ten owner-approved cases and the exact selectively r
   // Before the exact owner-selected Motion Design 003 loop and poster: 365 assets / 429 URLs.
   // Before the three owner-labeled About portraits:
   // assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 367, logicalUrls: 431, seoDimensionsVerified: false });
-  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 370, logicalUrls: 434, seoDimensionsVerified: false });
+  // Before the three owner-supplied October 7 About icons:
+  // assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 370, logicalUrls: 434, seoDimensionsVerified: false });
+  assert.deepEqual(publicResult, { status: "PASS", studies: 10, assets: 373, logicalUrls: 437, seoDimensionsVerified: false });
 });
 
 // GEICO Phase 2 covers the editorial contract and prevents approval drift in shared media.

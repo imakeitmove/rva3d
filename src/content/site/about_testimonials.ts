@@ -1,6 +1,7 @@
 export type AboutTestimonial = {
   quote: string;
   attribution: string;
+  affiliation?: string;
   clearance: "candidate" | "cleared";
 };
 

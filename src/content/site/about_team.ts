@@ -23,6 +23,7 @@ export const aboutTeam = [
   },
 ] as const;
 
+/* October 6 promises retained for restoration; October 7 copy is below.
 export const aboutPromises = [
   {
     title: "Artist-led throughout.",
@@ -37,13 +38,26 @@ export const aboutPromises = [
     description: "Lauren and Jim help coordinate questions, feedback and next steps so production can stay focused.",
   },
 ] as const;
+*/
+export const aboutPromises = [
+  { icon: "senior", title: "Senior-led from planning to final delivery.", description: "Work directly with an experienced 3D artist throughout planning and production." },
+  { icon: "organized", title: "Organized, responsive, transparent.", description: "Clear plans, documented decisions and an organized path between milestones." },
+  { icon: "communication", title: "Clear communication with our clients.", description: "Straight answers, useful updates and direct access to the people shaping your project." },
+] as const;
 
 // Owner-confirmed in the October 6 About brief: five consecutive graphics wins
 // across multiple teams and contributions to two Best Film-winning projects.
 // Exact years/film-by-film attribution were not supplied. Cannes is a screening,
 // not a prize, competitive selection, or award for the newly assembled studio.
+/* October 6 highlight formatting retained for restoration.
 export const aboutFilmHighlights = [
   { value: "5 years running", title: "Best Use of Graphics", context: "Richmond 48 Hour Film Project — Deven’s graphics work" },
   { value: "2× Best Film", title: "Richmond 48 Hour Film Project", context: "Films Deven contributed to" },
   { value: "Cannes", title: "CMYK screening", context: "HP/48HFP “Power of Ink” program" },
+] as const;
+*/
+export const aboutFilmHighlights = [
+  { value: "5", title: "years in a row", context: "Best Use of Graphics" },
+  { value: "2×", title: "Best Film", context: "Richmond 48HFP" },
+  { value: "Cannes", title: "CMYK screening", context: "HP/48HFP “Power of Ink”" },
 ] as const;

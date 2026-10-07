@@ -14,10 +14,10 @@
     "desmi-rotan-pump",
     "uncommon-goods-outta-this-world"
   ],
-  "assets": 370,
-  "logicalUrls": 434,
-  "registryDigest": "211fe79e7b352f47b2300391a218cce110de1e299b06002298f28344359c6e20",
-  "urlsDigest": "898025850f6175cb7d12c304308365370f0da37d1863cd348cd5b3dc13872ca1",
+  "assets": 373,
+  "logicalUrls": 437,
+  "registryDigest": "5802160047799964ebcc4475098eb2d7d20b0d0be320c6d55655ee9a5a380749",
+  "urlsDigest": "952900ec10df73537b004e57444e48c2790e77069c09b78a3ecab58d278e6a01",
   "previous93RegistryDigest": "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8",
   "previous157UrlsDigest": "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f",
   "excludedKeys": [
@@ -154,7 +154,8 @@
     "2026-09-29",
     "2026-09-30",
     "2026-10-01",
-    "2026-10-06"
+    "2026-10-06",
+    "2026-10-07"
   ],
   "audit": "2026-09-17 explicit owner approval to publish all 45 current portfolio ribbon images with the finished hello experience and site refinements.",
   "previousSeptember15Release": {
@@ -509,5 +510,30 @@
       }
     ],
     "authorization": "Owner-directed About portraits; web derivatives only, no deployment authorization."
+  },
+  "aboutIcons20261007": {
+    "previousAssets": 370,
+    "previousUrls": 434,
+    "sources": [
+      {
+        "id": "senior",
+        "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/meet_the_team/icons/icon1_5-star-person_green_circle.png",
+        "sourceSha256": "d3af059e4de2d74760069bfa18f2016573d3a08f8079f35933b18e23303f5ec5",
+        "key": "821b37007ecc8ff2ae94.webp"
+      },
+      {
+        "id": "organized",
+        "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/meet_the_team/icons/icon2_back-and-forth-arrows_green_circle.png",
+        "sourceSha256": "09aaccce44e6323583d18745ef4435471c553bd14a3ffc58ec61498730b9acc7",
+        "key": "4763543edf9cafdd57fa.webp"
+      },
+      {
+        "id": "communication",
+        "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/meet_the_team/icons/icon3_communication_checkgreen_circle.png",
+        "sourceSha256": "e8a62390ca9d00d12d880fb42564b9b36b181e0d9323668a1f9d099b6a4f0317",
+        "key": "1d8b1ecdc62a919678b0.webp"
+      }
+    ],
+    "authorization": "Owner-supplied About icons; no deployment authorization."
   }
 }

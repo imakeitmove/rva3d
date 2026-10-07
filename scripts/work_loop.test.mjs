@@ -79,14 +79,17 @@ test("About founder paragraph uses exact owner wording and house BrandText",()=>
  assert(active.includes("A small studio with a clear point of contact."));
 });
 */
-test("About team biographies retain house BrandText and the artist's confirmed experience",()=>{
+test("About compact team omits biographies and retains house BrandText in Richmond credentials",()=>{
  // Previous founder-only paragraph assertion belongs to the retained AboutEditorial composition.
  const active=ts.transpileModule(fs.readFileSync("src/components/site/AboutTeam.tsx","utf8"),{fileName:"AboutTeam.tsx",compilerOptions:{jsx:ts.JsxEmit.Preserve,module:ts.ModuleKind.ESNext,removeComments:true}}).outputText;
  const content=fs.readFileSync("src/content/site/about_team.ts","utf8");
- assert(active.includes('<BrandText text={person.biography}'));
+ // Previous assertion: assert(active.includes('<BrandText text={person.biography}'));
+ assert(!active.includes('text={person.biography}'));
+ assert(active.includes('<BrandText text="A Virginia Commonwealth University graduate'));
  assert(content.includes("Deven leads the creative and technical work, from early planning through final delivery."));
  assert(content.includes("20 years of experience in motion design and 3D animation"));
  assert(!active.includes("A small studio with a clear point of contact."));
+ assert(!active.includes("A small team with complementary strengths."));
 });
 test("AMSOIL six web clips have silent browser-compatible media and matching posters",()=>{
  const urls=JSON.parse(fs.readFileSync("src/content/site/media-urls.generated.json")),registry=JSON.parse(fs.readFileSync("src/content/site/media.generated.json"));
