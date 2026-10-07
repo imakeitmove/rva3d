@@ -185,7 +185,9 @@ export async function verifyPreviewSource(root=process.cwd()) {
   assert(!/v-hero-(prev|next)|id="ribbon-(prev|next)"/.test(html),"Old hero or ribbon arrows present");
   // Previous copy assertion retained; the September 16 reviewed wording supersedes it.
 //  assert(html.includes("brings his 20 years of experience in animation, motion design, and 3D production"),"Homepage experience copy missing");
-  assert(html.includes("His 20 years in animation, motion design and 3D production help us make sound creative and technical decisions"),"Reviewed homepage experience copy missing");
+  // October 7 owner-approved replacement; previous assertion retained for rollback.
+//  assert(html.includes("His 20 years in animation, motion design and 3D production help us make sound creative and technical decisions"),"Reviewed homepage experience copy missing");
+  assert(html.includes("Deven Langston, founder and creative lead of ${brandName()}, brings 20 years of experience in animation, motion design and 3D production. Work directly with Deven from the first conversation through final delivery."),"Final approved homepage experience copy missing");
   assert(html.includes("<h3>Make complex ideas easy to see.</h3>"),"Reviewed homepage fit heading missing");
   const header=await read("src/components/site/Header.tsx");
   assert(header.includes('className="hamburger"')&&!header.includes('More navigation'),"Partial More navigation is not the approved header");
