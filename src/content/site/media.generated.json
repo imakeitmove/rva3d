@@ -5464,13 +5464,13 @@
     "approvalNote": "Owner-selected exact cropped 4K AMSOIL final still. Local review/checkpoint only; no deployment authorized.",
     "recipe": "Auto-orient; uncropped max1600px; sRGB WebP quality85 effort6; metadata stripped. Source master preserved."
   },
-  "ef8afc51db8bb9d3771f.mp4": {
-    "file": "private-media/ef8afc51db8bb9d3771f.mp4",
+  "2f1991faf21298d9200e.mp4": {
+    "file": "private-media/2f1991faf21298d9200e.mp4",
     "type": "video/mp4",
-    "bytes": 4257740,
-    "sha256": "ef8afc51db8bb9d3771fc14741572c327e155f838c0dbcd8c913db692ad8a771",
-    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/demo_reels/2026_motion_design_demo_reel-loop-for-web_004.mp4",
-    "sourceSha256": "2a95ac5d82c150165a9ddc1e73d7e165a0bfc47d553325d07894367ccd75ec6c",
+    "bytes": 2988601,
+    "sha256": "2f1991faf21298d9200e938722647423a9165888074b26862282443fd3fd6892",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/demo_reels/2026_motion_design_demo_reel-loop-for-web_005.mp4",
+    "sourceSha256": "20723410af1a141ab797e28f20aabf2bd6f565785d6f83d17621f5a400448810",
     "width": 1280,
     "height": 720,
     "publication": "public-approved",
@@ -5478,16 +5478,16 @@
     "approvedBy": "Deven Langston",
     "approvalAuthority": "RVA3D owner",
     "approvalSource": "direct-owner-approval",
-    "approvalNote": "Owner-selected exact Motion Design overview ambient reel. Local review only; no deployment authorized.",
-    "recipe": "Full 381-frame edit at original 24fps; 1280x720 H.264 CRF20 slow yuv420p; silent; faststart; metadata stripped; no crop or retiming."
+    "approvalNote": "Owner-selected exact Motion Design overview ambient reel. Production deployment authorized.",
+    "recipe": "Full 252-frame edit at original 24fps; 1280x720 H.264 CRF20 slow yuv420p; silent; faststart; metadata stripped; no crop or retiming."
   },
-  "f44f217be20881fbf2cb.webp": {
-    "file": "private-media/f44f217be20881fbf2cb.webp",
+  "0bea300f2e52e5266a34.webp": {
+    "file": "private-media/0bea300f2e52e5266a34.webp",
     "type": "image/webp",
-    "bytes": 29580,
-    "sha256": "f44f217be20881fbf2cb752bebdbb29e5961f998c9bcb6757625355f3b7a87ce",
-    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/demo_reels/2026_motion_design_demo_reel-loop-for-web_004.mp4",
-    "sourceSha256": "2a95ac5d82c150165a9ddc1e73d7e165a0bfc47d553325d07894367ccd75ec6c",
+    "bytes": 29592,
+    "sha256": "0bea300f2e52e5266a348f74ebc2558d7dc597b548b39c630970b119dee226c7",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/demo_reels/2026_motion_design_demo_reel-loop-for-web_005.mp4",
+    "sourceSha256": "20723410af1a141ab797e28f20aabf2bd6f565785d6f83d17621f5a400448810",
     "width": 1280,
     "height": 720,
     "publication": "public-approved",
@@ -5495,7 +5495,7 @@
     "approvedBy": "Deven Langston",
     "approvalAuthority": "RVA3D owner",
     "approvalSource": "direct-owner-approval",
-    "approvalNote": "Owner-selected exact Motion Design overview ambient reel. Local review only; no deployment authorized.",
+    "approvalNote": "Owner-selected exact Motion Design overview ambient reel. Production deployment authorized.",
     "recipe": "First frame of the processed loop; WebP quality85 effort6; no crop."
   },
   "13a486c6448011ce9a70.webp": {

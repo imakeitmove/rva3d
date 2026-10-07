@@ -87,4 +87,12 @@ The current pinned selection is 254 public assets and 316 logical public URLs, a
 
 To reproduce the audited baseline from the retained previous package, run `node scripts/seal_editorial_release_20260930.mjs <previous-production-package-directory>`. This bounded generator requires the explicit eighteen approved IDs, unchanged existing records, source/derivative hashes, page references and the preserved private Twist exclusions. It grants no new permissions. Then follow the exact-commit packaging procedure above; source tests alone are not a sealed-package check.
 
-Current state and future work: [site_handoff.md](site_handoff.md). Exact production facts: [release_receipt_20260930.json](release_receipt_20260930.json). The September 13 section above is historical.
+Current state and future work: [site_handoff.md](site_handoff.md). September 30 production facts: [release_receipt_20260930.json](release_receipt_20260930.json). The September 13 section above is historical.
+
+## October 1 approved capabilities and case-study release
+
+Application revision `e93c727163ba19aa4cbd89121431503dfb5aedfd` was deployed from a fresh Production-stamped package and verified at both public domains. The package contains 367 public-approved assets and 431 logical URLs with manifest SHA `bda9083e7eb1025fca994439ee3860a9e19a90eaabc5d0008cdd08fd059309d2`.
+
+This existing Vercel project requires `VERCEL_SUPPORT_LARGE_FUNCTIONS=1` in the Production environment because its traced media/review functions exceed the standard 250 MB uncompressed limit. Keep that Production-only opt-in while this packaging architecture remains. Removing it causes the remote build to finish but deployment activation to fail. The release wrapper, sealed-package guards and prohibition on Preview promotion remain unchanged.
+
+Exact October 1 production facts, validation coverage, deployment ID, rollback target, media metadata and typography comparisons: [release_receipt_20261001.json](release_receipt_20261001.json).

@@ -207,7 +207,11 @@ export async function verifyPreviewSource(root=process.cwd()) {
   const howWeWorkPage=await read("src/app/(three)/how-we-work/page.tsx");
   assert(howWeWork.includes('id="process"')&&howWeWork.includes('id="communication"')&&howWeWork.includes('id="faq"'),"How We Work sections are incomplete");
   assert(howWeWorkContent.includes('"Does RVA3D use AI?"'),"Approved AI FAQ is missing");
-  assert(howWeWorkPage.includes('canonical: "https://www.rva3d.com/how-we-work"'),"How We Work canonical URL is missing");
+  // The former standalone page now resolves permanently to the consolidated FAQ.
+  // Previous guard retained for rollback:
+  // assert(howWeWorkPage.includes('canonical: "https://www.rva3d.com/how-we-work"'),"How We Work canonical URL is missing");
+  const activeHowWeWorkPage = howWeWorkPage.split("/* Previous page")[0];
+  assert(activeHowWeWorkPage.includes('permanentRedirect("/faq")'),"Retired How We Work route must redirect permanently to the FAQ");
   const page=await read("src/app/(three)/page.tsx");
   assert(page.split("/*")[0].includes("ApprovedHome"),"Deploy route does not use approved complete site");
   const proxy=await read("src/proxy.ts");
@@ -243,7 +247,10 @@ export async function verifyPreviewSource(root=process.cwd()) {
   assert(!(await read("src/content/work/records.ts")).includes("desmi"), "DESMI must not enter the public registry");
   assert(capability.includes('siteHref("/work/desmi-rotan-pump")'), "DESMI capability story link missing");
   const sitemap=await read("src/app/sitemap.ts");
-  assert(sitemap.includes("/how-we-work"),"How We Work is missing from the sitemap");
+  // The redirected legacy URL must not compete with its canonical FAQ destination.
+  // Previous guard retained for rollback:
+  // assert(sitemap.includes("/how-we-work"),"How We Work is missing from the sitemap");
+  assert(sitemap.includes("/faq")&&!sitemap.includes("/how-we-work"),"FAQ sitemap entry or retired How We Work exclusion is incorrect");
   // Brand-copy and distinct image-artwork contracts are also exercised in browser QA.
   const brand = await read("src/components/site/Brand.tsx");
   assert(brand.includes("export function BrandCopy") && brand.includes("export function BrandText"), "Structured brand-copy helpers missing");
@@ -256,8 +263,10 @@ export async function verifyPreviewSource(root=process.cwd()) {
   assert(!html.includes('id="sampler-motion"'), "Removed global pause control returned");
   assert((await read("src/components/site/WorkPages.tsx")).split("// Superseded four-card")[0].includes('data-project-mode="inventory"'), "Work must use append-only inventory");
   assert((await read("public/site-assets/project-groups.js")).split("/* Previous finite")[0].includes("nextFeaturedStart") && html.includes('data-project-mode="sampler"'), "Looping homepage sampler missing");
-  // Previous aggregate: 43; add dedicated How We Work, AI FAQ, sitemap, and navigation contracts.
-  return {status:"PASS",implementation:"ApprovedHome + dedicated How We Work + capability refinement + Interactive route + public Hello route",checks:49,dependencyClosure};
+  // Previous aggregate: 43; add consolidated About/FAQ, AI FAQ, sitemap, and navigation contracts.
+  // Previous implementation label retained for rollback:
+  // return {status:"PASS",implementation:"ApprovedHome + dedicated How We Work + capability refinement + Interactive route + public Hello route",checks:49,dependencyClosure};
+  return {status:"PASS",implementation:"ApprovedHome + consolidated About/FAQ + capability refinement + Interactive route + public Hello route",checks:49,dependencyClosure};
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)console.log(await verifyPreviewSource(process.argv[2]));
 
