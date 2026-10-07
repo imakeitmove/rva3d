@@ -40,7 +40,8 @@ Some files retain superseded markup in comments and unused historical selectors 
 
 ## Hierarchy and rhythm
 
-Start with a restrained Back to Work link, a confident project-specific headline and a short introduction. Let the work appear early: both current cases lead with the finished film. A still-only project can lead with its strongest finished image.
+<!-- Previous index label: Back to Work. -->
+Start with a restrained Back to Case Studies link on the existing /work route, a confident project-specific headline and a short introduction. Let the work appear early: both current cases lead with the finished film. A still-only project can lead with its strongest finished image.
 
 Develop the story through a small number of meaningful visual beats. Preserve owner-approved wording without unsolicited marketing rewrites. Short prose explains a decision, contribution or relationship that the imagery cannot explain alone. Alternate broad media, copy beside media, and paired media where those arrangements serve the story. Avoid mechanically repeating the same module or adding a heading to every image.
 
@@ -115,11 +116,13 @@ The current GEICO table photo and viewport clip have no visible captions, follow
 
 Place credits after the project's final visual/story beat, with generous whitespace. Use a centered overall composition, understated role labels and names with real visual presence. Reuse `.credits` / `.creditGrid` and semantic role/name pairs (`dl`, `dt`, `dd`). No cards, borders, badges or dense production table.
 
-Group a large team when it improves scanning, as GEICO does. A shorter list can use WHAXE's simpler two-column arrangement or Noise Tech's single centered stack; group only as needed. GEICO's groups reduce across tablet/mobile; WHAXE's roles become one column at 480px. Preserve role/name proximity and readable names rather than forcing identical group counts.
+<!-- Earlier fully expanded grouped GEICO presentation is retained in its component comments. -->
+For genuinely long lists, keep primary brand/client, agency, production, directors and Deven's approved contribution visible, then use one native Full project credits disclosure for the remainder. GEICO currently shows six primary records and thirteen more on expansion, preserving complete role/name/link order without duplicates. Short lists stay fully visible; do not hide only one or two lines. Use the existing centered type treatment, native keyboard interaction and a visible focus indicator. Preserve role/name proximity and readable names on mobile.
 
 Deven appears confidently as one contributor among the team, not in a separate promotional callout. Distinguish agency, production and individual roles accurately. Verified credits should make authorship clear without implying RVA3D commissioned the original production; do not add explanatory provenance paragraphs elsewhere.
 
-Link collaborators/studios only to verified relevant pages, using restrained text links. Do not transfer general campaign contributors into an individual film's credits without project-specific evidence. Useful year information can live in metadata or discreet lower credits: GEICO currently includes “Production year / 2024.” There is no standalone Brand | Year marker above Credits or at the article opening.
+<!-- Previous presentation permitted discreet Production year rows, including GEICO / 2024. -->
+Link collaborators/studios only to verified relevant pages, using restrained text links. Do not transfer general campaign contributors into an individual film's credits without project-specific evidence. Omit standalone decorative project-year rows from the visible presentation while retaining truthful source years, internal provenance, structured dates and meaningful historical narrative. Do not re-date projects or introduce a Brand | Year marker above Credits or at the article opening.
 
 ## External links and campaign results
 

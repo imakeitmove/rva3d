@@ -1,3 +1,4 @@
+// Back-to-index label was "Back to Work"; route and fragment remain unchanged.
 import { visibleWorkStudies, nextWorkStudy } from "@/lib/site/work_navigation";
 import { AmsoilCase } from "./AmsoilCase";
 import { isPortfolioPreviewBuild } from "@/content/work";
@@ -111,7 +112,7 @@ export async function CasePage({ params }: Props) {
   const chapters = slug === "cable-snake" ? [study.processChapters[1], study.processChapters[3]] : slug === "amsoil-xpd-wind-grease" ? [study.processChapters[0], study.processChapters[2]] : slug === "wawa-coffee-island" ? [study.processChapters[0], study.processChapters[1], study.processChapters[3]] : study.processChapters.slice(0, 3).filter(chapter => chapter.media.length > 0);
   const related = capabilities.filter(item => study.capabilities.includes(item.title));
   return <Shell><article className={`case-story case-${slug}`}>
-    <section className="case-opening" data-tone="paper"><div className="v-frame"><a className="editorial-link" href={siteHref(`/work#${slug}`)}>← Back to Work</a><p className="label">{context[slug]}</p><h1>{headline[slug]}</h1><p className="editorial-lead">{study.summary}</p></div><div className="v-broad case-hero"><SiteMedia media={protectedMedia(study.heroMedia)} priority /></div></section>
+    <section className="case-opening" data-tone="paper"><div className="v-frame"><a className="editorial-link" href={siteHref(`/work#${slug}`)}>← Back to Case Studies</a><p className="label">{context[slug]}</p><h1>{headline[slug]}</h1><p className="editorial-lead">{study.summary}</p></div><div className="v-broad case-hero"><SiteMedia media={protectedMedia(study.heroMedia)} priority /></div></section>
     <section className="v-frame case-facts" data-tone="paper"><dl><div><dt>{slug === "wawa-coffee-island" ? "Client" : "Brand"}</dt><dd>{study.client}</dd></div>{study.year && <div><dt>Year</dt><dd>{study.year}</dd></div>}{slug === "capri-sun" ? <div><dt>Agency / production</dt><dd>Candy Factory</dd></div> : study.productionPartner ? <div><dt>Production partner</dt><dd>{study.productionPartner}</dd></div> : null}<div className="facts-contribution"><dt>Our contribution</dt><dd>{study.role.join(" · ")}</dd></div></dl>
       <p>{slug === "capri-sun" ? "Our role covered modeling, materials, animation, rendering and compositing within the Candy Factory production." : study.authorship}</p>
     </section>
@@ -123,7 +124,7 @@ export async function CasePage({ params }: Props) {
       <div className="related-capabilities"><h3>Related capabilities</h3>{related.map(item => <a className="editorial-link" key={item.slug} href={siteHref(`/capabilities#${item.slug}`)}>{item.title} ↗</a>)}</div>
       <a className="button" href={siteHref("/#contact")}>Tell us about your project ↗</a>
     </section>
-    <nav className="v-broad case-next" aria-label="More projects" data-tone="paper"><div><p className="label">Next project</p><a href={siteHref(`/work/${next.slug}`)}>{headline[next.slug]} ↗</a></div><a className="editorial-link" href={siteHref(`/work#${slug}`)}>← Back to Work</a></nav>
+    <nav className="v-broad case-next" aria-label="More projects" data-tone="paper"><div><p className="label">Next project</p><a href={siteHref(`/work/${next.slug}`)}>{headline[next.slug]} ↗</a></div><a className="editorial-link" href={siteHref(`/work#${slug}`)}>← Back to Case Studies</a></nav>
   </article></Shell>;
 }
 

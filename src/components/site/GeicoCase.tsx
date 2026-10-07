@@ -1,3 +1,4 @@
+// Back-to-index label was "Back to Work"; route and fragment remain unchanged.
 import { nextWorkStudy } from "@/lib/site/work_navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -21,6 +22,11 @@ import refinement from "./GeicoRefinement.module.css";
 // Public captions are owner-supplied; source stages remain in the private asset map.
 const image = (media: WorkImageMedia, caption?: string) => protectedMedia({ ...media, alt: media === geicoRefresh.hero ? "CG GeckO’s cereal box among photographed breakfast objects in a kitchen" : media.alt, caption, statusLabel: undefined }) as WorkImageMedia;
 const video = (media: WorkVideoMedia) => protectedMedia({ ...media, alt: media === geicoRefresh.commercial ? "GeckO’s cereal commercial" : media === geicoRefresh.composite ? "Animated CG box among the breakfast props" : media.alt, caption: undefined, statusLabel: undefined }) as WorkVideoMedia;
+// Presentation only: source groups, year and full credit records remain intact.
+const displayCredits = geicoCredits.flatMap(group => group.credits).filter(credit => credit.role !== "Production year");
+// The first six records retain brand, agency, production, Deven and primary directors.
+const primaryCredits = displayCredits.slice(0, 6);
+const remainingCredits = displayCredits.slice(6);
 // Former separate hero sizes retained for restoration:
 // const wideSizes = "(max-width: 760px) calc(100vw - 40px), (max-width: 1600px) calc(100vw - 96px), 1504px";
 
@@ -34,7 +40,7 @@ export function GeicoCase() {
   return <Shell><article className={`${styles.case} ${refinement.finish}`} data-editorial-case="geico-geckos-cereal-box" data-tone="paper">
     <GeicoExperience interactive>
       <header className={styles.opening}>
-        <Link className="editorial-link" href="/work#geico-geckos-cereal-box">← Back to Work</Link>
+        <Link className="editorial-link" href="/work#geico-geckos-cereal-box">← Back to Case Studies</Link>
         <h1>GEICO Gecko&apos;s bouncy breakfast cereal.</h1>
         <div className={styles.intro}>
           <p className={styles.lead}>A spoof of a Saturday-morning kids’ cereal commercial that needed a real cereal box to come to life.</p>
@@ -122,9 +128,15 @@ export function GeicoCase() {
       <section className={`${styles.wide} ${styles.credits}`} id="credits" aria-labelledby="credits-heading" data-geico-reveal>
         {/* Owner removed the separate metadata marker: <p className={styles.eyebrow}>GEICO | 2024</p> */}
         <h2 id="credits-heading">Credits</h2>
+        {/* Previous fully expanded grouped presentation retained for restoration:
         <div className={styles.creditGrid}>{geicoCredits.map(group => <section key={group.heading}>
           <h3>{group.heading}</h3><dl>{group.credits.map(credit => <div key={credit.role}><dt>{credit.role}</dt><dd>{"url" in credit ? <a href={credit.url}>{credit.name}</a> : credit.name}</dd></div>)}</dl>
-        </section>)}</div>
+        </section>)}</div> */}
+        <div className={`${styles.creditGrid} ${refinement.creditList}`}><dl>{primaryCredits.map(credit => <div key={credit.role}><dt>{credit.role}</dt><dd>{"url" in credit ? <a href={credit.url}>{credit.name}</a> : credit.name}</dd></div>)}</dl></div>
+        <details className={refinement.creditDisclosure}>
+          <summary>Full project credits</summary>
+          <div className={`${styles.creditGrid} ${refinement.creditList}`}><dl>{remainingCredits.map(credit => <div key={credit.role}><dt>{credit.role}</dt><dd>{"url" in credit ? <a href={credit.url}>{credit.name}</a> : credit.name}</dd></div>)}</dl></div>
+        </details>
       </section>
       {/* Previous related thumbnail navigation retained for restoration.
       <nav className={`${styles.wide} ${styles.related}`} aria-label="Related work">
@@ -140,7 +152,7 @@ export function GeicoCase() {
       */}
       <nav className="v-broad case-next" aria-label="More projects" data-tone="paper">
         <div><p className="label">Next project</p><a href={siteHref(`/work/${next.slug}`)}>{headline[next.slug]} ↗</a></div>
-        <a className="editorial-link" href={siteHref("/work#geico-geckos-cereal-box")}>← Back to Work</a>
+        <a className="editorial-link" href={siteHref("/work#geico-geckos-cereal-box")}>← Back to Case Studies</a>
       </nav>
     </GeicoExperience>
   </article></Shell>;

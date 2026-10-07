@@ -3,7 +3,8 @@ import { Brand } from "./Brand";
 import { siteHref } from "@/lib/site/paths";
 // Contact remains the single prominent header CTA on desktop and mobile.
 // Previous links also included ["/#contact", "Contact"], duplicating that action.
-const links = [["/work", "Work"], ["/capabilities", "Capabilities"], ["/about", "About"], ["/login", "Client login"]];
+// Previous order/labels: Work, Capabilities, About, Client login.
+const links = [["/capabilities", "Capabilities"], ["/work", "Case Studies"], ["/about", "About"], ["/login", "Client Login"]];
 export function Header() {
   return <><a className="skip-link" href="#main">Skip to content</a><header className="site-header"><div className="frame header-inner">
     <a className="brand" href={siteHref()} aria-label="RVA3D home">{/* Previous gate: NODE_ENV=development or RVA3D_HEADER_LOGO_REVIEW=1. Public enhancement now keeps its static child until ready. */}<HeaderLogoReview><Brand accent /></HeaderLogoReview></a>

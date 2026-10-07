@@ -1,3 +1,4 @@
+// Back-to-index label was "Back to Work"; route and fragment remain unchanged.
 import { nextWorkStudy } from "@/lib/site/work_navigation";
 import Image from "next/image";
 import editorial from "./CaseEditorial.module.css";
@@ -34,7 +35,7 @@ export function WhaxeCase() {
   return <Shell><article className={`${house.case} ${styles.case}`} data-editorial-case="axe-whaxe-lil-baby" data-tone="paper">
     <CaseExperience>
       <header className={house.opening}>
-        <Link className="editorial-link" href="/work#axe-whaxe-lil-baby">← Back to Work</Link>
+        <Link className="editorial-link" href="/work#axe-whaxe-lil-baby">← Back to Case Studies</Link>
         <h1>Diamond-studded deodorant.</h1>
         <div className={house.intro}><p className={house.lead}>SuperJoy needed a product film for AXE’s WHAXE collaboration with Lil Baby. It had to be bedazzled in a hurry.</p></div>
       </header>
@@ -63,7 +64,8 @@ export function WhaxeCase() {
       </div>
       <section className={`${house.wide} ${house.credits}`} id="credits" aria-labelledby="credits-heading" data-geico-reveal>
         <h2 id="credits-heading">Credits</h2>
-        <div className={`${house.creditGrid} ${styles.credits}`}><dl>{whaxeCredits.map(credit => <div key={credit.role}>
+        {/* Previously whaxeCredits.map; production year remains in its source record. */}
+        <div className={`${house.creditGrid} ${styles.credits}`}><dl>{whaxeCredits.filter(credit => credit.role !== "Production year").map(credit => <div key={credit.role}>
           <dt>{credit.role}</dt><dd>{"url" in credit ? <a href={credit.url}>{credit.name}</a> : credit.name}</dd>
         </div>)}</dl></div>
       </section>
@@ -76,7 +78,7 @@ export function WhaxeCase() {
       {/* Reuse the existing EditorialCasePage/WorkPages markup and global case-next rules. */}
       <nav className="v-broad case-next" aria-label="More projects" data-tone="paper">
         <div><p className="label">Next project</p><a href={siteHref(`/work/${next.slug}`)}>{headline[next.slug]} ↗</a></div>
-        <a className="editorial-link" href={siteHref("/work#axe-whaxe-lil-baby")}>← Back to Work</a>
+        <a className="editorial-link" href={siteHref("/work#axe-whaxe-lil-baby")}>← Back to Case Studies</a>
       </nav>
     </CaseExperience>
   </article></Shell>;

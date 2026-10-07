@@ -27,7 +27,7 @@ export function AboutTeamPage({ reviewTestimonials }: { reviewTestimonials?: rea
         <h1 id="studio-title">Rendered with <em>Confidence</em></h1>
         <div className={styles.introCopy}>
           <p><BrandText text={aboutIntroduction} /></p>
-          <a className={`editorial-link ${styles.faqLink}`} href={siteHref("/faq")}>Questions about working together? Read the FAQ <span aria-hidden="true">→</span></a>
+          {/* FAQ reassurance moved beneath the working principles; hero stays compact. */}
         </div>
       </div>
     </section>
@@ -58,6 +58,10 @@ export function AboutTeamPage({ reviewTestimonials }: { reviewTestimonials?: rea
           </div>
           <p>{promise.description}</p>
         </article>)}
+      </div>
+      <div className={styles.capacity}>
+        <p>We bring in trusted collaborators when a project needs a larger team or specialist skills.</p>
+        <a className={`editorial-link ${styles.faqLink}`} href={siteHref("/faq")}>Questions about working together? Read the FAQ <span aria-hidden="true">→</span></a>
       </div>
       {/* Repeated location strip removed per October 7 brief:
       <p className={styles.nearAndFar}>Based in Richmond. Working with clients near and far.</p> */}

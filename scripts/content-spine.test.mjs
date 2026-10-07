@@ -1133,6 +1133,9 @@ test("buyer-confidence copy and distinct project interaction contracts stay scop
   assert.match(editorial,/id="creative-production-support"/);
   assert.doesNotMatch(editorial,/WE ARE ON YOUR TEAM|capability-story-actions|vfx-microcase/);
   assert.match(header,/nav-client-login/);
+  assert.deepEqual(JSON.parse(header.match(/^const links = (.+);$/m)[1]), [
+    ["/capabilities", "Capabilities"], ["/work", "Case Studies"], ["/about", "About"], ["/login", "Client Login"],
+  ]);
   assert.match(css,/--control-bg:var\(--rva-purple\);--control-fg:#fff/);
   assert.match(css,/data-project-mode="inventory".*flex-direction:column/);
   // Previous active composition was AboutEditorial; it remains available for restoration.

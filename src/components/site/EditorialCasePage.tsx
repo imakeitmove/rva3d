@@ -1,3 +1,4 @@
+// Back-to-index label was "Back to Work"; route and fragment remain unchanged.
 // Public-safety audit 2026-09-15; previous wording retained for reference:
 // "<p className=\"label\">{editorial.context}</p>"
 // Public-safety audit 2026-09-15; previous wording retained for reference:
@@ -91,7 +92,7 @@ export function EditorialCasePage({ study, editorial, next, permissionReview = f
   return <PageShell><article className={`case-story ${styles.story} ${permissionReview ? "" : styles.publicStory}`} data-editorial-case={study.slug}>
     <section className="case-opening" data-tone="paper">
       <div className="v-frame">
-        {!permissionReview && <a className="editorial-link" href={siteHref(`/work#${study.slug}`)}>← Back to Work</a>}
+        {!permissionReview && <a className="editorial-link" href={siteHref(`/work#${study.slug}`)}>← Back to Case Studies</a>}
         <p className="label">{editorial.context}</p>
         <h1>{editorial.heading}</h1>
         <p className="editorial-lead">{study.summary}</p>
@@ -135,7 +136,7 @@ export function EditorialCasePage({ study, editorial, next, permissionReview = f
     </div>
     {!permissionReview && next && <nav className="v-broad case-next" aria-label="More projects" data-tone="paper">
       <div><p className="label">Next project</p><a href={siteHref(`/work/${next.slug}`)}>{headline[next.slug]} ↗</a></div>
-      <a className="editorial-link" href={siteHref(`/work#${study.slug}`)}>← Back to Work</a>
+      <a className="editorial-link" href={siteHref(`/work#${study.slug}`)}>← Back to Case Studies</a>
     </nav>}
   </article></PageShell>;
 }

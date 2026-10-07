@@ -191,7 +191,7 @@ export async function verifyPreviewSource(root=process.cwd()) {
   assert(header.includes('className="hamburger"')&&!header.includes('More navigation'),"Partial More navigation is not the approved header");
   // Previous string-presence check included Contact and could pass against comments.
   const navigation = JSON.parse(header.match(/const links = (\[[^\n]+\]);/)[1]);
-  assert.deepEqual(navigation.map(([, label]) => label), ["Work", "Capabilities", "About", "Client login"]);
+  assert.deepEqual(navigation.map(([, label]) => label), ["Capabilities", "Case Studies", "About", "Client Login"]);
   assert.equal((header.match(/className="header-inquiry"/g) ?? []).length, 1, "Exactly one header contact CTA");
   assert(!/#[Cc]ase-(prev|next)\{transform:translateX/.test(await read("public/site-assets/v004.css")),"Legacy Selected Work arrows outside media edges");
   const css=await read("public/site-assets/complete-site.css");

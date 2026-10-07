@@ -1,3 +1,4 @@
+// Back-to-index label was "Back to Work"; route and fragment remain unchanged.
 import { nextWorkStudy } from "@/lib/site/work_navigation";
 import type { ReactNode } from "react";
 import Link from "next/link";
@@ -32,8 +33,11 @@ export function RolloutCase({ slug, title, intro, introParagraphs, hero, childre
   // const next = nextSlug ? studies.find(study => study.slug === nextSlug)! : studies[(index + 1) % studies.length];
   void nextSlug; // Retain legacy caller metadata for restoration.
   const next = nextWorkStudy(slug);
+  // Previously rendered credits directly. Preserve factual years in source records;
+  // omit only standalone decorative year rows from the buyer-facing presentation.
+  const displayCredits = credits.filter(credit => !/^(?:Production )?year$/i.test(credit.role));
   return <Shell><article className={[house.case, finishing.finish, styles.case].join(" ")} data-editorial-case={slug} data-tone="paper"><GeicoExperience><RolloutPlayback>
-    <header className={house.opening}><Link className="editorial-link" href={siteHref("/work#" + slug)}>← Back to Work</Link>
+    <header className={house.opening}><Link className="editorial-link" href={siteHref("/work#" + slug)}>← Back to Case Studies</Link>
       <h1>{title}</h1><div className={house.intro} data-intro-paragraphs={introParagraphs ? "" : undefined}>
         {/* Previous single-paragraph rendering remains the default for every existing case. */}
         {introParagraphs ? introParagraphs.map((paragraph, paragraphIndex) => <p className={house.lead} key={paragraphIndex}>{paragraph}</p>) : <p className={house.lead}>{intro}</p>}
@@ -42,9 +46,9 @@ export function RolloutCase({ slug, title, intro, introParagraphs, hero, childre
     <div className={house.wide} id="film"><CaseMedia media={hero} priority /></div>
     {children}
     <section className={[house.wide, house.credits].join(" ")} id="credits" aria-labelledby="credits-heading" data-geico-reveal>
-      <h2 id="credits-heading">Credits</h2><div className={[house.creditGrid, whaxe.credits].join(" ")}><dl>{credits.map(credit => <div key={credit.role}><dt>{credit.role}</dt><dd>{credit.url ? <a href={credit.url}>{credit.name}</a> : credit.name}</dd></div>)}</dl></div>
+      <h2 id="credits-heading">Credits</h2><div className={[house.creditGrid, whaxe.credits].join(" ")}><dl>{displayCredits.map(credit => <div key={credit.role}><dt>{credit.role}</dt><dd>{credit.url ? <a href={credit.url}>{credit.name}</a> : credit.name}</dd></div>)}</dl></div>
     </section>
     {afterCredits}
-    <nav className="v-broad case-next" aria-label="More projects" data-tone="paper"><div><p className="label">Next project</p><a href={siteHref("/work/" + next.slug)}>{headline[next.slug]} ↗</a></div><a className="editorial-link" href={siteHref("/work#" + slug)}>← Back to Work</a></nav>
+    <nav className="v-broad case-next" aria-label="More projects" data-tone="paper"><div><p className="label">Next project</p><a href={siteHref("/work/" + next.slug)}>{headline[next.slug]} ↗</a></div><a className="editorial-link" href={siteHref("/work#" + slug)}>← Back to Case Studies</a></nav>
   </RolloutPlayback></GeicoExperience></article></Shell>;
 }

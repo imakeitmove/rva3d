@@ -105,7 +105,7 @@ for(const width of [1440,1024,390]) {
   await run(`document.querySelector('#'+${JSON.stringify(id)}).scrollIntoView({block:'center',behavior:'instant'})`);await wait(600);
   await send("Page.captureScreenshot",{format:"png"}).then(r=>fs.writeFileSync(`${evidence}/${id}_${width}.png`,Buffer.from(r.data,"base64")));
  }
- assert.deepEqual(await run("[...document.querySelectorAll('#credits dl > div')].map(d=>({role:d.querySelector('dt').textContent,name:d.querySelector('dd').textContent}))"),[{role:'Client',name:'AMSOIL'},{role:'Writer / Producer',name:'Greg Collins'},{role:'3D Visualization / Animation',name:'Deven Langston — RVA3D'},{role:'Year',name:'2025'}]);
+ assert.deepEqual(await run("[...document.querySelectorAll('#credits dl > div')].map(d=>({role:d.querySelector('dt').textContent,name:d.querySelector('dd').textContent}))"),[{role:'Client',name:'AMSOIL'},{role:'Writer / Producer',name:'Greg Collins'},{role:'3D Visualization / Animation',name:'Deven Langston — RVA3D'}]);
  assert(!(await run("/production company/i.test(document.querySelector('#credits').textContent)")));
  assert(!(await run("document.documentElement.scrollWidth>innerWidth")));
  await run("scrollTo(0,0)");await wait(150);

@@ -12,6 +12,14 @@
 .introCopy > p { margin: 0; max-width: 38ch; font-size: clamp(20px, 1.8vw, 26px); line-height: 1.4; text-wrap: pretty; }
 .page .intro .faqLink { margin-top: 26px; color: var(--rva-paper); font-size: 17px; line-height: 1.5; }
 .page .intro .faqLink > span { color: var(--rva-paper); }
+/* FAQ now follows capacity copy. A narrow ink stroke preserves requested green
+   lettering on paper; green alone has insufficient text contrast here. */
+.capacity { margin-top: 30px; max-width: 74ch; }
+.page .capacity p { margin: 0; font-size: 18px; line-height: 1.5; }
+.page .capacity .faqLink { display: inline-block; margin-top: 9px; color: var(--rva-signal); font-size: 18px; line-height: 1.5; -webkit-text-stroke: 1.25px var(--rva-void); paint-order: stroke fill; text-decoration: underline; text-decoration-color: var(--rva-void); text-underline-offset: .25em; }
+.page .capacity .faqLink > span { color: inherit; }
+.page .capacity .faqLink:hover { text-decoration-thickness: 2px; }
+.page .capacity .faqLink:focus-visible { outline: 2px solid var(--rva-void); outline-offset: 5px; }
 .skyline :global(.richmond-skyline) { margin: 0; }
 .skyline :global(.richmond-skyline) > a { display: block; }
 .skyline :global(.richmond-skyline) > a img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 3; object-fit: cover; }
