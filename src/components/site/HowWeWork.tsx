@@ -190,7 +190,8 @@ export function BuyerFaq() { return (
               <p className="label">Before we begin</p>
               <h2 id="faq-title">Questions people reasonably ask before hiring us.</h2>
               <p>
-                These answers cover questions that usually come up after our first meeting.
+                {/* Previous intro: These answers cover questions that usually come up after our first meeting. */}
+                These answers cover questions that usually come up while deciding whether and how to work together.
               </p>
             </div>
             <div className="faq-list">

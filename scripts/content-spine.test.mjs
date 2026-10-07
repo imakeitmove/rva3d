@@ -23,10 +23,11 @@ import { buyerFaqs } from "../src/content/site/how-we-work.ts";
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
-test("How We Work preserves the original FAQ set and adds the approved AI answer once", () => {
+test("How We Work preserves the FAQ set with the approved team and AI answers once", () => {
   const questions = buyerFaqs.map(([question]) => question);
   assert.deepEqual(questions, [
     "Who does RVA3D work with?",
+    "Who will I work with?",
     "What happens after I get in touch?",
     "How are projects priced?",
     "How long is an estimate valid?",
@@ -40,9 +41,9 @@ test("How We Work preserves the original FAQ set and adds the approved AI answer
     "Does RVA3D use AI?",
     "What happens if a project needs more hands?",
   ]);
-  assert.equal(buyerFaqs.length, 13);
+  assert.equal(buyerFaqs.length, 14);
   assert.equal(questions.filter((question) => question === "Does RVA3D use AI?").length, 1);
-  const aiAnswer = buyerFaqs[11][1];
+  const aiAnswer = buyerFaqs[12][1];
   // Test the substantive disclosure and responsibility after compression.
   assert.match(aiAnswer, /coding and prototyping/);
   assert.match(aiAnswer, /human directed, reviewed and tested/);

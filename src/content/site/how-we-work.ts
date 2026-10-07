@@ -1,6 +1,8 @@
 export const processSteps = [
-  ["Talk", "Bring the problem, audience, deadline and whatever materials you have. We’ll work out what the project needs to achieve."],
-  ["Define", "Agree the scope, estimate, schedule, deliverables and review points before production begins."],
+  // Previous Talk: Bring the problem, audience, deadline and whatever materials you have. We’ll work out what the project needs to achieve.
+  ["Talk", "Bring the problem, audience, deadline and whatever materials you have. We’ll clarify what the project needs to achieve, who should be involved and what the next step should be."],
+  // Previous Define: Agree the scope, estimate, schedule, deliverables and review points before production begins.
+  ["Define", "Agree the scope, estimate, schedule, deliverables, responsibilities and review points before production begins."],
   ["Make", "Develop the design, animation or shot work around the brief, with progress shared while there’s room to steer."],
   ["Refine", "Review work at useful checkpoints. The normal project structure includes two consolidated rounds of substantive client feedback unless the project scope says otherwise."],
   ["Deliver", "Final approved deliverables are prepared for the required platforms and formats, then released according to the agreed project terms."],
@@ -12,8 +14,13 @@ export const buyerFaqs = [
     "Brands, agencies, production companies and in-house creative teams. RVA3D can lead a project or handle a defined part of your production.",
   ],
   [
+    "Who will I work with?",
+    "Deven leads the creative and technical work and stays involved from planning through delivery. Lauren manages operations and helps coordinate communication, while Jim supports strategy, discovery and client coordination. Depending on the project, Lauren or Jim may be your day-to-day contact, but you’ll still have direct access to Deven for creative and technical decisions.",
+  ],
+  [
     "What happens after I get in touch?",
-    "We’ll discuss what you need to make, when you need it and what you already have. From there, we can define the scope, estimate and review plan.",
+    // Previous answer: We’ll discuss what you need to make, when you need it and what you already have. From there, we can define the scope, estimate and review plan.
+    "A member of the RVA3D team will respond, gather the basics and arrange the right next conversation. We’ll discuss what you’re making, timing, available materials and who needs to be involved, then define the scope, estimate and review plan.",
   ],
   [
     "How are projects priced?",
@@ -57,7 +64,8 @@ export const buyerFaqs = [
   ],
   [
     "What happens if a project needs more hands?",
-    "RVA3D is intentionally senior-led and hands-on. When a project benefits from additional capacity or specialist expertise, RVA3D can bring in trusted freelance artists or production partners while remaining the client’s point of accountability.",
+    // Previous answer: RVA3D is intentionally senior-led and hands-on. When a project benefits from additional capacity or specialist expertise, RVA3D can bring in trusted freelance artists or production partners while remaining the client’s point of accountability.
+    "RVA3D is intentionally senior-led and hands-on. When a project needs additional capacity or specialist expertise, we can bring in trusted freelance artists or production partners. Deven continues to lead the creative and technical work, and RVA3D remains accountable for scope, communication and delivery.",
   ],
 ] as const;
 
