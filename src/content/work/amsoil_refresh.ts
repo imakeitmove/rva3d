@@ -1,4 +1,5 @@
-import { amsoilXpdWindGrease as study } from "./cases/amsoil-xpd-wind-grease.ts";
+// Previous process selection used the case record; retained for restoration.
+// import { amsoilXpdWindGrease as study } from "./cases/amsoil-xpd-wind-grease.ts";
 import media from "../site/amsoil_media_refinement.generated.json" with { type: "json" };
 import finalStill from "../site/amsoil_final_still.generated.json" with { type: "json" };
 import type { WorkImageMedia, WorkVideoMedia } from "./types";
@@ -26,7 +27,15 @@ export const amsoilRefreshCopy = {
 export const amsoilMediaSequence = {
   hero: media.finalLeft as WorkImageMedia,
   // Previous viewport selection: media.viewport (_002); retained in the registry.
-  process: [study.processChapters[0].media[1], media.viewport001, media.bearing] as readonly (WorkImageMedia | WorkVideoMedia)[],
+  // Previous first process image was the annotated model plan; replaced by the owner-selected cutaway still.
+  // process: [study.processChapters[0].media[1], media.viewport001, media.bearing] as readonly (WorkImageMedia | WorkVideoMedia)[],
+  process: [{
+    kind: "image",
+    src: "/media/work/amsoil-xpd-wind-grease/amsoil_cutaway_proof0222.webp",
+    width: 1600,
+    height: 900,
+    alt: "Wind-turbine nacelle cutaway showing the reconstructed drivetrain, main bearing, gearbox, and generator.",
+  }, media.viewport001, media.bearing] as readonly (WorkImageMedia | WorkVideoMedia)[],
   // Previous paired selection: [media.intro, media.outro].
   loops: [media.bearingLoop, media.greaseLoop, media.intro, media.outro] as readonly WorkVideoMedia[],
   // Previous ending: [media.finalLeft, study.processChapters[3].media[0]].

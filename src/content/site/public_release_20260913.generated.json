@@ -14,10 +14,10 @@
     "desmi-rotan-pump",
     "uncommon-goods-outta-this-world"
   ],
-  "assets": 374,
-  "logicalUrls": 438,
-  "registryDigest": "d01eec1b59ef1a7efa94af08a7be5382edf3fffe15439b3ef4e611386b291c37",
-  "urlsDigest": "cbbfc561a31704a39ab4bac3472b703dd90d3564525947bdfc87cb57a2b06205",
+  "assets": 375,
+  "logicalUrls": 439,
+  "registryDigest": "c6922b43a962375e99eb7c13c6bf5962fc6a98acd57397197827a421c7ef4bf8",
+  "urlsDigest": "01ed1e32f2d5873f4315835ba68804948c65e7c92a63dfced5920948c5bc5a7f",
   "previous93RegistryDigest": "8162e7d34c4ac2839d17520dadd014bc4e69f7fabb504dc39e62bda2f7fa27f8",
   "previous157UrlsDigest": "1664ba08b15d4a1baeabf84acc20afb1d3b64d3d78e31cdc5b791fa056fe6b0f",
   "excludedKeys": [
@@ -155,7 +155,8 @@
     "2026-09-30",
     "2026-10-01",
     "2026-10-06",
-    "2026-10-07"
+    "2026-10-07",
+    "2026-10-15"
   ],
   "audit": "2026-09-17 explicit owner approval to publish all 45 current portfolio ribbon images with the finished hello experience and site refinements.",
   "previousSeptember15Release": {
@@ -546,5 +547,12 @@
       "key": "fbfe68e0d26d0833edbb.webp"
     },
     "authorization": "October 7 owner correction explicitly selects the supplied Cannes graphic in program-screening context; no deployment authorization."
+  },
+  "amsoilProcessStill20261015": {
+    "addedKeys": [
+      "084c3ccc954bf7ea58b4.webp"
+    ],
+    "evidence": "src/content/work/amsoil_refresh.ts",
+    "authorization": "Owner-selected exact AMSOIL cutaway proof0222 for first process image; prior selection and assets preserved."
   }
 }

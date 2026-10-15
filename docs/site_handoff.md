@@ -1,5 +1,14 @@
 # RVA3D current website handoff
 
+## October 15: AMSOIL first process image replacement (approved for release)
+
+Owner-selected AMSWIND_Cutaway_R001_V001_STILL_CAM_Main_proof0222.png now replaces the annotated model-plan image beside "Working from limited references and two unrelated stock models,". Applied in the clean canonical main checkout at rva3d-main-integration-20260912; the older dirty parent and the separate client-review checkout remain untouched. Original source and previous selection/registry entries are preserved.
+
+The uncropped 1600x900 sRGB WebP preserves alpha and is registered as /media/084c3ccc954bf7ea58b4.webp (147,330 bytes), logical URL /media/work/amsoil-xpd-wind-grease/amsoil_cutaway_proof0222.webp. Source SHA-256: 3d1297ee3c221cf88a83c889c220c3ff4155c98b27c301413b5d75cdf8fb476e. Its delivery bytes remain in ignored private-media; use the existing sealed packaging workflow for any later release. Current approved selection: 375 assets / 439 logical URLs.
+
+Validation: Node 22.23.2 lint, TypeScript and optimized source build pass; Work/AMSOIL tests 8 pass; content tests 67 pass / 11 existing skips; asset integrity and strict public-release checks pass; diff whitespace check passes. Local HTTP checks confirm the case page and exact new WebP return 200. Source and derivative were visually inspected. Browser layout verification was unavailable because no browser surface is connected. The build reports existing missing optional Notion portfolio configuration. Local preview: http://127.0.0.1:3031/work/amsoil-xpd-wind-grease. Owner approved committing, pushing canonical main and deploying this exact change on October 15. Production preparation, validation and live-release results are recorded separately in ignored release evidence.
+
+
 ## October 7: Final approved About, Homepage and FAQ release candidate
 
 This entry supersedes the earlier October 7 layout and copy descriptions below. The owner explicitly authorized committing, reconciling canonical main, deploying through the sealed Production workflow, live verification, then conservative worktree cleanup. The original reviewed history remains intact; no reset, stash, rebase or force operation is authorized.

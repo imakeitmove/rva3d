@@ -51,7 +51,10 @@ test("AMSOIL owner copy and ordered process, four loops and final stills",()=>{
  const entry=media=>registry[urls[media.src].split("/").at(-1)];
  const names=media=>entry(media).source.split("/").at(-1);
  assert.deepEqual(amsoilMediaSequence.process.map(x=>x.kind),["image","video","video"]);
- assert.equal(urls[amsoilMediaSequence.process[0].src],"/media/b874568252fda0520d17.webp");
+ // Previous first process selection: /media/b874568252fda0520d17.webp (annotated model plan).
+ assert.equal(names(amsoilMediaSequence.process[0]),"AMSWIND_Cutaway_R001_V001_STILL_CAM_Main_proof0222.png");
+ assert.equal(entry(amsoilMediaSequence.process[0]).width,amsoilMediaSequence.process[0].width);
+ assert.equal(entry(amsoilMediaSequence.process[0]).height,amsoilMediaSequence.process[0].height);
  // Previous viewport/loop expectations: _002, intro then outro.
  assert.deepEqual(amsoilMediaSequence.process.slice(1).map(names),["amsoil_grease_viewport_001.mp4","SKF_spherical_roller_bearings_003_overpacked.mp4"]);
  assert.deepEqual(amsoilMediaSequence.loops.map(names),["XDP_Grease-Bearings_bearing_loop.mp4","XDP_Grease-Bearings_grease_loop.mp4","XDP_Grease-Bearings_intro_loop.mp4","XDP_Grease-Bearings_outro_loop.mp4"]);

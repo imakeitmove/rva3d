@@ -5616,5 +5616,22 @@
     "approvalSource": "direct-owner-approval",
     "approvalNote": "Owner-supplied icons explicitly selected for the October 7 About refinement. Local implementation is not deployment approval.",
     "recipe": "Uncropped 384px sRGB lossless WebP; supplied colors/alpha preserved; metadata stripped."
+  },
+  "084c3ccc954bf7ea58b4.webp": {
+    "file": "private-media/084c3ccc954bf7ea58b4.webp",
+    "type": "image/webp",
+    "bytes": 147330,
+    "sha256": "084c3ccc954bf7ea58b47b88eebd3639cbd8653cf9238e50b5ef9dfbebb4f61e",
+    "source": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/production/site_content/1_source/case_studies/amsoil_xpd_wind_grease/selected/AMSWIND_Cutaway_R001_V001_STILL_CAM_Main_proof0222.png",
+    "sourceSha256": "3d1297ee3c221cf88a83c889c220c3ff4155c98b27c301413b5d75cdf8fb476e",
+    "width": 1600,
+    "height": 900,
+    "publication": "public-approved",
+    "approvedAt": "2026-10-15",
+    "approvedBy": "Deven Langston",
+    "approvalAuthority": "RVA3D owner",
+    "approvalSource": "direct-owner-approval",
+    "approvalNote": "Owner requested this exact still beside Working from limited references and two unrelated stock models on the AMSOIL case study.",
+    "recipe": "Auto-orient; uncropped max1600px; sRGB WebP quality85 effort6; alpha preserved; metadata stripped. Source master preserved."
   }
 }
