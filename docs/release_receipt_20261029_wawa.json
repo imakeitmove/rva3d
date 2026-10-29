@@ -1,0 +1,66 @@
+{
+  "releaseDate": "2026-10-29",
+  "timezone": "America/New_York",
+  "status": "deployed-and-publicly-verified",
+  "deployedRevision": "09d02965202fb0e07e68d5904d718196e3793562",
+  "publicUrl": "https://rva3d.com/work/wawa-coffee-island",
+  "deployment": {
+    "id": "dpl_HiKT5VfFRuNrhL5gcKy3XjpKuKRM",
+    "url": "https://rva3d-udgeheew1-devenjames-projects.vercel.app",
+    "inspectorUrl": "https://vercel.com/devenjames-projects/rva3d/HiKT5VfFRuNrhL5gcKy3XjpKuKRM",
+    "target": "production",
+    "readyState": "READY",
+    "projectId": "prj_bZXgUFRiXRpbAur3F4RQOOHxcQCe",
+    "teamId": "team_r8laQKfVLK3wUEKlg3AUi4Fa",
+    "aliasesVerified": ["rva3d.com", "www.rva3d.com", "rva3d.vercel.app", "rva3d-devenjames-projects.vercel.app"]
+  },
+  "rollback": {
+    "id": "dpl_C8qCYR7zsWDJGPek5Va1D4ydJMjd",
+    "url": "https://rva3d-lq0woqsjl-devenjames-projects.vercel.app",
+    "target": "production"
+  },
+  "sourceProvenance": {
+    "method": "Fetched and decoded the uploaded .preview-release.json and matched its revision, Production target and Wawa source hash to the local sealed package; remote build logs also passed at the canonical revision.",
+    "wawaSourceSha256": "d96b1ca0774e8962c93d3e5cd61741009f190c43d0e1302323be6d22a31f2d7c",
+    "metadataCaveat": "Vercel automatic Git metadata inherited the enclosing preview checkout (preview/private-review-dependency-remediation, 67b811859145a0f61cdb9b7e9e3182ba7a9a0568). That label is not the deployed source revision; the uploaded seal and remote build guard establish the revision above. No release safeguard was bypassed."
+  },
+  "package": {
+    "assets": 375,
+    "publicApprovedAssets": 375,
+    "logicalUrls": 439,
+    "mediaBytes": 454133368,
+    "manifestSha256": "5affb6eb59f75b89b516d2111c3b659e82968ea97a2746f71257844c16e95870",
+    "tracedAssets": 375,
+    "tracedRoutes": 2,
+    "mediaSelection": "Existing approved October 15 selection, unchanged"
+  },
+  "validation": {
+    "node": "22.23.2",
+    "vercelCli": "59.15.1",
+    "lint": "pass",
+    "contentTests": { "passed": 67, "failed": 0, "existingSkips": 11 },
+    "sourceBuildIncludingTypeScript": "pass",
+    "diffWhitespace": "pass",
+    "sealedProductionDryRun": "pass",
+    "sealedDeploymentGates": "pass",
+    "remoteProductionBuildAndMediaTrace": "pass",
+    "publicHttp": "Deployment-specific URL, apex domain and www domain return HTTP 200 with corrected copy; apex redirects to www.",
+    "viewports": [{ "width": 1440, "height": 1000 }, { "width": 390, "height": 844 }],
+    "visualAcceptance": "Local and public screenshots inspected: correct intro/outcome, four correct credits, no old contract-win claim, no clipping/overflow, intact imagery and responsive layout.",
+    "interactionChecks": "All article images finish loading; hero video plays through browser media API, loops decode without errors, and Next Project navigation succeeds at both widths.",
+    "browserRuntimeErrors": 0,
+    "failedApplicationRequests": 0,
+    "testHarnessNotes": "Headless coordinate activation of the native video control timed out; media-API playback succeeded. The initial public image check ran before loading completed; explicit load completion passed without weakening assertions.",
+    "notRun": ["Physical-device and cross-browser review", "Contact/email submission, per owner's no-email instruction"]
+  },
+  "notion": {
+    "releaseLog": "https://app.notion.com/p/408a9ba2f2588147985fde7161550db1",
+    "websiteProject": "https://app.notion.com/p/282a9ba2f25880ac9d47cf948851d2f0",
+    "wawaProject": "https://app.notion.com/p/3a5a9ba2f25881368405d6901fe6aa66",
+    "wawaStatus": "Archived, unchanged",
+    "outreachModified": false
+  },
+  "evidenceDirectory": "W:/PROJECTS/_ACTIVE/2026_RVA3D_Website/rva3d/artifacts/wawa_release_20261029",
+  "knownLimitations": ["Existing optional local Notion portfolio configuration warnings", "Inherited Vercel Git label documented and independently resolved by the uploaded source seal"],
+  "documentationCloseout": "This receipt and final handoff are committed after deployment. They do not alter the deployed application revision and require no redeploy."
+}
