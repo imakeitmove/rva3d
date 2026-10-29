@@ -9,12 +9,14 @@ import { CaseBeat, CaseMedia, RolloutCase } from "./RolloutCase";
 import { WhaxeProcessSlideshow as CaseProcessSlideshow } from "./WhaxeProcessSlideshow";
 
 export function WawaCase() {
+  // October 28 factual corrections from Mark; previous copy/credits preserved below.
   return <RolloutCase slug={study.slug} title="People can be very particular about their coffee."
-    intro="Pak-It Displays needed to present its modular coffee island for Wawa. We created stills and animation showing the fixture fully stocked, with every coffee-counter essential in place."
+    intro="We created stills and animation for Pak-It Displays' trade-show presentation, showing prospective clients its modular Wawa Coffee Island fully stocked, with every coffee-counter essential in place."
     hero={study.heroMedia} nextSlug="desmi-rotan-pump" credits={[
       { role: "Client / Fixture Design", name: "Pak-It Displays", url: "https://www.pakitdisplays.com/" },
       { role: "Retail Brand", name: "Wawa" },
-      { role: "Producer", name: "Mark Oakley" },
+      // Previous Producer attribution retained below; corrected by Mark on October 28, 2026.
+      { role: "Creative Director", name: "Mark Oakley, Shake" },
       { role: "3D Visualization & Animation", name: "Deven Langston" },
     ]}>
     <CaseBeat id="supplied-cad" row>
@@ -34,7 +36,10 @@ export function WawaCase() {
     </CaseBeat>
     <CaseBeat id="outcome" centered>
       <Image className={editorial.logo} src="/media/brand_logos/wawa.webp" alt="Wawa" width={220} height={100} style={{ width: 110 }} unoptimized />
+      {/* Superseded outcome, retained for provenance; Mark clarified Wawa was already a client:
       <p>{"Pak-It won the contract and its fixtures were integrated across Wawa's entire chain of over 1,200 stores."}</p>
+      */}
+      <p>Wawa was already a Pak-It client. The presentation showed prospective clients what Pak-It could do. The trade show led to new business.</p>
     </CaseBeat>
     {/* Previous order was media.stills; owner swapped camera_2 and camera_3 only. */}
     <CaseBeat id="final-stills"><div className={styles.finalGallery}>
